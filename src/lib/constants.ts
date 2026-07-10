@@ -1,10 +1,11 @@
-export const SITE_URL = "https://sht-portfolio.vercel.app";
+export const SITE_URL =
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://portfolio-website-three-kappa-30.vercel.app";
 export const SITE_NAME = "Shivanshu Tiwari";
 export const SITE_TITLE = "Full-Stack GenAI/ML Engineer";
 
 export const SOCIAL = {
   github: "https://github.com/SHT4BHARAT",
-  linkedin: "https://linkedin.com/in/sht4bharat",
+  linkedin: "https://www.linkedin.com/in/shivanshutiwari-",
   email: "mailto:sht4bharat@gmail.com",
 } as const;
 

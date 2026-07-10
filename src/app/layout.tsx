@@ -32,8 +32,6 @@ export const metadata: Metadata = {
   description: SITE_DESCRIPTION,
   metadataBase: new URL(SITE_URL),
   openGraph: {
-    title: `${SITE_NAME} — ${SITE_TITLE}`,
-    description: SITE_DESCRIPTION,
     type: "website",
     locale: "en_US",
   },
