@@ -18,7 +18,3 @@ export interface Project {
   keyDecisions?: string[];
   honestPart?: string;
 }
-
-export interface ProjectConfig {
-  projects: Project[];
-}

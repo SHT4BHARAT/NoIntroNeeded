@@ -25,12 +25,12 @@ export function Footer() {
           >
             LinkedIn
           </Link>
-          <Link
+          <a
             href={SOCIAL.email}
             className="transition-colors hover:text-foreground"
           >
             Email
-          </Link>
+          </a>
         </div>
       </div>
     </footer>

@@ -21,7 +21,7 @@ export default function ExperiencePage() {
 
       <div className="space-y-6">
         {experience.map((exp, i) => (
-          <RevealOnScroll key={exp.company} index={i}>
+          <RevealOnScroll key={`${exp.company}-${exp.role}`} index={i}>
             <div className="rounded-lg border border-border bg-card p-5">
               <div className="flex items-baseline justify-between">
                 <h3 className="text-sm font-semibold">{exp.role}</h3>

@@ -1,7 +1,7 @@
 // In-memory rate limiter — effective for single-instance deployments.
 // On Vercel serverless (multiple instances), each function has its own memory,
 // so this is a no-op (a new Map is created per cold start).
-// Replace with Vercel KV for production serverless rate limiting.
+// TODO: Replace with Vercel KV or database-backed rate limiting for production.
 
 const ipRequests = new Map<string, { count: number; resetAt: number }>();
 

@@ -51,9 +51,48 @@ export const achievements: Achievement[] = [
 export const education = [
   {
     institution: "SIRT Bhopal (RGPV)",
-    degree: "B.Tech, Computer Science & IT",
-    period: "Class of 2027",
-    description: "Pursuing a Bachelor of Technology in Computer Science & IT from SIRT Bhopal, affiliated with Rajiv Gandhi Proudyogiki Vishwavidyalaya (RGPV).",
+    degree: "Bachelor of Technology — Computer Science & Information Technology",
+    period: "Sep 2023 – Jun 2027",
+    description: "Pursuing a B.Tech in Computer Science & Information Technology from SIRT Bhopal, affiliated with Rajiv Gandhi Proudyogiki Vishwavidyalaya (RGPV).",
+    skills: ["C", "C++", "Python", "Java", "SQL"],
+  },
+  {
+    institution: "Jawahar Navodaya Vidyalaya (JNV)",
+    degree: "Higher Secondary — PCMCs",
+    period: "Apr 2019 – Jun 2021",
+    description: "Class XII: 94.2%",
+    skills: ["Python", "MySQL", "C++"],
+  },
+  {
+    institution: "Jawahar Navodaya Vidyalaya (JNV)",
+    degree: "High School",
+    period: "Sep 2014 – Mar 2019",
+    description: "Class X: 91.4%",
+    skills: ["Computer Literacy", "Microsoft Office", "English Proficiency"],
+  },
+];
+
+export const volunteer = [
+  {
+    role: "Volunteer",
+    organization: "Jawahar Navodaya Vidyalaya (JNV)",
+    period: "Jul 2019 – Jun 2021",
+    duration: "2 yrs",
+    description: "Maintained clean and operational facilities to support program needs. Facilitated engaging events through effective organization and planning. Utilized strong interpersonal communication skills to convey important information.",
+  },
+  {
+    role: "Class Representative",
+    organization: "Jawahar Navodaya Vidyalaya (JNV)",
+    period: "Apr 2016 – Mar 2017",
+    duration: "1 yr",
+    description: "Fostered positive relationships with peers through active listening and genuine concern for wellbeing. Served as liaison between students and faculty, addressing concerns and facilitating communication. Provided academic assistance and tutoring to students in need of support. Supported representatives in navigating challenges through teamwork and collaboration. Promoted open dialogue between students and instructors to enhance classroom environment. Attended school and board meetings to remain informed on policies and procedures.",
+  },
+  {
+    role: "Training & Placement Volunteer",
+    organization: "SIRT Bhopal (RGPV)",
+    period: "Sep 2025 – Dec 2025",
+    duration: "4 mos",
+    description: "Supported the Training & Placement cell in coordinating campus drives, organizing placement activities, and facilitating communication between recruiters and students.",
   },
 ];
 
@@ -72,25 +111,4 @@ export const experience = [
   },
 ];
 
-export const certifications = [
-  {
-    title: "Python Programming",
-    provider: "AICTE / Robokwik",
-    duration: "8-week corporate internship training",
-  },
-  {
-    title: "Blockchain and its Applications",
-    provider: "IIT Kharagpur / NPTEL Swayam",
-    duration: "12 weeks",
-  },
-  {
-    title: "AWS AI & ML Scholars — 2026 Challenge Completion",
-    provider: "AWS AI & ML Scholars",
-    duration: "2026 Challenge Completion",
-  },
-  {
-    title: "AWS AI Practitioner Challenge",
-    provider: "AWS",
-    duration: "Challenge Completion",
-  },
-];
+

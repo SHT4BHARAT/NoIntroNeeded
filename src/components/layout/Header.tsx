@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useState, useCallback } from "react";
 
 import { cn } from "@/lib/utils/cn";
 import { useTheme } from "@/components/providers/ThemeProvider";
@@ -14,17 +14,36 @@ const navLinks = [
   { href: "/", label: "Home" },
   { href: "/education", label: "Education" },
   { href: "/experience", label: "Experience" },
+  { href: "/achievements", label: "Achievements" },
+  { href: "/blog", label: "Blogs" },
   { href: "/volunteer", label: "Volunteer" },
   { href: "/faq", label: "FAQ" },
-  { href: "/blog", label: "Blog" },
-  { href: "/achievements", label: "Achievements" },
   { href: "/contact", label: "Contact" },
 ];
+
+function isActiveLink(pathname: string, href: string): boolean {
+  if (href === "/") {
+    return pathname === "/" ||
+      pathname.startsWith("/ai-engineer") ||
+      pathname.startsWith("/backend-systems");
+  }
+  if (pathname.startsWith(href)) return true;
+  if (href === "/blog" && (pathname.startsWith("/blog/") || pathname.startsWith("/blog/hi/"))) return true;
+  if (href === "/achievements" && pathname.startsWith("/achievements/")) return true;
+  if (href === "/contact" && pathname.startsWith("/contact/")) return true;
+  return false;
+}
 
 export function Header() {
   const pathname = usePathname();
   const { theme, toggleTheme } = useTheme();
   const [open, setOpen] = useState(false);
+
+  const navItemClass = useCallback((isActive: boolean) =>
+    cn(
+      "transition-colors active:translate-y-px active:scale-[0.99] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60 hover:text-foreground",
+      isActive ? "text-foreground" : "text-muted",
+    ), []);
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border bg-background/80 backdrop-blur-sm">
@@ -38,40 +57,19 @@ export function Header() {
           </Link>
 
           <div className="hidden items-center gap-6 text-sm sm:flex">
-            {navLinks.map((link) => {
-              const isHome = link.href === "/";
-              const isRolePage =
-                pathname.startsWith("/ai-engineer") ||
-                pathname.startsWith("/backend-systems");
-              const isActive = isHome
-                ? pathname === "/" || isRolePage
-                : pathname.startsWith(link.href) ||
-                  (link.href === "/blog" &&
-                    (pathname.startsWith("/blog/") ||
-                      pathname.startsWith("/blog/hi/"))) ||
-                  (link.href === "/achievements" &&
-                    pathname.startsWith("/achievements/")) ||
-                  (link.href === "/contact" &&
-                    pathname.startsWith("/contact/"));
-
-              return (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className={cn(
-                    "transition-colors active:translate-y-px active:scale-[0.99] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60 hover:text-foreground",
-                    isActive ? "text-foreground" : "text-muted",
-                  )}
-                >
-                  {link.label}
-                </Link>
-              );
-            })}
+            {navLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={navItemClass(isActiveLink(pathname, link.href))}
+              >
+                {link.label}
+              </Link>
+            ))}
           </div>
         </nav>
 
         <div className="flex items-center gap-3">
-          {/* Mobile hamburger */}
           <button
             type="button"
             onClick={() => setOpen((v: boolean) => !v)}
@@ -113,40 +111,22 @@ export function Header() {
         </div>
       </div>
 
-      {/* Mobile menu panel */}
       <div className={cn("sm:hidden", open ? "block" : "hidden")}>
         <div className="mx-auto max-w-4xl px-4 pb-4">
           <div className="rounded-lg border border-border bg-card p-2">
-            {navLinks.map((link) => {
-              const isHome = link.href === "/";
-              const isRolePage =
-                pathname.startsWith("/ai-engineer") ||
-                pathname.startsWith("/backend-systems");
-              const isActive = isHome
-                ? pathname === "/" || isRolePage
-                : pathname.startsWith(link.href) ||
-                  (link.href === "/blog" &&
-                    (pathname.startsWith("/blog/") ||
-                      pathname.startsWith("/blog/hi/"))) ||
-                  (link.href === "/achievements" &&
-                    pathname.startsWith("/achievements/")) ||
-                  (link.href === "/contact" &&
-                    pathname.startsWith("/contact/"));
-
-              return (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  onClick={() => setOpen(false)}
-                  className={cn(
-                    "block rounded-md px-3 py-2 text-sm transition-colors active:translate-y-px active:scale-[0.99] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60 hover:bg-surface hover:text-foreground",
-                    isActive ? "text-foreground" : "text-muted",
-                  )}
-                >
-                  {link.label}
-                </Link>
-              );
-            })}
+            {navLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                onClick={() => setOpen(false)}
+                className={cn(
+                  "block rounded-md px-3 py-2 text-sm transition-colors active:translate-y-px active:scale-[0.99] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60 hover:bg-surface hover:text-foreground",
+                  isActiveLink(pathname, link.href) ? "text-foreground" : "text-muted",
+                )}
+              >
+                {link.label}
+              </Link>
+            ))}
           </div>
         </div>
       </div>

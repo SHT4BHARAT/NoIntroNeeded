@@ -1,15 +1,55 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import { useRole } from "@/components/providers/RoleProvider";
 
 export function RoleSelectorModal() {
   const { showSelector, selectRole, dismissSelector } = useRole();
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!showSelector) return;
+
+    function handleKeyDown(e: KeyboardEvent) {
+      if (e.key === "Escape") {
+        dismissSelector();
+      }
+      if (e.key === "Tab" && containerRef.current) {
+        const focusable = containerRef.current.querySelectorAll<HTMLElement>(
+          "button, [href], input, select, textarea, [tabindex]:not([tabindex='-1'])"
+        );
+        if (focusable.length === 0) return;
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if (e.shiftKey) {
+          if (document.activeElement === first) {
+            e.preventDefault();
+            last.focus();
+          }
+        } else {
+          if (document.activeElement === last) {
+            e.preventDefault();
+            first.focus();
+          }
+        }
+      }
+    }
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [showSelector, dismissSelector]);
 
   if (!showSelector) return null;
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm" role="presentation">
-      <div className="w-full max-w-md rounded-xl border border-border bg-card p-6 shadow-2xl" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <div
+        ref={containerRef}
+        className="w-full max-w-md rounded-xl border border-border bg-card p-6 shadow-2xl"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="modal-title"
+      >
         <h2 id="modal-title" className="text-lg font-semibold">
           What are you exploring my work for?
         </h2>

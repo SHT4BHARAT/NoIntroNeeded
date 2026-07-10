@@ -8,7 +8,12 @@ import { BreadcrumbSchema } from "@/components/seo/BreadcrumbSchema";
 import { CollectionPageSchema } from "@/components/seo/CollectionPageSchema";
 import { RevealOnScroll } from "@/components/animation/RevealOnScroll";
 
-const role = getRoleBySlug("backend-systems")!;
+function getRole() {
+  const r = getRoleBySlug("backend-systems");
+  if (!r) throw new Error("Role 'backend-systems' not found in config");
+  return r;
+}
+const role = getRole();
 
 export const metadata: Metadata = {
   title:

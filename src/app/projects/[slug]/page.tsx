@@ -105,7 +105,6 @@ export default async function ProjectDetailPage({
       <BreadcrumbSchema
         items={[
           { name: "Home", href: "/" },
-          { name: "Projects", href: "/" },
           { name: project.title, href: `/projects/${project.slug}` },
         ]}
       />

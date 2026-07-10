@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 
 export type FaqItem = { question: string; answer: string };
 
@@ -27,14 +27,11 @@ export function FaqAccordion({ items }: { items: FaqItem[] }) {
   const reducedMotion = usePrefersReducedMotion();
   const [openQuestion, setOpenQuestion] = useState<string | null>(null);
 
-  // deterministic stable keys
-  const ids = useMemo(() => new Map(items.map((it) => [it.question, it.question])), [items]);
-
   return (
     <div className="mt-4 space-y-4">
       {items.map((item) => {
         const isOpen = openQuestion === item.question;
-        const contentId = `faq_${encodeURIComponent(ids.get(item.question) ?? item.question)}`;
+        const contentId = `faq_${encodeURIComponent(item.question)}`;
 
         return (
           <div key={item.question} className="group rounded-lg border border-border">
@@ -70,13 +67,13 @@ export function FaqAccordion({ items }: { items: FaqItem[] }) {
 
             <div
               id={contentId}
-              className="grid border-t border-border overflow-hidden"
+              className="border-t border-border overflow-hidden transition-[max-height] duration-200 ease-out motion-reduce:transition-none"
               style={{
-                gridTemplateRows: isOpen ? "1fr" : "0fr",
-                transition: reducedMotion ? "none" : "grid-template-rows 200ms ease-out",
+                maxHeight: isOpen ? "300px" : "0px",
+                transition: reducedMotion ? "none" : undefined,
               }}
             >
-              <div className="overflow-hidden px-4 py-3 text-sm text-muted">
+              <div className="px-4 py-3 text-sm text-muted">
                 {item.answer}
               </div>
             </div>

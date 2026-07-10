@@ -119,7 +119,7 @@ export default async function AchievementsPage({
         <RevealOnScroll>
           <div className="space-y-4">
             {filtered.map((achievement) => (
-              <RevealOnScroll key={achievement.title}>
+              <RevealOnScroll key={`${achievement.title}-${achievement.date}`}>
                 <AchievementCard {...achievement} />
               </RevealOnScroll>
             ))}

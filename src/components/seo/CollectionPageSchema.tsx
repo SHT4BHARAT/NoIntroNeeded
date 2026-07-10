@@ -1,4 +1,4 @@
-import type { Project } from "@/types/project";
+import { SITE_URL } from "@/lib/constants";
 
 export function CollectionPageSchema({
   name,
@@ -27,7 +27,7 @@ export function CollectionPageSchema({
         "@type": "SoftwareSourceCode",
         position: i + 1,
         name: p.name,
-        url: `https://shivanshutiwari.in/projects/${p.slug}`,
+        url: `${SITE_URL}/projects/${p.slug}`,
       })),
     },
   };
