@@ -8,6 +8,7 @@ export interface Project {
   demoUrl?: string;
   thumbnail?: string;
   date: string;
+  featured?: boolean;
   highlights: string[];
   aiFraming?: string;
   backendFraming?: string;

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { volunteer } from "@/lib/achievements/data";
 import { RevealOnScroll } from "@/components/animation/RevealOnScroll";
 
 export const metadata: Metadata = {
@@ -18,11 +19,20 @@ export default function VolunteerPage() {
         <p className="mb-8 text-muted">Community involvement and volunteer work.</p>
       </RevealOnScroll>
 
-      <RevealOnScroll>
-        <p className="text-sm text-muted">
-          No volunteer entries yet.
-        </p>
-      </RevealOnScroll>
+      <div className="space-y-6">
+        {volunteer.map((v, i) => (
+          <RevealOnScroll key={`${v.role}-${v.organization}`} index={i}>
+            <div className="rounded-lg border border-border bg-card p-5">
+              <div className="flex items-baseline justify-between">
+                <h3 className="text-sm font-semibold">{v.role}</h3>
+                <span className="text-xs text-muted-foreground">{v.period}</span>
+              </div>
+              <p className="text-xs text-muted-foreground">{v.organization} &middot; {v.duration}</p>
+              <p className="mt-2 text-sm text-muted">{v.description}</p>
+            </div>
+          </RevealOnScroll>
+        ))}
+      </div>
     </main>
   );
 }

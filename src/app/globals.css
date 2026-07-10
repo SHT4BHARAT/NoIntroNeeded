@@ -7,6 +7,9 @@
   --color-muted-foreground: var(--muted-foreground);
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
+  --color-accent-bg: var(--accent-bg);
+  --color-verified: var(--accent-verified);
+  --color-verified-bg: var(--accent-verified-bg);
   --color-border: var(--border);
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
@@ -17,31 +20,104 @@
 }
 
 :root {
-  --background: #0a0a0a;
-  --foreground: #ededed;
-  --muted: #a1a1aa;
-  --muted-foreground: #71717a;
-  --accent: #22d3ee;
-  --accent-foreground: #042f2e;
-  --border: #27272a;
-  --card: #18181b;
-  --card-foreground: #fafafa;
-  --surface: #27272a;
-  --surface-hover: #3f3f46;
+  /* Requested semantic vars */
+  --page-bg: #F6F7F8;
+  --card-bg: #FFFFFF;
+  --text-primary: #14171C;
+  --text-secondary: #5B5F68;
+  --accent-signal: #A6650C;
+  --accent-signal-bg: #FBEEDD;
+  --accent-verified: #2F7A4C;
+  --accent-verified-bg: #E3F1E8;
+  --border: #DADCE0;
+
+  /* Mapped vars used by Tailwind theme */
+  --background: var(--page-bg);
+  --foreground: var(--text-primary);
+  --muted: var(--text-secondary);
+  --muted-foreground: #8B8F98;
+
+  --accent: var(--accent-signal);
+  --accent-foreground: #FFFFFF;
+  --accent-bg: var(--accent-signal-bg);
+
+  --accent-verified: var(--accent-verified);
+  --accent-verified-bg: var(--accent-verified-bg);
+
+  --border: var(--border);
+
+  --card: var(--card-bg);
+  --card-foreground: var(--text-primary);
+
+  --surface: #ECEDF0;
+  --surface-hover: #DADCE0;
 }
 
+/* Dark mode (default) */
+[data-theme="dark"],
+:root:not(.light) {
+  --page-bg: #0A0C10;
+  --card-bg: #14171C;
+  --text-primary: #E8E6E1;
+  --text-secondary: #8B8F98;
+  --accent-signal: #D4913A;
+  --accent-signal-bg: rgba(212, 145, 58, 0.15);
+  --accent-verified: #5FAE7C;
+  --accent-verified-bg: rgba(95, 174, 124, 0.12);
+  --border: #2A2E35;
+
+  --background: var(--page-bg);
+  --foreground: var(--text-primary);
+  --muted: var(--text-secondary);
+  --muted-foreground: #6B6F78;
+
+  --accent: var(--accent-signal);
+  --accent-foreground: #14171C;
+  --accent-bg: var(--accent-signal-bg);
+
+  --accent-verified: var(--accent-verified);
+  --accent-verified-bg: var(--accent-verified-bg);
+
+  --border: var(--border);
+
+  --card: var(--card-bg);
+  --card-foreground: var(--text-primary);
+
+  --surface: #1A1D24;
+  --surface-hover: var(--border);
+}
+
+/* Light mode class toggle used by ThemeProvider */
 .light {
-  --background: #fafafa;
-  --foreground: #09090b;
-  --muted: #71717a;
-  --muted-foreground: #a1a1aa;
-  --accent: #0891b2;
-  --accent-foreground: #ecfeff;
-  --border: #e4e4e7;
-  --card: #ffffff;
-  --card-foreground: #09090b;
-  --surface: #f4f4f5;
-  --surface-hover: #e4e4e7;
+  --page-bg: #F6F7F8;
+  --card-bg: #FFFFFF;
+  --text-primary: #14171C;
+  --text-secondary: #5B5F68;
+  --accent-signal: #D4913A;
+  --accent-signal-bg: #FBEEDD;
+  --accent-verified: #2F7A4C;
+  --accent-verified-bg: #E3F1E8;
+  --border: #DADCE0;
+
+  --background: var(--page-bg);
+  --foreground: var(--text-primary);
+  --muted: var(--text-secondary);
+  --muted-foreground: #8B8F98;
+
+  --accent: var(--accent-signal);
+  --accent-foreground: #FFFFFF;
+  --accent-bg: var(--accent-signal-bg);
+
+  --accent-verified: var(--accent-verified);
+  --accent-verified-bg: var(--accent-verified-bg);
+
+  --border: var(--border);
+
+  --card: var(--card-bg);
+  --card-foreground: var(--text-primary);
+
+  --surface: #ECEDF0;
+  --surface-hover: #DADCE0;
 }
 
 * {
@@ -63,7 +139,7 @@ body::before {
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  background-image: radial-gradient(circle, rgba(34, 211, 238, 0.06) 1px, transparent 1px);
+  background-image: radial-gradient(circle, rgba(212, 145, 58, 0.06) 1px, transparent 1px);
   background-size: 24px 24px;
 }
 
@@ -81,5 +157,5 @@ body::before {
 
 .light body::before,
 body.light::before {
-  background-image: radial-gradient(circle, rgba(8, 145, 178, 0.04) 1px, transparent 1px);
+  background-image: radial-gradient(circle, rgba(166, 101, 12, 0.04) 1px, transparent 1px);
 }

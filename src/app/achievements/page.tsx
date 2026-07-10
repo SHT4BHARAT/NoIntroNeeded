@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { z } from "zod";
 import { achievements } from "@/lib/achievements/data";
 import type { Achievement } from "@/types/achievements";
@@ -35,9 +36,9 @@ function AchievementCard({
   verifiableUrl,
 }: Achievement) {
   return (
-    <article className="rounded-lg border border-border bg-card p-5 transition-[transform,box-shadow,border-color,background-color] duration-150 ease-out hover:-translate-y-4 hover:border-accent/70 hover:bg-surface hover:shadow-[0_12px_30px_-18px_rgba(34,211,238,0.40)] focus-visible:-translate-y-4 focus-visible:border-accent/70 focus-visible:outline-none focus-visible:bg-surface focus-visible:shadow-[0_12px_30px_-18px_rgba(34,211,238,0.40)] motion-reduce:transform-none motion-reduce:shadow-none motion-reduce:transition-none">
+    <article className="rounded-lg border border-border bg-card p-5 transition-[transform,box-shadow,border-color,background-color] duration-150 ease-out hover:-translate-y-4 hover:border-accent/70 hover:bg-surface hover:shadow-[0_12px_30px_-18px_rgba(212,145,58,0.40)] focus-visible:-translate-y-4 focus-visible:border-accent/70 focus-visible:outline-none focus-visible:bg-surface focus-visible:shadow-[0_12px_30px_-18px_rgba(212,145,58,0.40)] motion-reduce:transform-none motion-reduce:shadow-none motion-reduce:transition-none">
       <div className="mb-2 flex items-center gap-3">
-        <span className="inline-block rounded bg-accent/10 px-2 py-0.5 font-mono text-xs text-accent">
+        <span className="inline-block rounded bg-accent-bg px-2 py-0.5 font-mono text-xs text-accent">
           {CATEGORY_LABELS[category]}
         </span>
         <span className="text-xs text-muted-foreground">{date}</span>
@@ -83,7 +84,7 @@ export default async function AchievementsPage({
 
       <RevealOnScroll>
         <div className="mb-8 flex flex-wrap gap-2">
-          <a
+          <Link
             href="/achievements"
             className={`rounded-md border px-3 py-1.5 font-mono text-xs transition-colors duration-150 ease-out motion-reduce:transition-none ${
               activeCategory === null
@@ -92,12 +93,12 @@ export default async function AchievementsPage({
             }`}
           >
             All ({achievements.length})
-          </a>
+          </Link>
 
           {CATEGORY_ORDER.map((cat) => {
             const count = achievements.filter((a) => a.category === cat).length;
             return (
-              <a
+              <Link
                 key={cat}
                 href={`/achievements?category=${cat}`}
                 className={`rounded-md border px-3 py-1.5 font-mono text-xs transition-colors duration-150 ease-out motion-reduce:transition-none ${
@@ -107,7 +108,7 @@ export default async function AchievementsPage({
                 }`}
               >
                 {CATEGORY_LABELS[cat]} ({count})
-              </a>
+              </Link>
             );
           })}
         </div>

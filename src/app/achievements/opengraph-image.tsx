@@ -19,8 +19,8 @@ export default async function OGImage() {
       >
         <span
           style={{
-            background: "#22d3ee",
-            color: "#042f2e",
+            background: "#D4913A",
+            color: "#14171C",
             padding: "4px 12px",
             borderRadius: 6,
             fontSize: 14,
@@ -52,7 +52,7 @@ export default async function OGImage() {
             lineHeight: 1.2,
             margin: 0,
             marginBottom: 24,
-            color: "#22d3ee",
+            color: "#D4913A",
           }}
         >
           & Challenge Wins

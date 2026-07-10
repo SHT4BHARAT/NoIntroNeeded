@@ -19,10 +19,10 @@ export function RecentPosts({ currentSlug }: { currentSlug?: string }) {
             href={`/blog/${post.frontmatter.slug}`}
             className="group block rounded-lg border border-border p-4 transition-colors hover:bg-surface"
           >
-            <span className="inline-block rounded bg-accent/10 px-2 py-0.5 font-mono text-xs text-accent">
+            <span className="inline-block rounded bg-accent-bg px-2 py-0.5 font-mono text-xs text-accent">
               {post.frontmatter.category.replace("-", " & ")}
             </span>
-            <h3 className="mt-1 text-sm font-medium group-hover:text-accent transition-colors">
+            <h3 className="mt-1 text-sm font-medium">
               {post.frontmatter.title}
             </h3>
             <p className="mt-0.5 text-xs text-muted-foreground">

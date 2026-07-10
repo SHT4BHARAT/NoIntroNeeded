@@ -3,10 +3,8 @@ import { RoleProjectCard } from "./RoleProjectCard";
 
 export function RoleProjectList({
   projects,
-  framingMap,
 }: {
   projects: Project[];
-  framingMap?: Record<string, string>;
 }) {
   return (
     <section>
@@ -18,7 +16,6 @@ export function RoleProjectList({
           <RoleProjectCard
             key={project.slug}
             project={project}
-            framing={framingMap?.[project.slug]}
           />
         ))}
       </div>

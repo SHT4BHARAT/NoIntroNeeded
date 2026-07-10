@@ -119,9 +119,16 @@ export default async function ProjectDetailPage({
         </Link>
 
         <header className="mb-10">
-          <p className="font-mono text-xs font-medium uppercase tracking-widest text-muted">
-            {project.date}
-          </p>
+          <div className="flex items-center gap-3">
+            <p className="font-mono text-xs font-medium uppercase tracking-widest text-muted">
+              {project.date}
+            </p>
+            {project.featured && (
+              <span className="rounded bg-accent-bg px-2 py-0.5 font-mono text-[11px] text-accent">
+                Featured ★
+              </span>
+            )}
+          </div>
           <h1 className="mt-2 text-3xl font-bold leading-tight tracking-tight sm:text-4xl">
             {project.title}
           </h1>

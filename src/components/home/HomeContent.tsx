@@ -7,6 +7,7 @@ import { RoleHero } from "@/components/role/RoleHero";
 import { RoleProjectCard } from "@/components/role/RoleProjectCard";
 import { RoleProjectList } from "@/components/role/RoleProjectList";
 import { RevealOnScroll } from "@/components/animation/RevealOnScroll";
+import { SOCIAL } from "@/lib/constants";
 
 export function HomeContent() {
   const { currentRole } = useRole();
@@ -21,15 +22,6 @@ export function HomeContent() {
 function RoleHome({ roleSlug }: { roleSlug: string }) {
   const role = getRoleBySlug(roleSlug)!;
   const roleProjects = getProjectsBySlugs(role.projectSlugs);
-
-  const framingMap: Record<string, string> = {};
-  for (const p of roleProjects) {
-    if (roleSlug === "ai-engineer" && p.aiFraming) {
-      framingMap[p.slug] = p.aiFraming;
-    } else if (roleSlug === "backend-systems" && p.backendFraming) {
-      framingMap[p.slug] = p.backendFraming;
-    }
-  }
 
   return (
     <>
@@ -76,7 +68,7 @@ function RoleHome({ roleSlug }: { roleSlug: string }) {
 
         <RevealOnScroll>
           <section className="mb-16">
-            <RoleProjectList projects={roleProjects} framingMap={framingMap} />
+            <RoleProjectList projects={roleProjects} />
           </section>
         </RevealOnScroll>
       </div>
@@ -204,17 +196,39 @@ function ShowEverything() {
 
           <RevealOnScroll index={6}>
             <div className="mt-4 grid gap-4 sm:grid-cols-2">
-              {projects.map((project, i) => (
-                <div
-                  key={project.slug}
-                  style={{ transitionDelay: `${Math.min(i * 60, 420)}ms` }}
-                >
-                  <RoleProjectCard project={project} />
-                </div>
-              ))}
+              {[...projects]
+                .sort((a, b) => {
+                  if (a.featured && !b.featured) return -1;
+                  if (!a.featured && b.featured) return 1;
+                  return 0;
+                })
+                .map((project, i) => (
+                  <div
+                    key={project.slug}
+                    style={{ transitionDelay: `${Math.min(i * 60, 420)}ms` }}
+                  >
+                    <RoleProjectCard project={project} />
+                  </div>
+                ))}
             </div>
           </RevealOnScroll>
         </section>
+
+        <RevealOnScroll>
+          <footer className="border-t border-border pb-8 pt-8">
+            <div className="flex flex-col items-center gap-2 text-sm text-muted sm:flex-row sm:justify-between">
+              <p>&copy; {new Date().getFullYear()} Shivanshu Tiwari</p>
+              <a
+                href={SOCIAL.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="transition-colors hover:text-foreground"
+              >
+                LinkedIn
+              </a>
+            </div>
+          </footer>
+        </RevealOnScroll>
       </div>
     </>
   );

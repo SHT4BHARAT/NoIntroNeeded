@@ -8,8 +8,8 @@ export default function manifest(): MetadataRoute.Manifest {
       "Full-Stack GenAI/ML Engineer — autonomous agents, LLM pipelines, voice AI, production deploys.",
     start_url: "/",
     display: "standalone",
-    background_color: "#0a0a0a",
-    theme_color: "#22d3ee",
+    background_color: "#0A0C10",
+    theme_color: "#D4913A",
     icons: [
       {
         src: "/icon.svg",

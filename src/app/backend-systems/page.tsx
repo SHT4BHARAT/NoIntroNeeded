@@ -40,15 +40,8 @@ export const metadata: Metadata = {
 export default function BackendSystemsPage() {
   const projects = getProjectsBySlugs(role.projectSlugs);
 
-  const framingMap: Record<string, string> = {};
-  for (const p of projects) {
-    if (p.backendFraming) framingMap[p.slug] = p.backendFraming;
-  }
-
   const collectionProjects = projects
-    .filter((p) =>
-      ["home-services-app", "payout-engine", "takealift", "uidai-aadhaar-analysis"].includes(p.slug)
-    )
+    .filter((p) => p.featured)
     .map((p) => ({ name: p.title, slug: p.slug }));
 
   return (
@@ -108,7 +101,7 @@ export default function BackendSystemsPage() {
 
         <RevealOnScroll>
           <section className="mb-16">
-            <RoleProjectList projects={projects} framingMap={framingMap} />
+            <RoleProjectList projects={projects} />
           </section>
         </RevealOnScroll>
 

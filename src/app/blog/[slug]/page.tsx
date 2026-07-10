@@ -75,7 +75,7 @@ export default async function BlogPostPage({
         <article className="relative">
           <header className="mb-8">
             <div className="mb-3 flex items-center gap-3">
-              <span className="inline-block rounded bg-accent/10 px-2 py-0.5 font-mono text-xs text-accent">
+              <span className="inline-block rounded bg-accent-bg px-2 py-0.5 font-mono text-xs text-accent">
                 {CATEGORY_LABELS[frontmatter.category] ?? frontmatter.category}
               </span>
               <span className="text-xs text-muted-foreground">

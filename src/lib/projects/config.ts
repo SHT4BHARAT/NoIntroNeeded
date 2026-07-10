@@ -4,6 +4,7 @@ export const projects: Project[] = [
   {
     slug: "agentic-honey-pot",
     title: "Agentic Honeypot — AI Scam-Baiting System",
+    featured: true,
     description:
       "An AI agent that poses as a confused elderly retiree, engages real scammers in live conversation, and extracts UPI IDs, bank accounts, and phishing links from their own messages — turning reactive defense into active intelligence gathering.",
     stack: ["Python", "FastAPI", "Pydantic", "Google Gemini", "Render", "Vercel", "Docker"],
@@ -35,6 +36,7 @@ export const projects: Project[] = [
   {
     slug: "samvad",
     title: "Samvad — AI Meeting Assistant",
+    featured: true,
     description:
       "Records in-person meetings, transcribes them live, and turns them into assigned, emailed tasks — without anyone taking notes.",
     stack: ["Python", "FastAPI", "SQLAlchemy", "APScheduler", "Sarvam AI", "WebSocket", "Redis", "PostgreSQL", "Docker", "GitHub Actions", "Render"],
@@ -104,6 +106,7 @@ export const projects: Project[] = [
   {
     slug: "echopay",
     title: "EchoPay — Audio-Powered Offline Payment System",
+    featured: true,
     tagline:
       "Offline P2P payments encoded as audio tones between phones — no internet required.",
     description:
@@ -127,6 +130,7 @@ export const projects: Project[] = [
   {
     slug: "daitfo",
     title: "DAITFO — RL Traffic Signal Control Benchmark",
+    featured: true,
     description:
       "A custom Gymnasium environment wrapping SUMO that benchmarks a PPO agent against fixed-time and queue-based heuristic controllers across 27 controlled runs. The heuristic won every metric — and that honest negative result is the actual finding, not a failure.",
     stack: ["Python", "Kotlin", "Stable-Baselines3", "Gymnasium", "SUMO", "Jetpack Compose", "Docker", "GitHub Actions"],
@@ -188,6 +192,7 @@ export const projects: Project[] = [
   {
     slug: "cloud-audit-env",
     title: "CloudAuditEnv — LLM Agent Evaluation for Cloud Security",
+    featured: true,
     description:
       "Procedurally generated cloud security audit environment that tests LLM agents on finding and fixing real vulnerability patterns — built for the OpenENV MetaHackathon.",
     stack: ["Python", "FastAPI", "Pydantic", "OpenAI SDK", "httpx", "OpenEnv", "Qwen2.5-72B-Instruct", "Docker", "HuggingFace Spaces", "Uvicorn"],
@@ -220,6 +225,7 @@ export const projects: Project[] = [
   {
     slug: "payout-engine",
     title: "PayoutEngine — Concurrency-Safe Payout System",
+    featured: true,
     description:
       "Prevents double-spending when two payout requests hit the same merchant balance at the same instant — verified with real threading tests, not mocks.",
     stack: ["Python", "Django", "Django REST Framework", "React", "PostgreSQL", "Redis", "Celery", "Vite", "Tailwind CSS", "Render", "Vercel", "Stripe"],

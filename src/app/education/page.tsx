@@ -21,7 +21,7 @@ export default function EducationPage() {
 
       <div className="space-y-6">
         {education.map((edu, i) => (
-          <RevealOnScroll key={edu.institution} index={i}>
+          <RevealOnScroll key={`${edu.institution}-${edu.degree}`} index={i}>
             <div className="rounded-lg border border-border bg-card p-5">
               <div className="flex items-baseline justify-between">
                 <h3 className="text-sm font-semibold">{edu.degree}</h3>
@@ -29,6 +29,18 @@ export default function EducationPage() {
               </div>
               <p className="text-xs text-muted-foreground">{edu.institution}</p>
               <p className="mt-2 text-sm text-muted">{edu.description}</p>
+              {edu.skills && edu.skills.length > 0 && (
+                <div className="mt-3 flex flex-wrap gap-1.5">
+                  {edu.skills.map((skill) => (
+                    <span
+                      key={skill}
+                      className="rounded-md bg-surface px-2 py-0.5 font-mono text-[11px] text-muted"
+                    >
+                      {skill}
+                    </span>
+                  ))}
+                </div>
+              )}
             </div>
           </RevealOnScroll>
         ))}

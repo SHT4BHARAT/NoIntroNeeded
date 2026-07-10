@@ -40,15 +40,8 @@ export const metadata: Metadata = {
 export default function AIEngineerPage() {
   const projects = getProjectsBySlugs(role.projectSlugs);
 
-  const framingMap: Record<string, string> = {};
-  for (const p of projects) {
-    if (p.aiFraming) framingMap[p.slug] = p.aiFraming;
-  }
-
   const collectionProjects = projects
-    .filter((p) =>
-      ["daitfo", "agentic-honey-pot", "samvad", "cloud-audit-env"].includes(p.slug)
-    )
+    .filter((p) => p.featured)
     .map((p) => ({ name: p.title, slug: p.slug }));
 
   return (
@@ -108,7 +101,7 @@ export default function AIEngineerPage() {
 
         <RevealOnScroll>
           <section className="mb-16">
-            <RoleProjectList projects={projects} framingMap={framingMap} />
+            <RoleProjectList projects={projects} />
           </section>
         </RevealOnScroll>
 
