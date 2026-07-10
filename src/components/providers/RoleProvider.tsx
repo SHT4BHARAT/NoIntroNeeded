@@ -25,12 +25,8 @@ function setCookie(name: string, value: string, days: number) {
   document.cookie = `${name}=${encodeURIComponent(value)}; path=/; max-age=${maxAge}; SameSite=Lax`;
 }
 
-function computeCurrentRole(pathname: string): string | null {
-  const cookie = getCookie(ROLE_COOKIE_NAME);
-  if (cookie && isValidRole(cookie)) return cookie;
-  const pathRole = pathname.split("/")[1];
-  if (isValidRole(pathRole)) return pathRole;
-  return null;
+function removeCookie(name: string) {
+  document.cookie = `${name}=; path=/; max-age=0; SameSite=Lax`;
 }
 
 export function RoleProvider({ children }: { children: React.ReactNode }) {
@@ -43,11 +39,6 @@ export function RoleProvider({ children }: { children: React.ReactNode }) {
     const cookie = getCookie(ROLE_COOKIE_NAME);
     if (cookie && isValidRole(cookie)) {
       setCurrentRole(cookie);
-    } else {
-      const pathRole = pathname.split("/")[1];
-      if (isValidRole(pathRole)) {
-        setCurrentRole(pathRole);
-      }
     }
 
     const onRolePage = isValidRole(pathname.split("/")[1]);
@@ -63,12 +54,16 @@ export function RoleProvider({ children }: { children: React.ReactNode }) {
       track("role_select", { role: role ?? "all" });
       if (role && isValidRole(role)) {
         setCookie(ROLE_COOKIE_NAME, role, 365);
-        router.push(`/${role}`);
+        setCurrentRole(role);
       } else {
+        removeCookie(ROLE_COOKIE_NAME);
+        setCurrentRole(null);
+      }
+      if (pathname !== "/") {
         router.push("/");
       }
     },
-    [router]
+    [router, pathname]
   );
 
   const dismissSelector = useCallback(() => {

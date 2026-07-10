@@ -12,6 +12,10 @@ import { MoonIcon } from "@/components/icons/MoonIcon";
 
 const navLinks = [
   { href: "/", label: "Home" },
+  { href: "/education", label: "Education" },
+  { href: "/experience", label: "Experience" },
+  { href: "/volunteer", label: "Volunteer" },
+  { href: "/faq", label: "FAQ" },
   { href: "/blog", label: "Blog" },
   { href: "/achievements", label: "Achievements" },
   { href: "/contact", label: "Contact" },
