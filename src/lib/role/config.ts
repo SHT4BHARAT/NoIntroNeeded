@@ -10,8 +10,10 @@ export const roles: RoleConfig[] = [
     description:
       "I build production AI systems — autonomous agents, LLM pipelines, and voice AI that ships.",
     projectSlugs: [
+      "daitfo",
       "agentic-honey-pot",
       "samvad",
+      "cloud-audit-env",
       "email-categorization-agent",
       "call-center-compliance-api",
     ],
@@ -24,11 +26,14 @@ export const roles: RoleConfig[] = [
     description:
       "I design and build backend systems — real-time APIs, distributed infrastructure, and production deployments.",
     projectSlugs: [
+      "daitfo",
       "samvad",
       "agentic-honey-pot",
       "call-center-compliance-api",
       "email-categorization-agent",
       "echopay",
+      "home-services-app",
+      "payout-engine",
     ],
   },
 ];
