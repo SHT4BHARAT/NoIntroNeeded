@@ -1,0 +1,37 @@
+---
+title: "Hello World — Building in Public"
+slug: "hello-world"
+date: "2025-06-15"
+category: "field-notes"
+tags: ["meta", "portfolio", "nextjs"]
+excerpt: "Kicking off the dev log. What this blog is for, how it's built, and what to expect."
+lang: "en"
+---
+
+This is the first post on the new portfolio blog. I'll be writing about:
+
+- **Model & tool drops** — quick takes on new AI models, SDKs, and dev tools I'm trying
+- **Repo notes** — deep dives into specific projects, architecture decisions, and lessons learned
+- **Field notes** — general dev log entries, workflows, and experiments
+- **Article reactions** — commentary on papers, blog posts, and talks I find interesting
+
+## Why a blog?
+
+Building in public forces clarity. Writing about a system means you actually have to understand it.
+
+## Stack
+
+This blog is rendered from MDX — each post is a `.mdx` file in `src/content/blog/`. The pipeline uses:
+
+- `@next/mdx` + `@mdx-js/loader` for compilation
+- `gray-matter` for frontmatter parsing
+- Zod for schema validation
+
+Code blocks look like this:
+
+```python
+def greet(name: str) -> str:
+    return f"Hello, {name}!"
+```
+
+More soon.

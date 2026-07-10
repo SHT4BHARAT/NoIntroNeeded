@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dot Grid Background</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: #0a0a0a;
+      min-height: 100dvh;
+      font-family: system-ui, -apple-system, sans-serif;
+      color: #ededed;
+      position: relative;
+    }
+
+    /* === APPROACH A: CSS pseudo-element dot grid === */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+
+      /* Dot grid pattern */
+      background-image: radial-gradient(circle, rgba(34, 211, 238, 0.15) 1px, transparent 1px);
+      background-size: 24px 24px;
+
+      /* Slow drift animation */
+      animation: gridShift 8s linear infinite;
+    }
+
+    @keyframes gridShift {
+      to {
+        transform: translate(24px, 24px);
+      }
+    }
+
+    /* Content sits above the grid */
+    .content {
+      position: relative;
+      z-index: 1;
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 4rem 2rem;
+      min-height: 100dvh;
+    }
+
+    .card {
+      background: rgba(24, 24, 27, 0.85);
+      backdrop-filter: blur(12px);
+      border: 1px solid #27272a;
+      border-radius: 12px;
+      padding: 2rem;
+      margin-bottom: 1.5rem;
+    }
+
+    h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.02em;
+    }
+
+    .accent {
+      color: #22d3ee;
+    }
+
+    p {
+      line-height: 1.7;
+      color: #a1a1aa;
+      margin-bottom: 1rem;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      border-radius: 999px;
+      background: rgba(34, 211, 238, 0.1);
+      color: #22d3ee;
+      border: 1px solid rgba(34, 211, 238, 0.2);
+      font-size: 0.8rem;
+      font-weight: 500;
+    }
+
+    /* Light mode toggle for demo */
+    .light-toggle {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      z-index: 10;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      border: 1px solid #27272a;
+      background: #18181b;
+      color: #ededed;
+      cursor: pointer;
+      font-size: 0.8rem;
+    }
+
+    .light-toggle:hover {
+      background: #27272a;
+    }
+
+    /* Light mode overrides */
+    body.light {
+      background: #fafafa;
+      color: #09090b;
+    }
+
+    body.light::before {
+      background-image: radial-gradient(circle, rgba(8, 145, 178, 0.08) 1px, transparent 1px);
+    }
+
+    body.light .card {
+      background: rgba(255, 255, 255, 0.85);
+      border-color: #e4e4e7;
+    }
+
+    body.light p {
+      color: #52525b;
+    }
+  </style>
+</head>
+<body>
+  <button class="light-toggle" onclick="document.body.classList.toggle('light')">Toggle Light</button>
+
+  <div class="content">
+    <div class="card">
+      <span class="badge">CSS-only · ~0.5KB</span>
+      <h1>Animated <span class="accent">Dot Grid</span></h1>
+      <p>
+        A subtle dot pattern rendered via <code>body::before</code> with a
+        <code>radial-gradient</code>. The <code>gridShift</code> animation
+        slowly drifts the pattern by 24px, creating a gentle
+        <em>"moving through space"</em> feel.
+      </p>
+      <p>
+        <strong>Key properties:</strong> <code>pointer-events: none</code> so
+        content stays clickable. Opacity at 15% in dark mode, 8% in light.
+        No JavaScript, no extra DOM nodes — pure CSS.
+      </p>
+    </div>
+
+    <div class="card">
+      <h2>How it works</h2>
+      <pre style="background: #18181b; border: 1px solid #27272a; border-radius: 8px; padding: 1rem; font-size: 0.8rem; line-height: 1.6; overflow-x: auto; color: #d4d4d4; margin-top: 0.75rem;">
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    radial-gradient(
+      circle,
+      rgba(34, 211, 238, 0.15) 1px,
+      transparent 1px
+    );
+  background-size: 24px 24px;
+  animation: gridShift 8s linear infinite;
+}
+
+@keyframes gridShift {
+  to { transform: translate(24px, 24px); }
+}</pre>
+    </div>
+
+    <div class="card">
+      <h2>Integration</h2>
+      <p>
+        Drop the <code>body::before</code> block into
+        <code>src/app/globals.css</code>. Zero imports, zero components,
+        zero JS. Respects light/dark mode via CSS variable theming.
+      </p>
+    </div>
+  </div>
+</body>
+</html>

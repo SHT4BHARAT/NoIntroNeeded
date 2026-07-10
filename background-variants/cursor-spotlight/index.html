@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cursor Spotlight Background</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: #0a0a0a;
+      min-height: 100dvh;
+      font-family: system-ui, -apple-system, sans-serif;
+      color: #ededed;
+      position: relative;
+    }
+
+    /* === CURSOR SPOTLIGHT (rendered via JS below) === */
+    #spotlight {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      transition: background 0.05s ease;
+    }
+
+    /* === OPTIONAL DOT GRID (combination demo) === */
+    #dotGrid {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background-image: radial-gradient(circle, rgba(34, 211, 238, 0.06) 1px, transparent 1px);
+      background-size: 24px 24px;
+      animation: gridShift 12s linear infinite;
+    }
+
+    @keyframes gridShift {
+      to { transform: translate(24px, 24px); }
+    }
+
+    /* Content sits above background layers */
+    .content {
+      position: relative;
+      z-index: 1;
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 4rem 2rem;
+      min-height: 100dvh;
+    }
+
+    .card {
+      background: rgba(24, 24, 27, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid #27272a;
+      border-radius: 12px;
+      padding: 2rem;
+      margin-bottom: 1.5rem;
+    }
+
+    h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.02em;
+    }
+
+    .accent {
+      color: #22d3ee;
+    }
+
+    p {
+      line-height: 1.7;
+      color: #a1a1aa;
+      margin-bottom: 1rem;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      border-radius: 999px;
+      background: rgba(34, 211, 238, 0.1);
+      color: #22d3ee;
+      border: 1px solid rgba(34, 211, 238, 0.2);
+      font-size: 0.8rem;
+      font-weight: 500;
+    }
+
+    code {
+      background: #18181b;
+      padding: 0.15em 0.4em;
+      border-radius: 4px;
+      font-size: 0.85em;
+      color: #22d3ee;
+      border: 1px solid #27272a;
+    }
+
+    pre {
+      background: #18181b;
+      border: 1px solid #27272a;
+      border-radius: 8px;
+      padding: 1rem;
+      font-size: 0.8rem;
+      line-height: 1.6;
+      overflow-x: auto;
+      color: #d4d4d4;
+      margin-top: 0.75rem;
+    }
+
+    .controls {
+      position: fixed;
+      bottom: 1rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .controls button {
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      border: 1px solid #27272a;
+      background: #18181b;
+      color: #ededed;
+      cursor: pointer;
+      font-size: 0.75rem;
+      font-family: inherit;
+    }
+
+    .controls button:hover {
+      background: #27272a;
+    }
+
+    .controls button.active {
+      border-color: #22d3ee;
+      color: #22d3ee;
+    }
+
+    .coords {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      z-index: 10;
+      font-size: 0.7rem;
+      color: #52525b;
+      font-family: monospace;
+      background: rgba(24, 24, 27, 0.8);
+      padding: 0.4rem 0.75rem;
+      border-radius: 6px;
+      border: 1px solid #27272a;
+    }
+  </style>
+</head>
+<body>
+  <!-- Background layers -->
+  <div id="spotlight"></div>
+  <div id="dotGrid"></div>
+
+  <!-- Debug coords -->
+  <div class="coords" id="coords">x: — y: —</div>
+
+  <!-- Controls -->
+  <div class="controls">
+    <button id="btnSpotlight" class="active" onclick="setMode('spotlight')">Spotlight</button>
+    <button id="btnCombined" onclick="setMode('combined')">Spotlight + Grid</button>
+    <button id="btnOff" onclick="setMode('off')">Off</button>
+  </div>
+
+  <div class="content">
+    <div class="card">
+      <span class="badge">JavaScript · ~2KB</span>
+      <h1>Cursor <span class="accent">Spotlight</span></h1>
+      <p>
+        A subtle radial gradient follows your mouse. Uses
+        <code>requestAnimationFrame</code> for smooth, efficient updates.
+        The spotlight is a fixed <code>div</code> with
+        <code>pointer-events: none</code> — content stays fully interactive.
+      </p>
+      <p>
+        <strong>Demo controls</strong> at the bottom: toggle between
+        spotlight-only, spotlight + dot grid combined, or no effect.
+        Use the button to see how they layer.
+      </p>
+    </div>
+
+    <div class="card">
+      <h2>The React Component</h2>
+      <pre>
+"use client";
+
+import { useEffect, useRef } from "react";
+
+export function CursorSpotlight() {
+  const ref = useRef&lt;HTMLDivElement&gt;(null);
+  const rafRef = useRef&lt;number&gt;();
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+
+    const handleMouse = (e: MouseEvent) => {
+      cancelAnimationFrame(rafRef.current!);
+      rafRef.current = requestAnimationFrame(() => {
+        el.style.setProperty("--x", `${e.clientX}px`);
+        el.style.setProperty("--y", `${e.clientY}px`);
+      });
+    };
+
+    window.addEventListener("mousemove", handleMouse, { passive: true });
+    return () => {
+      window.removeEventListener("mousemove", handleMouse);
+      cancelAnimationFrame(rafRef.current!);
+    };
+  }, []);
+
+  return (
+    &lt;div
+      ref={ref}
+      style={{
+        position: "fixed",
+        inset: 0,
+        zIndex: 0,
+        pointerEvents: "none",
+        background:
+          "radial-gradient(circle 400px at var(--x) var(--y), rgba(34,211,238,0.08), transparent 80%)",
+      }}
+    /&gt;
+  );
+}</pre>
+    </div>
+
+    <div class="card">
+      <h2>Integration</h2>
+      <p>
+        Create <code>src/components/background/CursorSpotlight.tsx</code>
+        with the component above. Import and mount in
+        <code>src/app/layout.tsx</code>:
+      </p>
+      <pre>
+import { CursorSpotlight } from "@/components/background/CursorSpotlight";
+
+// Inside &lt;body&gt;, right after skip-to-content:
+&lt;CursorSpotlight /&gt;</pre>
+      <p>
+        Optionally add <code>#dotGrid</code> CSS in
+        <code>globals.css</code> for the combined effect — that&apos;s
+        what this demo calls <strong>Approach A + B</strong>.
+      </p>
+    </div>
+  </div>
+
+  <script>
+    const spotlight = document.getElementById("spotlight");
+    const coords = document.getElementById("coords");
+    const dotGrid = document.getElementById("dotGrid");
+
+    let rafId = null;
+
+    // --- Cursor Spotlight ---
+    function updateSpotlight(x, y) {
+      if (rafId) cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(() => {
+        spotlight.style.setProperty("--x", x + "px");
+        spotlight.style.setProperty("--y", y + "px");
+        coords.textContent = `x: ${x}  y: ${y}`;
+        rafId = null;
+      });
+    }
+
+    document.addEventListener("mousemove", (e) => {
+      updateSpotlight(e.clientX, e.clientY);
+    });
+
+    // --- Mode switching ---
+    const btns = {
+      spotlight: document.getElementById("btnSpotlight"),
+      combined: document.getElementById("btnCombined"),
+      off: document.getElementById("btnOff"),
+    };
+
+    function setMode(mode) {
+      Object.values(btns).forEach((b) => b.classList.remove("active"));
+      btns[mode].classList.add("active");
+
+      switch (mode) {
+        case "spotlight":
+          spotlight.style.background =
+            "radial-gradient(circle 400px at var(--x) var(--y), rgba(34,211,238,0.08), transparent 80%)";
+          dotGrid.style.display = "none";
+          break;
+        case "combined":
+          spotlight.style.background =
+            "radial-gradient(circle 400px at var(--x) var(--y), rgba(34,211,238,0.08), transparent 80%)";
+          dotGrid.style.display = "block";
+          break;
+        case "off":
+          spotlight.style.background = "transparent";
+          dotGrid.style.display = "none";
+          break;
+      }
+    }
+
+    // Start with spotlight only
+    dotGrid.style.display = "none";
+  </script>
+</body>
+</html>

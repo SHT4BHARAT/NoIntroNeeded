@@ -1,0 +1,221 @@
+"use client";
+
+import { useEffect, useRef, useState, type ChangeEvent, type FormEvent } from "react";
+import { contactSchema } from "@/lib/contact/validation";
+import { track } from "@/lib/analytics";
+
+interface FieldErrors {
+  name?: string;
+  email?: string;
+  message?: string;
+}
+
+interface FormValues {
+  name: string;
+  email: string;
+  message: string;
+}
+
+function getFieldErrors(values: FormValues): FieldErrors {
+  const result = contactSchema.safeParse({ ...values, _name: "" });
+  if (!result.success) {
+    const field = result.error.flatten().fieldErrors;
+    return {
+      name: field.name?.[0],
+      email: field.email?.[0],
+      message: field.message?.[0],
+    };
+  }
+  return {};
+}
+
+export function ContactForm() {
+  const [values, setValues] = useState<FormValues>({
+    name: "",
+    email: "",
+    message: "",
+  });
+  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
+  const [errors, setErrors] = useState<FieldErrors>({});
+
+  const messageRef = useRef<HTMLTextAreaElement | null>(null);
+  const reducedMotion = useRef(false);
+
+  useEffect(() => {
+    reducedMotion.current =
+      window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches ?? false;
+  }, []);
+
+  useEffect(() => {
+    const el = messageRef.current;
+    if (!el) return;
+    // Auto-resize
+    el.style.height = "auto";
+    el.style.height = `${el.scrollHeight}px`;
+  }, [values.message]);
+
+  function handleChange(e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
+    const { name, value } = e.target;
+    setValues((prev) => ({ ...prev, [name]: value }));
+  }
+
+  function handleBlur(e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
+    const { name, value } = e.target;
+    const allValues = { ...values, [name]: value };
+    const fieldErrors = getFieldErrors(allValues);
+    setErrors((prev) => ({ ...prev, [name]: fieldErrors[name as keyof FieldErrors] }));
+  }
+
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setStatus("sending");
+    setErrors({});
+
+    const parsed = contactSchema.safeParse({ ...values, _name: "" });
+    if (!parsed.success) {
+      const field = parsed.error.flatten().fieldErrors;
+      setErrors({
+        name: field.name?.[0],
+        email: field.email?.[0],
+        message: field.message?.[0],
+      });
+      setStatus("idle");
+      return;
+    }
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(parsed.data),
+      });
+
+      if (!res.ok) throw new Error("Failed");
+
+      track("contact_submit");
+      setStatus("sent");
+      setValues({ name: "", email: "", message: "" });
+    } catch {
+      setStatus("error");
+    }
+  }
+
+  const messageMax = 5000;
+  const messageCount = values.message.length;
+
+  const shakeClass =
+    status === "error" && !reducedMotion.current
+      ? "animate-[shake_320ms_ease-in-out]"
+      : "";
+
+  return (
+    <form onSubmit={handleSubmit} className="space-y-5" noValidate>
+      <style>{`
+        @keyframes shake {
+          0% { transform: translateX(0); }
+          25% { transform: translateX(3px); }
+          50% { transform: translateX(-3px); }
+          75% { transform: translateX(2px); }
+          100% { transform: translateX(0); }
+        }
+      `}</style>
+
+      {/* Honeypot */}
+      <div aria-hidden="true" className="absolute left-[-9999px]">
+        <label htmlFor="_name">Leave this empty</label>
+        <input
+          id="_name"
+          name="_name"
+          tabIndex={-1}
+          autoComplete="off"
+          value=""
+          onChange={() => {}}
+          className="h-0 w-0 overflow-hidden opacity-0"
+        />
+      </div>
+
+      <div>
+        <label htmlFor="name" className="mb-1 block text-sm font-medium">
+          Name
+        </label>
+        <input
+          id="name"
+          name="name"
+          type="text"
+          required
+          value={values.name}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          className="w-full rounded-lg border border-border bg-surface px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent"
+          placeholder="Your name"
+        />
+        {errors.name && <p className="mt-1 text-xs text-red-500">{errors.name}</p>}
+      </div>
+
+      <div>
+        <label htmlFor="email" className="mb-1 block text-sm font-medium">
+          Email
+        </label>
+        <input
+          id="email"
+          name="email"
+          type="email"
+          required
+          value={values.email}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          className="w-full rounded-lg border border-border bg-surface px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent"
+          placeholder="you@example.com"
+        />
+        {errors.email && <p className="mt-1 text-xs text-red-500">{errors.email}</p>}
+      </div>
+
+      <div>
+        <div className="mb-1 flex items-center justify-between gap-4">
+          <label htmlFor="message" className="block text-sm font-medium">
+            Message
+          </label>
+          <span className="text-xs font-mono text-muted-foreground">
+            {messageCount}/{messageMax}
+          </span>
+        </div>
+
+        <textarea
+          ref={messageRef}
+          id="message"
+          name="message"
+          required
+          minLength={10}
+          maxLength={messageMax}
+          value={values.message}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          className={[
+            "w-full resize-y rounded-lg border border-border bg-surface px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent",
+            shakeClass,
+          ].join(" ")}
+          placeholder="Your message (at least 10 characters)"
+        />
+
+        {errors.message && <p className="mt-1 text-xs text-red-500">{errors.message}</p>}
+      </div>
+
+      <button
+        type="submit"
+        disabled={status === "sending"}
+        className="rounded-lg bg-accent px-6 py-2.5 text-sm font-medium text-accent-foreground transition-opacity hover:opacity-90 disabled:opacity-50"
+      >
+        {status === "sending" ? "Sending..." : "Send"}
+      </button>
+
+      {status === "sent" && (
+        <p className="text-sm text-green-500">
+          Message sent! I&apos;ll get back to you soon.
+        </p>
+      )}
+      {status === "error" && (
+        <p className="text-sm text-red-500">Something went wrong. Please try again later.</p>
+      )}
+    </form>
+  );
+}
