@@ -7,9 +7,10 @@ import { RevealOnScroll } from "@/components/animation/RevealOnScroll";
 const achievementCategoryEnum = z.enum(["hackathon", "certification", "challenge", "other"]);
 
 export const metadata: Metadata = {
-  title: "Achievements",
+  title: "Achievements — Shivanshu Tiwari",
   description:
-    "Hackathon wins, certifications, and challenge results from Shivanshu Tiwari.",
+    "Certifications, hackathon participation, and technical milestones from Shivanshu Tiwari's work in AI agent engineering and backend systems.",
+  robots: "index, follow",
 };
 
 const CATEGORY_LABELS: Record<Achievement["category"], string> = {

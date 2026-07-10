@@ -18,30 +18,10 @@ function getHeadingText(el: Element) {
 }
 
 export function BlogTOC({ className }: { className?: string }) {
-  const [items, setItems] = useState<TocItem[]>([]);
   const [activeId, setActiveId] = useState<string | null>(null);
 
-  useEffect(() => {
-    const reduce = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
-    if (reduce) {
-      // Render TOC but keep activeId unset
-      const headings = Array.from(
-        document.querySelectorAll<HTMLElement>("article h2[id], article h3[id]")
-      );
-      const next = headings
-        .map((h) => {
-          const level = (h.tagName.toLowerCase() === "h2" ? 2 : 3) as 2 | 3;
-          return {
-            id: h.id,
-            text: getHeadingText(h),
-            level,
-          };
-        })
-        .filter((x) => x.text.length > 0);
-      setItems(next);
-      return;
-    }
-
+  const items = useMemo<TocItem[]>(() => {
+    if (typeof document === "undefined") return [];
     const headings = Array.from(
       document.querySelectorAll<HTMLElement>("article h2[id], article h3[id]")
     );
@@ -57,7 +37,15 @@ export function BlogTOC({ className }: { className?: string }) {
       })
       .filter((x) => x.text.length > 0);
 
-    setItems(next);
+    return next;
+  }, []);
+
+  useEffect(() => {
+    const headings = Array.from(
+      document.querySelectorAll<HTMLElement>("article h2[id], article h3[id]")
+    );
+    const reduce = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
+    if (reduce) return;
 
     const io = new IntersectionObserver(
       (entries) => {

@@ -66,7 +66,7 @@ export default async function OGImage() {
             marginBottom: "auto",
           }}
         >
-          Verifiable results from Shivanshu Tiwari's competitive and professional journey
+          Verifiable results from Shivanshu Tiwari&apos;s competitive and professional journey
         </p>
         <div
           style={{

@@ -7,9 +7,10 @@ import type { BlogCategory } from "@/lib/blog/schema";
 import { RevealOnScroll } from "@/components/animation/RevealOnScroll";
 
 export const metadata: Metadata = {
-  title: "Blog",
+  title: "Blog — Shivanshu Tiwari",
   description:
-    "Field notes, repo deep-dives, model & tool drops, and article reactions from Shivanshu Tiwari.",
+    "Technical writing on AI agent architecture, backend systems design, and honest post-mortems from real projects — including why reinforcement learning lost to a simple heuristic.",
+  robots: "index, follow",
 };
 
 export default async function BlogIndexPage({

@@ -6,6 +6,7 @@ import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import { RoleProvider } from "@/components/providers/RoleProvider";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
+import { ScrollToTop } from "@/components/layout/ScrollToTop";
 import { RoleSelectorModal } from "@/components/layout/RoleSelectorModal";
 import { CursorSpotlight } from "@/components/background/CursorSpotlight";
 import { NodePulse } from "@/components/background/NodePulse";
@@ -68,6 +69,7 @@ export default function RootLayout({
             <Header />
             <RoleSelectorModal />
             <main id="main-content" className="flex flex-1 flex-col">{children}</main>
+            <ScrollToTop />
             <Analytics />
             <Footer />
           </RoleProvider>

@@ -62,6 +62,12 @@ export const achievements: Achievement[] = [
 
 export const experience = [
   {
+    company: "SIRT Bhopal (RGPV)",
+    role: "B.Tech, Computer Science & IT",
+    period: "Class of 2027",
+    description: "Pursuing a Bachelor of Technology in Computer Science & IT from SIRT Bhopal, affiliated with Rajiv Gandhi Proudyogiki Vishwavidyalaya (RGPV).",
+  },
+  {
     company: "Blue Planet Infosolutions Pvt. Ltd.",
     role: "Android Development Intern",
     period: "Aug 2025 – Mar 2026",

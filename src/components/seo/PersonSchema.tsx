@@ -12,7 +12,14 @@ export function PersonSchema() {
       "@type": "CollegeOrUniversity",
       name: "SIRT Bhopal",
     },
-    knowsAbout: "B.Tech CS & IT",
+    knowsAbout: [
+      "AI Agents",
+      "LLM Pipelines",
+      "Backend Systems",
+      "Reinforcement Learning",
+      "Python",
+      "TypeScript",
+    ],
   };
 
   return (

@@ -26,7 +26,7 @@ export function RoleSelectorModal() {
               AI / Agentic Engineer
             </span>
             <span className="mt-1 text-sm text-muted">
-              Autonomous agents, LLM pipelines, voice AI, production AI deploys
+              Scam-detection agents, RL benchmarks, voice intelligence
             </span>
           </button>
 
@@ -38,7 +38,7 @@ export function RoleSelectorModal() {
               Backend / Systems Engineer
             </span>
             <span className="mt-1 text-sm text-muted">
-              API design, real-time infra, distributed systems
+              Concurrency-safe engines, real-time dispatch, event-driven infra
             </span>
           </button>
 
@@ -50,7 +50,7 @@ export function RoleSelectorModal() {
               Something else — show me everything
             </span>
             <span className="mt-1 text-sm text-muted">
-              No role framing, just the strongest work ranked
+              No role framing, ranked by what's actually working
             </span>
           </button>
         </div>

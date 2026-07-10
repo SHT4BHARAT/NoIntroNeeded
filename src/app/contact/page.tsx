@@ -2,8 +2,10 @@ import type { Metadata } from "next";
 import { ContactForm } from "./ContactForm";
 
 export const metadata: Metadata = {
-  title: "Contact",
-  description: "Get in touch with Shivanshu Tiwari.",
+  title: "Contact — Shivanshu Tiwari",
+  description:
+    "Get in touch with Shivanshu Tiwari — AI agent engineer and backend systems developer, actively looking for AI/Software Engineering internships (remote or hybrid).",
+  robots: "index, follow",
 };
 
 export default function ContactPage() {

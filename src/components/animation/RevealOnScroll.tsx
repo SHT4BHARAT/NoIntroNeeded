@@ -14,8 +14,13 @@ export function RevealOnScroll({
   index?: number;
 }) {
   const ref = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(false);
-  const [reduced, setReduced] = useState(false);
+
+  const [reduced] = useState(() => {
+    if (typeof window === "undefined") return false;
+    return window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches ?? false;
+  });
+
+  const [visible, setVisible] = useState(() => reduced);
 
   const computedDelay = useMemo(
     () => delay ?? (index !== undefined ? Math.min(index * 60, 420) : 0),
@@ -23,12 +28,7 @@ export function RevealOnScroll({
   );
 
   useEffect(() => {
-    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
-    setReduced(mq.matches);
-    if (mq.matches) {
-      setVisible(true);
-      return;
-    }
+    if (reduced) return;
 
     const el = ref.current;
     if (!el) return;
@@ -45,7 +45,7 @@ export function RevealOnScroll({
 
     observer.observe(el);
     return () => observer.disconnect();
-  }, []);
+  }, [reduced]);
 
   const show = reduced || visible;
 

@@ -26,7 +26,7 @@ export function NodePulse() {
     if (!ctx) return;
 
     let animId: number;
-    let nodes: Node[] = [];
+    const nodes: Node[] = [];
     let w = 0;
     let h = 0;
 

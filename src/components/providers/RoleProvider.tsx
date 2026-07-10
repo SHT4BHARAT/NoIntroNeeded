@@ -36,11 +36,20 @@ function computeCurrentRole(pathname: string): string | null {
 export function RoleProvider({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const pathname = usePathname();
-  const currentRole = computeCurrentRole(pathname);
+  const [currentRole, setCurrentRole] = useState<string | null>(null);
   const [showSelector, setShowSelector] = useState(false);
 
   useEffect(() => {
     const cookie = getCookie(ROLE_COOKIE_NAME);
+    if (cookie && isValidRole(cookie)) {
+      setCurrentRole(cookie);
+    } else {
+      const pathRole = pathname.split("/")[1];
+      if (isValidRole(pathRole)) {
+        setCurrentRole(pathRole);
+      }
+    }
+
     const onRolePage = isValidRole(pathname.split("/")[1]);
     if (!cookie && !onRolePage && pathname === "/") {
       const timer = setTimeout(() => setShowSelector(true), 500);

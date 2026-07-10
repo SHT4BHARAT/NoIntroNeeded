@@ -39,12 +39,12 @@ export function ContactForm() {
   const [errors, setErrors] = useState<FieldErrors>({});
 
   const messageRef = useRef<HTMLTextAreaElement | null>(null);
-  const reducedMotion = useRef(false);
-
-  useEffect(() => {
-    reducedMotion.current =
-      window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches ?? false;
-  }, []);
+  const [prefersReducedMotion] = useState(() => {
+    if (typeof window === "undefined") return false;
+    return (
+      window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches ?? false
+    );
+  });
 
   useEffect(() => {
     const el = messageRef.current;
@@ -104,7 +104,7 @@ export function ContactForm() {
   const messageCount = values.message.length;
 
   const shakeClass =
-    status === "error" && !reducedMotion.current
+    status === "error" && !prefersReducedMotion
       ? "animate-[shake_320ms_ease-in-out]"
       : "";
 

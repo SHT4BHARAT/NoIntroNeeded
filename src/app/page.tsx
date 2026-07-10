@@ -8,31 +8,48 @@ import { FAQSchema } from "@/components/seo/FAQSchema";
 import { FaqAccordion } from "@/components/home/FaqAccordion";
 
 export const metadata: Metadata = {
-  title: "Shivanshu Tiwari — AI-Native Backend Systems",
+  title: "Shivanshu Tiwari — AI Agent Engineer & Backend Systems Developer",
   description:
-    "AI-native backend systems — autonomous agents, LLM pipelines, and production APIs, built by a B.Tech CS & IT student in Bhopal.",
+    "B.Tech CS & IT student (SIRT Bhopal, Class of 2027) building autonomous AI agents, LLM pipelines, and concurrency-safe backend systems. 19 documented projects including an RL traffic benchmark, an AI scam-detection honeypot, and a payout engine with proven race-condition safety.",
+  openGraph: {
+    title: "Shivanshu Tiwari — AI Agent Engineer & Backend Systems Developer",
+    description:
+      "Autonomous agents, LLM pipelines, and production APIs — with honest documentation of what worked and what didn't.",
+    type: "website",
+    locale: "en_US",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Shivanshu Tiwari — AI Agent Engineer & Backend Systems Developer",
+    description:
+      "Autonomous agents, LLM pipelines, and production APIs — with honest documentation of what worked and what didn't.",
+  },
+  alternates: {
+    canonical: "https://shivanshutiwari.in/",
+  },
+  robots: "index, follow",
 };
 
 const faqItems = [
   {
     question: "What does Shivanshu build?",
     answer:
-      "Autonomous AI agents and backend systems that run in production without human supervision — scam-detection agents, voice intelligence tools, email automation, and the real-time infrastructure (APIs, databases, WebSocket services) that keeps them running.",
+      "Autonomous AI agents and backend systems — scam-detection agents, RL benchmarking pipelines, voice intelligence tools, and the real-time infrastructure (APIs, databases, event buses) that keeps them running. I also document what didn't work, not just what did.",
   },
   {
-    question: "What's his most technically impressive project?",
+    question: "What's his most technically interesting project?",
     answer:
-      "Agentic Honey-Pot — an autonomous agent that holds live conversations with real scammers to extract fraud intelligence, running at 85\u201390% detection accuracy on a Dockerized FastAPI service with 99%+ uptime. It won Finalist at the GUVI India AI Impact Buildathon 2026.",
+      "Depends what you're looking for. DAITFO is the strongest engineering story — a full RL benchmark that found a simple heuristic beats PPO reinforcement learning, with the failure mode fully diagnosed. Agentic Honeypot is the most polished shipped product — a live AI honeypot that engages real scammers and extracts fraud intelligence, deployed on Render with a public demo.",
   },
   {
     question: "Is he looking for work?",
     answer:
-      "Yes \u2014 actively looking for an AI or Software Engineering internship, remote or hybrid.",
+      "Yes — actively looking for an AI or Software Engineering internship, remote or hybrid.",
   },
   {
     question: "What's his tech stack?",
     answer:
-      "Python and JavaScript/TypeScript, with hands-on experience in OpenAI, Google Gemini, Sarvam AI, LangChain, CrewAI, FastAPI, Node.js, Docker, Redis, PostgreSQL, and WebSockets.",
+      "Python and JavaScript/TypeScript, with hands-on experience in Google Gemini, Sarvam AI, LangChain, Stable-Baselines3, FastAPI, Django, Node.js, Docker, Redis, PostgreSQL, and Socket.io/WebSockets.",
   },
 ];
 
@@ -50,10 +67,10 @@ export default function HomePage() {
             I build AI-native backend systems
           </h1>
           <p className="mt-4 max-w-2xl text-lg text-muted">
-            Autonomous agents, LLM pipelines, production APIs — no role framing, just the strongest work, ranked.
+            Autonomous agents, LLM pipelines, production APIs — ranked by what's actually working, not by title.
           </p>
           <p className="mt-2 text-base text-muted">
-            B.Tech CS &amp; IT, SIRT Bhopal &middot; Class of 2027
+            B.Tech CS &amp; IT, SIRT Bhopal (RGPV CSIT) &middot; Class of 2027
           </p>
         </RevealOnScroll>
       </section>
@@ -65,7 +82,7 @@ export default function HomePage() {
               About
             </h2>
             <p className="mt-3 text-base leading-relaxed text-muted">
-              I don&apos;t just use AI — I build things with it that keep running after I close my laptop. I&apos;m a third-year B.Tech CS &amp; IT student from Bhopal, and I&apos;ve spent the last year building AI-powered systems — autonomous agents, LLM pipelines, voice intelligence tools, and automation workflows that handle real tasks without human supervision. I&apos;m not interested in demos that look good in a presentation. I build things that work in production and prove it by deploying them. The standard I hold myself to: the system owns the task completely.
+              I don&apos;t just use AI — I build things with it that keep running after I close my laptop. I&apos;m a third-year B.Tech CS &amp; IT student in Bhopal, and over the past year I&apos;ve built autonomous agents, LLM pipelines, voice intelligence tools, and RL benchmarking systems across 19 projects — some shipped and deployed, some deliberately stopped short of production so I could document what actually worked and what didn&apos;t. I&apos;m not interested in demos that only look good in a pitch. When something fails — an RL agent losing to a simple heuristic, a classifier scoring 25% instead of the 90% I hoped for — I keep the result and figure out why, instead of reframing it until it sounds better. That&apos;s the standard I hold my own work to, and it&apos;s the standard I expect from anything I ship.
             </p>
           </RevealOnScroll>
         </section>
@@ -84,7 +101,7 @@ export default function HomePage() {
                   Languages
                 </h3>
                 <div className="flex flex-wrap gap-2">
-                  {["Python", "JavaScript", "TypeScript", "Kotlin", "SQL"].map((skill) => (
+                  {["Python", "JavaScript", "TypeScript", "Kotlin", "SQL", "Dart"].map((skill) => (
                     <span
                       key={skill}
                       className="rounded-md border border-border bg-surface px-3 py-1 font-mono text-xs text-muted"
@@ -97,10 +114,10 @@ export default function HomePage() {
 
               <div>
                 <h3 className="mb-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                  AI / Automation
+                  AI / ML
                 </h3>
                 <div className="flex flex-wrap gap-2">
-                  {["OpenAI API", "Google Gemini", "LangChain", "CrewAI", "Sarvam AI"].map(
+                  {["OpenAI API", "Google Gemini", "Sarvam AI", "LangChain", "CrewAI", "Stable-Baselines3", "Gymnasium", "OpenEnv"].map(
                     (skill) => (
                       <span
                         key={skill}
@@ -120,10 +137,16 @@ export default function HomePage() {
                 <div className="flex flex-wrap gap-2">
                   {[
                     "FastAPI",
+                    "Django",
                     "Node.js",
+                    "Express",
                     "Docker",
                     "Redis",
                     "PostgreSQL",
+                    "Celery",
+                    "Socket.io",
+                    "NATS JetStream",
+                    "Terraform",
                     "Railway",
                     "Vercel",
                   ].map((skill) => (

@@ -12,12 +12,7 @@ const roleLabels: Record<string, string> = {
 export function RoleSwitcher() {
   const { currentRole, selectRole } = useRole();
   const [open, setOpen] = useState(false);
-  const [mounted, setMounted] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   const close = useCallback(() => setOpen(false), []);
 
@@ -59,7 +54,7 @@ export function RoleSwitcher() {
         aria-haspopup="true"
       >
         <ShieldIcon />
-        {mounted && currentRole ? roleLabels[currentRole] ?? currentRole : "Role View"}
+        {currentRole ? roleLabels[currentRole] ?? currentRole : "Role View"}
       </button>
 
       {open && (
@@ -77,7 +72,7 @@ export function RoleSwitcher() {
             <div>
               <div className="font-medium">AI / Agentic Engineer</div>
               <div className="text-xs text-muted">
-                Autonomous agents, LLM pipelines
+                Scam-detection agents, RL benchmarks, voice intelligence
               </div>
             </div>
           </button>
@@ -90,7 +85,7 @@ export function RoleSwitcher() {
             <div>
               <div className="font-medium">Backend / Systems Engineer</div>
               <div className="text-xs text-muted">
-                API design, real-time infra
+                Concurrency-safe engines, real-time dispatch, event-driven infra
               </div>
             </div>
           </button>
@@ -102,7 +97,7 @@ export function RoleSwitcher() {
           >
             <div>
               <div className="font-medium">Show me everything</div>
-              <div className="text-xs text-muted">No role framing</div>
+              <div className="text-xs text-muted">No role framing, ranked by what's working</div>
             </div>
           </button>
         </div>

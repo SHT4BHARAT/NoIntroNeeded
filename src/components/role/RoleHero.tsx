@@ -16,7 +16,7 @@ export function RoleHero({ role }: { role: RoleConfig }) {
           </p>
         )}
         <p className="mt-2 text-base text-muted">
-          B.Tech CS &amp; IT, SIRT Bhopal &middot; Class of 2027
+          B.Tech CS &amp; IT, SIRT Bhopal (RGPV CSIT) &middot; Class of 2027
         </p>
       </div>
     </section>
