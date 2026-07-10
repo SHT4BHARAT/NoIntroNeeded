@@ -35,18 +35,6 @@ export const achievements: Achievement[] = [
     description: "IIT Kharagpur / NPTEL Swayam \u2014 12 weeks",
   },
   {
-    title: "Hero Campus Challenge Season 10 — Certificate of Participation",
-    date: "2026",
-    category: "certification",
-    description: "Certificate of Participation",
-  },
-  {
-    title: "HackTheRank — Certificate of Participation",
-    date: "2026",
-    category: "certification",
-    description: "Certificate of Participation",
-  },
-  {
     title: "AWS AI & ML Scholars — 2026 Challenge Completion",
     date: "2026",
     category: "certification",
@@ -91,16 +79,6 @@ export const certifications = [
     title: "Blockchain and its Applications",
     provider: "IIT Kharagpur / NPTEL Swayam",
     duration: "12 weeks",
-  },
-  {
-    title: "Hero Campus Challenge Season 10 — Certificate of Participation",
-    provider: "Hero Campus Challenge",
-    duration: "Certificate of Participation",
-  },
-  {
-    title: "HackTheRank — Certificate of Participation",
-    provider: "HackTheRank",
-    duration: "Certificate of Participation",
   },
   {
     title: "AWS AI & ML Scholars — 2026 Challenge Completion",

@@ -13,11 +13,17 @@ const role = getRoleBySlug("backend-systems")!;
 
 export const metadata: Metadata = {
   title:
-    "Shivanshu Tiwari — Backend Systems Developer | APIs, Concurrency, Real-Time Infra",
+    "Backend Systems Developer | APIs, Concurrency, Real-Time Infra",
   description:
     "Backend systems portfolio: concurrency-safe payment engines, real-time dispatch infrastructure, microservices, and production API design. B.Tech CS & IT, SIRT Bhopal, Class of 2027.",
   openGraph: {
-    title: "Shivanshu Tiwari — Backend Systems Developer",
+    title: "Backend Systems Developer",
+    description:
+      "API design, concurrency-safe data models, and real-time infrastructure — proven with real tests, not assertions.",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Backend Systems Developer",
     description:
       "API design, concurrency-safe data models, and real-time infrastructure — proven with real tests, not assertions.",
   },

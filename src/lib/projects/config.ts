@@ -67,17 +67,16 @@ export const projects: Project[] = [
     slug: "email-categorization-agent",
     title: "AI Email Categorization Agent",
     description:
-      "Local-first inbox automation agent — reads Gmail via OAuth2, semantically classifies every email into custom labels using an LLM, applies them automatically, and runs on a schedule with zero manual input. Persistent sender-to-label memory cuts repeat API costs by 60%+.",
+      "Local-first inbox automation agent — reads Gmail via OAuth2, semantically classifies every email into custom labels using an LLM, applies them automatically, and runs on a schedule with zero manual input. Skips already-labeled threads to avoid redundant processing.",
     stack: ["Python", "Google Gemini", "Gmail API", "OAuth2"],
     date: "2025",
     highlights: [
-      "Persistent sender-to-label memory cuts repeat API costs by 60%+",
-      "Intelligently skips already-labeled threads",
+      "Intelligently skips already-labeled threads to avoid redundant LLM calls",
       "Runs unattended with zero cloud dependency",
       "OAuth2-secured Gmail integration",
     ],
     aiFraming:
-      "An LLM-powered agent that semantically classifies and labels Gmail automatically, with persistent memory that cuts repeat API costs by 60%+.",
+      "An LLM-powered agent that semantically classifies and labels Gmail automatically, with sender-level deduplication to avoid redundant processing.",
     backendFraming:
       "A local-first automation service integrating Gmail's OAuth2 API — built to run unattended with zero cloud dependency or data exposure.",
   },
@@ -117,12 +116,11 @@ export const projects: Project[] = [
       "Hybrid Audio+UDP transceiver with offline-first Room sync queue",
       "Native C++ audio engine is stubbed — all real signal work happens in pure Kotlin",
       "Backend has real deploy-debugging history: 5 fix commits for Railway crash loops",
-      "Built in 8 hours — MLBhopal GenAI Hackathon Runner-up 2025",
     ],
     honestPart:
       "My native C++ audio engine is stubbed — all the real signal work happens in pure Kotlin. My backend has real deploy-debugging history behind it: 5 fix commits just for a Railway crash loop.",
     aiFraming:
-      "Not an LLM project, but the same rigor applied to production-grade autonomous systems under real constraints — built in 8 hours for a hackathon runner-up finish.",
+      "A custom-built MFSK audio protocol engine — pure Kotlin signal processing with the Goertzel algorithm for real-time decoding and HMAC-SHA256 security. Not an AI project, but the same engineering rigor applied to a from-scratch systems problem.",
     backendFraming:
       "A custom-built MFSK audio protocol engine written in pure Kotlin from scratch, using the Goertzel algorithm for real-time decoding and HMAC-SHA256 security — a from-scratch systems project, not a wrapper around a library.",
   },

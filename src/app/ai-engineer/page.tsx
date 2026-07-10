@@ -13,11 +13,17 @@ const role = getRoleBySlug("ai-engineer")!;
 
 export const metadata: Metadata = {
   title:
-    "Shivanshu Tiwari — AI Agent Engineer | Autonomous Agents & LLM Pipelines",
+    "AI Agent Engineer | Autonomous Agents & LLM Pipelines",
   description:
     "AI agent engineering portfolio: autonomous scam-detection agents, RL benchmarking systems, voice intelligence pipelines, and LLM agent evaluation environments. B.Tech CS & IT, SIRT Bhopal, Class of 2027.",
   openGraph: {
-    title: "Shivanshu Tiwari — AI Agent Engineer",
+    title: "AI Agent Engineer",
+    description:
+      "Autonomous agents, LLM pipelines, and RL systems — built and documented honestly, including what didn't work.",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "AI Agent Engineer",
     description:
       "Autonomous agents, LLM pipelines, and RL systems — built and documented honestly, including what didn't work.",
   },
