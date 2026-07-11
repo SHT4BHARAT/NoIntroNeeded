@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useMemo, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 
 type Platform = "linkedin" | "x";
 
@@ -44,9 +45,13 @@ export function PersonMention({
   profileUrl,
 }: PersonMentionProps) {
   const rootRef = useRef<HTMLSpanElement | null>(null);
+  const buttonRef = useRef<HTMLButtonElement | null>(null);
+
+  const dialogRef = useRef<HTMLDivElement | null>(null);
 
   const [open, setOpen] = useState(false);
   const [isFinePointer, setIsFinePointer] = useState(true);
+  const [popoverPos, setPopoverPos] = useState({ top: 0, left: 0 });
 
   useEffect(() => {
     const mq = window.matchMedia?.("(pointer: fine)");
@@ -77,6 +82,11 @@ export function PersonMention({
   useEffect(() => {
     if (!open) return;
 
+    if (buttonRef.current) {
+      const rect = buttonRef.current.getBoundingClientRect();
+      setPopoverPos({ top: rect.bottom + 4, left: rect.left });
+    }
+
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") setOpen(false);
     };
@@ -84,15 +94,25 @@ export function PersonMention({
     const onPointerDown = (e: PointerEvent) => {
       if (!rootRef.current) return;
       if (e.target instanceof Node && rootRef.current.contains(e.target)) return;
+      if (e.target instanceof Node && dialogRef.current?.contains(e.target)) return;
       setOpen(false);
+    };
+
+    const onScroll = () => {
+      if (buttonRef.current) {
+        const rect = buttonRef.current.getBoundingClientRect();
+        setPopoverPos({ top: rect.bottom + 4, left: rect.left });
+      }
     };
 
     window.addEventListener("keydown", onKeyDown);
     window.addEventListener("pointerdown", onPointerDown);
+    window.addEventListener("scroll", onScroll, true);
 
     return () => {
       window.removeEventListener("keydown", onKeyDown);
       window.removeEventListener("pointerdown", onPointerDown);
+      window.removeEventListener("scroll", onScroll, true);
     };
   }, [open]);
 
@@ -105,6 +125,7 @@ export function PersonMention({
       aria-label={label}
     >
       <button
+        ref={buttonRef}
         type="button"
         className="inline-flex cursor-pointer items-baseline gap-1 rounded px-0.5 text-inherit underline decoration-dotted decoration-accent/60 underline-offset-4 transition-colors hover:decoration-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60"
         aria-haspopup="dialog"
@@ -116,34 +137,28 @@ export function PersonMention({
           if (isFinePointer) setOpen(false);
         }}
         onBlur={(e) => {
-          // blur should dismiss when focus moves outside the component
           const next = e.relatedTarget as Node | null;
           if (next && rootRef.current?.contains(next)) return;
+          if (next && dialogRef.current?.contains(next)) return;
           setOpen(false);
         }}
         onFocus={() => {
-          // Always show on keyboard focus (accessibility requirement)
           setOpen(true);
         }}
         onClick={() => {
-          // Tap-to-toggle on coarse pointers (mobile)
           if (!isFinePointer) setOpen((v) => !v);
         }}
       >
         {name}
       </button>
 
-      {open && (
+      {open && typeof document !== "undefined" && createPortal(
         <div
+          ref={dialogRef}
           role="dialog"
           aria-label={`Profile card for ${name}`}
-          className={[
-            "absolute z-50 mt-2 w-56 rounded-lg border border-border bg-surface p-3 shadow-lg",
-            "origin-top-left",
-            "transition-transform transition-opacity duration-150 ease-out",
-            "motion-safe:scale-100 motion-safe:opacity-100",
-          ].join(" ")}
-          style={{ transformOrigin: "top left" }}
+          className="fixed z-50 w-56 rounded-lg border border-border bg-surface p-3 shadow-lg"
+          style={{ top: popoverPos.top, left: popoverPos.left }}
         >
           <div className="flex items-start justify-between gap-3">
             <div className="min-w-0">
@@ -174,18 +189,11 @@ export function PersonMention({
           <div className="mt-2 text-[11px] text-muted-foreground">
             Press <span className="font-mono">Esc</span> to close
           </div>
-        </div>
+        </div>,
+        document.body
       )}
 
-      {/* If user prefers reduced motion, still show/hide but without transition */}
-      <style jsx>{`
-        @media (prefers-reduced-motion: reduce) {
-          .transition-transform,
-          .transition-opacity {
-            transition: none !important;
-          }
-        }
-      `}</style>
+
     </span>
   );
 }
