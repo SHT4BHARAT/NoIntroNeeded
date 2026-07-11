@@ -97,7 +97,7 @@ export function RoleSwitcher() {
           >
             <div>
               <div className="font-medium">Show me everything</div>
-              <div className="text-xs text-muted">No role framing, ranked by what's working</div>
+              <div className="text-xs text-muted">No role framing, ranked by what&apos;s working</div>
             </div>
           </button>
         </div>

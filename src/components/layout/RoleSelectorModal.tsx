@@ -90,7 +90,7 @@ export function RoleSelectorModal() {
               Something else — show me everything
             </span>
             <span className="mt-1 text-sm text-muted">
-              No role framing, ranked by what's actually working
+              No role framing, ranked by what&apos;s actually working
             </span>
           </button>
         </div>

@@ -14,6 +14,7 @@ import { ReadingProgressBar } from "@/components/blog/ReadingProgressBar";
 import { BackToTop } from "@/components/blog/BackToTop";
 import { PersonMention } from "@/components/blog/PersonMention";
 import { LanguageToggle } from "@/components/blog/LanguageToggle";
+import rehypeSlug from "rehype-slug";
 
 export function generateStaticParams() {
   return getAllSlugs("en").map((slug) => ({ slug }));
@@ -121,6 +122,7 @@ export default async function BlogPostPage({
               options={{
                 mdxOptions: {
                   rehypePlugins: [
+                    rehypeSlug,
                     [
                       rehypePrettyCode,
                       {

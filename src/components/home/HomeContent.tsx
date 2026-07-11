@@ -85,7 +85,7 @@ function ShowEverything() {
             I build AI-native backend systems
           </h1>
           <p className="mt-4 max-w-2xl text-lg text-muted">
-            Autonomous agents, LLM pipelines, production APIs — ranked by what's actually working, not by title.
+            Autonomous agents, LLM pipelines, production APIs — ranked by what&apos;s actually working, not by title.
           </p>
           <p className="mt-2 text-base text-muted">
             B.Tech CS &amp; IT, SIRT Bhopal (RGPV CSIT) &middot; Class of 2027

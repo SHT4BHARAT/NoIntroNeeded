@@ -107,6 +107,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       <hr className="my-8 border-border" {...props} />
     ),
     img: ({ alt, ...props }) => (
+      // eslint-disable-next-line @next/next/no-img-element
       <img className="my-6 rounded-lg border border-border" alt={alt} loading="lazy" {...props} />
     ),
     ...components,

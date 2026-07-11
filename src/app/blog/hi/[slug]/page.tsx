@@ -7,6 +7,7 @@ import { BlogPostSchema } from "@/components/seo/BlogPostSchema";
 import { BreadcrumbSchema } from "@/components/seo/BreadcrumbSchema";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import rehypePrettyCode from "rehype-pretty-code";
+import rehypeSlug from "rehype-slug";
 import { CATEGORY_LABELS } from "@/lib/blog/constants";
 import { BlogTOC } from "@/components/blog/BlogTOC";
 import { ReadingProgressBar } from "@/components/blog/ReadingProgressBar";
@@ -125,6 +126,7 @@ export default async function HindiBlogPostPage({
               options={{
                 mdxOptions: {
                   rehypePlugins: [
+                    rehypeSlug,
                     [
                       rehypePrettyCode,
                       {
@@ -140,7 +142,7 @@ export default async function HindiBlogPostPage({
           </div>
         </article>
 
-        <RecentPosts currentSlug={slug} />
+        <RecentPosts currentSlug={slug} lang="hi" />
       </main>
       <aside className="fixed right-8 top-24 hidden w-56 xl:block">
         <BlogTOC />

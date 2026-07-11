@@ -2,8 +2,8 @@ import Link from "next/link";
 import { getAllPosts } from "@/lib/blog";
 import { formatDate } from "@/lib/blog/utils";
 
-export function RecentPosts({ currentSlug }: { currentSlug?: string }) {
-  const posts = getAllPosts("en")
+export function RecentPosts({ currentSlug, lang = "en" }: { currentSlug?: string; lang?: "en" | "hi" }) {
+  const posts = getAllPosts(lang)
     .filter((p) => p.frontmatter.slug !== currentSlug)
     .slice(0, 4);
 
@@ -16,7 +16,7 @@ export function RecentPosts({ currentSlug }: { currentSlug?: string }) {
         {posts.map((post) => (
           <Link
             key={post.frontmatter.slug}
-            href={`/blog/${post.frontmatter.slug}`}
+            href={lang === "hi" ? `/blog/hi/${post.frontmatter.slug}` : `/blog/${post.frontmatter.slug}`}
             className="group block rounded-lg border border-border p-4 transition-colors hover:bg-surface"
           >
             <span className="inline-block rounded bg-accent-bg px-2 py-0.5 font-mono text-xs text-accent">

@@ -9,7 +9,6 @@ export function LanguageToggle({
 }) {
   const otherLang = currentLang === "en" ? "hi" : "en";
   const href = otherLang === "en" ? `/blog/${slug}` : `/blog/hi/${slug}`;
-  const label = otherLang === "en" ? "English" : "हिन्दी";
 
   return (
     <div className="flex items-center gap-1.5 rounded-lg border border-border bg-surface px-2 py-1">
