@@ -1,0 +1,102 @@
+---
+title: "India Innovates 2026: The Road to the Top 60 (Part 1)"
+slug: "india-innovates-2026-road-to-top-60"
+date: "2026-07-11"
+updated: "2026-07-11"
+category: "field-notes"
+tags: ["hackathon", "civic-tech", "india-innovates", "delhi", "traffic-management", "viksit-bharat"]
+excerpt: "How a traffic management prototype went from a PPT submitted by five students to a live demo in front of judges at Bharat Mandapam — and how that turned into a shot at a government pilot project."
+lang: "en"
+---
+
+> The distance between a hackathon submission and a government pilot project isn't talent or luck — it's exactly one round of proving your prototype actually works, in person, in front of the people who'd have to deploy it.
+
+*(This is Part 1. It covers India Innovates 2026 through the selection into Delhi Summer Camp 2.0 — the camp itself is a separate post, coming next.)*
+
+---
+
+## Where it started
+
+In February 2026, I attended the AI Impact Summit at Bharat Mandapam, Delhi. I didn't go in with a plan to build anything specific — I went in curious. I came back with a different kind of restlessness: the exposure from that one event was enough to make Bharat Mandapam feel like a place I needed to get back to, not just visit once.
+
+Around the same time, the notification for **India Innovates 2026** landed on Unstop. The scale of it took a minute to actually register: over **1.26 crore — 12.6 million — Gen-Z applicants** registered for what was being positioned as the world's largest civic-tech hackathon. Organized by Hamara Neta in partnership with the Municipal Corporation of Delhi, alongside NSUT, IIT Kharagpur, DDU, and DTC, with Unstop running registrations.
+
+I put together a team — **BUILD4BHARAT**, five of us — and picked a problem statement that felt overdue for a real fix: traffic management.
+
+---
+
+## Round 1: the problem, on paper
+
+The pitch was called the **Urban Mobility Crisis** — the honest version of a problem every Indian city commuter already knows in their bones. Traffic signals run on static, time-of-day schedules that are blind to what's actually happening on the road, creating phantom jams and starving minor roads of green time. CCTV, traffic controllers, and emergency vehicle GPS all exist as separate, disconnected systems. And ambulances hit blocked intersections because current preemption systems react to traffic instead of predicting and clearing a path ahead of it.
+
+Our answer was the **Dynamic AI Traffic Flow Optimizer & Emergency Grid** — a system built around a few core ideas:
+
+- A centralized AI decision engine replacing static timers, adjusting signals based on live density
+- **NVIDIA Jetson AGX Orin** doing on-site computer vision, so vehicle data gets processed at the edge instead of round-tripping to a server
+- An **air-gapped, locally hosted LLM** (Llama 3) acting as an assistant for human operators — designed to keep working even during a total internet blackout
+- **MADDPG/PPO reinforcement learning** optimizing signal phasing for throughput, including a dedicated recovery phase after an emergency vehicle clears
+- A **multi-modal green corridor**: live ambulance GPS over MQTT, fastest-route calculation via A* graph search, and edge cameras (YOLOv8) visually confirming the path is actually clear before an intersection releases
+- Legacy integration with existing CCTV and NTCIP controllers through IoT gateways with hardware watchdog timers, so the system fails safe instead of failing silent
+- Zero-trust handling of video — processed locally in memory, nothing saved or transmitted
+
+Around **28,000 teams** — roughly 1.16 lakh students — submitted PPTs in Round 1. Ours was one of them.
+
+---
+
+## Round 2: the cut
+
+Results came back around **March 16**. Somewhere around 1,000 teams — about 5,000 students — were selected to bring their prototypes to the offline round at Bharat Mandapam. My own official confirmation mail landed a couple of days later, on **March 18**.
+
+We were one of those teams. The official invitation that followed was blunt about what to expect: report to **Gate 7** by **9:30 AM**, event closes at **7:00 PM**, bring your own laptop and charger, arrange your own internet — and no booths for anyone. Entry itself was capped at the **first 2,500 participants** through the gate. You'd present in front of judges and government dignitaries directly, working prototype or nothing.
+
+> *Only functional projects would be evaluated. No slideware allowed at this stage.*
+
+---
+
+## March 28 — Bharat Mandapam
+
+Three of us made the trip to Delhi. We presented the working prototype in front of judges who were, without exaggeration, some of the most senior people any of us had ever presented to.
+
+Delhi CM Rekha Gupta addressed the event, and her framing stuck with me — she talked about building **"Delhi 2.0,"** a city shaped by innovation without losing trust in the process. It wasn't the kind of vague political line you brace for at these things. It connected directly to what all of us were standing there trying to build.
+
+Honestly, the biggest thing I took from that day wasn't the pitch itself — it was the room.
+
+> Teams from every part of the country, all working on genuinely different civic problems, all compressed into one hall, all trying to prove the same basic thing: that their idea wasn't just a slide, it was a system that actually ran.
+
+None of this happens without the people who actually built and ran it. Thank you to the Government of Delhi and the Municipal Corporation of Delhi for organizing an event at this scale, to [Rekha Gupta ma'am](https://www.linkedin.com/in/rekhaguptaofficial/) and [Shashi Yadav sir](https://www.linkedin.com/in/shashi-yadav-2ba987388/) for a genuinely wonderful event, and to [Prajwal Jha](https://www.linkedin.com/in/prajwal-jha-642813292/) for being the point of contact between participants and organizers throughout. Thank you also to [Samnit Mehendiratta](https://www.linkedin.com/in/samnitmehandiratta/), our mentor throughout this journey.
+
+---
+
+## The part between events nobody talks about
+
+We went back to Bhopal, and then just... kept working. No new deadline, no visible next round — just consistent upgrades to the prototype because the alternative was letting three months of momentum go flat.
+
+> That's the part of a hackathon story that rarely makes it into the recap: the stretch where there's no external pressure and no confirmation anything you're doing still matters. It mattered.
+
+---
+
+## June 12 — the message that restarted everything
+
+On June 12, I got a WhatsApp message from a mentor connected to the program. Two things, same day: a short call in the afternoon to talk through open questions, and an evening meeting to present the working prototype again — this time for a further round of evaluation none of us had been told to expect.
+
+We presented that evening. Based on that presentation, a new working group of **26 people** was formed, pulling relevant expertise together from across the original applicant pool to push the strongest ideas forward as a combined effort.
+
+Out of those 26, **five were selected** to attend an offline event in Delhi: **Summer Camp 2.0**.
+
+> I was one of the five.
+
+---
+
+## What this connects to
+
+None of this happens in a vacuum. India Innovates 2026, and whatever comes out of Summer Camp 2.0, is a small, concrete piece of something much larger — a country with the world's largest youth population being handed an actual, structured path from *idea* to *pilot project*, not just a certificate and a LinkedIn post. That's the real bet behind Viksit Bharat @2047: that the fastest way to fix a developing country's problems is to hand its problems directly to the generation that's going to live with the consequences of them the longest, and then actually build the pipeline to let their work go somewhere.
+
+> A hackathon that ends at a trophy is a nice weekend. A hackathon that ends at a government department evaluating your prototype for a real pilot is a different thing entirely — and as far as I can tell, that's what makes India Innovates 2026 genuinely unusual, not just in scale, but in follow-through.
+
+Full credit to Hamara Neta, MCD, and everyone who built that pipeline instead of stopping at the demo day.
+
+**Part 2 — what Summer Camp 2.0 actually looked like — is next.**
+
+---
+
+*Repo for this project: [github.com/SHT4BHARAT/TrafficManagement](https://github.com/SHT4BHARAT/TrafficManagement)*

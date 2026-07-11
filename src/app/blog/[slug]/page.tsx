@@ -12,6 +12,7 @@ import { CATEGORY_LABELS } from "@/lib/blog/constants";
 import { BlogTOC } from "@/components/blog/BlogTOC";
 import { ReadingProgressBar } from "@/components/blog/ReadingProgressBar";
 import { BackToTop } from "@/components/blog/BackToTop";
+import { PersonMention } from "@/components/blog/PersonMention";
 
 export function generateStaticParams() {
   return getAllSlugs("en").map((slug) => ({ slug }));
@@ -111,6 +112,9 @@ export default async function BlogPostPage({
               <div className="prose-custom">
                 <MDXRemote
                   source={post.content}
+                  components={{
+                    PersonMention,
+                  }}
                   options={{
                     mdxOptions: {
                       rehypePlugins: [
