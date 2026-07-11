@@ -107,40 +107,35 @@ export default async function BlogPostPage({
             )}
           </header>
 
-          <div className="flex gap-8">
-            <div className="w-full">
-              <div className="prose-custom">
-                <MDXRemote
-                  source={post.content}
-                  components={{
-                    PersonMention,
-                  }}
-                  options={{
-                    mdxOptions: {
-                      rehypePlugins: [
-                        [
-                          rehypePrettyCode,
-                          {
-                            theme: { dark: "github-dark", light: "github-light" },
-                            keepBackground: false,
-                            defaultLang: "plaintext",
-                          },
-                        ] as const,
-                      ],
-                    },
-                  }}
-                />
-              </div>
-            </div>
-
-            <aside className="hidden w-56 shrink-0 lg:block">
-              <BlogTOC className="sticky top-24" />
-            </aside>
+          <div className="blog-content-wrapper">
+            <MDXRemote
+              source={post.content}
+              components={{
+                PersonMention,
+              }}
+              options={{
+                mdxOptions: {
+                  rehypePlugins: [
+                    [
+                      rehypePrettyCode,
+                      {
+                        theme: { dark: "github-dark", light: "github-light" },
+                        keepBackground: false,
+                        defaultLang: "plaintext",
+                      },
+                    ] as const,
+                  ],
+                },
+              }}
+            />
           </div>
         </article>
 
         <RecentPosts currentSlug={slug} />
       </main>
+      <aside className="fixed right-8 top-24 hidden w-56 xl:block">
+        <BlogTOC />
+      </aside>
       <BackToTop />
     </>
   );

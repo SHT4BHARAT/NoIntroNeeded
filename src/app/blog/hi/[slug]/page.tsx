@@ -7,6 +7,12 @@ import { BlogPostSchema } from "@/components/seo/BlogPostSchema";
 import { BreadcrumbSchema } from "@/components/seo/BreadcrumbSchema";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import rehypePrettyCode from "rehype-pretty-code";
+import { CATEGORY_LABELS } from "@/lib/blog/constants";
+import { BlogTOC } from "@/components/blog/BlogTOC";
+import { ReadingProgressBar } from "@/components/blog/ReadingProgressBar";
+import { BackToTop } from "@/components/blog/BackToTop";
+import { RecentPosts } from "@/components/blog/RecentPosts";
+import { PersonMention } from "@/components/blog/PersonMention";
 
 export async function generateMetadata({
   params,
@@ -58,6 +64,7 @@ export default async function HindiBlogPostPage({
         ]}
       />
 
+      <ReadingProgressBar />
       <main className="mx-auto max-w-2xl flex-1 px-4 py-16">
         <Link
           href="/blog"
@@ -66,10 +73,18 @@ export default async function HindiBlogPostPage({
           ← ब्लॉग पर वापस
         </Link>
 
-        <article>
+        <article className="relative">
           <header className="mb-8">
-            <div className="mb-2 text-xs text-muted-foreground">
-              {formatDate(frontmatter.date)} · {post.readingTime} min read
+            <div className="mb-3 flex items-center gap-3">
+              <span className="inline-block rounded bg-accent-bg px-2 py-0.5 font-mono text-xs text-accent">
+                {CATEGORY_LABELS[frontmatter.category] ?? frontmatter.category}
+              </span>
+              <span className="text-xs text-muted-foreground">
+                {formatDate(frontmatter.date)}
+              </span>
+              <span className="font-mono text-xs text-muted-foreground">
+                {post.readingTime} min read
+              </span>
             </div>
 
             <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
@@ -77,6 +92,19 @@ export default async function HindiBlogPostPage({
             </h1>
 
             <p className="mt-3 text-lg text-muted">{frontmatter.excerpt}</p>
+
+            {frontmatter.tags.length > 0 && (
+              <div className="mt-4 flex flex-wrap gap-2">
+                {frontmatter.tags.map((tag) => (
+                  <span
+                    key={tag}
+                    className="rounded-md border border-border bg-surface px-2 py-0.5 font-mono text-xs text-muted"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            )}
 
             {frontmatter.translationOf && (
               <p className="mt-3 text-sm text-muted-foreground">
@@ -90,9 +118,12 @@ export default async function HindiBlogPostPage({
             )}
           </header>
 
-          <div className="prose-custom">
+          <div className="blog-content-wrapper">
             <MDXRemote
               source={post.content}
+              components={{
+                PersonMention,
+              }}
               options={{
                 mdxOptions: {
                   rehypePlugins: [
@@ -110,7 +141,13 @@ export default async function HindiBlogPostPage({
             />
           </div>
         </article>
+
+        <RecentPosts currentSlug={slug} />
       </main>
+      <aside className="fixed right-8 top-24 hidden w-56 xl:block">
+        <BlogTOC />
+      </aside>
+      <BackToTop />
     </>
   );
 }
