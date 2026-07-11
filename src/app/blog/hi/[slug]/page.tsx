@@ -14,6 +14,11 @@ import { BackToTop } from "@/components/blog/BackToTop";
 import { RecentPosts } from "@/components/blog/RecentPosts";
 import { PersonMention } from "@/components/blog/PersonMention";
 import { LanguageToggle } from "@/components/blog/LanguageToggle";
+import { getAllSlugs } from "@/lib/blog";
+
+export function generateStaticParams() {
+  return getAllSlugs("hi").map((slug) => ({ slug }));
+}
 
 export async function generateMetadata({
   params,
