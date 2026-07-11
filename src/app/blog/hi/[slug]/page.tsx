@@ -13,6 +13,7 @@ import { ReadingProgressBar } from "@/components/blog/ReadingProgressBar";
 import { BackToTop } from "@/components/blog/BackToTop";
 import { RecentPosts } from "@/components/blog/RecentPosts";
 import { PersonMention } from "@/components/blog/PersonMention";
+import { LanguageToggle } from "@/components/blog/LanguageToggle";
 
 export async function generateMetadata({
   params,
@@ -85,6 +86,8 @@ export default async function HindiBlogPostPage({
               <span className="font-mono text-xs text-muted-foreground">
                 {post.readingTime} min read
               </span>
+
+              <LanguageToggle slug={slug} currentLang="hi" />
             </div>
 
             <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
@@ -106,16 +109,6 @@ export default async function HindiBlogPostPage({
               </div>
             )}
 
-            {frontmatter.translationOf && (
-              <p className="mt-3 text-sm text-muted-foreground">
-                <Link
-                  href={`/blog/${frontmatter.translationOf}`}
-                  className="text-accent underline decoration-accent/30 underline-offset-2 hover:decoration-accent"
-                >
-                  Read in English
-                </Link>
-              </p>
-            )}
           </header>
 
           <div className="blog-content-wrapper">

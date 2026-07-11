@@ -71,6 +71,11 @@ export function getAllSlugs(lang: "en" | "hi" = "en"): string[] {
     .map((f) => f.replace(/\.mdx$/, ""));
 }
 
+export function hasTranslation(slug: string): boolean {
+  const filePath = path.join(BLOG_DIR, "hi", `${slug}.mdx`);
+  return fs.existsSync(filePath);
+}
+
 export function getCategoryCounts(lang: "en" | "hi" = "en"): Record<string, number> {
   const posts = getAllPosts(lang);
   const counts: Record<string, number> = {};

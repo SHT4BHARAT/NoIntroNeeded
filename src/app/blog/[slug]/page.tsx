@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getPostBySlug, getAllSlugs } from "@/lib/blog";
+import { getPostBySlug, getAllSlugs, hasTranslation } from "@/lib/blog";
 import { formatDate } from "@/lib/blog/utils";
 import { BlogPostSchema } from "@/components/seo/BlogPostSchema";
 import { BreadcrumbSchema } from "@/components/seo/BreadcrumbSchema";
@@ -13,6 +13,7 @@ import { BlogTOC } from "@/components/blog/BlogTOC";
 import { ReadingProgressBar } from "@/components/blog/ReadingProgressBar";
 import { BackToTop } from "@/components/blog/BackToTop";
 import { PersonMention } from "@/components/blog/PersonMention";
+import { LanguageToggle } from "@/components/blog/LanguageToggle";
 
 export function generateStaticParams() {
   return getAllSlugs("en").map((slug) => ({ slug }));
@@ -85,6 +86,10 @@ export default async function BlogPostPage({
               <span className="font-mono text-xs text-muted-foreground">
                 {post.readingTime} min read
               </span>
+
+              {hasTranslation(slug) && (
+                <LanguageToggle slug={slug} currentLang="en" />
+              )}
             </div>
 
             <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
