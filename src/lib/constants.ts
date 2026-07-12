@@ -1,5 +1,5 @@
 export const SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL ?? "https://portfolio-website-three-kappa-30.vercel.app";
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://shivanshutiwari.in";
 export const SITE_NAME = "Shivanshu Tiwari";
 export const SITE_TITLE = "AI Agent Engineer & Backend Systems Developer";
 
