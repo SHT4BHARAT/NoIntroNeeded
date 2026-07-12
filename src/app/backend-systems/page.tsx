@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { SITE_URL } from "@/lib/constants";
 import { getRoleBySlug } from "@/lib/role/config";
 import { getProjectsBySlugs } from "@/lib/projects/config";
 import { RoleHero } from "@/components/role/RoleHero";
@@ -32,7 +33,7 @@ export const metadata: Metadata = {
       "API design, concurrency-safe data models, and real-time infrastructure — proven with real tests, not assertions.",
   },
   alternates: {
-    canonical: "https://shivanshutiwari.in/backend-systems",
+    canonical: `${SITE_URL}/backend-systems`,
   },
   robots: "index, follow",
 };
@@ -55,7 +56,7 @@ export default function BackendSystemsPage() {
       />
       <CollectionPageSchema
         name="Backend Systems Portfolio"
-        url="https://shivanshutiwari.in/backend-systems"
+        url={`${SITE_URL}/backend-systems`}
         jobTitle="Backend Systems Developer"
         projects={collectionProjects}
       />

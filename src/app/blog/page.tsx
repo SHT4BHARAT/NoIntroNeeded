@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { SITE_URL } from "@/lib/constants";
 import { getAllPosts, getCategoryCounts } from "@/lib/blog";
 import { PostCard } from "@/components/blog/PostCard";
 import { CategoryFilter } from "@/components/blog/CategoryFilter";
@@ -10,6 +11,9 @@ export const metadata: Metadata = {
   title: "Blog — Shivanshu Tiwari",
   description:
     "Technical writing on AI agent architecture, backend systems design, and honest post-mortems from real projects — including why reinforcement learning lost to a simple heuristic.",
+  alternates: {
+    canonical: `${SITE_URL}/blog`,
+  },
   robots: "index, follow",
 };
 

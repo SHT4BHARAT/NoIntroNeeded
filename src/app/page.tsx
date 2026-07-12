@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { SITE_URL } from "@/lib/constants";
 import { PersonSchema } from "@/components/seo/PersonSchema";
 import { HomeContent } from "@/components/home/HomeContent";
 
@@ -20,7 +21,7 @@ export const metadata: Metadata = {
       "Autonomous agents, LLM pipelines, and production APIs — with honest documentation of what worked and what didn't.",
   },
   alternates: {
-    canonical: "https://shivanshutiwari.in/",
+    canonical: `${SITE_URL}/`,
   },
   robots: "index, follow",
 };

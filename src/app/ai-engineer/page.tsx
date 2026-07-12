@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { SITE_URL } from "@/lib/constants";
 import { getRoleBySlug } from "@/lib/role/config";
 import { getProjectsBySlugs } from "@/lib/projects/config";
 import { RoleHero } from "@/components/role/RoleHero";
@@ -32,7 +33,7 @@ export const metadata: Metadata = {
       "Autonomous agents, LLM pipelines, and RL systems — built and documented honestly, including what didn't work.",
   },
   alternates: {
-    canonical: "https://shivanshutiwari.in/ai-engineer",
+    canonical: `${SITE_URL}/ai-engineer`,
   },
   robots: "index, follow",
 };
@@ -55,7 +56,7 @@ export default function AIEngineerPage() {
       />
       <CollectionPageSchema
         name="AI Agent Engineering Portfolio"
-        url="https://shivanshutiwari.in/ai-engineer"
+        url={`${SITE_URL}/ai-engineer`}
         jobTitle="AI Agent Engineer"
         projects={collectionProjects}
       />
