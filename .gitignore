@@ -44,3 +44,13 @@ next-env.d.ts
 realContentData.md
 technicalPlan.md
 portfolio-v2-build-prompt.md
+
+# raw / source image folders (only webp used in the project should be committed)
+/part1/
+/part2/
+/indiainnovate-blog/
+
+# raw image formats — only .webp media is used in the project/blog
+*.jpg
+*.jpeg
+*.png

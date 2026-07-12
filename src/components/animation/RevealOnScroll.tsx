@@ -15,12 +15,16 @@ export function RevealOnScroll({
 }) {
   const ref = useRef<HTMLDivElement>(null);
 
-  const [reduced] = useState(() => {
-    if (typeof window === "undefined") return false;
-    return window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches ?? false;
-  });
+  const [reduced, setReduced] = useState(false);
+  const [visible, setVisible] = useState(false);
 
-  const [visible, setVisible] = useState(() => reduced);
+  useEffect(() => {
+    const isReduced = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches ?? false;
+    setReduced(isReduced);
+    if (isReduced) {
+      setVisible(true);
+    }
+  }, []);
 
   const computedDelay = useMemo(
     () => delay ?? (index !== undefined ? Math.min(index * 60, 420) : 0),

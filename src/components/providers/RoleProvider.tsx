@@ -32,12 +32,13 @@ function removeCookie(name: string) {
 export function RoleProvider({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const pathname = usePathname();
-  const [currentRole, setCurrentRole] = useState<string | null>(() => {
-    if (typeof document === "undefined") return null;
-    const cookie = getCookie(ROLE_COOKIE_NAME);
-    return cookie && isValidRole(cookie) ? cookie : null;
-  });
+  const [currentRole, setCurrentRole] = useState<string | null>(null);
   const [showSelector, setShowSelector] = useState(false);
+
+  useEffect(() => {
+    const cookie = getCookie(ROLE_COOKIE_NAME);
+    if (cookie && isValidRole(cookie)) setCurrentRole(cookie);
+  }, []);
 
   useEffect(() => {
     const cookie = getCookie(ROLE_COOKIE_NAME);

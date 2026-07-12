@@ -13,15 +13,21 @@ export function RoleSwitcher() {
   const { currentRole, selectRole } = useRole();
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
+  const triggerRef = useRef<HTMLButtonElement>(null);
 
-  const close = useCallback(() => setOpen(false), []);
+  const close = useCallback(() => {
+    setOpen(false);
+  }, []);
 
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
       if (ref.current && !ref.current.contains(e.target as Node)) close();
     }
     function handleEscape(e: KeyboardEvent) {
-      if (e.key === "Escape") close();
+      if (e.key === "Escape" && open) {
+        close();
+        triggerRef.current?.focus();
+      }
     }
     document.addEventListener("mousedown", handleClickOutside);
     document.addEventListener("keydown", handleEscape);
@@ -29,26 +35,20 @@ export function RoleSwitcher() {
       document.removeEventListener("mousedown", handleClickOutside);
       document.removeEventListener("keydown", handleEscape);
     };
-  }, [close]);
-
-  function handleKeyDown(e: React.KeyboardEvent) {
-    if (e.key === "Enter" || e.key === " ") {
-      e.preventDefault();
-      setOpen((v) => !v);
-    }
-  }
+  }, [close, open]);
 
   function handleSelect(role: string | null) {
     selectRole(role);
     close();
+    triggerRef.current?.focus();
   }
 
   return (
     <div className="relative" ref={ref}>
       <button
+        ref={triggerRef}
         onClick={() => setOpen((v) => !v)}
-        onKeyDown={handleKeyDown}
-        className="flex h-8 items-center gap-1.5 rounded-md border border-border px-2.5 text-xs font-mono text-muted transition-colors hover:bg-surface hover:text-foreground"
+        className="flex h-8 items-center gap-1.5 rounded-md border border-border px-2.5 text-xs font-mono text-muted transition-colors hover:bg-surface hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60"
         aria-label="Switch role view"
         aria-expanded={open}
         aria-haspopup="true"
@@ -65,8 +65,7 @@ export function RoleSwitcher() {
           <p className="px-2.5 py-1.5 text-xs text-muted">Switch role view</p>
           <button
             onClick={() => handleSelect("ai-engineer")}
-            onKeyDown={(e) => e.key === "Escape" && close()}
-            className="flex w-full items-center rounded-md px-2.5 py-2 text-left text-sm transition-colors hover:bg-surface"
+            className="flex w-full items-center rounded-md px-2.5 py-2 text-left text-sm transition-colors hover:bg-surface focus:bg-surface focus:outline-none focus:ring-1 focus:ring-accent/50"
             role="menuitem"
           >
             <div>
@@ -78,8 +77,7 @@ export function RoleSwitcher() {
           </button>
           <button
             onClick={() => handleSelect("backend-systems")}
-            onKeyDown={(e) => e.key === "Escape" && close()}
-            className="flex w-full items-center rounded-md px-2.5 py-2 text-left text-sm transition-colors hover:bg-surface"
+            className="flex w-full items-center rounded-md px-2.5 py-2 text-left text-sm transition-colors hover:bg-surface focus:bg-surface focus:outline-none focus:ring-1 focus:ring-accent/50"
             role="menuitem"
           >
             <div>
@@ -91,8 +89,7 @@ export function RoleSwitcher() {
           </button>
           <button
             onClick={() => handleSelect(null)}
-            onKeyDown={(e) => e.key === "Escape" && close()}
-            className="flex w-full items-center rounded-md px-2.5 py-2 text-left text-sm transition-colors hover:bg-surface"
+            className="flex w-full items-center rounded-md px-2.5 py-2 text-left text-sm transition-colors hover:bg-surface focus:bg-surface focus:outline-none focus:ring-1 focus:ring-accent/50"
             role="menuitem"
           >
             <div>

@@ -4,6 +4,7 @@ import { z } from "zod";
 import { achievements } from "@/lib/achievements/data";
 import type { Achievement } from "@/types/achievements";
 import { RevealOnScroll } from "@/components/animation/RevealOnScroll";
+import { PhotoStrip } from "@/components/gallery/PhotoStrip";
 
 const achievementCategoryEnum = z.enum(["hackathon", "certification", "challenge", "other"]);
 
@@ -34,9 +35,13 @@ function AchievementCard({
   category,
   description,
   verifiableUrl,
+  photos,
 }: Achievement) {
   return (
-    <article className="rounded-lg border border-border bg-card p-5 transition-[transform,box-shadow,border-color,background-color] duration-150 ease-out hover:-translate-y-4 hover:border-accent/70 hover:bg-surface hover:shadow-[0_12px_30px_-18px_rgba(212,145,58,0.40)] focus-visible:-translate-y-4 focus-visible:border-accent/70 focus-visible:outline-none focus-visible:bg-surface focus-visible:shadow-[0_12px_30px_-18px_rgba(212,145,58,0.40)] motion-reduce:transform-none motion-reduce:shadow-none motion-reduce:transition-none">
+    <article
+      tabIndex={0}
+      className="rounded-lg border border-border bg-card p-5 transition-[transform,box-shadow,border-color,background-color] duration-150 ease-out hover:-translate-y-4 hover:border-accent/70 hover:bg-surface hover:shadow-[0_12px_30px_-18px_rgba(212,145,58,0.40)] focus-visible:-translate-y-4 focus-visible:border-accent/70 focus-visible:outline-none focus-visible:bg-surface focus-visible:shadow-[0_12px_30px_-18px_rgba(212,145,58,0.40)] motion-reduce:transform-none motion-reduce:shadow-none motion-reduce:transition-none"
+    >
       <div className="mb-2 flex items-center gap-3">
         <span className="inline-block rounded bg-accent-bg px-2 py-0.5 font-mono text-xs text-accent">
           {CATEGORY_LABELS[category]}
@@ -45,6 +50,9 @@ function AchievementCard({
       </div>
       <h2 className="text-base font-semibold tracking-tight">{title}</h2>
       <p className="mt-1 text-sm text-muted">{description}</p>
+      {photos && photos.length > 0 && (
+        <PhotoStrip photos={photos} category={category} />
+      )}
       {verifiableUrl && (
         <a
           href={verifiableUrl}

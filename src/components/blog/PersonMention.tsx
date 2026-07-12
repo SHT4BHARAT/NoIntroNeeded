@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState, useCallback } from "react";
 import { createPortal } from "react-dom";
 
 type Platform = "linkedin" | "x";
@@ -52,6 +52,28 @@ export function PersonMention({
   const [open, setOpen] = useState(false);
   const [isFinePointer, setIsFinePointer] = useState(true);
   const [popoverPos, setPopoverPos] = useState({ top: 0, left: 0 });
+  const closeTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  const handleOpen = useCallback(() => {
+    if (closeTimeoutRef.current) {
+      clearTimeout(closeTimeoutRef.current);
+      closeTimeoutRef.current = null;
+    }
+    setOpen(true);
+  }, []);
+
+  const handleClose = useCallback(() => {
+    if (closeTimeoutRef.current) clearTimeout(closeTimeoutRef.current);
+    closeTimeoutRef.current = setTimeout(() => {
+      setOpen(false);
+    }, 150);
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      if (closeTimeoutRef.current) clearTimeout(closeTimeoutRef.current);
+    };
+  }, []);
 
   useEffect(() => {
     const mq = window.matchMedia?.("(pointer: fine)");
@@ -131,10 +153,10 @@ export function PersonMention({
         aria-haspopup="dialog"
         aria-expanded={open}
         onMouseEnter={() => {
-          if (isFinePointer) setOpen(true);
+          if (isFinePointer) handleOpen();
         }}
         onMouseLeave={() => {
-          if (isFinePointer) setOpen(false);
+          if (isFinePointer) handleClose();
         }}
         onBlur={(e) => {
           const next = e.relatedTarget as Node | null;
@@ -159,6 +181,12 @@ export function PersonMention({
           aria-label={`Profile card for ${name}`}
           className="fixed z-50 w-56 rounded-lg border border-border bg-surface p-3 shadow-lg"
           style={{ top: popoverPos.top, left: popoverPos.left }}
+          onMouseEnter={() => {
+            if (isFinePointer) handleOpen();
+          }}
+          onMouseLeave={() => {
+            if (isFinePointer) handleClose();
+          }}
         >
           <div className="flex items-start justify-between gap-3">
             <div className="min-w-0">

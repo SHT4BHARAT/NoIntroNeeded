@@ -11,17 +11,16 @@ type TocItem = {
 function getHeadingText(el: Element) {
   const clones = Array.from(el.childNodes).map((n) => {
     if (n.nodeType === Node.TEXT_NODE) return n.textContent ?? "";
-    // ignore nested elements (icons/links), keep their text
     return (n as HTMLElement).innerText ?? "";
   });
   return clones.join("").replace(/\s+/g, " ").trim();
 }
 
 export function BlogTOC({ className }: { className?: string }) {
+  const [items, setItems] = useState<TocItem[]>([]);
   const [activeId, setActiveId] = useState<string | null>(null);
 
-  const items = useMemo<TocItem[]>(() => {
-    if (typeof document === "undefined") return [];
+  useEffect(() => {
     const headings = Array.from(
       document.querySelectorAll<HTMLElement>("article h2[id], article h3[id]")
     );
@@ -29,15 +28,12 @@ export function BlogTOC({ className }: { className?: string }) {
     const next = headings
       .map((h) => {
         const level = (h.tagName.toLowerCase() === "h2" ? 2 : 3) as 2 | 3;
-        return {
-          id: h.id,
-          text: getHeadingText(h),
-          level,
-        };
+        return { id: h.id, text: getHeadingText(h), level };
       })
       .filter((x) => x.text.length > 0);
 
-    return next;
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setItems(next);
   }, []);
 
   useEffect(() => {
@@ -49,14 +45,12 @@ export function BlogTOC({ className }: { className?: string }) {
 
     const io = new IntersectionObserver(
       (entries) => {
-        // pick the first intersecting one closest to top
         const visible = entries
           .filter((e) => e.isIntersecting)
           .sort((a, b) => (a.boundingClientRect.top ?? 0) - (b.boundingClientRect.top ?? 0));
         if (visible[0]) setActiveId(visible[0].target.id);
       },
       {
-        // Activate when heading crosses top-ish viewport
         root: null,
         threshold: [0, 0.1, 0.2],
         rootMargin: "-20% 0px -70% 0px",
@@ -88,14 +82,16 @@ export function BlogTOC({ className }: { className?: string }) {
     });
   }, [items, activeId]);
 
-  if (!items.length) return null;
-
   return (
     <nav className={className} aria-label="Table of contents">
-      <div className="mb-3 text-xs font-semibold uppercase tracking-widest text-muted">
-        On this page
-      </div>
-      <ul className="space-y-1">{toc}</ul>
+      {items.length > 0 && (
+        <>
+          <div className="mb-3 text-xs font-semibold uppercase tracking-widest text-muted">
+            On this page
+          </div>
+          <ul className="space-y-1">{toc}</ul>
+        </>
+      )}
     </nav>
   );
 }

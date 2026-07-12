@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getPostBySlug, getAllSlugs, hasTranslation } from "@/lib/blog";
+import Image from "next/image";
+import { SITE_URL } from "@/lib/constants";
 import { formatDate } from "@/lib/blog/utils";
 import { BlogPostSchema } from "@/components/seo/BlogPostSchema";
 import { BreadcrumbSchema } from "@/components/seo/BreadcrumbSchema";
@@ -13,6 +15,8 @@ import { BlogTOC } from "@/components/blog/BlogTOC";
 import { ReadingProgressBar } from "@/components/blog/ReadingProgressBar";
 import { BackToTop } from "@/components/blog/BackToTop";
 import { PersonMention } from "@/components/blog/PersonMention";
+import { ImageCarousel } from "@/components/blog/ImageCarousel";
+import { PhotoStrip } from "@/components/gallery/PhotoStrip";
 import { LanguageToggle } from "@/components/blog/LanguageToggle";
 import rehypeSlug from "rehype-slug";
 
@@ -30,6 +34,17 @@ export async function generateMetadata({
 
   if (!post) return {};
 
+  const alternates: Metadata["alternates"] = {
+    canonical: `${SITE_URL}/blog/${slug}`,
+  };
+
+  if (hasTranslation(slug)) {
+    alternates.languages = {
+      en: `${SITE_URL}/blog/${slug}`,
+      hi: `${SITE_URL}/blog/hi/${slug}`,
+    };
+  }
+
   return {
     title: post.frontmatter.title,
     description: post.frontmatter.excerpt,
@@ -41,6 +56,7 @@ export async function generateMetadata({
       modifiedTime: post.frontmatter.updated,
       tags: post.frontmatter.tags,
     },
+    alternates,
   };
 }
 
@@ -118,6 +134,23 @@ export default async function BlogPostPage({
               source={post.content}
               components={{
                 PersonMention,
+                ImageCarousel,
+                PhotoStrip,
+                img: ({ src, alt, ...props }) => {
+                  if (!src) return null;
+                  return (
+                    <span className="relative block aspect-[16/9] w-full overflow-hidden rounded-lg border border-border my-6">
+                      <Image
+                        src={src}
+                        alt={alt || ""}
+                        fill
+                        sizes="(max-width: 768px) 100vw, 800px"
+                        className="object-cover animate-pulse-once"
+                        {...props}
+                      />
+                    </span>
+                  );
+                },
               }}
               options={{
                 mdxOptions: {

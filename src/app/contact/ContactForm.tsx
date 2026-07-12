@@ -39,6 +39,7 @@ export function ContactForm() {
   const [errors, setErrors] = useState<FieldErrors>({});
 
   const messageRef = useRef<HTMLTextAreaElement | null>(null);
+  const honeypotRef = useRef<HTMLInputElement | null>(null);
   const [prefersReducedMotion] = useState(() => {
     if (typeof window === "undefined") return false;
     return (
@@ -71,7 +72,8 @@ export function ContactForm() {
     setStatus("sending");
     setErrors({});
 
-    const parsed = contactSchema.safeParse({ ...values, _name: "" });
+    const honeypotValue = honeypotRef.current?.value ?? "";
+    const parsed = contactSchema.safeParse({ ...values, _name: honeypotValue });
     if (!parsed.success) {
       const field = parsed.error.flatten().fieldErrors;
       setErrors({
@@ -124,12 +126,12 @@ export function ContactForm() {
       <div aria-hidden="true" className="absolute left-[-9999px]">
         <label htmlFor="_name">Leave this empty</label>
         <input
+          ref={honeypotRef}
           id="_name"
           name="_name"
           tabIndex={-1}
           autoComplete="off"
-          value=""
-          onChange={() => {}}
+          defaultValue=""
           className="h-0 w-0 overflow-hidden opacity-0"
         />
       </div>

@@ -12,6 +12,14 @@ export function CursorSpotlight() {
 
     if ("ontouchstart" in window) return;
 
+    const prefersReducedMotion =
+      window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches ?? false;
+    if (prefersReducedMotion) {
+      el.style.setProperty("--x", "50vw");
+      el.style.setProperty("--y", "50vh");
+      return;
+    }
+
     const handleMouse = (e: MouseEvent) => {
       cancelAnimationFrame(rafRef.current);
       rafRef.current = requestAnimationFrame(() => {

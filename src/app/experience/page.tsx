@@ -3,7 +3,7 @@ import { experience } from "@/lib/achievements/data";
 import { RevealOnScroll } from "@/components/animation/RevealOnScroll";
 
 export const metadata: Metadata = {
-  title: "Experience",
+  title: "Experience — Shivanshu Tiwari",
   description:
     "Work experience from Shivanshu Tiwari.",
 };

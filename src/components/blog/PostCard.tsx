@@ -21,7 +21,7 @@ export function PostCard({
   return (
     <Link href={`/blog/${slug}`} className="group block">
       <article
-        className="rounded-lg border border-border bg-card p-5 transition-[transform,box-shadow,border-color,background-color] duration-150 ease-out hover:-translate-y-4 hover:border-accent/70 hover:bg-surface hover:shadow-[0_12px_30px_-18px_rgba(212,145,58,0.40)] focus-visible:-translate-y-4 focus-visible:border-accent/70 focus-visible:bg-surface focus-visible:shadow-[0_12px_30px_-18px_rgba(212,145,58,0.40)] focus-visible:outline-none motion-reduce:transform-none motion-reduce:shadow-none motion-reduce:transition-none"
+        className="rounded-lg border border-border bg-card p-5 transition-[transform,box-shadow,border-color,background-color] duration-150 ease-out hover:-translate-y-4 hover:border-accent/70 hover:bg-surface hover:shadow-[0_12px_30px_-18px_rgba(212,145,58,0.40)] group-focus-visible:-translate-y-4 group-focus-visible:border-accent/70 group-focus-visible:bg-surface group-focus-visible:shadow-[0_12px_30px_-18px_rgba(212,145,58,0.40)] outline-none motion-reduce:transform-none motion-reduce:shadow-none motion-reduce:transition-none"
       >
         <div className="mb-2 flex items-center gap-3">
           <span className="inline-block rounded bg-accent-bg px-2 py-0.5 font-mono text-xs text-accent">

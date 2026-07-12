@@ -1,4 +1,4 @@
-import type { Achievement } from "@/types/achievements";
+import type { Achievement, Photo } from "@/types/achievements";
 
 export const achievements: Achievement[] = [
   {
@@ -7,6 +7,20 @@ export const achievements: Achievement[] = [
     category: "hackathon",
     description:
       "Selected among the Top 60 teams nationally (from a program reaching over 1 crore youth) to present a Smart Traffic Management System at MCD Headquarters, Civic Centre, New Delhi (July 1\u20133, 2026). The solution is being taken forward as a pilot project with Delhi Government departments.",
+    photos: [
+      {
+        src: "/blog/delhi-summer-camp-2-0-top-60-part-2/MCD%20Session1.webp",
+        alt: "Team standing at the podium during the MCD council chamber session",
+      },
+      {
+        src: "/blog/delhi-summer-camp-2-0-top-60-part-2/MCD%20Session2.webp",
+        alt: "Officials seated at the MCD council chamber dais during the Delhi 2.0 Tech Dialogue",
+      },
+      {
+        src: "/blog/delhi-summer-camp-2-0-top-60-part-2/MCD%20Session5.webp",
+        alt: "Full group photo of Top 60 participants in the MCD council chamber",
+      },
+    ],
   },
   {
     title: "GUVI India AI Impact Buildathon — Finalist",

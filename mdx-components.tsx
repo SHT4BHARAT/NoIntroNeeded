@@ -1,4 +1,6 @@
 import type { MDXComponents } from "mdx/types";
+import { ImageCarousel } from "@/components/blog/ImageCarousel";
+import { PhotoStrip } from "@/components/gallery/PhotoStrip";
 
 function slugify(input: string) {
   return input
@@ -106,9 +108,11 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     hr: (props) => (
       <hr className="my-8 border-border" {...props} />
     ),
+    ImageCarousel,
+    PhotoStrip,
     img: ({ alt, ...props }) => (
       // eslint-disable-next-line @next/next/no-img-element
-      <img className="my-6 rounded-lg border border-border" alt={alt} loading="lazy" {...props} />
+      <img className="rounded-lg border border-border object-cover w-full h-auto" alt={alt} loading="lazy" {...props} />
     ),
     ...components,
   };
