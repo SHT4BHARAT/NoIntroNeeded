@@ -130,7 +130,8 @@ export default async function HindiBlogPostPage({
                 PersonMention,
                 ImageCarousel,
                 PhotoStrip,
-                img: ({ src, alt, ...props }) => {
+                img: (props) => {
+                  const { src, alt } = props;
                   if (!src) return null;
                   return (
                     <span className="relative block aspect-[16/9] w-full overflow-hidden rounded-lg border border-border my-6">
@@ -140,7 +141,6 @@ export default async function HindiBlogPostPage({
                         fill
                         sizes="(max-width: 768px) 100vw, 800px"
                         className="object-cover animate-pulse-once"
-                        {...props}
                       />
                     </span>
                   );

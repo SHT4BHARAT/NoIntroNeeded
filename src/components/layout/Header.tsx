@@ -48,7 +48,7 @@ export function Header() {
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border bg-background/80 backdrop-blur-sm">
       <div className="mx-auto flex h-14 max-w-4xl items-center justify-between px-4">
-        <nav className="flex items-center gap-6 text-sm sm:flex">
+        <nav className="flex items-center gap-6 text-sm">
           <Link
             href="/"
             className="font-mono text-base font-medium tracking-tight transition-colors hover:text-accent"
@@ -56,7 +56,7 @@ export function Header() {
             Shivanshu Tiwari
           </Link>
 
-          <div className="hidden items-center gap-6 text-sm sm:flex">
+          <div className="hidden items-center gap-6 text-sm lg:flex">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
@@ -73,7 +73,7 @@ export function Header() {
           <button
             type="button"
             onClick={() => setOpen((v: boolean) => !v)}
-            className="inline-flex h-9 w-9 items-center justify-center rounded-md border border-border bg-background/50 text-muted transition-colors active:translate-y-px active:scale-[0.99] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60 hover:bg-surface hover:text-foreground sm:hidden"
+            className="inline-flex h-9 w-9 items-center justify-center rounded-md border border-border bg-background/50 text-muted transition-colors active:translate-y-px active:scale-[0.99] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60 hover:bg-surface hover:text-foreground lg:hidden"
             aria-label={open ? "Close menu" : "Open menu"}
             aria-expanded={open}
           >
@@ -111,7 +111,7 @@ export function Header() {
         </div>
       </div>
 
-      <div className={cn("sm:hidden", open ? "block" : "hidden")}>
+      <div className={cn("lg:hidden", open ? "block" : "hidden")}>
         <div className="mx-auto max-w-4xl px-4 pb-4">
           <div className="rounded-lg border border-border bg-card p-2">
             {navLinks.map((link) => (
