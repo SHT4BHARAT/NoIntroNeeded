@@ -25,12 +25,21 @@ export const metadata: Metadata = {
     title: "AI Agent Engineer",
     description:
       "Autonomous agents, LLM pipelines, and RL systems — built and documented honestly, including what didn't work.",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Shivanshu Tiwari — AI Agent & Backend Systems Engineer",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "AI Agent Engineer",
     description:
       "Autonomous agents, LLM pipelines, and RL systems — built and documented honestly, including what didn't work.",
+    images: ["/og-image.png"],
   },
   alternates: {
     canonical: `${SITE_URL}/ai-engineer`,

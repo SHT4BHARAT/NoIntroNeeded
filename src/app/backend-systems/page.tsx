@@ -25,12 +25,21 @@ export const metadata: Metadata = {
     title: "Backend Systems Developer",
     description:
       "API design, concurrency-safe data models, and real-time infrastructure — proven with real tests, not assertions.",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Shivanshu Tiwari — AI Agent & Backend Systems Engineer",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Backend Systems Developer",
     description:
       "API design, concurrency-safe data models, and real-time infrastructure — proven with real tests, not assertions.",
+    images: ["/og-image.png"],
   },
   alternates: {
     canonical: `${SITE_URL}/backend-systems`,
