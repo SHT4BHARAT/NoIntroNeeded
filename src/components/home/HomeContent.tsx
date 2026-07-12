@@ -214,21 +214,7 @@ function ShowEverything() {
           </RevealOnScroll>
         </section>
 
-        <RevealOnScroll>
-          <footer className="border-t border-border pb-8 pt-8">
-            <div className="flex flex-col items-center gap-2 text-sm text-muted sm:flex-row sm:justify-between">
-              <p>&copy; {new Date().getFullYear()} Shivanshu Tiwari</p>
-              <a
-                href={SOCIAL.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="transition-colors hover:text-foreground"
-              >
-                LinkedIn
-              </a>
-            </div>
-          </footer>
-        </RevealOnScroll>
+
       </div>
     </>
   );
