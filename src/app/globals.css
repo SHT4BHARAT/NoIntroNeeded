@@ -22,13 +22,13 @@
 }
 
 :root {
-  /* Refined palette — muted golden amber, warmer neutrals */
+  /* Refined palette — muted violet accent, warmer neutrals */
   --page-bg: #F4F5F7;
   --card-bg: #FFFFFF;
   --text-primary: #14171C;
   --text-secondary: #5B5F68;
-  --accent-signal: #8B5E14;
-  --accent-signal-bg: #F0D8B0;
+  --accent-signal: #5B4FC7;
+  --accent-signal-bg: #E4E1F9;
   --accent-verified: #2F7A4C;
   --accent-verified-bg: #E3F1E8;
   --border: #DADCE0;
@@ -62,8 +62,8 @@ html.dark {
   --card-bg: #15181D;
   --text-primary: #EDEBE6;
   --text-secondary: #8F929B;
-  --accent-signal: #C98A3A;
-  --accent-signal-bg: rgba(201, 138, 58, 0.14);
+  --accent-signal: #7C6FE0;
+  --accent-signal-bg: rgba(124, 111, 224, 0.14);
   --accent-verified: #5FAE7C;
   --accent-verified-bg: rgba(95, 174, 124, 0.10);
   --border: #262A30;
@@ -74,7 +74,7 @@ html.dark {
   --muted-foreground: #6B6F78;
 
   --accent: var(--accent-signal);
-  --accent-foreground: #0B0D11;
+  --accent-foreground: #FFFFFF;
   --accent-bg: var(--accent-signal-bg);
 
   --accent-verified: var(--accent-verified);
@@ -95,8 +95,8 @@ html.dark {
   --card-bg: #FFFFFF;
   --text-primary: #14171C;
   --text-secondary: #5B5F68;
-  --accent-signal: #8B5E14;
-  --accent-signal-bg: #F0D8B0;
+  --accent-signal: #5B4FC7;
+  --accent-signal-bg: #E4E1F9;
   --accent-verified: #2F7A4C;
   --accent-verified-bg: #E3F1E8;
   --border: #DADCE0;
@@ -184,6 +184,11 @@ body {
 /* Blog anchor alignment (fixed header offset handling) */
 article [id] {
   scroll-margin-top: 96px;
+}
+
+/* Cursor spotlight — background defined in CSS to avoid SSR style normalization mismatch */
+.cursor-spotlight {
+  background-image: radial-gradient(circle 400px at var(--x, 50vw) var(--y, 50vh), rgba(212, 145, 58, 0.08), transparent 80%);
 }
 
 /* Blog content typography */

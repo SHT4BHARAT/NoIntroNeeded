@@ -38,12 +38,8 @@ export function CursorSpotlight() {
   return (
     <div
       ref={ref}
-      className="fixed inset-0 z-[3] pointer-events-none"
+      className="cursor-spotlight fixed inset-0 z-[3] pointer-events-none"
       aria-hidden="true"
-      style={{
-        backgroundImage:
-          "radial-gradient(circle 400px at var(--x) var(--y), rgba(124,111,224,0.08), transparent 80%)",
-      }}
     />
   );
 }
