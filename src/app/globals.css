@@ -18,6 +18,7 @@
   --font-display: var(--font-display), ui-sans-serif, system-ui, sans-serif;
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-jetbrains-mono), ui-monospace, 'SF Mono', monospace;
+  --animate-marquee: marquee 30s linear infinite;
 }
 
 :root {
