@@ -41,8 +41,8 @@ export function CursorSpotlight() {
       className="fixed inset-0 z-[3] pointer-events-none"
       aria-hidden="true"
       style={{
-        background:
-          "radial-gradient(circle 400px at var(--x) var(--y), rgba(212,145,58,0.08), transparent 80%)",
+        backgroundImage:
+          "radial-gradient(circle 400px at var(--x) var(--y), rgba(124,111,224,0.08), transparent 80%)",
       }}
     />
   );

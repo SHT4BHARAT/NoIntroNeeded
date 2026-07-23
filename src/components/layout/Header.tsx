@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState, useCallback } from "react";
+import { useState } from "react";
 
 import { cn } from "@/lib/utils/cn";
 import { useTheme } from "@/components/providers/ThemeProvider";
@@ -35,19 +35,7 @@ function isActiveLink(pathname: string, href: string): boolean {
 }
 
 function ThemeToggleButton() {
-  const { theme, toggleTheme, hydrated } = useTheme();
-
-  if (!hydrated) {
-    return (
-      <button
-        disabled
-        className="flex h-9 w-9 items-center justify-center rounded-md text-sm text-muted"
-        aria-label="Loading theme..."
-      >
-        <span className="sr-only">Loading...</span>
-      </button>
-    );
-  }
+  const { theme, toggleTheme } = useTheme();
 
   return (
     <button
@@ -56,7 +44,9 @@ function ThemeToggleButton() {
       aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
       suppressHydrationWarning
     >
-      {theme === "dark" ? <SunIcon /> : <MoonIcon />}
+      <span suppressHydrationWarning>
+        {theme === "dark" ? <SunIcon /> : <MoonIcon />}
+      </span>
     </button>
   );
 }
@@ -64,12 +54,6 @@ function ThemeToggleButton() {
 export function Header() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
-
-  const navItemClass = useCallback((isActive: boolean) =>
-    cn(
-      "transition-colors active:translate-y-px active:scale-[0.99] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60 hover:text-foreground",
-      isActive ? "text-foreground" : "text-muted",
-    ), []);
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border bg-background/80 backdrop-blur-sm">
@@ -84,13 +68,17 @@ export function Header() {
 
           <div className="hidden items-center gap-6 text-sm lg:flex">
             {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className={navItemClass(isActiveLink(pathname, link.href))}
-              >
-                {link.label}
-              </Link>
+              <div key={link.href} className="relative">
+                <Link
+                  href={link.href}
+                  className={cn(
+                    "transition-colors active:translate-y-px active:scale-[0.99] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60 hover:text-foreground",
+                    isActiveLink(pathname, link.href) ? "text-foreground after:absolute after:-bottom-[14px] after:left-0 after:right-0 after:h-px after:bg-accent" : "text-muted",
+                  )}
+                >
+                  {link.label}
+                </Link>
+              </div>
             ))}
           </div>
         </nav>
