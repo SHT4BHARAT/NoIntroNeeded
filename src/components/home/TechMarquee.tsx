@@ -56,17 +56,15 @@ export function TechMarquee() {
 
   return (
     <div className="border-y border-border overflow-hidden">
-      <div className="relative flex">
-        <div className="flex animate-marquee gap-3 py-5 hover:[animation-play-state:paused]">
-          {[...techStack, ...techStack].map((tech, i) => (
-            <span
-              key={`${tech}-${i}`}
-              className="inline-flex shrink-0 items-center rounded-full border border-border bg-surface px-3 py-1 font-mono text-xs text-muted transition-colors hover:border-accent/50 hover:text-foreground"
-            >
-              {tech}
-            </span>
-          ))}
-        </div>
+      <div className="flex w-max animate-marquee gap-3 py-5 hover:[animation-play-state:paused]">
+        {[...techStack, ...techStack].map((tech, i) => (
+          <span
+            key={`${tech}-${i}`}
+            className="inline-flex shrink-0 items-center rounded-full border border-border bg-surface px-3 py-1 font-mono text-xs text-muted transition-colors hover:border-accent/50 hover:text-foreground"
+          >
+            {tech}
+          </span>
+        ))}
       </div>
     </div>
   );

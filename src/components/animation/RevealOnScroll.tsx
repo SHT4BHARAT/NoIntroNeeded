@@ -29,8 +29,15 @@ export function RevealOnScroll({
   direction = "up",
 }: RevealOnScrollProps) {
   const ref = useRef<HTMLDivElement>(null);
-
   const reduced = useReducedMotion();
+
+  // Hydration-safe pattern: server & first client render are identical (visible).
+  // After hydration, we enable the observer-based reveal logic.
+  const [hydrated, setHydrated] = useState(false);
+  useEffect(() => {
+    setHydrated(true);
+  }, []);
+
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -43,7 +50,7 @@ export function RevealOnScroll({
   );
 
   useEffect(() => {
-    if (reduced) return;
+    if (!hydrated || reduced) return;
 
     const el = ref.current;
     if (!el) return;
@@ -55,12 +62,17 @@ export function RevealOnScroll({
           observer.unobserve(el);
         }
       },
-      { threshold: 0.1, rootMargin: "0px 0px -60px 0px" }
+      { threshold: 0.05, rootMargin: "0px 0px -40px 0px" }
     );
 
     observer.observe(el);
     return () => observer.disconnect();
-  }, [reduced]);
+  }, [hydrated, reduced]);
+
+  // Not hydrated yet → render fully visible (matches server)
+  if (!hydrated) {
+    return <div className={className}>{children}</div>;
+  }
 
   const show = reduced || visible;
   const dir = directionStyles[direction];
@@ -73,7 +85,7 @@ export function RevealOnScroll({
         opacity: show ? 1 : 0,
         transform: show ? dir.visible : dir.hidden,
         transition: "opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1), transform 0.6s cubic-bezier(0.22, 1, 0.36, 1)",
-        transitionDelay: `${computedDelay}ms`,
+        transitionDelay: show ? "0ms" : `${computedDelay}ms`,
       }}
     >
       {children}
