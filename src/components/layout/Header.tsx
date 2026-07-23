@@ -43,7 +43,9 @@ function ThemeToggleButton() {
         disabled
         className="flex h-9 w-9 items-center justify-center rounded-md text-sm text-muted"
         aria-label="Loading theme..."
-      />
+      >
+        <span className="sr-only">Loading...</span>
+      </button>
     );
   }
 
