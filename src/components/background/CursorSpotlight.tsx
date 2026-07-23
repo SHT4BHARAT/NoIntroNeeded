@@ -1,10 +1,12 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { useReducedMotion } from "@/lib/hooks/useReducedMotion";
 
 export function CursorSpotlight() {
   const ref = useRef<HTMLDivElement>(null);
   const rafRef = useRef<number>(0);
+  const prefersReducedMotion = useReducedMotion();
 
   useEffect(() => {
     const el = ref.current;
@@ -12,8 +14,6 @@ export function CursorSpotlight() {
 
     if ("ontouchstart" in window) return;
 
-    const prefersReducedMotion =
-      window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches ?? false;
     if (prefersReducedMotion) {
       el.style.setProperty("--x", "50vw");
       el.style.setProperty("--y", "50vh");
@@ -39,6 +39,7 @@ export function CursorSpotlight() {
     <div
       ref={ref}
       className="fixed inset-0 z-[3] pointer-events-none"
+      aria-hidden="true"
       style={{
         background:
           "radial-gradient(circle 400px at var(--x) var(--y), rgba(212,145,58,0.08), transparent 80%)",

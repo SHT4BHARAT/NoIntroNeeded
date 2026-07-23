@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getProjectBySlug, projects } from "@/lib/projects/config";
+import { SITE_URL } from "@/lib/constants";
 import { BreadcrumbSchema } from "@/components/seo/BreadcrumbSchema";
 import { SoftwareSourceCodeSchema } from "@/components/seo/SoftwareSourceCodeSchema";
 
@@ -81,12 +82,28 @@ export async function generateMetadata({
         title: meta.ogTitle,
         description: meta.ogDescription,
       },
+      twitter: {
+        card: "summary_large_image",
+        title: meta.ogTitle,
+        description: meta.ogDescription,
+      },
+      alternates: {
+        canonical: `${SITE_URL}/projects/${slug}`,
+      },
     };
   }
 
   return {
     title: `${project.title} | Shivanshu Tiwari`,
     description: project.description,
+    twitter: {
+      card: "summary_large_image",
+      title: `${project.title} | Shivanshu Tiwari`,
+      description: project.description,
+    },
+    alternates: {
+      canonical: `${SITE_URL}/projects/${slug}`,
+    },
   };
 }
 
@@ -109,7 +126,7 @@ export default async function ProjectDetailPage({
         ]}
       />
 
-      <article className="mx-auto max-w-4xl px-4 py-12">
+      <article className="mx-auto max-w-5xl px-4 py-20">
         <Link
           href="/"
           className="mb-6 inline-flex items-center gap-1 text-sm text-muted transition-colors hover:text-foreground"
@@ -129,7 +146,7 @@ export default async function ProjectDetailPage({
               </span>
             )}
           </div>
-          <h1 className="mt-2 text-3xl font-bold leading-tight tracking-tight sm:text-4xl">
+          <h1 className="font-display mt-2 text-3xl font-bold leading-tight tracking-tight sm:text-4xl">
             {project.title}
           </h1>
           {project.tagline && (
@@ -174,7 +191,7 @@ export default async function ProjectDetailPage({
 
         {project.problem && (
           <section className="mb-10">
-            <h2 className="text-sm font-semibold uppercase tracking-widest text-muted">
+            <h2 className="font-display text-sm font-semibold uppercase tracking-widest text-muted">
               The Problem
             </h2>
             <div className="mt-3 space-y-4 text-sm leading-relaxed text-muted">
@@ -187,7 +204,7 @@ export default async function ProjectDetailPage({
 
         {project.whatIBuilt && (
           <section className="mb-10">
-            <h2 className="text-sm font-semibold uppercase tracking-widest text-muted">
+            <h2 className="font-display text-sm font-semibold uppercase tracking-widest text-muted">
               What I Built
             </h2>
             <div className="mt-3 space-y-4 text-sm leading-relaxed text-muted">
@@ -208,7 +225,7 @@ export default async function ProjectDetailPage({
 
         {project.result && (
           <section className="mb-10">
-            <h2 className="text-sm font-semibold uppercase tracking-widest text-muted">
+            <h2 className="font-display text-sm font-semibold uppercase tracking-widest text-muted">
               The Result
             </h2>
             <div className="mt-3 space-y-4 text-sm leading-relaxed text-muted">
@@ -221,7 +238,7 @@ export default async function ProjectDetailPage({
 
         {project.keyDecisions && project.keyDecisions.length > 0 && (
           <section className="mb-10">
-            <h2 className="text-sm font-semibold uppercase tracking-widest text-muted">
+            <h2 className="font-display text-sm font-semibold uppercase tracking-widest text-muted">
               Key Decisions &amp; Tradeoffs
             </h2>
             <ul className="mt-3 space-y-3">
@@ -236,7 +253,7 @@ export default async function ProjectDetailPage({
 
         {project.honestPart && (
           <section className="mb-10">
-            <h2 className="text-sm font-semibold uppercase tracking-widest text-muted">
+            <h2 className="font-display text-sm font-semibold uppercase tracking-widest text-muted">
               The Honest Part
             </h2>
             <div className="mt-3 space-y-4 text-sm leading-relaxed text-muted">
@@ -248,7 +265,7 @@ export default async function ProjectDetailPage({
         )}
 
         <section className="mb-10">
-          <h2 className="text-sm font-semibold uppercase tracking-widest text-muted">
+          <h2 className="font-display text-sm font-semibold uppercase tracking-widest text-muted">
             Highlights
           </h2>
           <ul className="mt-3 space-y-2">

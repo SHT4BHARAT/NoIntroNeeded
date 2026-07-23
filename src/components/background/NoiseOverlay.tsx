@@ -15,7 +15,7 @@ export function NoiseOverlay() {
         />
         <feColorMatrix
           type="matrix"
-          values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.04 0"
+          values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.025 0"
         />
       </filter>
       <rect width="100%" height="100%" filter="url(#noise)" opacity="0.5" />

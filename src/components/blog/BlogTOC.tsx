@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import { useReducedMotion } from "@/lib/hooks/useReducedMotion";
 
 type TocItem = {
   id: string;
@@ -36,12 +37,13 @@ export function BlogTOC({ className }: { className?: string }) {
     setItems(next);
   }, []);
 
+  const prefersReducedMotion = useReducedMotion();
+
   useEffect(() => {
     const headings = Array.from(
       document.querySelectorAll<HTMLElement>("article h2[id], article h3[id]")
     );
-    const reduce = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
-    if (reduce) return;
+    if (prefersReducedMotion) return;
 
     const io = new IntersectionObserver(
       (entries) => {

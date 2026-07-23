@@ -1,33 +1,44 @@
 "use client";
 
 import { useRef, useState, useEffect, useMemo } from "react";
+import { useReducedMotion } from "@/lib/hooks/useReducedMotion";
+
+type Direction = "up" | "down" | "left" | "right" | "scale";
+
+interface RevealOnScrollProps {
+  children: React.ReactNode;
+  className?: string;
+  delay?: number;
+  index?: number;
+  direction?: Direction;
+}
+
+const directionStyles: Record<Direction, { hidden: string; visible: string }> = {
+  up: { hidden: "translateY(24px)", visible: "translateY(0)" },
+  down: { hidden: "translateY(-24px)", visible: "translateY(0)" },
+  left: { hidden: "translateX(-24px)", visible: "translateX(0)" },
+  right: { hidden: "translateX(24px)", visible: "translateX(0)" },
+  scale: { hidden: "scale(0.95)", visible: "scale(1)" },
+};
 
 export function RevealOnScroll({
   children,
   className,
   delay,
   index,
-}: {
-  children: React.ReactNode;
-  className?: string;
-  delay?: number;
-  index?: number;
-}) {
+  direction = "up",
+}: RevealOnScrollProps) {
   const ref = useRef<HTMLDivElement>(null);
 
-  const [reduced, setReduced] = useState(false);
+  const reduced = useReducedMotion();
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    const isReduced = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches ?? false;
-    setReduced(isReduced);
-    if (isReduced) {
-      setVisible(true);
-    }
-  }, []);
+    if (reduced) setVisible(true);
+  }, [reduced]);
 
   const computedDelay = useMemo(
-    () => delay ?? (index !== undefined ? Math.min(index * 60, 420) : 0),
+    () => delay ?? (index !== undefined ? Math.min(index * 80, 560) : 0),
     [delay, index]
   );
 
@@ -44,7 +55,7 @@ export function RevealOnScroll({
           observer.unobserve(el);
         }
       },
-      { threshold: 0.1, rootMargin: "0px 0px -40px 0px" }
+      { threshold: 0.1, rootMargin: "0px 0px -60px 0px" }
     );
 
     observer.observe(el);
@@ -52,6 +63,7 @@ export function RevealOnScroll({
   }, [reduced]);
 
   const show = reduced || visible;
+  const dir = directionStyles[direction];
 
   return (
     <div
@@ -59,8 +71,8 @@ export function RevealOnScroll({
       className={className}
       style={{
         opacity: show ? 1 : 0,
-        transform: show ? "translateY(0)" : "translateY(16px)",
-        transition: "opacity 0.5s ease-out, transform 0.5s ease-out",
+        transform: show ? dir.visible : dir.hidden,
+        transition: "opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1), transform 0.6s cubic-bezier(0.22, 1, 0.36, 1)",
         transitionDelay: `${computedDelay}ms`,
       }}
     >

@@ -1,13 +1,14 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useReducedMotion } from "@/lib/hooks/useReducedMotion";
 
 export function ReadingProgressBar() {
   const [progress, setProgress] = useState(0);
+  const prefersReducedMotion = useReducedMotion();
 
   useEffect(() => {
-    const reduce = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
-    if (reduce) return;
+    if (prefersReducedMotion) return;
 
     const onScroll = () => {
       const doc = document.documentElement;

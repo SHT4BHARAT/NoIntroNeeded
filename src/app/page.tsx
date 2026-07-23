@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { SITE_URL } from "@/lib/constants";
 import { PersonSchema } from "@/components/seo/PersonSchema";
 import { HomeContent } from "@/components/home/HomeContent";
 

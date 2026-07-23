@@ -8,8 +8,8 @@ export default function Error({
   reset: () => void;
 }) {
   return (
-    <div className="mx-auto flex max-w-2xl flex-1 flex-col items-center justify-center px-4 text-center">
-      <h1 className="text-4xl font-bold tracking-tight">Something went wrong</h1>
+    <div className="mx-auto flex max-w-3xl flex-1 flex-col items-center justify-center px-4 text-center">
+      <h1 className="font-display text-4xl font-bold tracking-tight">Something went wrong</h1>
       <p className="mt-4 text-lg text-muted">
         {error.message || "An unexpected error occurred."}
       </p>

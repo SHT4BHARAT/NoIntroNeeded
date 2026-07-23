@@ -15,9 +15,9 @@ const suggestions = [
 
 export default function NotFound() {
   return (
-    <main className="mx-auto flex max-w-2xl flex-1 flex-col items-center justify-center px-4 text-center">
+    <div className="mx-auto flex max-w-3xl flex-1 flex-col items-center justify-center px-4 text-center">
       <span className="font-mono text-6xl font-bold text-accent">404</span>
-      <h1 className="mt-4 text-2xl font-bold tracking-tight">Page not found</h1>
+      <h1 className="font-display mt-4 text-2xl font-bold tracking-tight">Page not found</h1>
       <p className="mt-2 text-muted">
         The page you&apos;re looking for doesn&apos;t exist or has been moved.
       </p>
@@ -38,7 +38,7 @@ export default function NotFound() {
       </div>
 
       <div className="mt-8 w-full">
-        <div className="mb-3 text-xs font-semibold uppercase tracking-widest text-muted">
+        <div className="font-display mb-3 text-xs font-semibold uppercase tracking-widest text-muted">
           Suggested pages
         </div>
         <div className="flex flex-wrap justify-center gap-2">
@@ -53,6 +53,6 @@ export default function NotFound() {
           ))}
         </div>
       </div>
-    </main>
+    </div>
   );
 }

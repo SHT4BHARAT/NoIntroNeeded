@@ -1,65 +1,77 @@
-# UI/UX Enhancement — Portfolio Improvements
+# Full Visual Refresh — Implementation Progress
 
-## P0 (foundation-layer) — ✅ Complete
+## Priority Order
 
-- [x] Add `src/components/animation/RevealOnScroll.tsx` (IntersectionObserver + prefers-reduced-motion)
-- [x] Apply scroll reveals to all pages: Home, Blog index, Achievements, Role pages (`/ai-engineer`, `/backend-systems`)
-- [x] Add hover elevation (lift + subtle shadow) to:
-  - [x] `src/components/blog/PostCard.tsx`
-  - [x] `src/components/role/RoleProjectCard.tsx`
-  - [x] Achievements cards (in `src/app/achievements/page.tsx`)
+### 1. `src/app/globals.css` ✅
+- [x] Refine color palette: muted/golden amber (`#C98A3A`), cooler dark bg (`#0B0D11`)
+- [x] Remove dot-grid pattern (`body::before` + `gridShift` animation)
+- [x] Add marquee keyframes (`@keyframes marquee`)
 
-## P1 (isolated) — Partially Complete
+### 2. `src/components/animation/RevealOnScroll.tsx` ✅
+- [x] Add direction variants (up, left, right, scale)
+- [x] Improve easing: 600ms cubic-bezier(0.22, 1, 0.36, 1), 80ms stagger
+- [x] Configurable threshold/delay (rootMargin -60px)
 
-- [x] Blog reading UX:
-  - [x] `ReadingProgressBar` integrated into `src/app/blog/[slug]/page.tsx`
-  - [x] MDX heading id injection via `src/mdx-components.tsx` (h2/h3 with slugify)
-  - [x] `BlogTOC` with IntersectionObserver scrollspy (sticky sidebar on lg+)
-  - [x] `BackToTop` button for blog posts
-- [ ] Mobile navigation:
-  - [x] Implement hamburger/bottom nav for <640px (update `src/components/layout/Header.tsx`)
-- [ ] Contact polish:
-  - [x] Auto-resize textarea + char counter + shake animation on error
-  - [x] Keep existing idle → sending → sent/error state machine
+### 3. `src/components/home/TechMarquee.tsx` (NEW) ✅
+- [x] Horizontal auto-scrolling marquee component
+- [x] CSS animation, no JS libs
+- [x] Pause on hover
+- [x] Pill-shaped skill badges
 
-## P2 (polish) — ✅ Complete
-- [x] Micro-interactions across buttons/links/chips
-- [x] 404 page improvements
-- [x] Route loading skeleton shimmer matching layout
+### 4. `src/components/home/HomeContent.tsx` ✅
+- [x] Restructure hero section (more confident headline)
+- [x] Integrate TechMarquee below hero
+- [x] Generous section spacing (py-28/py-36)
+- [x] Refined project grid with new card styles
+
+### 5. `src/components/role/RoleHero.tsx` ✅
+- [x] More minimal hero layout
+- [x] Better typography hierarchy (h1 sm:text-6xl)
+- [x] Consistent generous spacing (py-28)
+
+### 6. `src/components/role/RoleProjectCard.tsx` ✅
+- [x] Minimal card redesign — lighter borders, subtle hover
+- [x] Remove heavy shadows
+- [x] Cleaner typography (tracking-tight, leading-relaxed)
+
+### 7. `src/components/blog/PostCard.tsx` ✅
+- [x] Match new card design language
+- [x] Consistent with RoleProjectCard styling
+
+### 8. `src/app/achievements/page.tsx` (AchievementCard) ✅
+- [x] Refined card styling (p-6, hover:-translate-y-1)
+- [x] Consistent spacing
+
+### 9. `src/components/layout/Header.tsx` ✅
+- [x] More minimal sticky header (h-9 buttons)
+- [x] Refined nav typography
+
+### 10. `src/components/layout/Footer.tsx` ✅
+- [x] Cleaner minimal footer (py-10, refined link spacing)
+
+### 11. `src/components/background/NodePulse.tsx` ✅
+- [x] Reduce node count (NODE_COUNT_FACTOR 0.023 → 0.014)
+- [x] Lower drift speed (DRIFT 0.18 → 0.12)
+- [x] Shorter connection distance (150 → 120)
+- [x] Updated color to new amber (212,145,58 → 201,138,58)
+
+### 12. `src/components/background/NoiseOverlay.tsx` ✅
+- [x] Reduce opacity (0.04 → 0.025)
 
 ---
 
-## QA Test Results
+## Summary
 
-| Test | Result |
-|------|--------|
-| Build (all 21 routes) | ✅ Pass — 0 errors |
-| Route renders: `/` | ✅ 200 |
-| Route renders: `/ai-engineer` | ✅ 200 |
-| Route renders: `/backend-systems` | ✅ 200 |
-| Route renders: `/blog` | ✅ 200 |
-| Route renders: `/achievements` | ✅ 200 |
-| Route renders: `/contact` | ✅ 200 |
-| Route renders: `/projects/[slug]` | ✅ 200 |
-| Route renders: `/blog/[slug]` | ✅ 200 |
-| Route renders: `/blog/hi/[slug]` | ✅ 200 |
-| OG image generation: `/achievements/opengraph-image` | ✅ PNG output |
-| SEO: `robots.txt` | ✅ Present, allows `/`, disallows `/api/` |
-| SEO: `sitemap.xml` | ✅ All routes, blog posts, Hindi variants |
-| Hover elevation: `PostCard.tsx` | ✅ `hover:-translate-y-0.5` + shadow |
-| Hover elevation: `RoleProjectCard.tsx` | ✅ `hover:-translate-y-0.5` + shadow |
-| Hover elevation: `AchievementCard` | ✅ `hover:-translate-y-0.5` + shadow |
-| Reduced motion: CSS dot grid | ✅ `@media (prefers-reduced-motion: no-preference)` wrapper |
-| Reduced motion: RevealOnScroll | ✅ `matchMedia("reduce")` check — skips all animation |
-| Contact API: validation errors | ✅ Returns 400 with field-level errors |
-| Contact API: honeypot spam | ✅ Silently accepted, not submitted |
-| Contact API: happy path | ⚠️ 500 (expected — no Google Sheets creds in local dev) |
-| Scroll reveal: page.tsx | ✅ 13 wrappers with staggered indices |
-| Scroll reveal: blog/page.tsx | ✅ Header + filter + each PostCard individually |
-| Scroll reveal: achievements/page.tsx | ✅ Title + subtitle + filters + each card |
-| Scroll reveal: ai-engineer/page.tsx | ✅ RoleSections + Skills + ProjectList |
-| Scroll reveal: backend-systems/page.tsx | ✅ RoleSections + Skills + ProjectList |
-| Blog: TOC sidebar | ✅ Sticky `lg:block`, IntersectionObserver scrollspy |
-| Blog: ReadingProgressBar | ✅ Fixed top bar, % width syncs with scroll |
-| Blog: BackToTop | ✅ Float button, scrolls to top, fades on scroll |
-| Blog: MDX heading IDs | ✅ h2/h3 injected with `id={slugify(text)}` + `scroll-mt-24` |
+All 12 files complete:
+1. ✅ `globals.css` — refined palette, removed dot-grid, added marquee keyframes
+2. ✅ `RevealOnScroll.tsx` — direction variants, better easing (600ms), 80ms stagger
+3. ✅ `TechMarquee.tsx` (NEW) — CSS auto-scroll, pill badges, pause on hover
+4. ✅ `HomeContent.tsx` — TechMarquee integration, generous spacing (py-28), refined grid
+5. ✅ `RoleHero.tsx` — larger headline (sm:text-6xl), consistent spacing (py-28)
+6. ✅ `RoleProjectCard.tsx` — minimal card, subtle hover, no shadows
+7. ✅ `PostCard.tsx` — consistent card design language
+8. ✅ `achievements/page.tsx` — refined AchievementCard styling
+9. ✅ `Header.tsx` — minimal header (h-9 buttons), cleaner mobile menu
+10. ✅ `Footer.tsx` — cleaner minimal footer
+11. ✅ `NodePulse.tsx` — reduced node count/opacity, more subtle
+12. ✅ `NoiseOverlay.tsx` — reduced opacity (0.025)

@@ -9,11 +9,11 @@ export function RoleProjectCard({
   return (
     <Link
       href={`/projects/${project.slug}`}
-      className="group block rounded-lg border border-border bg-card p-5 transition-[transform,box-shadow,border-color,background-color] duration-150 ease-out hover:-translate-y-4 hover:border-accent/70 hover:bg-surface/50 hover:shadow-[0_12px_30px_-18px_rgba(212,145,58,0.40)] focus-visible:-translate-y-4 focus-visible:border-accent/70 focus-visible:shadow-[0_12px_30px_-18px_rgba(212,145,58,0.40)] focus-visible:outline-none motion-reduce:transform-none motion-reduce:shadow-none motion-reduce:transition-none"
+      className="group block rounded-lg border border-border bg-card p-6 transition-all duration-300 ease-out hover:-translate-y-1 hover:border-accent/50 hover:bg-surface focus-visible:-translate-y-1 focus-visible:border-accent/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60 motion-reduce:transform-none motion-reduce:transition-none"
     >
       <div className="flex flex-col gap-2">
         <div className="flex items-start justify-between gap-2">
-          <h3 className="font-semibold">
+          <h3 className="font-semibold tracking-tight">
             {project.title}
           </h3>
           {project.featured && (
@@ -22,12 +22,12 @@ export function RoleProjectCard({
             </span>
           )}
         </div>
-        <p className="text-sm text-muted line-clamp-2">{project.description}</p>
+        <p className="text-sm text-muted leading-relaxed line-clamp-2">{project.description}</p>
         <div className="mt-2 flex flex-wrap gap-1.5">
           {project.stack.map((tech) => (
             <span
               key={tech}
-              className="rounded-md bg-surface px-2 py-0.5 font-mono text-[11px] text-muted"
+              className="rounded-sm bg-surface px-2 py-0.5 font-mono text-[11px] text-muted"
             >
               {tech}
             </span>

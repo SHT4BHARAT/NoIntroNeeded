@@ -47,7 +47,7 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border bg-background/80 backdrop-blur-sm">
-      <div className="mx-auto flex h-14 max-w-4xl items-center justify-between px-4">
+      <div className="mx-auto flex h-14 max-w-5xl items-center justify-between px-4">
         <nav className="flex items-center gap-6 text-sm">
           <Link
             href="/"
@@ -69,18 +69,18 @@ export function Header() {
           </div>
         </nav>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2">
           <button
             type="button"
             onClick={() => setOpen((v: boolean) => !v)}
-            className="inline-flex h-9 w-9 items-center justify-center rounded-md border border-border bg-background/50 text-muted transition-colors active:translate-y-px active:scale-[0.99] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60 hover:bg-surface hover:text-foreground lg:hidden"
+            className="inline-flex h-9 w-9 items-center justify-center rounded-md text-muted transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60 hover:bg-surface hover:text-foreground lg:hidden"
             aria-label={open ? "Close menu" : "Open menu"}
             aria-expanded={open}
           >
             <span className="sr-only">Menu</span>
             <svg
-              width="18"
-              height="18"
+              width="16"
+              height="16"
               viewBox="0 0 24 24"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -103,7 +103,7 @@ export function Header() {
 
           <button
             onClick={toggleTheme}
-            className="flex h-8 w-8 items-center justify-center rounded-md text-sm text-muted transition-colors active:translate-y-px active:scale-[0.99] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60 hover:bg-surface hover:text-foreground"
+            className="flex h-9 w-9 items-center justify-center rounded-md text-sm text-muted transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60 hover:bg-surface hover:text-foreground"
             aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
           >
             {theme === "dark" ? <SunIcon /> : <MoonIcon />}
@@ -111,8 +111,8 @@ export function Header() {
         </div>
       </div>
 
-      <div className={cn("lg:hidden", open ? "block" : "hidden")}>
-        <div className="mx-auto max-w-4xl px-4 pb-4">
+      <div className={cn("lg:hidden", open ? "block" : "hidden")} style={{ overscrollBehavior: "contain" }}>
+        <div className="mx-auto max-w-5xl px-4 pb-4">
           <div className="rounded-lg border border-border bg-card p-2">
             {navLinks.map((link) => (
               <Link
@@ -120,7 +120,7 @@ export function Header() {
                 href={link.href}
                 onClick={() => setOpen(false)}
                 className={cn(
-                  "block rounded-md px-3 py-2 text-sm transition-colors active:translate-y-px active:scale-[0.99] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60 hover:bg-surface hover:text-foreground",
+                  "block rounded-md px-3 py-2 text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60 hover:bg-surface hover:text-foreground",
                   isActiveLink(pathname, link.href) ? "text-foreground" : "text-muted",
                 )}
               >

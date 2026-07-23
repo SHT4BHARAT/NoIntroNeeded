@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { SITE_URL } from "@/lib/constants";
 import { FaqAccordion } from "@/components/home/FaqAccordion";
 import { FAQSchema } from "@/components/seo/FAQSchema";
 import { RevealOnScroll } from "@/components/animation/RevealOnScroll";
@@ -11,6 +12,15 @@ export const metadata: Metadata = {
     title: "FAQ — Shivanshu Tiwari",
     description:
       "Quick answers about Shivanshu Tiwari's work, tech stack, and availability.",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "FAQ — Shivanshu Tiwari",
+    description:
+      "Quick answers about Shivanshu Tiwari's work, tech stack, and availability.",
+  },
+  alternates: {
+    canonical: `${SITE_URL}/faq`,
   },
   robots: "index, follow",
 };
@@ -43,9 +53,9 @@ export default function FaqPage() {
     <>
       <FAQSchema questions={faqItems} />
 
-      <main className="mx-auto max-w-2xl flex-1 px-4 py-16">
+      <div className="mx-auto max-w-3xl flex-1 px-4 py-20">
         <RevealOnScroll>
-          <h1 className="mb-2 text-3xl font-bold tracking-tight">
+          <h1 className="font-display mb-2 text-3xl font-bold tracking-tight">
             Frequently Asked Questions
           </h1>
         </RevealOnScroll>
@@ -59,7 +69,7 @@ export default function FaqPage() {
         <RevealOnScroll>
           <FaqAccordion items={faqItems} />
         </RevealOnScroll>
-      </main>
+      </div>
     </>
   );
 }

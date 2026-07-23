@@ -1,7 +1,8 @@
 'use client';
 
-import { useRef, useCallback, useMemo, useSyncExternalStore, Children, isValidElement, type ReactNode } from "react";
+import { useRef, useCallback, useMemo, Children, isValidElement, type ReactNode } from "react";
 import Image from "next/image";
+import { useReducedMotion } from "@/lib/hooks/useReducedMotion";
 
 interface Photo {
   src: string;
@@ -14,18 +15,6 @@ interface PhotoStripProps {
   children?: ReactNode;
 }
 
-function getPrefersReducedMotion(): boolean {
-  if (typeof window === "undefined") return false;
-  return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-}
-
-function subscribeReducedMotion(onChange: () => void): () => void {
-  if (typeof window === "undefined") return () => {};
-  const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
-  mq.addEventListener("change", onChange);
-  return () => mq.removeEventListener("change", onChange);
-}
-
 function getIsTouchDevice(): boolean {
   if (typeof window === "undefined") return false;
   return "ontouchstart" in window;
@@ -35,11 +24,7 @@ export function PhotoStrip({ photos, category, children }: PhotoStripProps) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const dragState = useRef({ isDown: false, startX: 0, scrollLeft: 0 });
 
-  const prefersReducedMotion = useSyncExternalStore(
-    subscribeReducedMotion,
-    getPrefersReducedMotion,
-    getPrefersReducedMotion,
-  );
+  const prefersReducedMotion = useReducedMotion();
   const isTouchDevice = getIsTouchDevice();
 
   const resolvedPhotos = useMemo<Photo[]>(() => {
@@ -129,14 +114,14 @@ export function PhotoStrip({ photos, category, children }: PhotoStripProps) {
         <>
           <button
             onClick={() => scroll("left")}
-            className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 flex items-center justify-center rounded-full bg-black/40 text-white opacity-70 hover:opacity-100 transition-opacity hover:bg-black/60 focus-visible:opacity-100"
+            className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-12 h-12 flex items-center justify-center rounded-full bg-black/40 text-white opacity-70 hover:opacity-100 transition-opacity hover:bg-black/60 focus-visible:opacity-100"
             aria-label="Previous photos"
           >
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
           </button>
           <button
             onClick={() => scroll("right")}
-            className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 flex items-center justify-center rounded-full bg-black/40 text-white opacity-70 hover:opacity-100 transition-opacity hover:bg-black/60 focus-visible:opacity-100"
+            className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-12 h-12 flex items-center justify-center rounded-full bg-black/40 text-white opacity-70 hover:opacity-100 transition-opacity hover:bg-black/60 focus-visible:opacity-100"
             aria-label="Next photos"
           >
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M9 18l6-6-6-6"/></svg>

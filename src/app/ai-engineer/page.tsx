@@ -72,19 +72,19 @@ export default function AIEngineerPage() {
 
       <RoleHero role={role} />
 
-      <div className="mx-auto max-w-4xl px-4 py-12">
+      <div className="mx-auto max-w-5xl px-4 py-20">
         <RevealOnScroll>
-          <section className="mb-16">
-            <h2 className="text-sm font-semibold uppercase tracking-widest text-muted">
+          <section className="mb-24">
+            <h2 className="font-display text-sm font-semibold uppercase tracking-widest text-muted">
               About
             </h2>
-            <p className="mt-3 text-base leading-relaxed text-muted">{role.about}</p>
+            <p className="mt-3 max-w-prose text-base leading-relaxed text-muted">{role.about}</p>
           </section>
         </RevealOnScroll>
 
         <RevealOnScroll>
           <section className="mb-16">
-            <h2 className="text-sm font-semibold uppercase tracking-widest text-muted">
+            <h2 className="font-display text-sm font-semibold uppercase tracking-widest text-muted">
               Skills
             </h2>
             <div className="mt-4 space-y-4">

@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState, type ChangeEvent, type FormEvent } from "react";
 import { contactSchema } from "@/lib/contact/validation";
 import { track } from "@/lib/analytics";
+import { useReducedMotion } from "@/lib/hooks/useReducedMotion";
 
 interface FieldErrors {
   name?: string;
@@ -40,12 +41,7 @@ export function ContactForm() {
 
   const messageRef = useRef<HTMLTextAreaElement | null>(null);
   const honeypotRef = useRef<HTMLInputElement | null>(null);
-  const [prefersReducedMotion] = useState(() => {
-    if (typeof window === "undefined") return false;
-    return (
-      window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches ?? false
-    );
-  });
+  const prefersReducedMotion = useReducedMotion();
 
   useEffect(() => {
     const el = messageRef.current;
@@ -112,16 +108,6 @@ export function ContactForm() {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-5" noValidate>
-      <style>{`
-        @keyframes shake {
-          0% { transform: translateX(0); }
-          25% { transform: translateX(3px); }
-          50% { transform: translateX(-3px); }
-          75% { transform: translateX(2px); }
-          100% { transform: translateX(0); }
-        }
-      `}</style>
-
       {/* Honeypot */}
       <div aria-hidden="true" className="absolute left-[-9999px]">
         <label htmlFor="_name">Leave this empty</label>
@@ -148,10 +134,13 @@ export function ContactForm() {
           value={values.name}
           onChange={handleChange}
           onBlur={handleBlur}
-          className="w-full rounded-lg border border-border bg-surface px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent"
+          aria-invalid={!!errors.name}
+          aria-describedby={errors.name ? "name-error" : undefined}
+          autoComplete="name"
+          className="w-full rounded-lg border border-border bg-surface px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
           placeholder="Your name"
         />
-        {errors.name && <p className="mt-1 text-xs text-red-500">{errors.name}</p>}
+        {errors.name && <p id="name-error" className="mt-1 text-xs text-red-500">{errors.name}</p>}
       </div>
 
       <div>
@@ -166,10 +155,13 @@ export function ContactForm() {
           value={values.email}
           onChange={handleChange}
           onBlur={handleBlur}
-          className="w-full rounded-lg border border-border bg-surface px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent"
+          aria-invalid={!!errors.email}
+          aria-describedby={errors.email ? "email-error" : undefined}
+          autoComplete="email"
+          className="w-full rounded-lg border border-border bg-surface px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
           placeholder="you@example.com"
         />
-        {errors.email && <p className="mt-1 text-xs text-red-500">{errors.email}</p>}
+        {errors.email && <p id="email-error" className="mt-1 text-xs text-red-500">{errors.email}</p>}
       </div>
 
       <div>
@@ -177,7 +169,7 @@ export function ContactForm() {
           <label htmlFor="message" className="block text-sm font-medium">
             Message
           </label>
-          <span className="text-xs font-mono text-muted-foreground">
+          <span id="message-count" className="text-xs font-mono tabular-nums text-muted-foreground">
             {messageCount}/{messageMax}
           </span>
         </div>
@@ -192,14 +184,16 @@ export function ContactForm() {
           value={values.message}
           onChange={handleChange}
           onBlur={handleBlur}
+          aria-invalid={!!errors.message}
+          aria-describedby={errors.message ? "message-error" : "message-count"}
           className={[
-            "w-full resize-y rounded-lg border border-border bg-surface px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent",
+            "w-full rounded-lg border border-border bg-surface px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent",
             shakeClass,
           ].join(" ")}
           placeholder="Your message (at least 10 characters)"
         />
 
-        {errors.message && <p className="mt-1 text-xs text-red-500">{errors.message}</p>}
+        {errors.message && <p id="message-error" className="mt-1 text-xs text-red-500">{errors.message}</p>}
       </div>
 
       <button
@@ -207,16 +201,16 @@ export function ContactForm() {
         disabled={status === "sending"}
         className="rounded-lg bg-accent px-6 py-2.5 text-sm font-medium text-accent-foreground transition-opacity hover:opacity-90 disabled:opacity-50"
       >
-        {status === "sending" ? "Sending..." : "Send"}
+        {status === "sending" ? <span aria-live="polite">Sending&hellip;</span> : "Send"}
       </button>
 
       {status === "sent" && (
-        <p className="text-sm text-green-500">
+        <p className="text-sm text-green-500" aria-live="polite" role="status">
           Message sent! I&apos;ll get back to you soon.
         </p>
       )}
       {status === "error" && (
-        <p className="text-sm text-red-500">Something went wrong. Please try again later.</p>
+        <p className="text-sm text-red-500" aria-live="polite" role="alert">Something went wrong. Please try again later.</p>
       )}
     </form>
   );

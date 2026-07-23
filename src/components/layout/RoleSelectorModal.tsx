@@ -10,6 +10,11 @@ export function RoleSelectorModal() {
   useEffect(() => {
     if (!showSelector) return;
 
+    const firstButton = containerRef.current?.querySelector<HTMLElement>("button");
+    if (firstButton) {
+      firstButton.focus();
+    }
+
     function handleKeyDown(e: KeyboardEvent) {
       if (e.key === "Escape") {
         dismissSelector();
@@ -42,7 +47,7 @@ export function RoleSelectorModal() {
   if (!showSelector) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm" role="presentation">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm" role="presentation" style={{ overscrollBehavior: "contain" }}>
       <div
         ref={containerRef}
         className="w-full max-w-md rounded-xl border border-border bg-card p-6 shadow-2xl"

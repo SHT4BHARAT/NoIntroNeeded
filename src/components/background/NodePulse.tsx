@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useEffect } from "react";
+import { useReducedMotion } from "@/lib/hooks/useReducedMotion";
 
 interface Node {
   x: number;
@@ -11,13 +12,14 @@ interface Node {
   baseRadius: number;
 }
 
-const CONNECTION_DISTANCE = 150;
-const NODE_COUNT_FACTOR = 0.023;
-const DRIFT = 0.18;
-const COLOR = "34, 211, 238";
+const CONNECTION_DISTANCE = 120;
+const NODE_COUNT_FACTOR = 0.014;
+const DRIFT = 0.12;
+const COLOR = "201, 138, 58";
 
 export function NodePulse() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const prefersReducedMotion = useReducedMotion();
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -26,12 +28,11 @@ export function NodePulse() {
     if (!ctx) return;
 
     let animId: number;
+    let startTime = performance.now();
+    const FADE_DURATION = 30000;
     const nodes: Node[] = [];
     let w = 0;
     let h = 0;
-
-    const prefersReducedMotion =
-      window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches ?? false;
 
     function resize() {
       w = window.innerWidth;
@@ -60,9 +61,17 @@ export function NodePulse() {
     function draw() {
       ctx!.clearRect(0, 0, w, h);
       const time = performance.now() / 1000;
+      const elapsed = performance.now() - startTime;
 
-      // Soft “breathing” modulation for connections
-      const breathe = 0.85 + 0.15 * Math.sin(time * 0.55);
+      // Fade out after FADE_DURATION, then stop animating
+      const fadeProgress = elapsed < FADE_DURATION ? 1 : Math.max(0, 1 - (elapsed - FADE_DURATION) / 3000);
+      if (fadeProgress <= 0 && elapsed > FADE_DURATION + 3000) {
+        ctx!.clearRect(0, 0, w, h);
+        return;
+      }
+
+      // Soft "breathing" modulation for connections
+      const breathe = (0.85 + 0.15 * Math.sin(time * 0.55)) * fadeProgress;
 
       if (!prefersReducedMotion) {
         for (const n of nodes) {
@@ -105,7 +114,7 @@ export function NodePulse() {
         const r = n.baseRadius * pulse;
 
         // Lower saturation for a calmer background
-        const alpha = 0.18 + 0.22 * (0.5 + 0.5 * Math.sin(time * 0.75 + n.phase));
+        const alpha = (0.18 + 0.22 * (0.5 + 0.5 * Math.sin(time * 0.75 + n.phase))) * fadeProgress;
         ctx!.beginPath();
         ctx!.arc(n.x, n.y, r, 0, Math.PI * 2);
         ctx!.fillStyle = `rgba(${COLOR}, ${alpha.toFixed(3)})`;

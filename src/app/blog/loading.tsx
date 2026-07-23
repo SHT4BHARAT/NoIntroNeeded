@@ -1,23 +1,6 @@
 export default function BlogLoading() {
   return (
-    <main className="mx-auto max-w-2xl flex-1 px-4 py-16">
-      <style>{`
-        @keyframes shimmer {
-          0% { background-position: 100% 0; }
-          100% { background-position: 0 0; }
-        }
-        .shimmer {
-          background-image: linear-gradient(
-            90deg,
-            rgba(39,39,42,0.35) 0%,
-            rgba(39,39,42,0.12) 50%,
-            rgba(39,39,42,0.35) 100%
-          );
-          background-size: 200% 100%;
-          animation: shimmer 1.2s ease-in-out infinite;
-        }
-      `}</style>
-
+    <div className="mx-auto max-w-3xl flex-1 px-4 py-20">
       <div className="mb-2 h-9 w-32 rounded bg-surface shimmer" />
       <div className="mb-8 h-5 w-64 rounded bg-surface shimmer" />
 
@@ -44,6 +27,6 @@ export default function BlogLoading() {
           </div>
         ))}
       </div>
-    </main>
+    </div>
   );
 }

@@ -13,7 +13,6 @@ import rehypeSlug from "rehype-slug";
 import { CATEGORY_LABELS } from "@/lib/blog/constants";
 import { BlogTOC } from "@/components/blog/BlogTOC";
 import { ReadingProgressBar } from "@/components/blog/ReadingProgressBar";
-import { BackToTop } from "@/components/blog/BackToTop";
 import { RecentPosts } from "@/components/blog/RecentPosts";
 import { PersonMention } from "@/components/blog/PersonMention";
 import { ImageCarousel } from "@/components/blog/ImageCarousel";
@@ -45,6 +44,11 @@ export async function generateMetadata({
       type: "article",
       publishedTime: post.frontmatter.date,
       locale: "hi_IN",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.frontmatter.title,
+      description: post.frontmatter.excerpt,
     },
     alternates: {
       canonical: `${SITE_URL}/blog/hi/${slug}`,
@@ -79,7 +83,7 @@ export default async function HindiBlogPostPage({
       />
 
       <ReadingProgressBar />
-      <main className="mx-auto max-w-2xl flex-1 px-4 py-16">
+      <div className="mx-auto max-w-2xl flex-1 px-4 py-16">
         <Link
           href="/blog"
           className="mb-8 inline-block font-mono text-xs text-muted-foreground hover:text-accent transition-colors"
@@ -103,7 +107,7 @@ export default async function HindiBlogPostPage({
               <LanguageToggle slug={slug} currentLang="hi" />
             </div>
 
-            <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
+            <h1 className="font-display text-3xl font-bold tracking-tight sm:text-4xl">
               {frontmatter.title}
             </h1>
 
@@ -167,11 +171,10 @@ export default async function HindiBlogPostPage({
         </article>
 
         <RecentPosts currentSlug={slug} lang="hi" />
-      </main>
+      </div>
       <aside className="fixed right-8 top-24 hidden w-56 xl:block">
         <BlogTOC />
       </aside>
-      <BackToTop />
     </>
   );
 }

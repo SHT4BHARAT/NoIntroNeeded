@@ -8,7 +8,7 @@ export function RoleProjectList({
 }) {
   return (
     <section>
-      <h2 className="text-sm font-semibold uppercase tracking-widest text-muted">
+      <h2 className="font-display text-sm font-semibold uppercase tracking-widest text-muted">
         Projects
       </h2>
       <div className="mt-4 grid gap-4 sm:grid-cols-2">

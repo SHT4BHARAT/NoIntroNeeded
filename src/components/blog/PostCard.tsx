@@ -21,9 +21,9 @@ export function PostCard({
   return (
     <Link href={`/blog/${slug}`} className="group block">
       <article
-        className="rounded-lg border border-border bg-card p-5 transition-[transform,box-shadow,border-color,background-color] duration-150 ease-out hover:-translate-y-4 hover:border-accent/70 hover:bg-surface hover:shadow-[0_12px_30px_-18px_rgba(212,145,58,0.40)] group-focus-visible:-translate-y-4 group-focus-visible:border-accent/70 group-focus-visible:bg-surface group-focus-visible:shadow-[0_12px_30px_-18px_rgba(212,145,58,0.40)] outline-none motion-reduce:transform-none motion-reduce:shadow-none motion-reduce:transition-none"
+        className="rounded-lg border border-border bg-card p-6 transition-all duration-300 ease-out hover:-translate-y-1 hover:border-accent/50 hover:bg-surface group-focus-visible:-translate-y-1 group-focus-visible:border-accent/50 group-focus-visible:bg-surface group-focus-visible:outline-none group-focus-visible:ring-2 group-focus-visible:ring-accent/60 motion-reduce:transform-none motion-reduce:transition-none"
       >
-        <div className="mb-2 flex items-center gap-3">
+        <div className="mb-3 flex items-center gap-3">
           <span className="inline-block rounded bg-accent-bg px-2 py-0.5 font-mono text-xs text-accent">
             {CATEGORY_LABELS[category]}
           </span>
@@ -34,8 +34,8 @@ export function PostCard({
         <h2 className="text-lg font-semibold tracking-tight">
           {title}
         </h2>
-        <p className="mt-1 line-clamp-2 text-sm text-muted">{excerpt}</p>
-        <span className="mt-2 inline-block font-mono text-xs text-muted-foreground">
+        <p className="mt-1.5 line-clamp-2 text-sm text-muted leading-relaxed">{excerpt}</p>
+        <span className="mt-3 inline-block font-mono text-xs text-muted-foreground">
           {readingTime} min read
         </span>
       </article>

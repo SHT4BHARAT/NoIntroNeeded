@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { z } from "zod";
+import { SITE_URL } from "@/lib/constants";
 import { achievements } from "@/lib/achievements/data";
 import type { Achievement } from "@/types/achievements";
 import { RevealOnScroll } from "@/components/animation/RevealOnScroll";
@@ -12,6 +13,21 @@ export const metadata: Metadata = {
   title: "Achievements — Shivanshu Tiwari",
   description:
     "Certifications, hackathon participation, and technical milestones from Shivanshu Tiwari's work in AI agent engineering and backend systems.",
+  openGraph: {
+    title: "Achievements — Shivanshu Tiwari",
+    description:
+      "Certifications, hackathon participation, and technical milestones from Shivanshu Tiwari's work.",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Achievements — Shivanshu Tiwari",
+    description:
+      "Certifications, hackathon participation, and technical milestones from Shivanshu Tiwari's work.",
+  },
+  alternates: {
+    canonical: `${SITE_URL}/achievements`,
+  },
   robots: "index, follow",
 };
 
@@ -40,7 +56,7 @@ function AchievementCard({
   return (
     <article
       tabIndex={0}
-      className="rounded-lg border border-border bg-card p-5 transition-[transform,box-shadow,border-color,background-color] duration-150 ease-out hover:-translate-y-4 hover:border-accent/70 hover:bg-surface hover:shadow-[0_12px_30px_-18px_rgba(212,145,58,0.40)] focus-visible:-translate-y-4 focus-visible:border-accent/70 focus-visible:outline-none focus-visible:bg-surface focus-visible:shadow-[0_12px_30px_-18px_rgba(212,145,58,0.40)] motion-reduce:transform-none motion-reduce:shadow-none motion-reduce:transition-none"
+      className="rounded-lg border border-border bg-card p-6 transition-all duration-300 ease-out hover:-translate-y-1 hover:border-accent/50 hover:bg-surface focus-visible:-translate-y-1 focus-visible:border-accent/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60 motion-reduce:transform-none motion-reduce:transition-none"
     >
       <div className="mb-2 flex items-center gap-3">
         <span className="inline-block rounded bg-accent-bg px-2 py-0.5 font-mono text-xs text-accent">
@@ -81,9 +97,9 @@ export default async function AchievementsPage({
     : achievements;
 
   return (
-    <main className="mx-auto max-w-2xl flex-1 px-4 py-16">
+    <div className="mx-auto max-w-3xl flex-1 px-4 py-20">
       <RevealOnScroll>
-        <h1 className="mb-2 text-3xl font-bold tracking-tight">Achievements</h1>
+        <h1 className="font-display mb-2 text-3xl font-bold tracking-tight">Achievements</h1>
       </RevealOnScroll>
 
       <RevealOnScroll>
@@ -135,6 +151,6 @@ export default async function AchievementsPage({
           </div>
         </RevealOnScroll>
       )}
-    </main>
+    </div>
   );
 }

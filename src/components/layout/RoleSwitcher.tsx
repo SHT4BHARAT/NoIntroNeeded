@@ -65,7 +65,7 @@ export function RoleSwitcher() {
           <p className="px-2.5 py-1.5 text-xs text-muted">Switch role view</p>
           <button
             onClick={() => handleSelect("ai-engineer")}
-            className="flex w-full items-center rounded-md px-2.5 py-2 text-left text-sm transition-colors hover:bg-surface focus:bg-surface focus:outline-none focus:ring-1 focus:ring-accent/50"
+            className="flex w-full items-center rounded-md px-2.5 py-2 text-left text-sm transition-colors hover:bg-surface focus-visible:bg-surface focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent/50"
             role="menuitem"
           >
             <div>
@@ -77,7 +77,7 @@ export function RoleSwitcher() {
           </button>
           <button
             onClick={() => handleSelect("backend-systems")}
-            className="flex w-full items-center rounded-md px-2.5 py-2 text-left text-sm transition-colors hover:bg-surface focus:bg-surface focus:outline-none focus:ring-1 focus:ring-accent/50"
+            className="flex w-full items-center rounded-md px-2.5 py-2 text-left text-sm transition-colors hover:bg-surface focus-visible:bg-surface focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent/50"
             role="menuitem"
           >
             <div>
@@ -89,7 +89,7 @@ export function RoleSwitcher() {
           </button>
           <button
             onClick={() => handleSelect(null)}
-            className="flex w-full items-center rounded-md px-2.5 py-2 text-left text-sm transition-colors hover:bg-surface focus:bg-surface focus:outline-none focus:ring-1 focus:ring-accent/50"
+            className="flex w-full items-center rounded-md px-2.5 py-2 text-left text-sm transition-colors hover:bg-surface focus-visible:bg-surface focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent/50"
             role="menuitem"
           >
             <div>

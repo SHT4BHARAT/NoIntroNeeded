@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, JetBrains_Mono } from "next/font/google";
+import { Geist, Inter, JetBrains_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
@@ -12,6 +12,14 @@ import { CursorSpotlight } from "@/components/background/CursorSpotlight";
 import { NodePulse } from "@/components/background/NodePulse";
 import { NoiseOverlay } from "@/components/background/NoiseOverlay";
 import { SITE_URL, SITE_NAME, SITE_TITLE, SITE_DESCRIPTION } from "@/lib/constants";
+import { PersonSchema } from "@/components/seo/PersonSchema";
+import { WebSiteSchema } from "@/components/seo/WebSiteSchema";
+
+const geist = Geist({
+  variable: "--font-display",
+  subsets: ["latin"],
+  display: "swap",
+});
 
 const inter = Inter({
   variable: "--font-inter",
@@ -57,6 +65,9 @@ export const metadata: Metadata = {
   verification: {
     google: "7WNszbUUuZhAkzA3WgPqePbA0BGZR7OmFOaCvZFtUfQ",
   },
+  other: {
+    "theme-color": "#0A0C10",
+  },
 };
 
 export default function RootLayout({
@@ -65,8 +76,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${jetbrainsMono.variable}`} suppressHydrationWarning>
+    <html lang="en" className={`${geist.variable} ${inter.variable} ${jetbrainsMono.variable}`} suppressHydrationWarning style={{ colorScheme: "dark light" }}>
       <body className="min-h-dvh flex flex-col bg-background text-foreground antialiased">
+        <PersonSchema />
+        <WebSiteSchema />
         <a
           href="#main-content"
           className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:bg-accent focus:px-4 focus:py-2 focus:text-accent-foreground focus:text-sm focus:font-medium"

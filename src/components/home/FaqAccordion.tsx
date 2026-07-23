@@ -1,30 +1,12 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { useReducedMotion } from "@/lib/hooks/useReducedMotion";
 
 export type FaqItem = { question: string; answer: string };
 
-function usePrefersReducedMotion() {
-  const [reduced, setReduced] = useState(false);
-
-  useEffect(() => {
-    const m = window.matchMedia?.("(prefers-reduced-motion: reduce)");
-    if (!m) return;
-    const update = () => setReduced(!!m.matches);
-    update();
-    if (typeof m.addEventListener === "function") m.addEventListener("change", update);
-    else m.addListener(update);
-    return () => {
-      if (typeof m.removeEventListener === "function") m.removeEventListener("change", update);
-      else m.removeListener(update);
-    };
-  }, []);
-
-  return reduced;
-}
-
 export function FaqAccordion({ items }: { items: FaqItem[] }) {
-  const reducedMotion = usePrefersReducedMotion();
+  const reducedMotion = useReducedMotion();
   const [openQuestion, setOpenQuestion] = useState<string | null>(null);
 
   return (

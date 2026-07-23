@@ -13,7 +13,6 @@ import { RecentPosts } from "@/components/blog/RecentPosts";
 import { CATEGORY_LABELS } from "@/lib/blog/constants";
 import { BlogTOC } from "@/components/blog/BlogTOC";
 import { ReadingProgressBar } from "@/components/blog/ReadingProgressBar";
-import { BackToTop } from "@/components/blog/BackToTop";
 import { PersonMention } from "@/components/blog/PersonMention";
 import { ImageCarousel } from "@/components/blog/ImageCarousel";
 import { PhotoStrip } from "@/components/gallery/PhotoStrip";
@@ -57,6 +56,11 @@ export async function generateMetadata({
       modifiedTime: post.frontmatter.updated,
       tags: post.frontmatter.tags,
     },
+    twitter: {
+      card: "summary_large_image",
+      title: post.frontmatter.title,
+      description: post.frontmatter.excerpt,
+    },
     alternates,
   };
 }
@@ -84,7 +88,7 @@ export default async function BlogPostPage({
       />
 
       <ReadingProgressBar />
-      <main className="mx-auto max-w-2xl flex-1 px-4 py-16">
+      <div className="mx-auto max-w-2xl flex-1 px-4 py-16">
         <Link
           href="/blog"
           className="mb-8 inline-block font-mono text-xs text-muted-foreground hover:text-accent transition-colors"
@@ -110,7 +114,7 @@ export default async function BlogPostPage({
               )}
             </div>
 
-            <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
+            <h1 className="font-display text-3xl font-bold tracking-tight sm:text-4xl">
               {frontmatter.title}
             </h1>
 
@@ -173,11 +177,10 @@ export default async function BlogPostPage({
         </article>
 
         <RecentPosts currentSlug={slug} />
-      </main>
+      </div>
       <aside className="fixed right-8 top-24 hidden w-56 xl:block">
         <BlogTOC />
       </aside>
-      <BackToTop />
     </>
   );
 }

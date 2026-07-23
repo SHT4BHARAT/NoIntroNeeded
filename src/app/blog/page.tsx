@@ -11,6 +11,18 @@ export const metadata: Metadata = {
   title: "Blog — Shivanshu Tiwari",
   description:
     "Technical writing on AI agent architecture, backend systems design, and honest post-mortems from real projects — including why reinforcement learning lost to a simple heuristic.",
+  openGraph: {
+    title: "Blog — Shivanshu Tiwari",
+    description:
+      "Technical writing on AI agent architecture, backend systems design, and honest post-mortems from real projects.",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Blog — Shivanshu Tiwari",
+    description:
+      "Technical writing on AI agent architecture, backend systems design, and honest post-mortems from real projects.",
+  },
   alternates: {
     canonical: `${SITE_URL}/blog`,
   },
@@ -34,9 +46,9 @@ export default async function BlogIndexPage({
     : allPosts;
 
   return (
-    <main className="mx-auto max-w-2xl flex-1 px-4 py-16">
+    <div className="mx-auto max-w-3xl flex-1 px-4 py-20">
       <RevealOnScroll>
-        <h1 className="mb-2 text-3xl font-bold tracking-tight">Blog</h1>
+        <h1 className="font-display mb-2 text-3xl font-bold tracking-tight">Blog</h1>
       </RevealOnScroll>
 
       <RevealOnScroll>
@@ -69,6 +81,6 @@ export default async function BlogIndexPage({
           ))}
         </div>
       )}
-    </main>
+    </div>
   );
 }
