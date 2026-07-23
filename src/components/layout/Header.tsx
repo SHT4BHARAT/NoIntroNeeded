@@ -34,9 +34,33 @@ function isActiveLink(pathname: string, href: string): boolean {
   return false;
 }
 
+function ThemeToggleButton() {
+  const { theme, toggleTheme, hydrated } = useTheme();
+
+  if (!hydrated) {
+    return (
+      <button
+        disabled
+        className="flex h-9 w-9 items-center justify-center rounded-md text-sm text-muted"
+        aria-label="Loading theme..."
+      />
+    );
+  }
+
+  return (
+    <button
+      onClick={toggleTheme}
+      className="flex h-9 w-9 items-center justify-center rounded-md text-sm text-muted transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60 hover:bg-surface hover:text-foreground"
+      aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
+      suppressHydrationWarning
+    >
+      {theme === "dark" ? <SunIcon /> : <MoonIcon />}
+    </button>
+  );
+}
+
 export function Header() {
   const pathname = usePathname();
-  const { theme, toggleTheme } = useTheme();
   const [open, setOpen] = useState(false);
 
   const navItemClass = useCallback((isActive: boolean) =>
@@ -101,13 +125,7 @@ export function Header() {
 
           <RoleSwitcher />
 
-          <button
-            onClick={toggleTheme}
-            className="flex h-9 w-9 items-center justify-center rounded-md text-sm text-muted transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60 hover:bg-surface hover:text-foreground"
-            aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
-          >
-            {theme === "dark" ? <SunIcon /> : <MoonIcon />}
-          </button>
+          <ThemeToggleButton />
         </div>
       </div>
 
