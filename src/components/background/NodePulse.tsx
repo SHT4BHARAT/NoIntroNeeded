@@ -28,7 +28,7 @@ export function NodePulse() {
     if (!ctx) return;
 
     let animId: number;
-    let startTime = performance.now();
+    const startTime = performance.now();
     const FADE_DURATION = 30000;
     const nodes: Node[] = [];
     let w = 0;

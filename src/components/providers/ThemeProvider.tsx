@@ -1,5 +1,6 @@
 "use client";
 
+/* eslint-disable react-hooks/set-state-in-effect -- intentional hydration pattern */
 import { createContext, useContext, useState, useEffect, useCallback } from "react";
 
 type Theme = "dark" | "light";

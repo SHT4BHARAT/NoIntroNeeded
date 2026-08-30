@@ -1,5 +1,6 @@
 "use client";
 
+/* eslint-disable react-hooks/set-state-in-effect -- intentional hydration/observer pattern */
 import { useRef, useState, useEffect, useMemo } from "react";
 import { useReducedMotion } from "@/lib/hooks/useReducedMotion";
 

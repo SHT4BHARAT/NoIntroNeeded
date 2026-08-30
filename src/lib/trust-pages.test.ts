@@ -1,6 +1,7 @@
 import { describe, it, expect } from "vitest";
 import * as fs from "fs";
 import * as path from "path";
+import { staticPageMarkdown } from "@/lib/markdown/generators";
 
 function visibleCharCount(mdOrTsx: string): number {
   // Rough: strip tags/markdown
@@ -29,8 +30,7 @@ describe("Trust pages content length", () => {
     expect(sitemap).toContain('"/privacy"');
   });
 
-  it("markdown generators produce >=500 chars for trust pages", async () => {
-    const { staticPageMarkdown } = await import("@/lib/markdown/generators");
+  it("markdown generators produce >=500 chars for trust pages", () => {
     for (const page of ["about", "privacy", "contact"]) {
       const md = staticPageMarkdown(page);
       expect(md, `${page} markdown not null`).not.toBeNull();

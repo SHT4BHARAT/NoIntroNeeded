@@ -1,4 +1,3 @@
-import { getProjectBySlug } from "@/lib/projects/config";
 import { getPostBySlug } from "@/lib/blog";
 import {
   homeMarkdown,

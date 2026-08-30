@@ -1,5 +1,6 @@
 "use client";
 
+/* eslint-disable react-hooks/set-state-in-effect -- intentional hydration/cookie sync */
 import { createContext, useContext, useState, useEffect, useCallback } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import { ROLE_COOKIE_NAME, isValidRole } from "@/lib/role/cookie";

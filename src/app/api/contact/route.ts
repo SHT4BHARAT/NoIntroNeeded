@@ -42,7 +42,7 @@ export async function POST(request: NextRequest) {
         setTimeout(() => reject(new Error("Timeout appending to sheet")), 8000)
       );
       await Promise.race([appendPromise, timeoutPromise]);
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error("[api/contact] Error appending to sheet:", err);
       return NextResponse.json(
         { error: "Failed to submit message to spreadsheet" },
@@ -51,7 +51,7 @@ export async function POST(request: NextRequest) {
     }
 
     return NextResponse.json({ success: true });
-  } catch (err) {
+  } catch (err: unknown) {
     console.error("[api/contact] Global handler error:", err);
     return NextResponse.json(
       { error: "Internal server error" },

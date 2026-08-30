@@ -12,7 +12,21 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    ".opencode/**",
+    "opencode.json",
+    "docs/**",
+    "background-variants/**",
+    "redesign-prototype/**",
+    "part1/**",
+    "part2/**",
+    "indiainnovate-blog/**",
   ]),
+  {
+    files: ["scripts/**/*.{js,cjs,mjs}"],
+    rules: {
+      "@typescript-eslint/no-require-imports": "off",
+    },
+  },
 ]);
 
 export default eslintConfig;
