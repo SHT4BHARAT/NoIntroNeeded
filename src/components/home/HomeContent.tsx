@@ -56,10 +56,13 @@ function RoleHome({ roleSlug }: { roleSlug: string }) {
       <div key={roleSlug} className="mx-auto max-w-5xl px-4 py-28">
         <RevealOnScroll>
           <section className="mb-28">
-            <h2 className="font-display text-sm font-semibold uppercase tracking-widest text-muted">
-              About
-            </h2>
-            <p className="mt-4 max-w-prose text-base leading-relaxed text-muted">
+            <div className="flex items-center gap-3 mb-6">
+              <h2 className="font-display text-sm font-semibold uppercase tracking-widest text-muted">
+                About
+              </h2>
+              <div className="h-px flex-1 bg-accent/60" />
+            </div>
+            <p className="max-w-prose text-base leading-relaxed text-muted">
               {role.about}
             </p>
           </section>
@@ -67,9 +70,12 @@ function RoleHome({ roleSlug }: { roleSlug: string }) {
 
         <RevealOnScroll>
           <section className="mb-28">
-            <h2 className="font-display text-sm font-semibold uppercase tracking-widest text-muted">
-              Skills
-            </h2>
+            <div className="flex items-center gap-3 mb-6">
+              <h2 className="font-display text-sm font-semibold uppercase tracking-widest text-muted">
+                Skills
+              </h2>
+              <div className="h-px flex-1 bg-accent/60" />
+            </div>
             <div className="mt-6 space-y-5">
               {role.skills.categories.map((cat) => (
                 <div key={cat.name}>
@@ -131,20 +137,26 @@ function ShowEverything() {
       <div className="mx-auto max-w-5xl px-4 py-28">
         <section className="mb-28">
           <RevealOnScroll>
-            <h2 className="font-display text-sm font-semibold uppercase tracking-widest text-muted">
-              About
-            </h2>
-            <p className="mt-4 max-w-prose text-balance text-base leading-relaxed text-muted">
-              I don&apos;t just use AI — I build things with it that keep running after I close my laptop. I&apos;m a third-year B.Tech CS &amp; IT student in Bhopal, and over the past year I&apos;ve built autonomous agents, LLM pipelines, voice intelligence tools, and RL benchmarking systems across 19 projects — some shipped and deployed, some deliberately stopped short of production so I could document what actually worked and what didn&apos;t. I&apos;m not interested in demos that only look good in a pitch. When something fails — an RL agent losing to a simple heuristic, a classifier scoring 25% instead of the 90% I hoped for — I keep the result and figure out why, instead of reframing it until it sounds better. That&apos;s the standard I hold my own work to, and it&apos;s the standard I expect from anything I ship.
+            <div className="flex items-center gap-3 mb-6">
+              <h2 className="font-display text-sm font-semibold uppercase tracking-widest text-muted">
+                About
+              </h2>
+              <div className="h-px flex-1 bg-accent/60" />
+            </div>
+            <p className="max-w-prose text-balance text-base leading-relaxed text-muted">
+              I don&apos;t just use AI &mdash; I build things with it that keep running after I close my laptop. I&apos;m a third-year B.Tech CS &amp; IT student in Bhopal, and over the past year I&apos;ve built autonomous agents, LLM pipelines, voice intelligence tools, and RL benchmarking systems across 19 projects &mdash; some shipped and deployed, some deliberately stopped short of production so I could document what actually worked and what didn&apos;t. I&apos;m not interested in demos that only look good in a pitch. When something fails &mdash; an RL agent losing to a simple heuristic, a classifier scoring 25% instead of the 90% I hoped for &mdash; I keep the result and figure out why, instead of reframing it until it sounds better. That&apos;s the standard I hold my own work to, and it&apos;s the standard I expect from anything I ship.
             </p>
           </RevealOnScroll>
         </section>
 
         <section className="mb-28">
           <RevealOnScroll>
-            <h2 className="font-display text-sm font-semibold uppercase tracking-widest text-muted">
-              Skills
-            </h2>
+            <div className="flex items-center gap-3 mb-6">
+              <h2 className="font-display text-sm font-semibold uppercase tracking-widest text-muted">
+                Skills
+              </h2>
+              <div className="h-px flex-1 bg-accent/60" />
+            </div>
           </RevealOnScroll>
 
           <RevealOnScroll>
@@ -218,9 +230,12 @@ function ShowEverything() {
 
         <section className="mb-28">
           <RevealOnScroll>
-            <h2 className="font-display text-sm font-semibold uppercase tracking-widest text-muted">
-              Projects
-            </h2>
+            <div className="flex items-center gap-3 mb-6">
+              <h2 className="font-display text-sm font-semibold uppercase tracking-widest text-muted">
+                Projects
+              </h2>
+              <div className="h-px flex-1 bg-accent/60" />
+            </div>
           </RevealOnScroll>
 
           <RevealOnScroll>

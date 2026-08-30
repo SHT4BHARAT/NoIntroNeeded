@@ -9,6 +9,12 @@ export function Footer() {
           &copy; {new Date().getFullYear()} {SITE_NAME}
         </p>
         <div className="flex items-center gap-5 text-sm text-muted">
+          <Link href="/about" className="transition-colors duration-200 hover:text-foreground">
+            About
+          </Link>
+          <Link href="/privacy" className="transition-colors duration-200 hover:text-foreground">
+            Privacy
+          </Link>
           <Link
             href={SOCIAL.github}
             target="_blank"

@@ -8,14 +8,21 @@ export function RoleHero({ role }: { role: RoleConfig }) {
           {role.slug}
         </p>
         <h1 className="mt-4 font-display text-5xl font-bold leading-tight tracking-tight sm:text-6xl">
-          {role.headline}
+          {role.headline.split("—")[0]}
+          {role.headline.includes("—") && (
+            <span className="block mt-2 text-muted">{role.headline.split("—")[1].trim()}</span>
+          )}
+          {!role.headline.includes("—") && (
+            <span className="block mt-2 text-3xl sm:text-4xl text-muted font-normal">{role.slug === "ai-engineer" ? "Autonomous agents, LLM pipelines, RL benchmarks" : "APIs, concurrency-safe engines, real-time dispatch"}</span>
+          )}
         </h1>
+        <div className="mt-6 h-1 w-16 rounded-full bg-accent/60" />
         {role.subheading && (
-          <p className="mt-4 max-w-2xl text-balance text-lg text-muted">
+          <p className="mt-6 max-w-2xl text-balance text-lg text-muted">
             {role.subheading}
           </p>
         )}
-        <p className="mt-2 text-base text-muted">
+        <p className="mt-3 text-base text-muted">
           B.Tech CS &amp; IT, SIRT Bhopal (RGPV CSIT) &middot; Class of 2027
         </p>
       </div>

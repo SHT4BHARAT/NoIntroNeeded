@@ -15,7 +15,7 @@ interface Node {
 const CONNECTION_DISTANCE = 120;
 const NODE_COUNT_FACTOR = 0.014;
 const DRIFT = 0.12;
-const COLOR = "201, 138, 58";
+const COLOR = "124, 111, 224";
 
 export function NodePulse() {
   const canvasRef = useRef<HTMLCanvasElement>(null);

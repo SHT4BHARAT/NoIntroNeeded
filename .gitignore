@@ -54,3 +54,22 @@ portfolio-v2-build-prompt.md
 *.jpg
 *.jpeg
 *.png
+# but keep the committed OG image (referenced in every page's metadata)
+!public/og-image.png
+
+# local dev artifacts / scratch files
+/dev.log
+/next-start.log
+/next-start.log.*
+*.log
+/temp_response.txt
+/lighthouse-report.json
+/redesign-prototype/
+/.opencode/
+/opencode.json
+/technicalPlan.md.bak
+CLAUDE.md
+/background-variants/
+/docs/
+page.html
+test_*.html

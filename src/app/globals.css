@@ -25,8 +25,8 @@
   /* Refined palette — muted violet accent, warmer neutrals */
   --page-bg: #F4F5F7;
   --card-bg: #FFFFFF;
-  --text-primary: #14171C;
-  --text-secondary: #5B5F68;
+  --text-primary: #1A1A1A;
+  --text-secondary: #606060;
   --accent-signal: #5B4FC7;
   --accent-signal-bg: #E4E1F9;
   --accent-verified: #2F7A4C;
@@ -60,8 +60,8 @@
 html.dark {
   --page-bg: #0B0D11;
   --card-bg: #15181D;
-  --text-primary: #EDEBE6;
-  --text-secondary: #8F929B;
+  --text-primary: #EDEDED;
+  --text-secondary: #909090;
   --accent-signal: #7C6FE0;
   --accent-signal-bg: rgba(124, 111, 224, 0.14);
   --accent-verified: #5FAE7C;
@@ -93,8 +93,8 @@ html.dark {
 .light {
   --page-bg: #F4F5F7;
   --card-bg: #FFFFFF;
-  --text-primary: #14171C;
-  --text-secondary: #5B5F68;
+  --text-primary: #1A1A1A;
+  --text-secondary: #606060;
   --accent-signal: #5B4FC7;
   --accent-signal-bg: #E4E1F9;
   --accent-verified: #2F7A4C;
@@ -188,7 +188,7 @@ article [id] {
 
 /* Cursor spotlight — background defined in CSS to avoid SSR style normalization mismatch */
 .cursor-spotlight {
-  background-image: radial-gradient(circle 400px at var(--x, 50vw) var(--y, 50vh), rgba(212, 145, 58, 0.08), transparent 80%);
+  background-image: radial-gradient(circle 400px at var(--x, 50vw) var(--y, 50vh), rgba(124, 111, 224, 0.12), transparent 80%);
 }
 
 /* Blog content typography */

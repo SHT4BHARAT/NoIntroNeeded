@@ -39,7 +39,7 @@ export default async function OGImage({
         >
           <span
             style={{
-              background: "#D4913A",
+              background: "#7C6FE0",
               color: "#14171C",
               padding: "4px 12px",
               borderRadius: 6,

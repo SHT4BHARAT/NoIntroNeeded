@@ -1,11 +1,14 @@
 import type { MetadataRoute } from "next";
 import { getAllPosts } from "@/lib/blog";
+import { projects } from "@/lib/projects/config";
 import { SITE_URL } from "@/lib/constants";
 
 const BASE_URL = SITE_URL;
 
 const staticRoutes = [
   "",
+  "/about",
+  "/privacy",
   "/ai-engineer",
   "/backend-systems",
   "/blog",
@@ -39,5 +42,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.5,
   }));
 
-  return [...staticPages, ...englishPosts, ...hindiPosts];
+  const projectPages = projects.map((p) => ({
+    url: `${BASE_URL}/projects/${p.slug}`,
+    lastModified: new Date(),
+    changeFrequency: "monthly" as const,
+    priority: 0.7 as const,
+  }));
+
+  return [...staticPages, ...englishPosts, ...hindiPosts, ...projectPages];
 }

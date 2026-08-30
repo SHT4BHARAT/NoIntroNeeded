@@ -137,7 +137,7 @@ export function ContactForm() {
           aria-invalid={!!errors.name}
           aria-describedby={errors.name ? "name-error" : undefined}
           autoComplete="name"
-          className="w-full rounded-lg border border-border bg-surface px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+          className="w-full rounded-lg border border-accent/10 bg-surface px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
           placeholder="Your name"
         />
         {errors.name && <p id="name-error" className="mt-1 text-xs text-red-500">{errors.name}</p>}
@@ -158,7 +158,7 @@ export function ContactForm() {
           aria-invalid={!!errors.email}
           aria-describedby={errors.email ? "email-error" : undefined}
           autoComplete="email"
-          className="w-full rounded-lg border border-border bg-surface px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+          className="w-full rounded-lg border border-accent/10 bg-surface px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
           placeholder="you@example.com"
         />
         {errors.email && <p id="email-error" className="mt-1 text-xs text-red-500">{errors.email}</p>}
@@ -187,7 +187,7 @@ export function ContactForm() {
           aria-invalid={!!errors.message}
           aria-describedby={errors.message ? "message-error" : "message-count"}
           className={[
-            "w-full rounded-lg border border-border bg-surface px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent",
+            "w-full rounded-lg border border-accent/10 bg-surface px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent",
             shakeClass,
           ].join(" ")}
           placeholder="Your message (at least 10 characters)"

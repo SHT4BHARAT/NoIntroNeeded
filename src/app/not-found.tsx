@@ -7,10 +7,11 @@ export const metadata: Metadata = {
 
 const suggestions = [
   { href: "/", label: "Home" },
-  { href: "/blog", label: "Blog" },
-  { href: "/projects/agentic-honeypot", label: "Featured Project" },
-  { href: "/achievements", label: "Achievements" },
+  { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
+  { href: "/blog", label: "Blog" },
+  { href: "/projects/agentic-honey-pot", label: "Featured Project" },
+  { href: "/achievements", label: "Achievements" },
 ];
 
 export default function NotFound() {
@@ -19,7 +20,17 @@ export default function NotFound() {
       <span className="font-mono text-6xl font-bold text-accent">404</span>
       <h1 className="font-display mt-4 text-2xl font-bold tracking-tight">Page not found</h1>
       <p className="mt-2 text-muted">
-        The page you&apos;re looking for doesn&apos;t exist or has been moved.
+        404 — page not found. The page you&apos;re looking for doesn&apos;t exist or has been moved.
+      </p>
+      <p className="mt-2 text-xs text-muted-foreground">
+        Agent recovery:{" "}
+        <Link href="/sitemap.xml" className="underline hover:text-foreground">
+          sitemap.xml
+        </Link>
+        {" · "}
+        <Link href="/llms.txt" className="underline hover:text-foreground">
+          llms.txt
+        </Link>
       </p>
 
       <div className="mt-6 flex w-full flex-col items-center gap-3 sm:flex-row sm:justify-center">

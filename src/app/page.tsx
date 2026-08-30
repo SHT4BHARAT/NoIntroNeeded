@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { PersonSchema } from "@/components/seo/PersonSchema";
 import { HomeContent } from "@/components/home/HomeContent";
 
 export const metadata: Metadata = {
@@ -35,10 +34,5 @@ export const metadata: Metadata = {
 };
 
 export default function HomePage() {
-  return (
-    <>
-      <PersonSchema />
-      <HomeContent />
-    </>
-  );
+  return <HomeContent />;
 }

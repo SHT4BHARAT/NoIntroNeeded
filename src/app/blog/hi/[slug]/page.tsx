@@ -83,7 +83,7 @@ export default async function HindiBlogPostPage({
       />
 
       <ReadingProgressBar />
-      <div className="mx-auto max-w-2xl flex-1 px-4 py-16">
+      <div className="mx-auto max-w-2xl flex-1 px-4 py-20">
         <Link
           href="/blog"
           className="mb-8 inline-block font-mono text-xs text-muted-foreground hover:text-accent transition-colors"

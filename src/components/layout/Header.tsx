@@ -35,17 +35,16 @@ function isActiveLink(pathname: string, href: string): boolean {
 }
 
 function ThemeToggleButton() {
-  const { theme, toggleTheme } = useTheme();
+  const { theme, toggleTheme, hydrated } = useTheme();
 
   return (
     <button
       onClick={toggleTheme}
       className="flex h-9 w-9 items-center justify-center rounded-md text-sm text-muted transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60 hover:bg-surface hover:text-foreground"
       aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
-      suppressHydrationWarning
     >
-      <span suppressHydrationWarning>
-        {theme === "dark" ? <SunIcon /> : <MoonIcon />}
+      <span>
+        {hydrated && theme === "light" ? <MoonIcon /> : <SunIcon />}
       </span>
     </button>
   );

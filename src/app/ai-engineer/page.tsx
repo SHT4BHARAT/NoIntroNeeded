@@ -75,18 +75,24 @@ export default function AIEngineerPage() {
       <div className="mx-auto max-w-5xl px-4 py-20">
         <RevealOnScroll>
           <section className="mb-24">
-            <h2 className="font-display text-sm font-semibold uppercase tracking-widest text-muted">
-              About
-            </h2>
-            <p className="mt-3 max-w-prose text-base leading-relaxed text-muted">{role.about}</p>
+            <div className="flex items-center gap-3 mb-6">
+              <h2 className="font-display text-sm font-semibold uppercase tracking-widest text-muted">
+                About
+              </h2>
+              <div className="h-px flex-1 bg-accent/60" />
+            </div>
+            <p className="max-w-prose text-base leading-relaxed text-muted">{role.about}</p>
           </section>
         </RevealOnScroll>
 
         <RevealOnScroll>
           <section className="mb-16">
-            <h2 className="font-display text-sm font-semibold uppercase tracking-widest text-muted">
-              Skills
-            </h2>
+            <div className="flex items-center gap-3 mb-6">
+              <h2 className="font-display text-sm font-semibold uppercase tracking-widest text-muted">
+                Skills
+              </h2>
+              <div className="h-px flex-1 bg-accent/60" />
+            </div>
             <div className="mt-4 space-y-4">
               {role.skills.categories.map((cat) => (
                 <div key={cat.name}>
