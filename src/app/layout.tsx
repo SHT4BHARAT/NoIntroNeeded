@@ -43,6 +43,8 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
+    siteName: SITE_NAME,
+    url: SITE_URL,
     images: [
       {
         url: "/og-image.png",

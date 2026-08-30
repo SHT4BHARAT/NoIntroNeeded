@@ -2,5 +2,13 @@
   "framework": "nextjs",
   "buildCommand": "next build",
   "outputDirectory": ".next",
-  "installCommand": "npm install"
+  "installCommand": "npm install",
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "has": [{ "type": "host", "value": "www.shivanshutiwari.in" }],
+      "destination": "https://shivanshutiwari.in/$1",
+      "permanent": true
+    }
+  ]
 }

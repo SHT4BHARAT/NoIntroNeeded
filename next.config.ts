@@ -6,6 +6,16 @@ const nextConfig: NextConfig = {
     remotePatterns: [],
   },
   pageExtensions: ["ts", "tsx", "mdx"],
+  async redirects() {
+    return [
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: "www.shivanshutiwari.in" }],
+        destination: "https://shivanshutiwari.in/:path*",
+        permanent: true,
+      },
+    ];
+  },
   async headers() {
     return [
       {

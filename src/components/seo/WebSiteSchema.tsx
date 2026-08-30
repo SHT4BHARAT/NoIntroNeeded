@@ -1,15 +1,23 @@
-import { SITE_URL, SITE_NAME, SITE_DESCRIPTION } from "@/lib/constants";
+import { SITE_URL, SITE_NAME, SITE_DESCRIPTION, SOCIAL } from "@/lib/constants";
 
 export function WebSiteSchema() {
   const schema = {
     "@context": "https://schema.org",
     "@type": "WebSite",
     name: SITE_NAME,
+    alternateName: ["SHT4BHARAT", "Shivanshu Tiwari Portfolio"],
     url: SITE_URL,
     description: SITE_DESCRIPTION,
     author: {
       "@type": "Person",
       name: SITE_NAME,
+      url: SITE_URL,
+    },
+    publisher: {
+      "@type": "Person",
+      name: SITE_NAME,
+      url: SITE_URL,
+      sameAs: [SOCIAL.github, SOCIAL.linkedin],
     },
     inLanguage: "en-US",
   };
