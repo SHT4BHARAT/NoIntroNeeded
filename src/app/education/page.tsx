@@ -37,7 +37,7 @@ export default function EducationPage() {
       <div className="space-y-6">
         {education.map((edu, i) => (
           <RevealOnScroll key={`${edu.institution}-${edu.degree}`} index={i}>
-            <div className="rounded-lg border border-accent/10 bg-card p-5">
+            <div className="rounded-lg border border-border bg-card p-5">
               <div className="flex items-baseline justify-between">
                 <h3 className="text-sm font-semibold">{edu.degree}</h3>
                 <span className="text-xs text-muted-foreground">{edu.period}</span>

@@ -15,7 +15,6 @@ interface Node {
 const CONNECTION_DISTANCE = 120;
 const NODE_COUNT_FACTOR = 0.014;
 const DRIFT = 0.12;
-const COLOR = "124, 111, 224";
 
 export function NodePulse() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -27,7 +26,21 @@ export function NodePulse() {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
+    const DEFAULT_RGB = "124, 111, 224";
+    let colorRgb = DEFAULT_RGB;
+
+    // Read the active theme's accent triplet so the canvas tint matches the
+    // palette in both light and dark mode.
+    function refreshAccentRgb() {
+      const value = getComputedStyle(document.documentElement)
+        .getPropertyValue("--accent-signal-rgb")
+        .trim();
+      if (value) colorRgb = value;
+    }
+    refreshAccentRgb();
+
     let animId: number;
+    let frameIndex = 0;
     const startTime = performance.now();
     const FADE_DURATION = 30000;
     const nodes: Node[] = [];
@@ -59,6 +72,10 @@ export function NodePulse() {
     resize();
 
     function draw() {
+      // Nudge the accent color periodically so a mid-session theme toggle
+      // doesn't leave a stale tint on the canvas.
+      if (frameIndex % 30 === 0) refreshAccentRgb();
+      frameIndex++;
       ctx!.clearRect(0, 0, w, h);
       const time = performance.now() / 1000;
       const elapsed = performance.now() - startTime;
@@ -102,7 +119,7 @@ export function NodePulse() {
         const alpha = t * t * 0.10 * breathe;
         // Slight temporal jitter for less “static” look
         const jitter = 0.9 + 0.1 * Math.sin(time * 1.1 + a.phase * 0.3 + b.phase * 0.7);
-        ctx!.strokeStyle = `rgba(${COLOR}, ${(alpha * jitter).toFixed(3)})`;
+        ctx!.strokeStyle = `rgba(${colorRgb}, ${(alpha * jitter).toFixed(3)})`;
         ctx!.lineWidth = 0.45;
         ctx!.moveTo(a.x, a.y);
         ctx!.lineTo(b.x, b.y);
@@ -117,7 +134,7 @@ export function NodePulse() {
         const alpha = (0.18 + 0.22 * (0.5 + 0.5 * Math.sin(time * 0.75 + n.phase))) * fadeProgress;
         ctx!.beginPath();
         ctx!.arc(n.x, n.y, r, 0, Math.PI * 2);
-        ctx!.fillStyle = `rgba(${COLOR}, ${alpha.toFixed(3)})`;
+        ctx!.fillStyle = `rgba(${colorRgb}, ${alpha.toFixed(3)})`;
         ctx!.fill();
       }
 

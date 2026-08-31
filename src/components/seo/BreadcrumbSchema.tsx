@@ -1,4 +1,5 @@
 import { SITE_URL } from "@/lib/constants";
+import { safeJsonLd } from "@/components/seo/jsonLd";
 
 export function BreadcrumbSchema({ items }: { items: { name: string; href: string }[] }) {
   const schema = {
@@ -15,7 +16,7 @@ export function BreadcrumbSchema({ items }: { items: { name: string; href: strin
   return (
     <script
       type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+      dangerouslySetInnerHTML={{ __html: safeJsonLd(schema) }}
     />
   );
 }

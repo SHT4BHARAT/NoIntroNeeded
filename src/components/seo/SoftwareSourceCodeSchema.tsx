@@ -1,4 +1,5 @@
 import type { Project } from "@/types/project";
+import { safeJsonLd } from "@/components/seo/jsonLd";
 
 export function SoftwareSourceCodeSchema({ project }: { project: Project }) {
   const schema: Record<string, unknown> = {
@@ -22,7 +23,7 @@ export function SoftwareSourceCodeSchema({ project }: { project: Project }) {
   return (
     <script
       type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+      dangerouslySetInnerHTML={{ __html: safeJsonLd(schema) }}
     />
   );
 }

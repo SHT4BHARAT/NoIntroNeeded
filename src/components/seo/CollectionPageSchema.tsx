@@ -1,4 +1,5 @@
 import { SITE_URL } from "@/lib/constants";
+import { safeJsonLd } from "@/components/seo/jsonLd";
 
 export function CollectionPageSchema({
   name,
@@ -35,7 +36,7 @@ export function CollectionPageSchema({
   return (
     <script
       type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+      dangerouslySetInnerHTML={{ __html: safeJsonLd(schema) }}
     />
   );
 }

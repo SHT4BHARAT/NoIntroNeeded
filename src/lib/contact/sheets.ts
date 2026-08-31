@@ -27,7 +27,10 @@ export async function appendToSheet(data: ContactFormData) {
   await sheets.spreadsheets.values.append({
     spreadsheetId: SHEET_ID,
     range: "Sheet1!A:D",
-    valueInputOption: "USER_ENTERED",
+    // RAW stores contact-form input as literal text. USER_ENTERED would let
+    // attacker-supplied strings like "=IMPORTXML(...)" execute as formulas
+    // inside the owner's spreadsheet (formula injection).
+    valueInputOption: "RAW",
     requestBody: {
       values: [
         [

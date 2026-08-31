@@ -1,4 +1,5 @@
 import { SITE_URL, SITE_NAME, SITE_TITLE, SITE_DESCRIPTION, SOCIAL } from "@/lib/constants";
+import { safeJsonLd } from "@/components/seo/jsonLd";
 
 export function PersonSchema() {
   const profilePageSchema = {
@@ -48,11 +49,11 @@ export function PersonSchema() {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(profilePageSchema) }}
+        dangerouslySetInnerHTML={{ __html: safeJsonLd(profilePageSchema) }}
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+        dangerouslySetInnerHTML={{ __html: safeJsonLd(breadcrumbSchema) }}
       />
     </>
   );

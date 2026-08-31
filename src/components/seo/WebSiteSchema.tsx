@@ -1,4 +1,5 @@
 import { SITE_URL, SITE_NAME, SITE_DESCRIPTION, SOCIAL } from "@/lib/constants";
+import { safeJsonLd } from "@/components/seo/jsonLd";
 
 export function WebSiteSchema() {
   const schema = {
@@ -25,7 +26,7 @@ export function WebSiteSchema() {
   return (
     <script
       type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+      dangerouslySetInnerHTML={{ __html: safeJsonLd(schema) }}
     />
   );
 }

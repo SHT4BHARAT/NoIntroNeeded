@@ -37,7 +37,7 @@ export default function VolunteerPage() {
       <div className="space-y-6">
         {volunteer.map((v, i) => (
           <RevealOnScroll key={`${v.role}-${v.organization}`} index={i}>
-            <div className="rounded-lg border border-accent/10 bg-card p-5">
+            <div className="rounded-lg border border-border bg-card p-5">
               <div className="flex items-baseline justify-between">
                 <h3 className="text-sm font-semibold">{v.role}</h3>
                 <span className="text-xs text-muted-foreground">{v.period}</span>

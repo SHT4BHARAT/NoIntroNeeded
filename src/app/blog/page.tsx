@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { SITE_URL } from "@/lib/constants";
 import { getAllPosts, getCategoryCounts } from "@/lib/blog";
 import { PostCard } from "@/components/blog/PostCard";
@@ -63,7 +64,22 @@ export default async function BlogIndexPage({
 
       {filteredPosts.length === 0 ? (
         <RevealOnScroll>
-          <p className="text-sm text-muted-foreground">No posts yet.</p>
+          <div className="flex flex-col items-center gap-3 rounded-lg border border-border bg-card px-6 py-12 text-center">
+            <span className="font-mono text-sm text-muted-foreground" aria-hidden="true">
+              ── ∅ ──
+            </span>
+            <p className="text-sm text-muted-foreground">
+              No posts in this category yet.
+            </p>
+            {activeCategory && (
+              <Link
+                href="/blog"
+                className="rounded-md border border-border bg-surface px-3 py-1.5 font-mono text-xs text-muted transition-colors hover:border-accent/50 hover:text-foreground"
+              >
+                View all posts
+              </Link>
+            )}
+          </div>
         </RevealOnScroll>
       ) : (
         <div className="space-y-4">

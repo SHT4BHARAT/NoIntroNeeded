@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Inter, JetBrains_Mono } from "next/font/google";
+import { Geist, JetBrains_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
@@ -14,15 +14,10 @@ import { NoiseOverlay } from "@/components/background/NoiseOverlay";
 import { SITE_URL, SITE_NAME, SITE_TITLE, SITE_DESCRIPTION } from "@/lib/constants";
 import { PersonSchema } from "@/components/seo/PersonSchema";
 import { WebSiteSchema } from "@/components/seo/WebSiteSchema";
+import type { Viewport } from "next";
 
 const geist = Geist({
   variable: "--font-display",
-  subsets: ["latin"],
-  display: "swap",
-});
-
-const inter = Inter({
-  variable: "--font-inter",
   subsets: ["latin"],
   display: "swap",
 });
@@ -32,6 +27,13 @@ const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
   display: "swap",
 });
+
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#F4F5F7" },
+    { media: "(prefers-color-scheme: dark)", color: "#0B0D11" },
+  ],
+};
 
 export const metadata: Metadata = {
   title: {
@@ -67,9 +69,6 @@ export const metadata: Metadata = {
   verification: {
     google: "7WNszbUUuZhAkzA3WgPqePbA0BGZR7OmFOaCvZFtUfQ",
   },
-  other: {
-    "theme-color": "#0A0C10",
-  },
 };
 
 export default function RootLayout({
@@ -78,7 +77,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${geist.variable} ${inter.variable} ${jetbrainsMono.variable}`} suppressHydrationWarning style={{ colorScheme: "dark light" }}>
+    <html lang="en" data-scroll-behavior="smooth" className={`${geist.variable} ${jetbrainsMono.variable}`} suppressHydrationWarning style={{ colorScheme: "dark light" }}>
       <body className="min-h-dvh flex flex-col bg-background text-foreground antialiased">
         <PersonSchema />
         <WebSiteSchema />

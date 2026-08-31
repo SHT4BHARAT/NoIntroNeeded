@@ -7,7 +7,7 @@ export function RoleHero({ role }: { role: RoleConfig }) {
         <p className="font-mono text-xs font-medium uppercase tracking-widest text-muted">
           {role.slug}
         </p>
-        <h1 className="mt-4 font-display text-5xl font-bold leading-tight tracking-tight sm:text-6xl">
+          <h1 className="mt-4 font-display text-[clamp(2.75rem,6.5vw,4.5rem)] font-bold leading-[1.05] tracking-[-0.03em] sm:text-[clamp(3rem,7vw,5rem)]">
           {role.headline.split("—")[0]}
           {role.headline.includes("—") && (
             <span className="block mt-2 text-muted">{role.headline.split("—")[1].trim()}</span>

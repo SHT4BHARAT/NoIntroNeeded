@@ -118,10 +118,19 @@ export function Header() {
         </div>
       </div>
 
-      <div className={cn("lg:hidden", open ? "block" : "hidden")} style={{ overscrollBehavior: "contain" }}>
-        <div className="mx-auto max-w-5xl px-4 pb-4">
-          <div className="rounded-lg border border-border bg-card p-2">
-            {navLinks.map((link) => (
+      <div
+        className={cn(
+          "lg:hidden",
+          "grid transition-[grid-template-rows,visibility] duration-200 ease-out motion-reduce:transition-none",
+          open ? "grid-rows-[1fr] visible" : "grid-rows-[0fr] invisible",
+        )}
+        style={{ overscrollBehavior: "contain" }}
+        aria-hidden={!open}
+      >
+        <div className="min-h-0 overflow-hidden">
+          <div className="mx-auto max-w-5xl px-4 pb-4">
+            <div className="rounded-lg border border-border bg-card p-2">
+              {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
@@ -133,7 +142,8 @@ export function Header() {
               >
                 {link.label}
               </Link>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </div>

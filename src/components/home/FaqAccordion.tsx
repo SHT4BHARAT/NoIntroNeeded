@@ -16,7 +16,7 @@ export function FaqAccordion({ items }: { items: FaqItem[] }) {
         const contentId = `faq_${encodeURIComponent(item.question)}`;
 
         return (
-          <div key={item.question} className="group rounded-lg border border-accent/10">
+                    <div key={item.question} className="group rounded-lg border border-border bg-card">
             <button
               type="button"
               className="flex w-full cursor-pointer items-center justify-between gap-4 px-4 py-3 text-left text-sm font-medium transition-colors hover:bg-surface"

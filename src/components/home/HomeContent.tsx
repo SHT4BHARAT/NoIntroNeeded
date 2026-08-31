@@ -7,7 +7,6 @@ import { RoleHero } from "@/components/role/RoleHero";
 import { RoleProjectCard } from "@/components/role/RoleProjectCard";
 import { RoleProjectList } from "@/components/role/RoleProjectList";
 import { RevealOnScroll } from "@/components/animation/RevealOnScroll";
-import { TechMarquee } from "@/components/home/TechMarquee";
 import { useEffect, useState } from "react";
 import { useReducedMotion } from "@/lib/hooks/useReducedMotion";
 
@@ -51,13 +50,11 @@ function RoleHome({ roleSlug }: { roleSlug: string }) {
   return (
     <>
       <RoleHero role={role} />
-      <TechMarquee />
-
       <div key={roleSlug} className="mx-auto max-w-5xl px-4 py-28">
         <RevealOnScroll>
           <section className="mb-28">
             <div className="flex items-center gap-3 mb-6">
-              <h2 className="font-display text-sm font-semibold uppercase tracking-widest text-muted">
+              <h2 className="font-display text-lg font-semibold tracking-tight text-foreground">
                 About
               </h2>
               <div className="h-px flex-1 bg-accent/60" />
@@ -71,7 +68,7 @@ function RoleHome({ roleSlug }: { roleSlug: string }) {
         <RevealOnScroll>
           <section className="mb-28">
             <div className="flex items-center gap-3 mb-6">
-              <h2 className="font-display text-sm font-semibold uppercase tracking-widest text-muted">
+              <h2 className="font-display text-lg font-semibold tracking-tight text-foreground">
                 Skills
               </h2>
               <div className="h-px flex-1 bg-accent/60" />
@@ -115,7 +112,7 @@ function ShowEverything() {
       <section className="border-b border-border">
         <div className="mx-auto max-w-5xl px-4 py-28 sm:py-36">
           <RevealOnScroll>
-            <h1 className="font-display text-5xl font-bold leading-tight tracking-tight sm:text-6xl">
+            <h1 className="font-display text-[clamp(2.75rem,6.5vw,4.5rem)] font-bold leading-[1.05] tracking-[-0.03em] sm:text-[clamp(3rem,7vw,5rem)]">
               I build AI-native backend systems
             </h1>
           </RevealOnScroll>
@@ -132,13 +129,11 @@ function ShowEverything() {
         </div>
       </section>
 
-      <TechMarquee />
-
       <div className="mx-auto max-w-5xl px-4 py-28">
         <section className="mb-28">
           <RevealOnScroll>
             <div className="flex items-center gap-3 mb-6">
-              <h2 className="font-display text-sm font-semibold uppercase tracking-widest text-muted">
+              <h2 className="font-display text-lg font-semibold tracking-tight text-foreground">
                 About
               </h2>
               <div className="h-px flex-1 bg-accent/60" />
@@ -152,7 +147,7 @@ function ShowEverything() {
         <section className="mb-28">
           <RevealOnScroll>
             <div className="flex items-center gap-3 mb-6">
-              <h2 className="font-display text-sm font-semibold uppercase tracking-widest text-muted">
+              <h2 className="font-display text-lg font-semibold tracking-tight text-foreground">
                 Skills
               </h2>
               <div className="h-px flex-1 bg-accent/60" />
@@ -231,7 +226,7 @@ function ShowEverything() {
         <section className="mb-28">
           <RevealOnScroll>
             <div className="flex items-center gap-3 mb-6">
-              <h2 className="font-display text-sm font-semibold uppercase tracking-widest text-muted">
+              <h2 className="font-display text-lg font-semibold tracking-tight text-foreground">
                 Projects
               </h2>
               <div className="h-px flex-1 bg-accent/60" />

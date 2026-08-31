@@ -1,3 +1,4 @@
+import { safeJsonLd } from "@/components/seo/jsonLd";
 export function FAQSchema({ questions }: { questions: { question: string; answer: string }[] }) {
   const schema = {
     "@context": "https://schema.org",
@@ -15,7 +16,7 @@ export function FAQSchema({ questions }: { questions: { question: string; answer
   return (
     <script
       type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+      dangerouslySetInnerHTML={{ __html: safeJsonLd(schema) }}
     />
   );
 }

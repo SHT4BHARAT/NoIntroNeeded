@@ -1,4 +1,5 @@
 import { SITE_URL } from "@/lib/constants";
+import { safeJsonLd } from "@/components/seo/jsonLd";
 import type { BlogFrontmatter } from "@/lib/blog/schema";
 
 export function BlogPostSchema({
@@ -31,7 +32,7 @@ export function BlogPostSchema({
   return (
     <script
       type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+      dangerouslySetInnerHTML={{ __html: safeJsonLd(schema) }}
     />
   );
 }
