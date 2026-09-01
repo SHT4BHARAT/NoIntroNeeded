@@ -5,15 +5,15 @@ export function GET() {
     specVersion: "1.0",
     entries: [
       {
-        identifier: "urn:air:shivanshutiwari.in:mcp:portfolio-docs",
-        displayName: "Shivanshu Tiwari Portfolio Docs MCP",
+        identifier: "urn:air:shivanshutiwari.in:mcp:portfolio",
+        displayName: "Shivanshu Tiwari Portfolio MCP",
         type: "application/mcp-server-card+json",
-        url: `${SITE_URL}/.well-known/mcp/server-card.json`,
-        description: "Read-only MCP server for portfolio docs — projects, blog, achievements",
+        url: `${SITE_URL}/mcp`,
+        description: "MCP server for portfolio — projects, blog, contact, OpenAPI discovery",
         representativeQueries: [
           "show Shivanshu Tiwari portfolio projects",
           "what did Shivanshu build for AI agents",
-          "list blog posts from shivanshutiwari.in",
+          "contact Shivanshu Tiwari for internship",
         ],
         capabilities: ["portfolio-query", "project-compare"],
         trustManifest: {

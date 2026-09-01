@@ -200,32 +200,55 @@ export function staticPageMarkdown(pathname: string): string | null {
       return fm(`Blog — ${SITE_NAME}`, "Field notes, repo deep-dives, and technical commentary.", `${SITE_URL}/blog`) + body;
     }
     case "developers": {
-      let body = `# Developers — Shivanshu Tiwari\n\nDeveloper portal for Shivanshu Tiwari — API docs, OpenAPI, auth, MCP. See ${SITE_URL}/developers.\n\n## Endpoints\n\n- GET /sitemap.xml\n- GET /openapi.json\n- GET /.well-known/api-catalog\n- GET /.well-known/agent-skills/index.json\n\n*Source: ${SITE_URL}/developers*\n`;
-      return fm(`Developers — Shivanshu Tiwari`, "Developer portal for Shivanshu Tiwari — API docs, OpenAPI, auth, MCP.", `${SITE_URL}/developers`) + body;
+      const body = `# Shivanshu Tiwari Developer Portal & API Documentation
+
+Developer portal for **Shivanshu Tiwari** — programmatic access, OpenAPI specification, Model Context Protocol (MCP) server, and sandbox testing. See ${SITE_URL}/developers.
+
+## Quickstart
+
+- Agent guide: ${SITE_URL}/llms.txt
+- XML sitemap: ${SITE_URL}/sitemap.xml
+- OpenAPI spec (JSON): ${SITE_URL}/openapi.json
+- Honest auth guide: ${SITE_URL}/auth.md
+
+## Model Context Protocol
+
+Single MCP server: \`POST ${SITE_URL}/mcp\` (Streamable HTTP). Server card: ${SITE_URL}/.well-known/mcp/server-card.json
+`;
+      return fm(`Shivanshu Tiwari Developer Portal & API Documentation`, "Developer portal for Shivanshu Tiwari — API docs, OpenAPI, auth, MCP.", `${SITE_URL}/developers`) + body;
     }
     case "openapi.json":
     case "api/openapi.json":
     case "openapi.json.md":
     case "auth":
     case "auth.md": {
-      let body = `# OpenAPI — Shivanshu Tiwari\n\nShivanshu Tiwari Portfolio API — OpenAPI 3.0.3 at ${SITE_URL}/openapi.json. See ${SITE_URL}/developers.\n\n`;
-      // For /auth.md twin, return actual auth content with frontmatter via authMarkdown helper if available
-      if (normalized === "auth" || normalized === "auth.md") {
-        // Reuse auth markdown but ensure frontmatter
-        body = `# Auth — Shivanshu Tiwari\n\nPublic portfolio — read-only. See ${SITE_URL}/auth.md for WorkOS agent_auth.\n\n`;
-        return fm(`Auth — Shivanshu Tiwari`, "Shivanshu Tiwari auth — anonymous, identity_assertion, service_auth.", `${SITE_URL}/auth.md`) + body;
-      }
-      return fm(`OpenAPI — Shivanshu Tiwari`, "Shivanshu Tiwari Portfolio API OpenAPI spec.", `${SITE_URL}/openapi.json`) + body;
+      const body = `# Authentication — Shivanshutiwari.in
+
+This site is public and read-only. Browsing the site, fetching \`/llms.txt\`, the XML \`sitemap.xml\`, the OpenAPI spec at \`/openapi.json\`, or talking to the MCP server at \`/mcp\` requires **no credentials, API keys, or OAuth** — they are open to everyone.
+
+The only operation that is not purely read-only is the contact form (\`POST /api/v1/contact\`). It is implicitly anonymous (no bearer token), rate-limited to prevent spam, and expects a JSON body of \`{name, email, message}\`. There are no API keys to issue, no tokens to refresh, and no scoped authorization flows on this site.
+
+In short: **there is no authentication scheme** for the public portfolio API.
+
+## Machine-readable metadata
+
+Although no auth is required, discovery metadata is still published for standards-completeness:
+
+- Protected resource metadata: \`${SITE_URL}/.well-known/oauth-protected-resource\`
+- Authorization server metadata: \`${SITE_URL}/.well-known/oauth-authorization-server\`
+- API catalog (RFC 9727): \`${SITE_URL}/.well-known/api-catalog\`
+`;
+      return fm(`Authentication — Shivanshutiwari.in`, "Public read-only portfolio — no credentials, API keys, or OAuth required.", `${SITE_URL}/auth.md`) + body;
     }
     case ".well-known/api-catalog":
     case ".well-known/api-catalog.json": {
-      let body = `# API Catalog — Shivanshu Tiwari\n\nRFC 9727 linkset at ${SITE_URL}/.well-known/api-catalog. See ${SITE_URL}/openapi.json.\n\n`;
+      const body = `# API Catalog — Shivanshu Tiwari\n\nRFC 9727 linkset at ${SITE_URL}/.well-known/api-catalog. See ${SITE_URL}/openapi.json.\n\n`;
       return fm(`API Catalog — Shivanshu Tiwari`, "RFC 9727 API catalog for Shivanshu Tiwari portfolio.", `${SITE_URL}/.well-known/api-catalog`) + body;
     }
     default:
       // Fallback for any other well-known or content page: return generic markdown with heading so .md twin never 404s for valid HTML
       if (key.startsWith(".well-known/") || key === "developers" || key.endsWith(".md")) {
-        let body = `# ${key} — Shivanshu Tiwari\n\nContent for ${SITE_URL}/${key}. See ${SITE_URL}/llms.txt for discovery.\n\n`;
+        const body = `# ${key} — Shivanshu Tiwari\n\nContent for ${SITE_URL}/${key}. See ${SITE_URL}/llms.txt for discovery.\n\n`;
         return fm(`${key} — Shivanshu Tiwari`, `Content for ${key} — Shivanshu Tiwari portfolio.`, `${SITE_URL}/${key}`) + body;
       }
       return null;

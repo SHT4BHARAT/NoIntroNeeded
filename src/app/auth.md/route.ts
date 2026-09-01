@@ -1,59 +1,32 @@
 import { SITE_URL } from "@/lib/constants";
 
-const body = `# Auth — shivanshutiwari.in
+// Honest auth guide for a public, read-only portfolio site.
+// Most of the site (pages, llms.txt, sitemap, OpenAPI, MCP) needs no credentials.
+const body = `# Authentication — Shivanshutiwari.in
 
-Public portfolio — read-only. No API keys. For write (contact), use anonymous POST.
+This site is public and read-only. Browsing the site, fetching \`/llms.txt\`, the XML \`sitemap.xml\`, the OpenAPI spec at \`/openapi.json\`, or talking to the MCP server at \`/mcp\` requires **no credentials, API keys, or OAuth** — they are open to everyone.
 
-## Discover
+The only operation that is not purely read-only is the contact form (\`POST /api/v1/contact\`). It is authenticated implicitly — it works with anonymous HTTP with no bearer token — but it is rate-limited to prevent spam and expects a JSON body of \`{name, email, message}\`. There are no API keys to issue, no tokens to refresh, and no scoped authorization flows on this site.
 
-* Protected resource metadata: \`${SITE_URL}/.well-known/oauth-protected-resource\`
-* Authorization server metadata: \`${SITE_URL}/.well-known/oauth-authorization-server\`
-* This file (\`/auth.md\`) is the prose walkthrough — lead with heading, >200 chars, Content-Type: text/markdown.
+In short: **there is no authentication scheme** for the public portfolio API. If a tool reports a 401 or missing-credential error against this domain, that is a configuration mistake on the caller's side — the endpoints deliberately require nothing.
 
-## Pick a method
+## Machine-readable metadata
 
-* \`anonymous\` — default for all read endpoints (sitemap, llms.txt, markdown twins). No token.
-* \`identity_assertion\` (ID-JAG \`urn:ietf:params:oauth:token-type:id-jag\`) — if you must identify, send anonymous with assertion_types_supported containing id-jag.
-* \`service_auth\` — not required for portfolio.
+Although no auth is required, discovery metadata is still published for standards-completeness:
 
-## Register
+- Protected resource metadata: \`${SITE_URL}/.well-known/oauth-protected-resource\`
+- Authorization server metadata: \`${SITE_URL}/.well-known/oauth-authorization-server\`
+- API catalog (RFC 9727): \`${SITE_URL}/.well-known/api-catalog\`
 
-No registration. For contact, no client_id.
-
-## Claim
-
-No claim endpoint for read. For contact: POST \`${SITE_URL}/api/contact\` with {name,email,message}.
-
-## Exchange
-
-No token exchange — read is anonymous. If server returns 401, see WWW-Authenticate: Bearer resource_metadata="<prm>".
-
-## Use the access_token
-
-Not needed. Example:
+## Contact form
 
 \`\`\`bash
-curl -H "Accept: text/markdown" ${SITE_URL}/about
-curl -X POST ${SITE_URL}/api/contact -H "Content-Type: application/json" -d '{"name":"...","email":"...","message":"hello"}'
+curl -X POST ${SITE_URL}/api/v1/contact \
+  -H "Content-Type: application/json" \
+  -d '{"name":"Aria","email":"aria@example.com","message":"Question about a project"}'
 \`\`\`
 
-## Errors
-
-* 401 missing WWW-Authenticate → check \`.well-known/oauth-protected-resource\`
-* 429 Too Many Requests → contact rate limit (5/window per IP)
-
-## Revocation
-
-No tokens to revoke. Contact submissions are append-only to Google Sheet.
-
-## agent_auth
-
-* identity_endpoint: \`${SITE_URL}/contact\`
-* identity_types_supported: ["anonymous","identity_assertion","service_auth"]
-* identity_assertion.assertion_types_supported: ["urn:ietf:params:oauth:token-type:id-jag"]
-* skill: \`${SITE_URL}/auth.md\`
-* claim_endpoint: \`${SITE_URL}/api/contact\` (OPTIONS 204)
-* events_endpoint: \`${SITE_URL}/.well-known/oauth-protected-resource\`
+The contact endpoint is rate-limited per IP (see \`RateLimit-*\` response headers). No token is required.
 `;
 
 export function GET() {
@@ -65,7 +38,6 @@ export function GET() {
   });
 }
 
-// Ensure OPTIONS preflight for agent_auth endpoints is not 404
 export function OPTIONS() {
   return new Response(null, {
     status: 204,

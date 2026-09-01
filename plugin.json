@@ -10,7 +10,7 @@
     { "name": "portfolio-query", "description": "Query 19 projects, blog, achievements via llms.txt and markdown twins", "entry": "SKILL.md" }
   ],
   "mcpServers": [
-    { "name": "portfolio-docs", "description": "Read-only MCP surface for portfolio docs (markdown, sitemap, blog)", "url": "https://shivanshutiwari.in/.well-known/mcp/server-card.json" }
+    { "name": "shivanshutiwari-portfolio-mcp", "description": "MCP server for portfolio — projects, blog, contact, OpenAPI discovery", "url": "https://shivanshutiwari.in/mcp" }
   ],
   "capabilities": ["markdown-negotiation", "sitemap-discovery", "llms-txt"]
 }

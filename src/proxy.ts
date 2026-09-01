@@ -52,12 +52,14 @@ function maybeNegotiate(request: NextRequest): NextResponse | Response | null {
   const search = request.nextUrl.searchParams;
 
   // Never negotiate API/MCP/OpenAPI — they are JSON, not HTML/markdown twins
+  // /auth.md has a dedicated route handler serving honest markdown directly.
   if (
     pathname.startsWith("/api") ||
     pathname.startsWith("/mcp") ||
     pathname.startsWith("/ask") ||
     pathname === "/openapi.json" ||
     pathname === "/openapi.yaml" ||
+    pathname === "/auth.md" ||
     pathname.startsWith("/.well-known/")
   ) {
     return null;
@@ -84,7 +86,7 @@ function maybeNegotiate(request: NextRequest): NextResponse | Response | null {
       api: { openapi: `${request.nextUrl.origin}/openapi.json`, catalog: `${request.nextUrl.origin}/.well-known/api-catalog`, sitemap: `${request.nextUrl.origin}/sitemap.xml` },
       agent: { skills: `${request.nextUrl.origin}/.well-known/agent-skills/index.json`, card: `${request.nextUrl.origin}/.well-known/agent-card.json`, instructions: `${request.nextUrl.origin}/llms.txt` },
       sdk: { npm: "sht-portfolio-v2", cli: "shivanshu", repository: "https://github.com/SHT4BHARAT/NoIntroNeeded", homepage: "https://shivanshutiwari.in" },
-      mcp: { server: `${request.nextUrl.origin}/mcp`, docs: `${request.nextUrl.origin}/mcp/docs`, card: `${request.nextUrl.origin}/.well-known/mcp/server-card.json` },
+      mcp: { server: `${request.nextUrl.origin}/mcp`, card: `${request.nextUrl.origin}/.well-known/mcp/server-card.json` },
       auth: { discovery: `${request.nextUrl.origin}/.well-known/oauth-protected-resource`, method: "anonymous", docs: `${request.nextUrl.origin}/auth.md` },
       capabilities: ["portfolio-query", "project-compare", "markdown-negotiation", "sitemap-discovery"],
     };
