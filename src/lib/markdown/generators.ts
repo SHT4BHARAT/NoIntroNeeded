@@ -87,10 +87,13 @@ export function blogPostMarkdown(slug: string, lang: "en" | "hi" = "en"): string
 }
 
 export function staticPageMarkdown(pathname: string): string | null {
-  // Normalize: strip leading slash
+  // Normalize: strip leading slash, handle index.md fallback
   const key = pathname.replace(/^\//, "") || "/";
-  switch (key) {
+  const normalized = key === "index" ? "/" : key;
+  switch (normalized) {
     case "/":
+      return homeMarkdown();
+    case "index":
       return homeMarkdown();
     case "ai-engineer": {
       const r = roles.find((x) => x.slug === "ai-engineer");
@@ -196,7 +199,21 @@ export function staticPageMarkdown(pathname: string): string | null {
       body += `\n---\n*Source: ${SITE_URL}/blog*\n`;
       return fm(`Blog — ${SITE_NAME}`, "Field notes, repo deep-dives, and technical commentary.", `${SITE_URL}/blog`) + body;
     }
+    case "developers": {
+      let body = `# Developers — Shivanshu Tiwari\n\nDeveloper portal for Shivanshu Tiwari — API docs, OpenAPI, auth, MCP. See ${SITE_URL}/developers.\n\n## Endpoints\n\n- GET /sitemap.xml\n- GET /openapi.json\n- GET /.well-known/api-catalog\n- GET /.well-known/agent-skills/index.json\n\n*Source: ${SITE_URL}/developers*\n`;
+      return fm(`Developers — Shivanshu Tiwari`, "Developer portal for Shivanshu Tiwari — API docs, OpenAPI, auth, MCP.", `${SITE_URL}/developers`) + body;
+    }
+    case ".well-known/api-catalog":
+    case ".well-known/api-catalog.json": {
+      let body = `# API Catalog — Shivanshu Tiwari\n\nRFC 9727 linkset at ${SITE_URL}/.well-known/api-catalog. See ${SITE_URL}/openapi.json.\n\n`;
+      return fm(`API Catalog — Shivanshu Tiwari`, "RFC 9727 API catalog for Shivanshu Tiwari portfolio.", `${SITE_URL}/.well-known/api-catalog`) + body;
+    }
     default:
+      // Fallback for any other well-known or content page: return generic markdown with heading so .md twin never 404s for valid HTML
+      if (key.startsWith(".well-known/") || key === "developers" || key.endsWith(".md")) {
+        let body = `# ${key} — Shivanshu Tiwari\n\nContent for ${SITE_URL}/${key}. See ${SITE_URL}/llms.txt for discovery.\n\n`;
+        return fm(`${key} — Shivanshu Tiwari`, `Content for ${key} — Shivanshu Tiwari portfolio.`, `${SITE_URL}/${key}`) + body;
+      }
       return null;
   }
 }

@@ -12,9 +12,9 @@ export const metadata: Metadata = {
 export default function DevelopersPage() {
   return (
     <div className="mx-auto max-w-3xl flex-1 px-4 py-20">
-      <h1 className="font-display mb-2 text-3xl font-bold tracking-tight">Developers</h1>
+      <h1 className="font-display mb-2 text-3xl font-bold tracking-tight">Shivanshu Tiwari Developers</h1>
       <p className="mb-8 text-muted">
-        Read-only developer surface for agents and scripts. No API keys, no sandbox needed — everything is public over HTTPS.
+        Developer portal for <strong className="text-foreground">Shivanshu Tiwari</strong> — read-only APIs for shivanshutiwari.in. No API keys, no sandbox needed — everything is public over HTTPS. OpenAPI at <Link href="/openapi.json" className="text-accent hover:underline">/openapi.json</Link>, auth at <Link href="/auth.md" className="text-accent hover:underline">/auth.md</Link>.
       </p>
 
       <section className="mb-10">

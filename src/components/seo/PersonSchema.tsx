@@ -15,7 +15,7 @@ export function PersonSchema() {
       description: SITE_DESCRIPTION,
       url: SITE_URL,
       image: `${SITE_URL}/og-image.png`,
-      sameAs: [SOCIAL.github, SOCIAL.linkedin],
+      sameAs: [SOCIAL.github, SOCIAL.linkedin, "https://github.com/SHT4BHARAT/NoIntroNeeded"],
       alumniOf: {
         "@type": "CollegeOrUniversity",
         name: "SIRT Bhopal",

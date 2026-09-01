@@ -1,10 +1,10 @@
 {
   "openapi": "3.0.3",
   "info": {
-    "title": "shivanshutiwari.in — Portfolio API",
+    "title": "Shivanshu Tiwari Portfolio API",
     "version": "1.0.0",
-    "description": "Read-only portfolio + contact. Versioned at /api/v1. Deprecation via Sunset/Deprecation headers. See /developers and /auth.md.",
-    "contact": { "url": "https://shivanshutiwari.in/contact" }
+    "description": "Shivanshu Tiwari — AI-native backend systems. Read-only portfolio + contact. Versioned at /api/v1. Deprecation via Sunset/Deprecation headers. See /developers and /auth.md.",
+    "contact": { "name": "Shivanshu Tiwari", "url": "https://shivanshutiwari.in/contact" }
   },
   "servers": [{ "url": "https://shivanshutiwari.in", "description": "apex" }],
   "paths": {

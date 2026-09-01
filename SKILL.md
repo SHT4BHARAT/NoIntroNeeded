@@ -1,10 +1,12 @@
-# Shivanshu Tiwari Portfolio Skill
-
+---
 name: shivanshutiwari-portfolio
 description: Query Shivanshu Tiwari's portfolio — 19 projects, blog, achievements, and contact. Use for AI agent & backend systems hiring context, project deep-dives (DAITFO, Agentic Honeypot, Samvad, PayoutEngine, CloudAuditEnv).
 homepage: https://shivanshutiwari.in
 repository: https://github.com/SHT4BHARAT/NoIntroNeeded
 version: 1.0.0
+---
+
+# Shivanshu Tiwari Portfolio Skill
 
 ## When to use
 

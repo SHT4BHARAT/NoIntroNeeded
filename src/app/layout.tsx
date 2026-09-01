@@ -15,6 +15,7 @@ import { SITE_URL, SITE_NAME, SITE_TITLE, SITE_DESCRIPTION } from "@/lib/constan
 import { PersonSchema } from "@/components/seo/PersonSchema";
 import { WebSiteSchema } from "@/components/seo/WebSiteSchema";
 import { ServiceSchema } from "@/components/seo/ServiceSchema";
+import { FAQSchema } from "@/components/seo/FAQSchema";
 import { WebMCP } from "@/components/webmcp/WebMCP";
 import type { Viewport } from "next";
 
@@ -96,6 +97,20 @@ export default function RootLayout({
         <PersonSchema />
         <WebSiteSchema />
         <ServiceSchema />
+        <FAQSchema
+          questions={[
+            {
+              question: "What does Shivanshu Tiwari build?",
+              answer:
+                "Autonomous AI agents and backend systems — scam-detection agents, RL benchmarking pipelines, voice intelligence tools with honest limitation docs for Shivanshu Tiwari.",
+            },
+            {
+              question: "How to integrate Shivanshu Tiwari portfolio data?",
+              answer:
+                "Use /llms.txt, /sitemap.xml, /openapi.json, or Accept: text/markdown twins. See Shivanshu Tiwari Developer portal at /developers.",
+            },
+          ]}
+        />
         <a
           href="#main-content"
           className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:bg-accent focus:px-4 focus:py-2 focus:text-accent-foreground focus:text-sm focus:font-medium"

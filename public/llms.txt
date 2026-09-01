@@ -44,9 +44,13 @@ I don't just use AI — I build things with it that keep running after I close m
 - [Sitemap](https://shivanshutiwari.in/sitemap.xml): Full URL list for discovery
 - [Markdown variants](https://acceptmarkdown.com/): Every page serves text/markdown via Accept: text/markdown (Vary: Accept) — also available as /path.md
 - [AGENTS.md](https://github.com/SHT4BHARAT/NoIntroNeeded/blob/main/AGENTS.md): Agent instructions for codebase
-- [Skill](https://github.com/SHT4BHARAT/NoIntroNeeded/blob/main/SKILL.md): SKILL.md + plugin.json (`npx skills add` compatible)
-- [Developer portal](https://shivanshutiwari.in/developers): quickstart, endpoints, well-known catalogs
-- [API catalog](https://shivanshutiwari.in/.well-known/api-catalog): RFC 9727 linkset
+- [Skill](https://github.com/SHT4BHARAT/NoIntroNeeded/blob/main/SKILL.md): Shivanshu Tiwari SKILL.md + plugin.json (`npx skills add` compatible)
+- [Plugin](https://github.com/SHT4BHARAT/NoIntroNeeded/blob/main/plugin.json): Agent Plugins manifest for Shivanshu Tiwari portfolio
+- [AGENTS.md](https://github.com/SHT4BHARAT/NoIntroNeeded/blob/main/AGENTS.md): Shivanshu Tiwari agent instructions for codebase
+- [Shivanshu Tiwari Developer portal](https://shivanshutiwari.in/developers): Shivanshu Tiwari API docs, OpenAPI at /openapi.json, auth at /auth.md, MCP at /.well-known/mcp
+- [Shivanshu Tiwari OpenAPI](https://shivanshutiwari.in/openapi.json): Shivanshu Tiwari Portfolio API — versioned at /api/v1, see /developers
+- [Shivanshu Tiwari MCP](https://shivanshutiwari.in/mcp): Streamable HTTP MCP server for portfolio — POST /mcp with initialize/tools/list
+- [API catalog](https://shivanshutiwari.in/.well-known/api-catalog): RFC 9727 linkset for Shivanshu Tiwari APIs
 
 ## Optional
 

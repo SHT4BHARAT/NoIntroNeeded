@@ -253,6 +253,38 @@ function ShowEverything() {
             </div>
           </RevealOnScroll>
         </section>
+
+        <section className="border-t border-border pt-10">
+          <RevealOnScroll>
+            <p className="text-sm text-muted">
+              Developer resources for <strong className="text-foreground">Shivanshu Tiwari</strong> —{" "}
+              <a href="/developers" className="text-accent hover:underline">
+                API Docs &amp; Developer Portal
+              </a>{" "}
+              ·{" "}
+              <a href="/openapi.json" className="text-accent hover:underline">
+                OpenAPI
+              </a>{" "}
+              ·{" "}
+              <a href="/auth.md" className="text-accent hover:underline">
+                Auth
+              </a>{" "}
+              ·{" "}
+              <a href="/.well-known/mcp/server-card.json" className="text-accent hover:underline">
+                MCP
+              </a>{" "}
+              ·{" "}
+              <a
+                href="https://github.com/SHT4BHARAT/NoIntroNeeded"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-accent hover:underline"
+              >
+                Source (AGENTS.md, SKILL.md, plugin.json)
+              </a>
+            </p>
+          </RevealOnScroll>
+        </section>
       </div>
     </>
   );
