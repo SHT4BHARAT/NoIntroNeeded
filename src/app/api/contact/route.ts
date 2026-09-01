@@ -3,6 +3,17 @@ import { contactSchema } from "@/lib/contact/validation";
 import { appendToSheet } from "@/lib/contact/sheets";
 import { checkRateLimit } from "@/lib/rate-limit";
 
+export function OPTIONS() {
+  return new Response(null, {
+    status: 204,
+    headers: {
+      Allow: "POST, OPTIONS",
+      "Access-Control-Allow-Methods": "POST, OPTIONS",
+      "Access-Control-Allow-Headers": "Content-Type",
+    },
+  });
+}
+
 export async function POST(request: NextRequest) {
   try {
     const ip = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? "unknown";

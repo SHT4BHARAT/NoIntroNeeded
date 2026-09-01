@@ -1,0 +1,16 @@
+# Developers — Shivanshu Tiwari
+
+> Developer surface for shivanshutiwari.in — markdown twins, sitemap, agent catalogs.
+
+## Quickstart
+
+- [Developers portal](https://shivanshutiwari.in/developers): quickstart + endpoints + auth
+- [Main llms.txt](https://shivanshutiwari.in/llms.txt)
+- [Sitemap](https://shivanshutiwari.in/sitemap.xml) — 30+ URLs
+- [Agent skills](https://shivanshutiwari.in/.well-known/agent-skills/index.json)
+
+## Endpoints
+
+- `GET /sitemap.xml`
+- `Accept: text/markdown` on any page or `/path.md`
+- `GET /.well-known/api-catalog` (RFC 9727)

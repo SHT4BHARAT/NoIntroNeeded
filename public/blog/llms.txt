@@ -1,0 +1,7 @@
+# Blog — Shivanshu Tiwari
+
+> Field notes, repo deep-dives, and commentary. Use markdown twins for RAG.
+
+- [Blog](https://shivanshutiwari.in/blog)
+- [Feed](https://shivanshutiwari.in/feed.xml)
+- Example: `curl -H "Accept: text/markdown" https://shivanshutiwari.in/blog/hello-world`

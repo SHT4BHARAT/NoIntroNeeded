@@ -4,81 +4,86 @@ import { getAllPosts, getPostBySlug } from "@/lib/blog";
 import { education, experience, volunteer, achievements } from "@/lib/achievements/data";
 import { roles } from "@/lib/role/config";
 
+function fm(title: string, description: string, canonical: string): string {
+  const esc = (s: string) => s.replace(/"/g, '\\"').replace(/\n/g, " ");
+  return `---\ntitle: "${esc(title)}"\ndescription: "${esc(description)}"\ncanonical: "${canonical}"\nlastUpdated: "${new Date().toISOString().split("T")[0]}"\n---\n\n`;
+}
+
 export function homeMarkdown(): string {
-  let md = `# ${SITE_NAME} — ${SITE_TITLE}\n\n`;
-  md += `${SITE_DESCRIPTION}\n\n`;
-  md += `> B.Tech CS & IT, SIRT Bhopal (RGPV) — Class of 2027. I build autonomous agents, LLM pipelines, and concurrency-safe backend systems.\n\n`;
-  md += `## About\n\n`;
-  md += `I don't just use AI — I build things with it that keep running after I close my laptop. I'm a third-year B.Tech CS & IT student in Bhopal, and over the past year I've built autonomous agents, LLM pipelines, voice intelligence tools, and RL benchmarking systems across 19 projects — some shipped and deployed, some deliberately stopped short of production so I could document what actually worked and what didn't. I'm not interested in demos that only look good in a pitch. When something fails — an RL agent losing to a simple heuristic, a classifier scoring 25% instead of the 90% I hoped for — I keep the result and figure out why, instead of reframing it until it sounds better. That's the standard I hold my own work to, and it's the standard I expect from anything I ship.\n\n`;
-  md += `## Links\n\n`;
-  md += `- GitHub: ${SOCIAL.github}\n`;
-  md += `- LinkedIn: ${SOCIAL.linkedin}\n`;
-  md += `- Email: ${SOCIAL.email.replace("mailto:", "")}\n`;
-  md += `- Website: ${SITE_URL}\n\n`;
-  md += `## Featured Projects\n\n`;
+  let body = `# ${SITE_NAME} — ${SITE_TITLE}\n\n`;
+  body += `${SITE_DESCRIPTION}\n\n`;
+  body += `> B.Tech CS & IT, SIRT Bhopal (RGPV) — Class of 2027. I build autonomous agents, LLM pipelines, and concurrency-safe backend systems.\n\n`;
+  body += `## About\n\n`;
+  body += `I don't just use AI — I build things with it that keep running after I close my laptop. I'm a third-year B.Tech CS & IT student in Bhopal, and over the past year I've built autonomous agents, LLM pipelines, voice intelligence tools, and RL benchmarking systems across 19 projects — some shipped and deployed, some deliberately stopped short of production so I could document what actually worked and what didn't. I'm not interested in demos that only look good in a pitch. When something fails — an RL agent losing to a simple heuristic, a classifier scoring 25% instead of the 90% I hoped for — I keep the result and figure out why, instead of reframing it until it sounds better. That's the standard I hold my own work to, and it's the standard I expect from anything I ship.\n\n`;
+  body += `## Links\n\n`;
+  body += `- GitHub: ${SOCIAL.github}\n`;
+  body += `- LinkedIn: ${SOCIAL.linkedin}\n`;
+  body += `- Email: ${SOCIAL.email.replace("mailto:", "")}\n`;
+  body += `- Website: ${SITE_URL}\n\n`;
+  body += `## Featured Projects\n\n`;
   for (const p of projects.filter((pr) => pr.featured)) {
-    md += `- [${p.title}](${SITE_URL}/projects/${p.slug}): ${p.description}\n`;
+    body += `- [${p.title}](${SITE_URL}/projects/${p.slug}): ${p.description}\n`;
   }
-  md += `\n## All Projects\n\n`;
+  body += `\n## All Projects\n\n`;
   for (const p of projects) {
-    md += `- [${p.title}](${SITE_URL}/projects/${p.slug}) — ${p.stack.join(", ")}\n`;
+    body += `- [${p.title}](${SITE_URL}/projects/${p.slug}) — ${p.stack.join(", ")}\n`;
   }
-  md += `\n---\n*Source: ${SITE_URL} — Content negotiation via Accept: text/markdown*\n`;
-  return md;
+  body += `\n---\n*Source: ${SITE_URL} — Content negotiation via Accept: text/markdown*\n`;
+  return fm(`${SITE_NAME} — ${SITE_TITLE}`, SITE_DESCRIPTION, SITE_URL) + body;
 }
 
 export function projectMarkdown(slug: string): string | null {
   const project = getProjectBySlug(slug);
   if (!project) return null;
-  let md = `# ${project.title}\n\n`;
-  if (project.tagline) md += `*${project.tagline}*\n\n`;
-  md += `${project.description}\n\n`;
-  md += `**Stack:** ${project.stack.join(", ")}  \n`;
-  md += `**Date:** ${project.date}  \n`;
-  if (project.repoUrl) md += `**Repository:** ${project.repoUrl}  \n`;
-  if (project.demoUrl) md += `**Live Demo:** ${project.demoUrl}  \n`;
-  md += `\n`;
+  let body = `# ${project.title}\n\n`;
+  if (project.tagline) body += `*${project.tagline}*\n\n`;
+  body += `${project.description}\n\n`;
+  body += `**Stack:** ${project.stack.join(", ")}  \n`;
+  body += `**Date:** ${project.date}  \n`;
+  if (project.repoUrl) body += `**Repository:** ${project.repoUrl}  \n`;
+  if (project.demoUrl) body += `**Live Demo:** ${project.demoUrl}  \n`;
+  body += `\n`;
 
   if (project.problem) {
-    md += `## The Problem\n\n${project.problem}\n\n`;
+    body += `## The Problem\n\n${project.problem}\n\n`;
   }
   if (project.whatIBuilt) {
-    md += `## What I Built\n\n${project.whatIBuilt}\n\n`;
+    body += `## What I Built\n\n${project.whatIBuilt}\n\n`;
   }
   if (project.architecture) {
-    md += `## Architecture\n\n\`\`\`\n${project.architecture}\n\`\`\`\n\n`;
+    body += `## Architecture\n\n\`\`\`\n${project.architecture}\n\`\`\`\n\n`;
   }
   if (project.result) {
-    md += `## The Result\n\n${project.result}\n\n`;
+    body += `## The Result\n\n${project.result}\n\n`;
   }
   if (project.keyDecisions && project.keyDecisions.length > 0) {
-    md += `## Key Decisions & Tradeoffs\n\n`;
-    for (const d of project.keyDecisions) md += `- ${d}\n`;
-    md += `\n`;
+    body += `## Key Decisions & Tradeoffs\n\n`;
+    for (const d of project.keyDecisions) body += `- ${d}\n`;
+    body += `\n`;
   }
   if (project.honestPart) {
-    md += `## The Honest Part\n\n${project.honestPart}\n\n`;
+    body += `## The Honest Part\n\n${project.honestPart}\n\n`;
   }
-  md += `## Highlights\n\n`;
-  for (const h of project.highlights) md += `- ${h}\n`;
-  md += `\n---\n*Source: ${SITE_URL}/projects/${slug}*\n`;
-  return md;
+  body += `## Highlights\n\n`;
+  for (const h of project.highlights) body += `- ${h}\n`;
+  body += `\n---\n*Source: ${SITE_URL}/projects/${slug}*\n`;
+  return fm(project.title, project.description, `${SITE_URL}/projects/${slug}`) + body;
 }
 
 export function blogPostMarkdown(slug: string, lang: "en" | "hi" = "en"): string | null {
   const post = getPostBySlug(slug, lang);
   if (!post) return null;
-  const fm = post.frontmatter;
-  let md = `# ${fm.title}\n\n`;
-  md += `${fm.excerpt}\n\n`;
-  md += `**Category:** ${fm.category}  \n`;
-  md += `**Date:** ${fm.date}  \n`;
-  md += `**Tags:** ${fm.tags.join(", ")}  \n`;
-  md += `**Reading time:** ${post.readingTime} min  \n\n`;
-  md += `---\n\n`;
-  md += post.content;
-  md += `\n\n---\n*Source: ${SITE_URL}/blog/${lang === "hi" ? "hi/" : ""}${slug}*\n`;
-  return md;
+  const front = post.frontmatter;
+  let body = `# ${front.title}\n\n`;
+  body += `${front.excerpt}\n\n`;
+  body += `**Category:** ${front.category}  \n`;
+  body += `**Date:** ${front.date}  \n`;
+  body += `**Tags:** ${front.tags.join(", ")}  \n`;
+  body += `**Reading time:** ${post.readingTime} min  \n\n`;
+  body += `---\n\n`;
+  body += post.content;
+  body += `\n\n---\n*Source: ${SITE_URL}/blog/${lang === "hi" ? "hi/" : ""}${slug}*\n`;
+  return fm(front.title, front.excerpt, `${SITE_URL}/blog/${lang === "hi" ? "hi/" : ""}${slug}`) + body;
 }
 
 export function staticPageMarkdown(pathname: string): string | null {
@@ -90,22 +95,24 @@ export function staticPageMarkdown(pathname: string): string | null {
     case "ai-engineer": {
       const r = roles.find((x) => x.slug === "ai-engineer");
       if (!r) return null;
-      let md = `# ${r.title} — ${SITE_NAME}\n\n${r.headline}\n\n${r.subheading}\n\n## About\n\n${r.about}\n\n## Projects\n\n`;
+      let body = `# ${r.title} — ${SITE_NAME}\n\n${r.headline}\n\n${r.subheading}\n\n## About\n\n${r.about}\n\n## Projects\n\n`;
       for (const slug of r.projectSlugs as string[]) {
         const p = getProjectBySlug(slug);
-        if (p) md += `- [${p.title}](${SITE_URL}/projects/${p.slug}): ${p.description}\n`;
+        if (p) body += `- [${p.title}](${SITE_URL}/projects/${p.slug}): ${p.description}\n`;
       }
-      return md + `\n---\n*Source: ${SITE_URL}/ai-engineer*\n`;
+      body += `\n---\n*Source: ${SITE_URL}/ai-engineer*\n`;
+      return fm(`${r.title} — ${SITE_NAME}`, r.subheading ?? r.headline, `${SITE_URL}/ai-engineer`) + body;
     }
     case "backend-systems": {
       const r = roles.find((x) => x.slug === "backend-systems");
       if (!r) return null;
-      let md = `# ${r.title} — ${SITE_NAME}\n\n${r.headline}\n\n${r.subheading}\n\n## About\n\n${r.about}\n\n## Projects\n\n`;
+      let body = `# ${r.title} — ${SITE_NAME}\n\n${r.headline}\n\n${r.subheading}\n\n## About\n\n${r.about}\n\n## Projects\n\n`;
       for (const slug of r.projectSlugs as string[]) {
         const p = getProjectBySlug(slug);
-        if (p) md += `- [${p.title}](${SITE_URL}/projects/${p.slug}): ${p.description}\n`;
+        if (p) body += `- [${p.title}](${SITE_URL}/projects/${p.slug}): ${p.description}\n`;
       }
-      return md + `\n---\n*Source: ${SITE_URL}/backend-systems*\n`;
+      body += `\n---\n*Source: ${SITE_URL}/backend-systems*\n`;
+      return fm(`${r.title} — ${SITE_NAME}`, r.subheading ?? r.headline, `${SITE_URL}/backend-systems`) + body;
     }
     case "about":
       return aboutMarkdown();
@@ -114,38 +121,42 @@ export function staticPageMarkdown(pathname: string): string | null {
     case "contact":
       return contactMarkdown();
     case "education": {
-      let md = `# Education — ${SITE_NAME}\n\nAcademic background and qualifications.\n\n`;
+      let body = `# Education — ${SITE_NAME}\n\nAcademic background and qualifications.\n\n`;
       for (const edu of education) {
-        md += `## ${edu.degree} — ${edu.institution}\n\n`;
-        md += `*${edu.period}*\n\n${edu.description}\n\n`;
-        if (edu.skills?.length) md += `**Skills:** ${edu.skills.join(", ")}\n\n`;
+        body += `## ${edu.degree} — ${edu.institution}\n\n`;
+        body += `*${edu.period}*\n\n${edu.description}\n\n`;
+        if (edu.skills?.length) body += `**Skills:** ${edu.skills.join(", ")}\n\n`;
       }
-      return md + `---\n*Source: ${SITE_URL}/education*\n`;
+      body += `---\n*Source: ${SITE_URL}/education*\n`;
+      return fm(`Education — ${SITE_NAME}`, "Academic background and qualifications.", `${SITE_URL}/education`) + body;
     }
     case "experience": {
-      let md = `# Experience — ${SITE_NAME}\n\n`;
+      let body = `# Experience — ${SITE_NAME}\n\n`;
       for (const exp of experience) {
-        md += `## ${exp.role} — ${exp.company}\n\n*${exp.period}*\n\n${exp.description}\n\n`;
+        body += `## ${exp.role} — ${exp.company}\n\n*${exp.period}*\n\n${exp.description}\n\n`;
         if ((exp as unknown as { highlights?: string[] }).highlights?.length) {
-          for (const h of (exp as unknown as { highlights: string[] }).highlights) md += `- ${h}\n`;
-          md += `\n`;
+          for (const h of (exp as unknown as { highlights: string[] }).highlights) body += `- ${h}\n`;
+          body += `\n`;
         }
       }
-      return md + `---\n*Source: ${SITE_URL}/experience*\n`;
+      body += `---\n*Source: ${SITE_URL}/experience*\n`;
+      return fm(`Experience — ${SITE_NAME}`, "Work history and internships.", `${SITE_URL}/experience`) + body;
     }
     case "achievements": {
-      let md = `# Achievements — ${SITE_NAME}\n\n`;
+      let body = `# Achievements — ${SITE_NAME}\n\n`;
       for (const a of achievements) {
-        md += `## ${a.title}\n\n*${a.date} — ${a.category}*\n\n${a.description}\n\n`;
+        body += `## ${a.title}\n\n*${a.date} — ${a.category}*\n\n${a.description}\n\n`;
       }
-      return md + `---\n*Source: ${SITE_URL}/achievements*\n`;
+      body += `---\n*Source: ${SITE_URL}/achievements*\n`;
+      return fm(`Achievements — ${SITE_NAME}`, "Certifications, hackathon participation, and technical milestones.", `${SITE_URL}/achievements`) + body;
     }
     case "volunteer": {
-      let md = `# Volunteer — ${SITE_NAME}\n\n`;
+      let body = `# Volunteer — ${SITE_NAME}\n\n`;
       for (const v of volunteer) {
-        md += `## ${v.role} — ${v.organization}\n\n*${v.period}*\n\n${v.description}\n\n`;
+        body += `## ${v.role} — ${v.organization}\n\n*${v.period}*\n\n${v.description}\n\n`;
       }
-      return md + `---\n*Source: ${SITE_URL}/volunteer*\n`;
+      body += `---\n*Source: ${SITE_URL}/volunteer*\n`;
+      return fm(`Volunteer — ${SITE_NAME}`, "Community involvement and volunteer work.", `${SITE_URL}/volunteer`) + body;
     }
     case "faq": {
       const faqItems = [
@@ -169,19 +180,21 @@ export function staticPageMarkdown(pathname: string): string | null {
             "Python and JavaScript/TypeScript, with hands-on experience in Google Gemini, Sarvam AI, LangChain, Stable-Baselines3, FastAPI, Django, Node.js, Docker, Redis, PostgreSQL, and Socket.io/WebSockets.",
         },
       ];
-      let md = `# FAQ — ${SITE_NAME}\n\n`;
+      let body = `# FAQ — ${SITE_NAME}\n\n`;
       for (const f of faqItems) {
-        md += `## ${f.question}\n\n${f.answer}\n\n`;
+        body += `## ${f.question}\n\n${f.answer}\n\n`;
       }
-      return md + `---\n*Source: ${SITE_URL}/faq*\n`;
+      body += `---\n*Source: ${SITE_URL}/faq*\n`;
+      return fm(`FAQ — ${SITE_NAME}`, "Frequently asked questions about Shivanshu Tiwari — AI agent engineer and backend systems developer.", `${SITE_URL}/faq`) + body;
     }
     case "blog": {
       const posts = getAllPosts("en");
-      let md = `# Blog — ${SITE_NAME}\n\nField notes, repo deep-dives, and technical commentary.\n\n`;
+      let body = `# Blog — ${SITE_NAME}\n\nField notes, repo deep-dives, and technical commentary.\n\n`;
       for (const p of posts) {
-        md += `- [${p.frontmatter.title}](${SITE_URL}/blog/${p.frontmatter.slug}): ${p.frontmatter.excerpt}\n`;
+        body += `- [${p.frontmatter.title}](${SITE_URL}/blog/${p.frontmatter.slug}): ${p.frontmatter.excerpt}\n`;
       }
-      return md + `\n---\n*Source: ${SITE_URL}/blog*\n`;
+      body += `\n---\n*Source: ${SITE_URL}/blog*\n`;
+      return fm(`Blog — ${SITE_NAME}`, "Field notes, repo deep-dives, and technical commentary.", `${SITE_URL}/blog`) + body;
     }
     default:
       return null;
@@ -189,7 +202,7 @@ export function staticPageMarkdown(pathname: string): string | null {
 }
 
 export function aboutMarkdown(): string {
-  return `# About — Shivanshu Tiwari
+  const body = `# About — Shivanshu Tiwari
 
 > AI-native backend systems engineer — autonomous agents, LLM pipelines, and concurrency-safe backend systems.
 
@@ -222,10 +235,11 @@ B.Tech Computer Science & Information Technology, Sagar Institute of Research an
 ---
 *Source: ${SITE_URL}/about — Draft expanded bio. Awaiting Shivanshu's review for final wording.*
 `;
+  return fm("About — Shivanshu Tiwari", "AI-native backend systems engineer — autonomous agents, LLM pipelines, and concurrency-safe backend systems.", `${SITE_URL}/about`) + body;
 }
 
 export function privacyMarkdown(): string {
-  return `# Privacy Policy — shivanshutiwari.in
+  const body = `# Privacy Policy — shivanshutiwari.in
 
 > This is a personal portfolio site. No analytics beyond Vercel's default hosting logs and optional Vercel Analytics pageview counts. No cookies except a role-preference cookie for the AI/Backend view toggle.
 
@@ -254,10 +268,11 @@ If you have questions about data handling, reach out via the [contact page](${SI
 ---
 *Source: ${SITE_URL}/privacy — Claims above were derived from codebase inspection (layout.tsx, analytics.ts, proxy.ts). Verify before publishing.*
 `;
+  return fm("Privacy Policy — shivanshutiwari.in", "Personal portfolio privacy — hosting logs, Vercel Analytics, contact form only.", `${SITE_URL}/privacy`) + body;
 }
 
 export function contactMarkdown(): string {
-  return `# Contact — Shivanshu Tiwari
+  const body = `# Contact — Shivanshu Tiwari
 
 > Get in touch about internships, collaborations, or project questions. I prefer email for initial contact.
 
@@ -284,4 +299,5 @@ I aim to respond within 2–3 days. If you haven't heard back, a follow-up via e
 ---
 *Source: ${SITE_URL}/contact*
 `;
+  return fm("Contact — Shivanshu Tiwari", "Get in touch about internships, collaborations, or project questions.", `${SITE_URL}/contact`) + body;
 }

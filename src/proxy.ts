@@ -45,12 +45,37 @@ export function proxy(request: NextRequest) {
   return res;
 }
 
+const BOT_UA_RE = /(GPTBot|ClaudeBot|ChatGPT-User|PerplexityBot|Google-Extended|Applebot-Extended|ora-agent|DeepSeekBot)/i;
+
 function maybeNegotiate(request: NextRequest): NextResponse | Response | null {
   const pathname = request.nextUrl.pathname;
+  const search = request.nextUrl.searchParams;
+
+  // ?mode=agent → structured markdown view (Access: Agent mode view)
+  if (search.get("mode") === "agent") {
+    const url = request.nextUrl.clone();
+    // keep query but rewrite to markdown twin
+    url.pathname = `/api/markdown${pathname}`;
+    url.search = ""; // markdown handler doesn't need ?mode=agent
+    const rewritten = NextResponse.rewrite(url);
+    appendVaryAccept(rewritten.headers);
+    rewritten.headers.set("Content-Type", "text/markdown; charset=utf-8");
+    return rewritten;
+  }
 
   // Skip negotiation for static assets with file extensions (except .md sibling)
   if (/\.(?:svg|jpg|jpeg|png|gif|ico|webp|avif|css|js|json|xml|txt|woff2?|map)$/i.test(pathname)) {
     return null;
+  }
+
+  // Bot-UA markdown serving: serve markdown directly to known AI crawlers even with Accept: text/html
+  const ua = request.headers.get("user-agent") ?? "";
+  if (BOT_UA_RE.test(ua)) {
+    const url = request.nextUrl.clone();
+    url.pathname = `/api/markdown${pathname}`;
+    const rewritten = NextResponse.rewrite(url);
+    appendVaryAccept(rewritten.headers);
+    return rewritten;
   }
 
   // Explicit .md sibling: always Markdown, strip .md and rewrite to handler

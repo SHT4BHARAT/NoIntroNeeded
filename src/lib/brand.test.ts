@@ -74,10 +74,14 @@ describe("Brand name discoverability — consistency", () => {
   });
 
   it("robots.txt references sitemap and allows root", () => {
-    const src = fs.readFileSync(path.join(process.cwd(), "src/app/robots.ts"), "utf-8");
-    expect(src).toContain('allow: "/"');
-    expect(src).toContain("sitemap:");
+    const p = path.join(process.cwd(), "src/app/robots.txt/route.ts");
+    const fallback = path.join(process.cwd(), "src/app/robots.ts");
+    const src = fs.existsSync(p) ? fs.readFileSync(p, "utf-8") : fs.readFileSync(fallback, "utf-8");
+    expect(src).toContain("Allow: /");
+    expect(src).toContain("Sitemap:");
     expect(src).toContain("SITE_URL");
+    expect(src).toContain("GPTBot");
+    expect(src).toContain("Schemamap:");
   });
 
   it("all titles follow \"%s — SITE_NAME\" template (no keyword stuffing)", () => {

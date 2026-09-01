@@ -43,6 +43,10 @@ I don't just use AI — I build things with it that keep running after I close m
 - [LinkedIn](https://www.linkedin.com/in/shivanshutiwari-): Professional profile
 - [Sitemap](https://shivanshutiwari.in/sitemap.xml): Full URL list for discovery
 - [Markdown variants](https://acceptmarkdown.com/): Every page serves text/markdown via Accept: text/markdown (Vary: Accept) — also available as /path.md
+- [AGENTS.md](https://github.com/SHT4BHARAT/NoIntroNeeded/blob/main/AGENTS.md): Agent instructions for codebase
+- [Skill](https://github.com/SHT4BHARAT/NoIntroNeeded/blob/main/SKILL.md): SKILL.md + plugin.json (`npx skills add` compatible)
+- [Developer portal](https://shivanshutiwari.in/developers): quickstart, endpoints, well-known catalogs
+- [API catalog](https://shivanshutiwari.in/.well-known/api-catalog): RFC 9727 linkset
 
 ## Optional
 

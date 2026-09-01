@@ -1,0 +1,10 @@
+{
+  "openapi": "3.0.0",
+  "info": { "title": "shivanshutiwari.in — Portfolio API (read-only)", "version": "1.0.0", "description": "Read-only portfolio surface — markdown twins, sitemap, blog feed. No auth." },
+  "servers": [{ "url": "https://shivanshutiwari.in" }],
+  "paths": {
+    "/sitemap.xml": { "get": { "summary": "Sitemap", "responses": { "200": { "description": "XML sitemap" } } } },
+    "/llms.txt": { "get": { "summary": "LLMs entry point", "responses": { "200": { "description": "markdown" } } } },
+    "/api/contact": { "post": { "summary": "Contact (anonymous)", "responses": { "200": { "description": "ok" } } } }
+  }
+}

@@ -14,6 +14,8 @@ import { NoiseOverlay } from "@/components/background/NoiseOverlay";
 import { SITE_URL, SITE_NAME, SITE_TITLE, SITE_DESCRIPTION } from "@/lib/constants";
 import { PersonSchema } from "@/components/seo/PersonSchema";
 import { WebSiteSchema } from "@/components/seo/WebSiteSchema";
+import { ServiceSchema } from "@/components/seo/ServiceSchema";
+import { WebMCP } from "@/components/webmcp/WebMCP";
 import type { Viewport } from "next";
 
 const geist = Geist({
@@ -69,6 +71,12 @@ export const metadata: Metadata = {
   verification: {
     google: "7WNszbUUuZhAkzA3WgPqePbA0BGZR7OmFOaCvZFtUfQ",
   },
+  alternates: {
+    canonical: SITE_URL,
+    types: {
+      "application/rss+xml": `${SITE_URL}/feed.xml`,
+    },
+  },
 };
 
 export default function RootLayout({
@@ -78,9 +86,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" data-scroll-behavior="smooth" className={`${geist.variable} ${jetbrainsMono.variable}`} suppressHydrationWarning style={{ colorScheme: "dark light" }}>
+      <head>
+        {/* RFC 8288: sitemap + markdown alternate advertised both as Link header and HTML */}
+        <link rel="sitemap" href="/sitemap.xml" />
+        <link rel="alternate" type="text/markdown" href="/index.md" />
+        <link rel="describedby" href="/llms.txt" />
+      </head>
       <body className="min-h-dvh flex flex-col bg-background text-foreground antialiased">
         <PersonSchema />
         <WebSiteSchema />
+        <ServiceSchema />
         <a
           href="#main-content"
           className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:bg-accent focus:px-4 focus:py-2 focus:text-accent-foreground focus:text-sm focus:font-medium"
@@ -90,6 +105,7 @@ export default function RootLayout({
         <NodePulse />
         <NoiseOverlay />
         <CursorSpotlight />
+        <WebMCP />
         <ThemeProvider>
           <RoleProvider>
             <Header />

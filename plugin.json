@@ -1,0 +1,16 @@
+{
+  "$schema": "https://agent-plugins.org/schema/plugin.json",
+  "name": "shivanshutiwari-portfolio",
+  "version": "1.0.0",
+  "description": "Portfolio plugin for Shivanshu Tiwari — AI Agent & Backend Systems Developer",
+  "homepage": "https://shivanshutiwari.in",
+  "repository": "https://github.com/SHT4BHARAT/NoIntroNeeded",
+  "author": { "name": "Shivanshu Tiwari", "url": "https://shivanshutiwari.in" },
+  "skills": [
+    { "name": "portfolio-query", "description": "Query 19 projects, blog, achievements via llms.txt and markdown twins", "entry": "SKILL.md" }
+  ],
+  "mcpServers": [
+    { "name": "portfolio-docs", "description": "Read-only MCP surface for portfolio docs (markdown, sitemap, blog)", "url": "https://shivanshutiwari.in/.well-known/mcp/server-card.json" }
+  ],
+  "capabilities": ["markdown-negotiation", "sitemap-discovery", "llms-txt"]
+}
