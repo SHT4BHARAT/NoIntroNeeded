@@ -203,6 +203,20 @@ export function staticPageMarkdown(pathname: string): string | null {
       let body = `# Developers — Shivanshu Tiwari\n\nDeveloper portal for Shivanshu Tiwari — API docs, OpenAPI, auth, MCP. See ${SITE_URL}/developers.\n\n## Endpoints\n\n- GET /sitemap.xml\n- GET /openapi.json\n- GET /.well-known/api-catalog\n- GET /.well-known/agent-skills/index.json\n\n*Source: ${SITE_URL}/developers*\n`;
       return fm(`Developers — Shivanshu Tiwari`, "Developer portal for Shivanshu Tiwari — API docs, OpenAPI, auth, MCP.", `${SITE_URL}/developers`) + body;
     }
+    case "openapi.json":
+    case "api/openapi.json":
+    case "openapi.json.md":
+    case "auth":
+    case "auth.md": {
+      let body = `# OpenAPI — Shivanshu Tiwari\n\nShivanshu Tiwari Portfolio API — OpenAPI 3.0.3 at ${SITE_URL}/openapi.json. See ${SITE_URL}/developers.\n\n`;
+      // For /auth.md twin, return actual auth content with frontmatter via authMarkdown helper if available
+      if (normalized === "auth" || normalized === "auth.md") {
+        // Reuse auth markdown but ensure frontmatter
+        body = `# Auth — Shivanshu Tiwari\n\nPublic portfolio — read-only. See ${SITE_URL}/auth.md for WorkOS agent_auth.\n\n`;
+        return fm(`Auth — Shivanshu Tiwari`, "Shivanshu Tiwari auth — anonymous, identity_assertion, service_auth.", `${SITE_URL}/auth.md`) + body;
+      }
+      return fm(`OpenAPI — Shivanshu Tiwari`, "Shivanshu Tiwari Portfolio API OpenAPI spec.", `${SITE_URL}/openapi.json`) + body;
+    }
     case ".well-known/api-catalog":
     case ".well-known/api-catalog.json": {
       let body = `# API Catalog — Shivanshu Tiwari\n\nRFC 9727 linkset at ${SITE_URL}/.well-known/api-catalog. See ${SITE_URL}/openapi.json.\n\n`;

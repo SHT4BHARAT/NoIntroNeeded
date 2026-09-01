@@ -76,16 +76,25 @@ function maybeNegotiate(request: NextRequest): NextResponse | Response | null {
     });
   }
 
-  // ?mode=agent → structured markdown view (Access: Agent mode view)
+  // ?mode=agent → structured JSON view with api, agent, sdk, mcp, openapi signals (Access: Agent mode view)
   if (search.get("mode") === "agent") {
-    const url = request.nextUrl.clone();
-    // keep query but rewrite to markdown twin
-    url.pathname = `/api/markdown${pathname}`;
-    url.search = ""; // markdown handler doesn't need ?mode=agent
-    const rewritten = NextResponse.rewrite(url);
-    appendVaryAccept(rewritten.headers);
-    rewritten.headers.set("Content-Type", "text/markdown; charset=utf-8");
-    return rewritten;
+    const payload = {
+      product: "Shivanshu Tiwari — shivanshutiwari.in",
+      mode: "agent",
+      api: { openapi: `${request.nextUrl.origin}/openapi.json`, catalog: `${request.nextUrl.origin}/.well-known/api-catalog`, sitemap: `${request.nextUrl.origin}/sitemap.xml` },
+      agent: { skills: `${request.nextUrl.origin}/.well-known/agent-skills/index.json`, card: `${request.nextUrl.origin}/.well-known/agent-card.json`, instructions: `${request.nextUrl.origin}/llms.txt` },
+      sdk: { npm: "sht-portfolio-v2", cli: "shivanshu", repository: "https://github.com/SHT4BHARAT/NoIntroNeeded", homepage: "https://shivanshutiwari.in" },
+      mcp: { server: `${request.nextUrl.origin}/mcp`, docs: `${request.nextUrl.origin}/mcp/docs`, card: `${request.nextUrl.origin}/.well-known/mcp/server-card.json` },
+      auth: { discovery: `${request.nextUrl.origin}/.well-known/oauth-protected-resource`, method: "anonymous", docs: `${request.nextUrl.origin}/auth.md` },
+      capabilities: ["portfolio-query", "project-compare", "markdown-negotiation", "sitemap-discovery"],
+    };
+    return new Response(JSON.stringify(payload, null, 2), {
+      headers: {
+        "Content-Type": "application/json; charset=utf-8",
+        Vary: "Accept",
+        "Cache-Control": "public, max-age=3600",
+      },
+    });
   }
 
   // Skip negotiation for static assets with file extensions (except .md sibling)
