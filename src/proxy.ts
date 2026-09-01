@@ -51,6 +51,19 @@ function maybeNegotiate(request: NextRequest): NextResponse | Response | null {
   const pathname = request.nextUrl.pathname;
   const search = request.nextUrl.searchParams;
 
+  // API probes that would otherwise return HTML 404 should return JSON+WWW-Authenticate
+  // /api/* is excluded from matcher (handled by api routes), so this only needs to catch top-level /v2, /agent
+  if (pathname === "/v2" || pathname.startsWith("/v2/") || pathname.startsWith("/agent")) {
+    return new Response(JSON.stringify({ code: "not_found", message: "Not found — see /openapi.json", hint: "GET /openapi.json", requestId: `req_${Date.now()}` }), {
+      status: 404,
+      headers: {
+        "Content-Type": "application/json; charset=utf-8",
+        "WWW-Authenticate": `Bearer resource_metadata="https://shivanshutiwari.in/.well-known/oauth-protected-resource"`,
+        "RateLimit-Limit": "60",
+      },
+    });
+  }
+
   // ?mode=agent → structured markdown view (Access: Agent mode view)
   if (search.get("mode") === "agent") {
     const url = request.nextUrl.clone();

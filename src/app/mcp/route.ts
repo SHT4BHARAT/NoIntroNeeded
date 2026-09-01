@@ -13,29 +13,49 @@ export async function GET() {
 }
 
 export async function POST(req: Request) {
+  const accept = req.headers.get("accept") ?? "";
+  const wantsSSE = accept.includes("text/event-stream");
   const body = await req.json().catch(() => ({}));
   const method = (body as { method?: string }).method;
   const id = (body as { id?: unknown }).id ?? 1;
 
-  // MCP JSON-RPC
+  let result: unknown;
   if (method === "initialize") {
-    return Response.json({ jsonrpc: "2.0", id, result: { protocolVersion: "2024-11-05", capabilities: { tools: {} }, serverInfo: { name: "shivanshutiwari-mcp", version: "1.0.0" } } });
-  }
-  if (method === "tools/list") {
-    return Response.json({ jsonrpc: "2.0", id, result: { tools } });
-  }
-  if (method === "tools/call") {
+    result = { protocolVersion: "2024-11-05", capabilities: { tools: {} }, serverInfo: { name: "shivanshutiwari-mcp", version: "1.0.0" } };
+  } else if (method === "tools/list") {
+    result = { tools };
+  } else if (method === "tools/call") {
     const params = (body as { params?: { name?: string } }).params;
-    return Response.json({ jsonrpc: "2.0", id, result: { content: [{ type: "text", text: `Called ${params?.name} — see ${SITE_URL}/llms.txt` }] } });
+    result = { content: [{ type: "text", text: `Called ${params?.name} — see ${SITE_URL}/llms.txt` }] };
+  } else if (method === "notifications/initialized") {
+    // No response for notification
+    return new Response(null, { status: 202 });
+  } else if ((body as { jsonrpc?: string }).jsonrpc) {
+    return Response.json({ jsonrpc: "2.0", id, error: { code: -32601, message: "Method not found" } }, { headers: { "MCP-Protocol-Version": "2024-11-05" } });
+  } else {
+    return Response.json({ tools }, { headers: { "Content-Type": "application/json" } });
   }
 
-  // Fallback: treat as generic tool call via streamable
-  if (body.jsonrpc) {
-    return Response.json({ jsonrpc: "2.0", id, error: { code: -32601, message: "Method not found" } });
+  const payload = { jsonrpc: "2.0", id, result };
+
+  if (wantsSSE) {
+    const stream = new ReadableStream({
+      start(controller) {
+        const enc = new TextEncoder();
+        controller.enqueue(enc.encode(`data: ${JSON.stringify(payload)}\n\n`));
+        controller.close();
+      },
+    });
+    return new Response(stream, {
+      headers: {
+        "Content-Type": "text/event-stream; charset=utf-8",
+        "Cache-Control": "no-cache",
+        "MCP-Protocol-Version": "2024-11-05",
+      },
+    });
   }
 
-  // Simple docs MCP variant
-  return Response.json({ tools }, { headers: { "Content-Type": "application/json" } });
+  return Response.json(payload, { headers: { "MCP-Protocol-Version": "2024-11-05", "Content-Type": "application/json" } });
 }
 
 export function OPTIONS() {
