@@ -51,6 +51,18 @@ function maybeNegotiate(request: NextRequest): NextResponse | Response | null {
   const pathname = request.nextUrl.pathname;
   const search = request.nextUrl.searchParams;
 
+  // Never negotiate API/MCP/OpenAPI — they are JSON, not HTML/markdown twins
+  if (
+    pathname.startsWith("/api") ||
+    pathname.startsWith("/mcp") ||
+    pathname.startsWith("/ask") ||
+    pathname === "/openapi.json" ||
+    pathname === "/openapi.yaml" ||
+    pathname.startsWith("/.well-known/")
+  ) {
+    return null;
+  }
+
   // API probes that would otherwise return HTML 404 should return JSON+WWW-Authenticate
   // /api/* is excluded from matcher (handled by api routes), so this only needs to catch top-level /v2, /agent
   if (pathname === "/v2" || pathname.startsWith("/v2/") || pathname.startsWith("/agent")) {
