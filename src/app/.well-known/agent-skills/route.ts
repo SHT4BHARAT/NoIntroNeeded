@@ -1,24 +1,27 @@
 import { SITE_URL } from "@/lib/constants";
 
 export function GET() {
-  const SKILL_DIGEST = "sha256:b8544fbb53cee4facf7a6d8c34ce2dc91e053f2172b97aa7b524753669c96bb5";
+  const SKILL_DIGEST = "sha256:b9184bb1b02833367da2ecc4675c29260e23617a5e18f04df025f22289813bd1";
+  const PROJECT_DIGEST = "sha256:59e033ead60ff30b2b5dbcf7729b650e1fbcf4359beb65490f20afbc11a17802";
   return Response.json(
     {
       $schema: "https://schemas.agentskills.io/discovery/0.2.0/schema.json",
+      description: "Shivanshu Tiwari portfolio skills — when to use: hiring for AI Agent/LLM or Backend internships. Use portfolio-query for RAG.",
+      whenToUse: "Use portfolio-query for Shivanshu Tiwari project details; project-compare for benchmarks.",
       skills: [
         {
           name: "portfolio-query",
-          description: "Query 19 projects, blog posts, achievements, education, FAQ via llms.txt and markdown twins",
+          description: "When to use: need Shivanshu Tiwari portfolio context. Query 19 projects via llms.txt and markdown twins",
           url: `${SITE_URL}/llms.txt`,
           type: "skill-md",
           digest: SKILL_DIGEST,
         },
         {
           name: "project-compare",
-          description: "Compare PPO vs heuristic (DAITFO), scam detection (Agentic Honeypot), voice pipeline (Samvad)",
+          description: "When to use: compare Shivanshu Tiwari projects. Compare PPO vs heuristic, Honeypot, Samvad",
           url: `${SITE_URL}/#projects`,
           type: "skill-md",
-          digest: SKILL_DIGEST,
+          digest: PROJECT_DIGEST,
         },
       ],
     },

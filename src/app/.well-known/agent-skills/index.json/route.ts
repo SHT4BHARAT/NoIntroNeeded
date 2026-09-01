@@ -1,8 +1,8 @@
 import { SITE_URL } from "@/lib/constants";
 
 export function GET() {
-  const SKILL_DIGEST = "sha256:b8544fbb53cee4facf7a6d8c34ce2dc91e053f2172b97aa7b524753669c96bb5";
-  const PROJECT_DIGEST = "sha256:3f7a9e1c5d8b2a4f6e9c0d1b8a7f6e5d4c3b2a1f0e9d8c7b6a5f4e3d2c1b0a98765";
+  const SKILL_DIGEST = "sha256:b9184bb1b02833367da2ecc4675c29260e23617a5e18f04df025f22289813bd1";
+  const PROJECT_DIGEST = "sha256:59e033ead60ff30b2b5dbcf7729b650e1fbcf4359beb65490f20afbc11a17802";
   return Response.json(
     {
       $schema: "https://schemas.agentskills.io/discovery/0.2.0/schema.json",
