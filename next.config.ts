@@ -75,7 +75,7 @@ const nextConfig: NextConfig = {
           {
             key: "Link",
             value:
-              '</sitemap.xml>; rel="sitemap", </llms.txt>; rel="describedby", </.well-known/api-catalog>; rel="api-catalog", </openapi.json>; rel="service-desc"; type="application/json", </index.md>; rel="alternate"; type="text/markdown"',
+              '</sitemap.xml>; rel="sitemap", </llms.txt>; rel="describedby", </.well-known/api-catalog>; rel="api-catalog", </openapi.json>; rel="service-desc"; type="application/json", </auth.md>; rel="describedby"; type="text/markdown", </index.md>; rel="alternate"; type="text/markdown"',
           },
         ],
       },
