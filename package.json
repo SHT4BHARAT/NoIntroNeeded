@@ -9,6 +9,7 @@
     "url": "https://github.com/SHT4BHARAT/NoIntroNeeded.git"
   },
   "keywords": ["portfolio", "ai-agents", "llm", "nextjs", "shivanshutiwari"],
+  "bin": { "shivanshu": "./cli.mjs" },
   "engines": {
     "node": ">=20"
   },

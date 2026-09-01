@@ -1,10 +1,167 @@
 {
-  "openapi": "3.0.0",
-  "info": { "title": "shivanshutiwari.in — Portfolio API (read-only)", "version": "1.0.0", "description": "Read-only portfolio surface — markdown twins, sitemap, blog feed. No auth." },
-  "servers": [{ "url": "https://shivanshutiwari.in" }],
+  "openapi": "3.0.3",
+  "info": {
+    "title": "shivanshutiwari.in — Portfolio API",
+    "version": "1.0.0",
+    "description": "Read-only portfolio + contact. Versioned at /api/v1. Deprecation via Sunset/Deprecation headers. See /developers and /auth.md.",
+    "contact": { "url": "https://shivanshutiwari.in/contact" }
+  },
+  "servers": [{ "url": "https://shivanshutiwari.in", "description": "apex" }],
   "paths": {
-    "/sitemap.xml": { "get": { "summary": "Sitemap", "responses": { "200": { "description": "XML sitemap" } } } },
-    "/llms.txt": { "get": { "summary": "LLMs entry point", "responses": { "200": { "description": "markdown" } } } },
-    "/api/contact": { "post": { "summary": "Contact (anonymous)", "responses": { "200": { "description": "ok" } } } }
+    "/api/v1/projects": {
+      "get": {
+        "operationId": "listProjects",
+        "summary": "List projects (cursor pagination)",
+        "description": "Cursor-based pagination. Use limit + cursor. See pagination fields in response.",
+        "parameters": [
+          { "name": "limit", "in": "query", "schema": { "type": "integer", "minimum": 1, "maximum": 100, "default": 20 }, "description": "Page size" },
+          { "name": "cursor", "in": "query", "schema": { "type": "string" }, "description": "Opaque cursor" },
+          { "name": "X-API-Version", "in": "header", "required": false, "schema": { "type": "string", "enum": ["v1"] }, "description": "Version header alternative to URL path" }
+        ],
+        "responses": {
+          "200": {
+            "description": "Paginated projects",
+            "headers": {
+              "RateLimit-Limit": { "schema": { "type": "integer" } },
+              "RateLimit-Remaining": { "schema": { "type": "integer" } },
+              "RateLimit-Reset": { "schema": { "type": "integer" } }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": ["data", "pagination"],
+                  "properties": {
+                    "data": { "type": "array", "items": { "$ref": "#/components/schemas/Project" } },
+                    "pagination": {
+                      "type": "object",
+                      "required": ["nextCursor", "hasMore"],
+                      "properties": {
+                        "nextCursor": { "type": "string", "nullable": true },
+                        "hasMore": { "type": "boolean" },
+                        "limit": { "type": "integer" }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": { "description": "Bad request", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Error" } } } },
+          "429": { "description": "Rate limited", "headers": { "Retry-After": { "schema": { "type": "integer" } }, "RateLimit-Remaining": { "schema": { "type": "integer" } } }, "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Error" } } } },
+          "500": { "description": "Server error", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Error" } } } }
+        }
+      }
+    },
+    "/api/v1/projects/{slug}": {
+      "get": {
+        "operationId": "getProject",
+        "summary": "Get project by slug",
+        "parameters": [{ "name": "slug", "in": "path", "required": true, "schema": { "type": "string" }, "description": "Project slug" }],
+        "responses": {
+          "200": { "description": "Project", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Project" } } } },
+          "404": { "description": "Not found", "content": { "application/problem+json": { "schema": { "$ref": "#/components/schemas/Error" } } } }
+        }
+      }
+    },
+    "/api/v1/contact": {
+      "post": {
+        "operationId": "createContact",
+        "summary": "Submit contact (idempotent)",
+        "description": "Idempotent via Idempotency-Key. Returns 429 with Retry-After when rate limited.",
+        "parameters": [
+          { "name": "Idempotency-Key", "in": "header", "required": true, "schema": { "type": "string", "format": "uuid" }, "description": "Client-supplied idempotency key for retry safety" }
+        ],
+        "requestBody": { "required": true, "content": { "application/json": { "schema": { "type": "object", "required": ["name", "email", "message"], "properties": { "name": { "type": "string" }, "email": { "type": "string", "format": "email" }, "message": { "type": "string", "minLength": 10 } } } } } },
+        "responses": {
+          "200": { "description": "Accepted", "headers": { "RateLimit-Limit": { "schema": { "type": "integer" } } }, "content": { "application/json": { "schema": { "type": "object", "properties": { "success": { "type": "boolean" } } } } } },
+          "400": { "description": "Validation error", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Error" } } } },
+          "429": { "description": "Rate limited", "headers": { "Retry-After": { "schema": { "type": "integer" } } }, "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Error" } } } }
+        }
+      }
+    },
+    "/api/v1/batch": {
+      "post": {
+        "operationId": "batchOperations",
+        "summary": "Batch operations",
+        "description": "Bulk endpoint accepting array of operations",
+        "requestBody": { "required": true, "content": { "application/json": { "schema": { "type": "object", "required": ["operations"], "properties": { "operations": { "type": "array", "items": { "type": "object", "required": ["op", "id"], "properties": { "op": { "type": "string" }, "id": { "type": "string" } } } } } } } },
+        "responses": {
+          "200": { "description": "Batch result", "content": { "application/json": { "schema": { "type": "object", "properties": { "results": { "type": "array", "items": { "type": "object" } } } } } } }
+        }
+      }
+    },
+    "/api/v1/jobs": {
+      "post": {
+        "operationId": "createJob",
+        "summary": "Create async job",
+        "description": "Long-running op returns 202 with status/location",
+        "requestBody": { "required": true, "content": { "application/json": { "schema": { "type": "object", "properties": { "task": { "type": "string" } } } } } },
+        "responses": {
+          "202": {
+            "description": "Accepted - poll status",
+            "headers": { "Location": { "schema": { "type": "string" } } },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": ["jobId", "status", "pollUrl"],
+                  "properties": {
+                    "jobId": { "type": "string" },
+                    "status": { "type": "string", "enum": ["pending", "running"] },
+                    "pollUrl": { "type": "string" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/jobs/{jobId}": {
+      "get": {
+        "operationId": "getJobStatus",
+        "summary": "Get async job status",
+        "parameters": [{ "name": "jobId", "in": "path", "required": true, "schema": { "type": "string" } }],
+        "responses": {
+          "200": { "description": "Job status", "content": { "application/json": { "schema": { "type": "object", "properties": { "jobId": { "type": "string" }, "status": { "type": "string" }, "result": { "type": "object", "nullable": true } } } } } }
+        }
+      }
+    },
+    "/api/v1/sandbox/ping": {
+      "get": {
+        "operationId": "sandboxPing",
+        "summary": "Sandbox test endpoint",
+        "description": "Sandbox mode - no production data, add ?sandbox=true or use sandbox host",
+        "responses": { "200": { "description": "pong", "content": { "application/json": { "schema": { "type": "object", "properties": { "pong": { "type": "boolean" }, "sandbox": { "type": "boolean" } } } } } } }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Project": {
+        "type": "object",
+        "required": ["slug", "title", "description"],
+        "properties": {
+          "slug": { "type": "string" },
+          "title": { "type": "string" },
+          "description": { "type": "string" },
+          "stack": { "type": "array", "items": { "type": "string" } }
+        }
+      },
+      "Error": {
+        "type": "object",
+        "required": ["code", "message"],
+        "properties": {
+          "code": { "type": "string", "description": "Machine-readable error code" },
+          "message": { "type": "string", "description": "Human-readable message" },
+          "hint": { "type": "string", "description": "Resolution hint" },
+          "requestId": { "type": "string" }
+        }
+      }
+    },
+    "parameters": {
+      "IdempotencyKey": { "name": "Idempotency-Key", "in": "header", "required": true, "schema": { "type": "string" } }
+    }
   }
 }

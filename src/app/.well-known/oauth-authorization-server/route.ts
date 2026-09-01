@@ -7,10 +7,12 @@ export function GET() {
       token_endpoint: `${SITE_URL}/.well-known/oauth-authorization-server`,
       scopes_supported: [],
       response_types_supported: ["none"],
-      // WorkOS auth.md agent_auth block — portfolio is anonymous-only
       agent_auth: {
         identity_endpoint: `${SITE_URL}/contact`,
-        identity_types_supported: ["anonymous"],
+        identity_types_supported: ["anonymous", "identity_assertion", "service_auth"],
+        identity_assertion: {
+          assertion_types_supported: ["urn:ietf:params:oauth:token-type:id-jag"],
+        },
         skill: `${SITE_URL}/auth.md`,
       },
     },

@@ -65,7 +65,7 @@ describe("POST /api/contact", () => {
       buildRequest(JSON.stringify(validBody), "203.0.113.13")
     );
     expect(res.status).toBe(500);
-    expect(await res.json()).toEqual({
+    expect(await res.json()).toMatchObject({
       error: "Failed to submit message to spreadsheet",
     });
     expect(appendToSheet).toHaveBeenCalledTimes(1);

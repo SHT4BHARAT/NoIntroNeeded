@@ -49,6 +49,13 @@ curl -s https://shivanshutiwari.in/about.md`}
       </section>
 
       <section className="mb-10">
+        <h2 className="font-display mb-3 text-sm font-semibold uppercase tracking-widest text-muted">Sandbox</h2>
+        <p className="text-sm text-muted">
+          Test without touching production: <code>GET /api/v1/sandbox/ping?sandbox=true</code> returns <code>{"{"}pong:true, sandbox:true{"}"}</code> with <code>X-Sandbox: true</code>. Docs MCP at <code>/mcp/docs</code> is read-only and safe to crawl.
+        </p>
+      </section>
+
+      <section className="mb-10">
         <h2 className="font-display mb-3 text-sm font-semibold uppercase tracking-widest text-muted">Discovery</h2>
         <ul className="list-disc space-y-2 pl-5 text-sm text-muted">
           <li><Link href="/llms.txt" className="text-accent hover:underline">llms.txt</Link> lists curated links</li>
