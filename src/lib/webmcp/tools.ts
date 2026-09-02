@@ -48,7 +48,11 @@ export interface WebMCPToolDefinition {
     properties: Record<string, { type: "string"; description: string }>;
     required?: string[];
   };
-  annotations: { readOnlyHint: true };
+  annotations: {
+    readOnlyHint: true;
+    /** Marks tool output as content the agent should not blindly trust. */
+    untrustedContentHint?: boolean;
+  };
   execute: (
     args: WebMCPToolArgs,
     options?: WebMCPToolExecuteOptions
@@ -250,7 +254,11 @@ export const getContactInfoTool: WebMCPToolDefinition = {
   description:
     "Returns Shivanshu Tiwari's public contact information: email address, GitHub profile, LinkedIn profile, and contact form URL. Read-only lookup — it does not send messages or modify anything.",
   inputSchema: { type: "object", properties: {} },
-  annotations: { readOnlyHint: true },
+  // Scanner finding (Trust / untrusted-content, weight 4): output contains
+  // personal message/profile-shaped fields, so declare the untrusted-content
+  // hint per WebMCP draft §6.4.3 — the agent should not treat this as site-
+  // verified truth.
+  annotations: { readOnlyHint: true, untrustedContentHint: true },
   execute: async () =>
     formatToolText(
       `Public contact information for ${SITE_NAME}:\n\n${JSON.stringify(

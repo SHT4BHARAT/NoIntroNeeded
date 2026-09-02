@@ -60,8 +60,17 @@ describe("WebMCP tool registration metadata", () => {
 
   it("declares readOnlyHint: true on every tool", () => {
     for (const tool of webmcpTools) {
-      expect(tool.annotations).toEqual({ readOnlyHint: true });
+      expect(tool.annotations.readOnlyHint).toBe(true);
     }
+  });
+
+  it("declares untrustedContentHint on the contact tool (ora Trust finding)", () => {
+    // get_contact_info returns message/profile-shaped fields, so the scanner
+    // requires the untrusted-content hint; search tools return the site's own
+    // content and correctly omit it.
+    expect(getContactInfoTool.annotations.untrustedContentHint).toBe(true);
+    expect(searchPortfolioProjectsTool.annotations.untrustedContentHint).toBeUndefined();
+    expect(searchBlogPostsTool.annotations.untrustedContentHint).toBeUndefined();
   });
 
   it("describes every tool and every declared parameter", () => {
