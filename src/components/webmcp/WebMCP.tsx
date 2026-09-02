@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useWebMCP } from "@mcp-b/react-webmcp";
 import {
   getContactInfoTool,
+  getProjectDetailsTool,
   searchBlogPostsTool,
   searchPortfolioProjectsTool,
 } from "@/lib/webmcp/tools";
@@ -61,6 +62,15 @@ export function WebMCP() {
     inputSchema: searchPortfolioProjectsTool.inputSchema,
     annotations: searchPortfolioProjectsTool.annotations,
     execute: searchPortfolioProjectsTool.execute,
+    enabled: ready,
+  });
+
+  useWebMCP({
+    name: getProjectDetailsTool.name,
+    description: getProjectDetailsTool.description,
+    inputSchema: getProjectDetailsTool.inputSchema,
+    annotations: getProjectDetailsTool.annotations,
+    execute: getProjectDetailsTool.execute,
     enabled: ready,
   });
 

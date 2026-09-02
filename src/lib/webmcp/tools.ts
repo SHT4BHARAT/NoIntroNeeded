@@ -20,7 +20,7 @@
  */
 
 import { SITE_NAME, SITE_URL, SOCIAL } from "@/lib/constants";
-import { projects } from "@/lib/projects/config";
+import { getProjectBySlug, projects } from "@/lib/projects/config";
 
 // ---------------------------------------------------------------------------
 // Types
@@ -33,6 +33,7 @@ export interface ToolResult {
 
 export interface WebMCPToolArgs {
   query?: string;
+  slug?: string;
 }
 
 export interface WebMCPToolExecuteOptions {
@@ -178,6 +179,36 @@ export function formatProjectsForAgent(matches: ProjectMatch[]): string {
   }:\n\n${lines.join("\n\n")}`;
 }
 
+/**
+ * Formats one project as a detail record. Same curation policy as search:
+ * descriptive fields only — case-study narrative fields (`problem`,
+ * `whatIBuilt`, `keyDecisions`, `architecture`, `honestPart`) are excluded
+ * (spec §0.4 content safety).
+ */
+export function formatProjectDetailsForAgent(p: {
+  title: string;
+  slug: string;
+  url: string;
+  pitch: string;
+  stack: string[];
+  date: string;
+  highlights: string[];
+  repository?: string;
+  demo?: string;
+}): string {
+  let text = `${p.title} (${p.date})\n`;
+  text += `URL: ${p.url}\n`;
+  text += `Stack: ${p.stack.join(", ")}\n\n`;
+  text += `${p.pitch}\n`;
+  if (p.highlights.length > 0) {
+    text += `\nHighlights:\n`;
+    for (const h of p.highlights) text += `- ${h}\n`;
+  }
+  if (p.repository) text += `\nRepository: ${p.repository}\n`;
+  if (p.demo) text += `Live demo: ${p.demo}\n`;
+  return text.trimEnd();
+}
+
 // ---------------------------------------------------------------------------
 // Blog (parses the /blog.md markdown twin — same data source as the blog pages)
 // ---------------------------------------------------------------------------
@@ -298,6 +329,52 @@ export const searchPortfolioProjectsTool: WebMCPToolDefinition = {
   },
 };
 
+export const getProjectDetailsTool: WebMCPToolDefinition = {
+  name: "get_project_details",
+  description:
+    "Gets one of Shivanshu Tiwari's projects by slug and returns its full record — pitch, tech stack, highlights, and repository/demo links. Use after search_portfolio_projects to drill into a single project. Read-only.",
+  inputSchema: {
+    type: "object",
+    properties: {
+      slug: {
+        type: "string",
+        description: "Project slug, e.g. \"samvad\" — get slugs from search_portfolio_projects",
+      },
+    },
+    required: ["slug"],
+  },
+  annotations: { readOnlyHint: true },
+  execute: async (args) => {
+    const slug = (args.slug ?? "").trim();
+    if (slug.length === 0) {
+      return formatToolText(
+        'The "slug" parameter is required. Get valid slugs from search_portfolio_projects results.'
+      );
+    }
+    const project = getProjectBySlug(slug);
+    if (!project) {
+      return formatToolText(
+        `No project with slug "${slug}". Valid slugs: ${projects
+          .map((p) => p.slug)
+          .join(", ")}.`
+      );
+    }
+    return formatToolText(
+      formatProjectDetailsForAgent({
+        title: project.title,
+        slug: project.slug,
+        url: `${SITE_URL}/projects/${project.slug}`,
+        pitch: project.description,
+        stack: [...project.stack],
+        date: project.date,
+        highlights: [...project.highlights],
+        ...(project.repoUrl ? { repository: project.repoUrl } : {}),
+        ...(project.demoUrl ? { demo: project.demoUrl } : {}),
+      })
+    );
+  },
+};
+
 export const searchBlogPostsTool: WebMCPToolDefinition = {
   name: "search_blog_posts",
   description:
@@ -337,11 +414,13 @@ export const searchBlogPostsTool: WebMCPToolDefinition = {
 
 /**
  * All WebMCP tools registered on the document. The original generic
- * `query_portfolio` tool is retired in favor of these three focused tools.
+ * `query_portfolio` tool is retired in favor of these focused, read-only
+ * tools. No write tools by design (spec ground rule 0).
  */
 export const webmcpTools: WebMCPToolDefinition[] = [
   getContactInfoTool,
   searchPortfolioProjectsTool,
+  getProjectDetailsTool,
   searchBlogPostsTool,
 ];
 

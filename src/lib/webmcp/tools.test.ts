@@ -2,6 +2,7 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import {
   formatBlogPostsForAgent,
   getContactInfoTool,
+  getProjectDetailsTool,
   parseBlogIndex,
   searchBlogPostsTool,
   searchPortfolioProjectsTool,
@@ -43,10 +44,11 @@ function textOf(result: ToolResult): string {
 }
 
 describe("WebMCP tool registration metadata", () => {
-  it("exposes exactly the three focused tools (query_portfolio is retired)", () => {
+  it("exposes the four focused read-only tools (query_portfolio is retired)", () => {
     expect(webmcpTools.map((t) => t.name)).toEqual([
       "get_contact_info",
       "search_portfolio_projects",
+      "get_project_details",
       "search_blog_posts",
     ]);
   });
@@ -174,6 +176,39 @@ describe("search_portfolio_projects (shared projects data source)", () => {
   });
 });
 
+describe("get_project_details (record detail drill-down)", () => {
+  it("returns the full record for a valid slug", async () => {
+    const text = textOf(await getProjectDetailsTool.execute({ slug: "samvad" }));
+    expect(text).toContain("Samvad");
+    expect(text).toContain("Stack:");
+    expect(text).toContain("Highlights:");
+    expect(text).toContain("https://shivanshutiwari.in/projects/samvad");
+  });
+
+  it("suggests valid slugs for an unknown slug", async () => {
+    const text = textOf(await getProjectDetailsTool.execute({ slug: "nope" }));
+    expect(text).toContain("No project with slug");
+    expect(text).toContain("agentic-honey-pot");
+    expect(text).toContain("samvad");
+  });
+
+  it("requires the slug parameter", async () => {
+    for (const args of [{}, { slug: "  " }]) {
+      const text = textOf(await getProjectDetailsTool.execute(args));
+      expect(text).toContain('"slug" parameter is required');
+    }
+  });
+
+  it("keeps case-study narrative fields out of the detail record", async () => {
+    const text = textOf(
+      await getProjectDetailsTool.execute({ slug: "agentic-honey-pot" })
+    );
+    expect(text).not.toContain("What I Built");
+    expect(text).not.toContain("Key Decisions");
+    expect(text).not.toContain("The Honest Part");
+  });
+});
+
 describe("search_blog_posts (markdown twin data source)", () => {
   it("parses the /blog.md listing format", () => {
     const entries = parseBlogIndex(BLOG_INDEX_MD);
@@ -279,6 +314,8 @@ describe("content safety (spec §0.4 — example-attack phrasing)", () => {
       for (const result of [
         await searchPortfolioProjectsTool.execute({ query }),
         await searchBlogPostsTool.execute({ query }),
+        // Detail drill-down on the highest-risk project (scam-baiting case study).
+        await getProjectDetailsTool.execute({ slug: "agentic-honey-pot" }),
       ]) {
         const text = textOf(result);
         for (const pattern of ATTACK_PATTERNS) {
