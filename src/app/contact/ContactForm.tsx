@@ -111,10 +111,6 @@ export function ContactForm() {
       onSubmit={handleSubmit}
       className="space-y-5"
       noValidate
-      // WebMCP: expose contact as tool for browser-resident agents (survives SSR)
-      // @ts-expect-error toolname/tooldescription are WebMCP draft attributes
-      toolname="contact_shivanshu"
-      tooldescription="Send a contact message to Shivanshu Tiwari — name, email, message (rate-limited, honeypot-protected)"
     >
       {/* Honeypot */}
       <div aria-hidden="true" className="absolute left-[-9999px]">

@@ -8,8 +8,16 @@
     "type": "git",
     "url": "https://github.com/SHT4BHARAT/NoIntroNeeded.git"
   },
-  "keywords": ["portfolio", "ai-agents", "llm", "nextjs", "shivanshutiwari"],
-  "bin": { "shivanshu": "./cli.mjs" },
+  "keywords": [
+    "portfolio",
+    "ai-agents",
+    "llm",
+    "nextjs",
+    "shivanshutiwari"
+  ],
+  "bin": {
+    "shivanshu": "./cli.mjs"
+  },
   "engines": {
     "node": ">=20"
   },
@@ -21,6 +29,8 @@
     "test": "vitest run"
   },
   "dependencies": {
+    "@mcp-b/react-webmcp": "^5.1.0",
+    "@mcp-b/webmcp-polyfill": "^5.1.0",
     "@mdx-js/loader": "^3.1.1",
     "@mdx-js/react": "^3.1.1",
     "@next/mdx": "^16.2.10",
