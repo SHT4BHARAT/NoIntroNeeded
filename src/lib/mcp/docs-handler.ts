@@ -247,7 +247,7 @@ export async function handleDocsPost(req: Request) {
           ? matches
               .map(
                 (m) =>
-                  `- [${m.title}](${SITE_URL}${m.markdownUrl || m.url}): ${m.description}`
+                  `- [${m.title}](${m.markdownUrl || m.url}): ${m.description}`
               )
               .join("\n")
           : `- [Developer Portal](${SITE_URL}/developers.md): Comprehensive developer portal and endpoints\n- [SDKs & CLI](${SITE_URL}/developers/sdk.md): Zero-dependency SDKs for TypeScript, Python, Go and CLI\n- [Search Engine](${SITE_URL}/search.md): Unified portfolio search`;
