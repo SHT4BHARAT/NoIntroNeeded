@@ -1,4 +1,4 @@
-import { SITE_URL } from "@/lib/constants";
+import { SITE_URL } from "../../../../../lib/constants";
 
 export function GET() {
   return Response.json(
