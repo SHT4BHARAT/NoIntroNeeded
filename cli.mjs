@@ -93,14 +93,20 @@ async function run() {
           console.log(JSON.stringify(data, null, 2));
         } else {
           console.log(`\n=== ${data.title} ===`);
-          console.log(`Slug: ${data.slug} | Domain: ${data.domain}`);
-          console.log(`Tagline: ${data.tagline}\n`);
+          console.log(`Slug: ${data.slug} | Domain: ${data.domain || "engineering"}`);
+          if (data.tagline) console.log(`Tagline: ${data.tagline}`);
           console.log(`Stack: ${(data.stack || []).join(", ")}`);
+          if (data.description) console.log(`\nOverview:\n${data.description}`);
           if (data.architecture) {
-            console.log(`\nArchitecture:\n${data.architecture.summary || ""}`);
+            const arch = typeof data.architecture === "string" ? data.architecture : (data.architecture.summary || "");
+            console.log(`\nArchitecture:\n${arch}`);
           }
-          if (data.results) {
-            console.log(`\nOutcomes:\n${data.results.summary || ""}`);
+          if (data.highlights && data.highlights.length) {
+            console.log("\nHighlights:");
+            data.highlights.forEach((h) => console.log(`  - ${h}`));
+          }
+          if (data.honestPart) {
+            console.log(`\nHonest Assessment:\n${data.honestPart}`);
           }
         }
         break;
