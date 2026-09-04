@@ -7,6 +7,11 @@ export function GET() {
       description: "Read-only MCP server for portfolio documentation — projects, markdown twins, blog, and sitemap. Streamable HTTP at /mcp/docs.",
       version: "1.0.0",
       serverUrl: `${SITE_URL}/mcp/docs`,
+      icon: `${SITE_URL}/favicon.ico`,
+      logo: `${SITE_URL}/favicon.ico`,
+      icons: [
+        { src: `${SITE_URL}/favicon.ico`, sizes: "64x64", type: "image/x-icon" },
+      ],
       instructions: "Use search_docs to query documentation, get_doc to retrieve page markdown, and list_docs to inspect available guides.",
       tools: [
         {

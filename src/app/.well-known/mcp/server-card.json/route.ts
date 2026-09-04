@@ -19,6 +19,11 @@ export function GET() {
       ],
       documentationServer: `${SITE_URL}/mcp/docs`,
       docsCard: `${SITE_URL}/.well-known/mcp/docs/server-card.json`,
+      icon: `${SITE_URL}/favicon.ico`,
+      logo: `${SITE_URL}/favicon.ico`,
+      icons: [
+        { src: `${SITE_URL}/favicon.ico`, sizes: "64x64", type: "image/x-icon" },
+      ],
       instructions: "Use list_projects to enumerate projects, get_project for deep dives, compare_projects for tradeoffs, contact for hiring.",
       tools: [
         {

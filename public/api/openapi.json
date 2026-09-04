@@ -406,6 +406,31 @@
           "requestId": { "type": "string" }
         }
       }
+    },
+    "securitySchemes": {
+      "oauth2": {
+        "type": "oauth2",
+        "description": "OAuth 2.0 scoped authentication per RFC 9728",
+        "flows": {
+          "clientCredentials": {
+            "tokenUrl": "https://shivanshutiwari.in/.well-known/oauth-authorization-server",
+            "scopes": {
+              "read:projects": "Read portfolio projects and technical architecture details",
+              "write:contact": "Submit contact messages and collaboration requests",
+              "read:docs": "Access markdown twins and developer documentation",
+              "read:status": "Inspect system health and uptime status",
+              "execute:sandbox": "Run simulated test calls against sandbox endpoints",
+              "execute:batch": "Execute multi-operation batch requests"
+            }
+          }
+        }
+      },
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "description": "Optional Bearer token for authenticated requests"
+      }
     }
   }
 }

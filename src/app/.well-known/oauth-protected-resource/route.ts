@@ -1,10 +1,18 @@
 import { SITE_URL } from "@/lib/constants";
+
 export function GET() {
   return Response.json(
     {
       resource: SITE_URL,
       authorization_servers: [SITE_URL],
-      scopes_supported: [],
+      scopes_supported: [
+        "read:projects",
+        "write:contact",
+        "read:docs",
+        "read:status",
+        "execute:sandbox",
+        "execute:batch",
+      ],
       bearer_methods_supported: ["header"],
       allow_anonymous: true,
     },
