@@ -22,6 +22,22 @@ export default function DevelopersPage() {
         <p className="mt-3 text-base text-muted">
           Developer portal for <strong className="text-foreground">Shivanshu Tiwari</strong> — programmatic access to 19 engineering projects, AI agent evaluations, and real-time backend systems. Features official multi-language SDKs, a dedicated CLI tool, OpenAPI 3.0.3 specifications, and Dual Streamable HTTP MCP servers.
         </p>
+
+        {/* Developer Search Bar */}
+        <form action="/search" method="GET" className="mt-6 flex max-w-xl gap-2">
+          <input
+            type="search"
+            name="q"
+            placeholder="Search APIs, SDKs, CLI commands, endpoints, or projects..."
+            className="flex-1 rounded-lg border border-border bg-surface px-4 py-2 text-sm text-foreground placeholder:text-muted focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent"
+          />
+          <button
+            type="submit"
+            className="rounded-lg bg-accent px-4 py-2 text-sm font-medium text-background transition-colors hover:bg-accent/90"
+          >
+            Search Docs
+          </button>
+        </form>
       </div>
 
       {/* Featured Cards: SDK & CLI */}
@@ -55,7 +71,7 @@ export default function DevelopersPage() {
             <span className="rounded bg-accent/10 px-2 py-0.5 font-mono text-xs text-accent">TS / Python / Go</span>
           </div>
           <p className="text-sm text-muted mb-4">
-            Official client packages for TypeScript (<code className="text-accent">npm i sht-portfolio-v2</code>), Python (<code className="text-accent">pip install shivanshu-sdk</code>), and Go. Zero dependencies.
+            Official client packages for TypeScript (<code className="text-accent">github:SHT4BHARAT/NoIntroNeeded</code> or <code className="text-accent">npm i sht-portfolio-v2</code>), Python (<code className="text-accent">pip install &quot;git+...&quot;</code> or <code className="text-accent">shivanshu-sdk</code>), and Go. Zero dependencies.
           </p>
           <div className="font-mono text-xs text-accent flex items-center gap-1">
             View SDK documentation &rarr;
@@ -71,15 +87,18 @@ export default function DevelopersPage() {
 npx shivanshu projects ai-agents
 npx shivanshu sandbox
 
-# 2. Multi-Language SDKs
-npm install sht-portfolio-v2        # TypeScript / JavaScript
-pip install shivanshu-sdk           # Python 3.9+
-go get github.com/SHT4BHARAT/NoIntroNeeded/sdk/go
+# 2. Multi-Language SDKs (Universal Direct Git or Public Registry)
+npm install github:SHT4BHARAT/NoIntroNeeded        # TypeScript / Node.js (Universal)
+npm install sht-portfolio-v2                       # TypeScript (NPM registry alias)
+pip install "git+https://github.com/SHT4BHARAT/NoIntroNeeded.git#subdirectory=sdk/python" # Python (Universal)
+pip install shivanshu-sdk                          # Python (PyPI alias)
+go get github.com/SHT4BHARAT/NoIntroNeeded/sdk/go  # Go 1.21+
 
-# 3. Direct HTTP API & Markdown Twins
+# 3. Direct HTTP API, Search, and Markdown Twins
+curl -s https://shivanshutiwari.in/api/search?q=developer
 curl -s https://shivanshutiwari.in/llms.txt
 curl -s https://shivanshutiwari.in/api/v1/projects
-curl -H "Accept: text/markdown" https://shivanshutiwari.in/about`}
+curl -H "Accept: text/markdown" https://shivanshutiwari.in/developers`}
         </pre>
       </section>
 
@@ -87,6 +106,7 @@ curl -H "Accept: text/markdown" https://shivanshutiwari.in/about`}
       <section className="mb-10">
         <h2 className="font-display mb-3 text-sm font-semibold uppercase tracking-widest text-muted">Core Endpoints</h2>
         <ul className="list-disc space-y-2 pl-5 text-sm text-muted">
+          <li><code>GET /api/search?q=:query</code> — Search developer resources, APIs, SDKs, CLI tools, 19 projects, and posts</li>
           <li><code>GET /api/v1/projects</code> — List 19 projects (supports cursor pagination & <code>domain</code> filter)</li>
           <li><code>GET /api/v1/projects/:slug</code> — Detailed project architecture, decisions, and outcomes</li>
           <li><code>POST /api/v1/batch</code> — Execute multiple operations atomically</li>

@@ -2,6 +2,8 @@ import { describe, it, expect } from "vitest";
 import * as fs from "fs";
 import * as path from "path";
 import { staticPageMarkdown } from "@/lib/markdown/generators";
+import { searchSite } from "@/lib/search";
+import { searchDeveloperResources } from "@/lib/search/resources";
 
 describe("CLI Tool & Multi-Language SDKs Integrity", () => {
   const repoRoot = process.cwd();
@@ -99,5 +101,30 @@ describe("CLI Tool & Multi-Language SDKs Integrity", () => {
     expect(llms).toContain("Multi-Language SDKs");
     expect(llms).toContain("npm i sht-portfolio-v2");
     expect(llms).toContain("pip install shivanshu-sdk");
+  });
+
+  it("surfaces developer resources and projects via unified search", () => {
+    const devResults = searchDeveloperResources("sdk");
+    expect(devResults.length).toBeGreaterThan(0);
+    expect(devResults[0].title).toContain("SDK");
+
+    const siteResults = searchSite("developer");
+    expect(siteResults.total).toBeGreaterThan(0);
+    expect(siteResults.developerResources.length).toBeGreaterThan(0);
+
+    const searchMd = staticPageMarkdown("search");
+    expect(searchMd).not.toBeNull();
+    expect(searchMd).toContain("Search — Shivanshu Tiwari");
+  });
+
+  it("advertises search in openapi.json and llms.txt", () => {
+    const openapiPath = path.join(repoRoot, "public/openapi.json");
+    const openapi = JSON.parse(fs.readFileSync(openapiPath, "utf-8"));
+    expect(openapi["x-search"]).toBeDefined();
+    expect(openapi.paths["/api/search"]).toBeDefined();
+
+    const llms = fs.readFileSync(path.join(repoRoot, "public/llms.txt"), "utf-8");
+    expect(llms).toContain("Site Search");
+    expect(llms).toContain("https://shivanshutiwari.in/search");
   });
 });

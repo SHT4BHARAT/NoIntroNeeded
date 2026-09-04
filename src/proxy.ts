@@ -87,9 +87,10 @@ function maybeNegotiate(request: NextRequest): NextResponse | Response | null {
 
 - **Product:** Shivanshu Tiwari Portfolio & Developer Portal
 - **API Base:** ${origin}
+- **Site Search Engine:** ${origin}/search (API: ${origin}/api/search?q=<query>, Markdown: ${origin}/search.md)
 - **Dedicated CLI Tool:** npx shivanshu (Guide: ${origin}/developers/cli)
-- **TypeScript / Node SDK:** npm install sht-portfolio-v2 (${origin}/developers/sdk#typescript)
-- **Python SDK:** pip install shivanshu-sdk (${origin}/developers/sdk#python)
+- **TypeScript / Node SDK:** npm install github:SHT4BHARAT/NoIntroNeeded (or \`npm i sht-portfolio-v2\`) (${origin}/developers/sdk#typescript)
+- **Python SDK:** pip install "git+https://github.com/SHT4BHARAT/NoIntroNeeded.git#subdirectory=sdk/python" (or \`pip install shivanshu-sdk\`) (${origin}/developers/sdk#python)
 - **Go SDK:** go get github.com/SHT4BHARAT/NoIntroNeeded/sdk/go (${origin}/developers/sdk#go)
 - **OpenAPI Specification:** ${origin}/openapi.json
 - **AI Agent Navigation Index:** ${origin}/llms.txt
@@ -168,23 +169,35 @@ function maybeNegotiate(request: NextRequest): NextResponse | Response | null {
         plugin: `${origin}/.well-known/plugin.json`,
         agentsMd: "https://github.com/SHT4BHARAT/NoIntroNeeded/blob/main/AGENTS.md",
       },
+      search: {
+        web: `${origin}/search`,
+        api: `${origin}/api/search`,
+        markdown: `${origin}/search.md`,
+        description: "Unified site search across developer resources, APIs, SDKs, CLI, projects, and posts",
+      },
       cli: {
         command: "shivanshu",
-        run: "npx shivanshu",
-        install: "npm install -g sht-portfolio-v2",
+        run: "npx github:SHT4BHARAT/NoIntroNeeded",
+        runRegistry: "npx shivanshu",
+        install: "npm install -g github:SHT4BHARAT/NoIntroNeeded",
+        registryInstall: "npm install -g sht-portfolio-v2",
         documentation: `${origin}/developers/cli`,
         features: ["projects", "project", "compare", "batch", "jobs", "keys", "sandbox", "mcp", "pricing", "contact", "--json"],
       },
       sdk: {
         typescript: {
           package: "sht-portfolio-v2",
-          install: "npm install sht-portfolio-v2",
+          install: "npm install github:SHT4BHARAT/NoIntroNeeded",
+          gitInstall: "npm install github:SHT4BHARAT/NoIntroNeeded",
+          registryInstall: "npm install sht-portfolio-v2",
           repository: "https://github.com/SHT4BHARAT/NoIntroNeeded/tree/main/sdk/typescript",
           documentation: `${origin}/developers/sdk#typescript`,
         },
         python: {
           package: "shivanshu-sdk",
-          install: "pip install shivanshu-sdk",
+          install: "pip install \"git+https://github.com/SHT4BHARAT/NoIntroNeeded.git#subdirectory=sdk/python\"",
+          gitInstall: "pip install \"git+https://github.com/SHT4BHARAT/NoIntroNeeded.git#subdirectory=sdk/python\"",
+          registryInstall: "pip install shivanshu-sdk",
           repository: "https://github.com/SHT4BHARAT/NoIntroNeeded/tree/main/sdk/python",
           documentation: `${origin}/developers/sdk#python`,
         },

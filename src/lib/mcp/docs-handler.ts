@@ -1,5 +1,6 @@
 import { SITE_URL } from "../constants";
 import { staticPageMarkdown, projectMarkdown, homeMarkdown } from "../markdown/generators";
+import { searchDeveloperResources } from "../search/resources";
 
 export const docsTools = [
   {
@@ -240,11 +241,22 @@ export async function handleDocsPost(req: Request) {
 
     if (toolName === "search_docs") {
       const query = (args.query as string) ?? "";
+      const matches = searchDeveloperResources(query);
+      const formatted =
+        matches.length > 0
+          ? matches
+              .map(
+                (m) =>
+                  `- [${m.title}](${SITE_URL}${m.markdownUrl || m.url}): ${m.description}`
+              )
+              .join("\n")
+          : `- [Developer Portal](${SITE_URL}/developers.md): Comprehensive developer portal and endpoints\n- [SDKs & CLI](${SITE_URL}/developers/sdk.md): Zero-dependency SDKs for TypeScript, Python, Go and CLI\n- [Search Engine](${SITE_URL}/search.md): Unified portfolio search`;
+
       result = {
         content: [
           {
             type: "text",
-            text: `Search results for "${query}":\n- [About](${SITE_URL}/about.md)\n- [Developers](${SITE_URL}/developers.md)\n- [Deprecation Policy](${SITE_URL}/developers/deprecation.md)\n- [Projects](${SITE_URL}/#projects)\n- [llms.txt](${SITE_URL}/llms.txt)`,
+            text: `Documentation search results for "${query}":\n\n${formatted}\n\nFull site search is available at: ${SITE_URL}/search?q=${encodeURIComponent(query)} (API: ${SITE_URL}/api/search?q=${encodeURIComponent(query)})`,
           },
         ],
       };
@@ -272,8 +284,12 @@ export async function handleDocsPost(req: Request) {
                 { title: "Home Guide", path: "/" },
                 { title: "About Shivanshu Tiwari", path: "/about" },
                 { title: "Developer Portal", path: "/developers" },
+                { title: "CLI Tool Guide", path: "/developers/cli" },
+                { title: "Multi-Language SDKs", path: "/developers/sdk" },
+                { title: "Site Search Engine", path: "/search" },
                 { title: "API Deprecation Policy", path: "/developers/deprecation" },
                 { title: "Authentication Guide (auth.md)", path: "/auth.md" },
+                { title: "Pricing & Rate Limits (pricing.md)", path: "/pricing.md" },
                 { title: "Privacy Policy", path: "/privacy" },
                 { title: "FAQ", path: "/faq" },
                 { title: "Achievements", path: "/achievements" },

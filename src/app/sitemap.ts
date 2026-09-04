@@ -18,6 +18,7 @@ const staticRoutes = [
   "/experience",
   "/faq",
   "/volunteer",
+  "/search",
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {

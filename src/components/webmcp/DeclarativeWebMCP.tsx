@@ -12,16 +12,48 @@ export function DeclarativeWebMCP() {
       <form
         toolname="search_portfolio_projects"
         tooldescription="Search Shivanshu Tiwari's 19 portfolio projects, tech stacks, and case studies"
-        action="/#projects"
+        action="/search"
         method="GET"
       >
         <input
           type="search"
-          name="query"
-          toolparam="query"
+          name="q"
+          toolparam="q"
           placeholder="Search by keyword, domain (ai-agents, backend, voice-ai, rl), or stack"
         />
         <button type="submit">Search Projects</button>
+      </form>
+
+      {/* Search Documentation Tool */}
+      <form
+        toolname="search_docs"
+        tooldescription="Search Shivanshu Tiwari developer portal, API specifications, multi-language SDKs, CLI tools, and technical documentation"
+        action="/search"
+        method="GET"
+      >
+        <input
+          type="search"
+          name="q"
+          toolparam="q"
+          placeholder="Search documentation, developer guides, SDKs, or APIs"
+        />
+        <button type="submit">Search Docs</button>
+      </form>
+
+      {/* Search Site Tool */}
+      <form
+        toolname="search_site"
+        tooldescription="Search entire portfolio including developer resources, SDKs, CLI, APIs, 19 engineering projects, and blog posts"
+        action="/search"
+        method="GET"
+      >
+        <input
+          type="search"
+          name="q"
+          toolparam="q"
+          placeholder="Search projects, developer docs, SDKs, CLI..."
+        />
+        <button type="submit">Search Site</button>
       </form>
 
       {/* Get Project Details Tool */}
@@ -38,22 +70,6 @@ export function DeclarativeWebMCP() {
           placeholder="Project slug (e.g. daitfo, samvad, agentic-honey-pot, payout-engine)"
         />
         <button type="submit">Get Project</button>
-      </form>
-
-      {/* Search Documentation Tool */}
-      <form
-        toolname="search_docs"
-        tooldescription="Search Shivanshu Tiwari developer portal, API specifications, and technical blog posts"
-        action="/developers"
-        method="GET"
-      >
-        <input
-          type="search"
-          name="query"
-          toolparam="query"
-          placeholder="Search documentation, llms.txt, or blog"
-        />
-        <button type="submit">Search Docs</button>
       </form>
 
       {/* Get Contact Info Tool */}

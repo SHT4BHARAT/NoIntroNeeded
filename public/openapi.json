@@ -31,19 +31,25 @@
   "x-cli": {
     "command": "shivanshu",
     "run": "npx shivanshu",
-    "install": "npm install -g sht-portfolio-v2",
+    "git_run": "npx github:SHT4BHARAT/NoIntroNeeded",
+    "install": "npm install -g github:SHT4BHARAT/NoIntroNeeded",
+    "registry_install": "npm install -g sht-portfolio-v2",
     "documentation": "https://shivanshutiwari.in/developers/cli"
   },
   "x-sdks": {
     "typescript": {
       "package": "sht-portfolio-v2",
-      "install": "npm install sht-portfolio-v2",
+      "git": "github:SHT4BHARAT/NoIntroNeeded",
+      "install": "npm install github:SHT4BHARAT/NoIntroNeeded",
+      "registry_install": "npm install sht-portfolio-v2",
       "repository": "https://github.com/SHT4BHARAT/NoIntroNeeded/tree/main/sdk/typescript",
       "documentation": "https://shivanshutiwari.in/developers/sdk#typescript"
     },
     "python": {
       "package": "shivanshu-sdk",
-      "install": "pip install shivanshu-sdk",
+      "git": "git+https://github.com/SHT4BHARAT/NoIntroNeeded.git#subdirectory=sdk/python",
+      "install": "pip install \"git+https://github.com/SHT4BHARAT/NoIntroNeeded.git#subdirectory=sdk/python\"",
+      "registry_install": "pip install shivanshu-sdk",
       "repository": "https://github.com/SHT4BHARAT/NoIntroNeeded/tree/main/sdk/python",
       "documentation": "https://shivanshutiwari.in/developers/sdk#python"
     },
@@ -54,7 +60,67 @@
       "documentation": "https://shivanshutiwari.in/developers/sdk#go"
     }
   },
+  "x-search": {
+    "path": "/api/search",
+    "web": "https://shivanshutiwari.in/search",
+    "markdown": "https://shivanshutiwari.in/search.md",
+    "description": "Unified site search across developer resources, APIs, SDKs, CLI, 19 engineering projects, and technical blog posts"
+  },
   "paths": {
+    "/api/search": {
+      "get": {
+        "operationId": "searchSite",
+        "summary": "Unified search across developer resources, SDKs, CLI, projects, and posts",
+        "description": "Searches developer documentation, APIs, SDKs, CLI tools, 19 engineering projects, and technical blog posts with ranked relevance scoring.",
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "required": false,
+            "schema": { "type": "string" },
+            "description": "Search query string (e.g. 'developer', 'sdk', 'cli', 'gemini', 'fastapi')"
+          },
+          {
+            "name": "query",
+            "in": "query",
+            "required": false,
+            "schema": { "type": "string" },
+            "description": "Alternative query alias for form and agent compatibility"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Structured search results grouped by category with total match counts",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "query": { "type": "string" },
+                    "total": { "type": "integer" },
+                    "developerResources": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "title": { "type": "string" },
+                          "description": { "type": "string" },
+                          "url": { "type": "string" },
+                          "markdownUrl": { "type": "string" },
+                          "category": { "type": "string" }
+                        }
+                      }
+                    },
+                    "projects": { "type": "array" },
+                    "posts": { "type": "array" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/projects": {
       "get": {
         "operationId": "listProjects",

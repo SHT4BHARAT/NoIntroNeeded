@@ -10,22 +10,22 @@ export function Footer() {
             &copy; {new Date().getFullYear()} {SITE_NAME}
           </p>
           <form
-            action="/#projects"
+            action="/search"
             method="GET"
             role="search"
-            toolname="search_portfolio_projects"
-            tooldescription="Search Shivanshu Tiwari's 19 portfolio projects, tech stacks, and case studies"
+            toolname="search_site"
+            tooldescription="Search Shivanshu Tiwari portfolio, developer documentation, APIs, SDKs, CLI, and projects"
             className="flex items-center gap-2"
           >
-            <label htmlFor="footer-project-search" className="sr-only">
-              Search projects
+            <label htmlFor="footer-site-search" className="sr-only">
+              Search site
             </label>
             <input
-              id="footer-project-search"
+              id="footer-site-search"
               type="search"
-              name="query"
-              toolparam="query"
-              placeholder="Search projects or stack..."
+              name="q"
+              toolparam="q"
+              placeholder="Search projects, APIs, SDKs, docs..."
               className="rounded-md border border-border bg-surface px-3 py-1 text-xs text-foreground placeholder:text-muted focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent"
             />
             <button
@@ -37,11 +37,17 @@ export function Footer() {
           </form>
         </div>
         <div className="flex items-center gap-5 text-sm text-muted">
+          <Link href="/search" className="transition-colors duration-200 hover:text-foreground">
+            Search
+          </Link>
           <Link href="/about" className="transition-colors duration-200 hover:text-foreground">
             About
           </Link>
           <Link href="/developers" className="transition-colors duration-200 hover:text-foreground">
             API Docs
+          </Link>
+          <Link href="/developers/sdk" className="transition-colors duration-200 hover:text-foreground">
+            SDKs & CLI
           </Link>
           <Link href="/privacy" className="transition-colors duration-200 hover:text-foreground">
             Privacy

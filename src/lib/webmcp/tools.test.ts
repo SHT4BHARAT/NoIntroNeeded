@@ -6,6 +6,7 @@ import {
   parseBlogIndex,
   searchBlogPostsTool,
   searchPortfolioProjectsTool,
+  searchDeveloperResourcesTool,
   webmcpTools,
   type ToolResult,
 } from "@/lib/webmcp/tools";
@@ -44,12 +45,13 @@ function textOf(result: ToolResult): string {
 }
 
 describe("WebMCP tool registration metadata", () => {
-  it("exposes the four focused read-only tools (query_portfolio is retired)", () => {
+  it("exposes the focused read-only tools (including developer resources search)", () => {
     expect(webmcpTools.map((t) => t.name)).toEqual([
       "get_contact_info",
       "search_portfolio_projects",
       "get_project_details",
       "search_blog_posts",
+      "search_developer_resources",
     ]);
   });
 
@@ -73,6 +75,7 @@ describe("WebMCP tool registration metadata", () => {
     expect(getContactInfoTool.annotations.untrustedContentHint).toBe(true);
     expect(searchPortfolioProjectsTool.annotations.untrustedContentHint).toBeUndefined();
     expect(searchBlogPostsTool.annotations.untrustedContentHint).toBeUndefined();
+    expect(searchDeveloperResourcesTool.annotations.untrustedContentHint).toBeUndefined();
   });
 
   it("describes every tool and every declared parameter", () => {
@@ -98,6 +101,7 @@ describe("WebMCP tool registration metadata", () => {
       "query",
     ]);
     expect(searchBlogPostsTool.inputSchema.required).toEqual(["query"]);
+    expect(searchDeveloperResourcesTool.inputSchema.required).toEqual(["query"]);
     expect(getContactInfoTool.inputSchema.required).toBeUndefined();
   });
 });

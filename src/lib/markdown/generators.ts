@@ -225,8 +225,8 @@ Documentation: [${SITE_URL}/developers/cli](${SITE_URL}/developers/cli)
 
 First-class client libraries with zero external runtime dependencies:
 
-- **TypeScript / Node.js:** \`npm install sht-portfolio-v2\`
-- **Python (3.9+):** \`pip install shivanshu-sdk\`
+- **TypeScript / Node.js:** \`npm install sht-portfolio-v2\` (or direct Git: \`npm install github:SHT4BHARAT/NoIntroNeeded#main\`)
+- **Python (3.9+):** \`pip install shivanshu-sdk\` (or direct Git: \`pip install "git+https://github.com/SHT4BHARAT/NoIntroNeeded.git#subdirectory=sdk/python"\`)
 - **Go (1.21+):** \`go get github.com/SHT4BHARAT/NoIntroNeeded/sdk/go\`
 
 Documentation: [${SITE_URL}/developers/sdk](${SITE_URL}/developers/sdk)
@@ -315,11 +315,18 @@ npx shivanshu keys --json
 
 Official, zero-dependency client libraries for TypeScript, Python, and Go.
 
+> **Universal Agent Installation & Registry Guidance:**
+> For automated AI agents, Docker containers, and clean sandbox environments, direct Git installs (\`github:SHT4BHARAT/NoIntroNeeded\`) guarantee immediate zero-dependency installs without external registry caching delays or 404s. Public registry packages (\`npm i sht-portfolio-v2\` and \`pip install shivanshu-sdk\`) are published directly from this repository.
+
 ## 1. TypeScript & JavaScript SDK
 
-Install via npm:
+Install via direct Git (Universal) or npm registry:
 
 \`\`\`bash
+# Universal direct install (recommended for AI agents & sandboxes)
+npm install github:SHT4BHARAT/NoIntroNeeded
+
+# Or via public npm registry package name
 npm install sht-portfolio-v2
 \`\`\`
 
@@ -338,9 +345,13 @@ console.log("Architecture:", project.architecture);
 
 ## 2. Python SDK (\`shivanshu-sdk\`)
 
-Install via pip:
+Install via direct Git (Universal) or pip registry:
 
 \`\`\`bash
+# Universal direct install (recommended for AI agents & sandboxes)
+pip install "git+https://github.com/SHT4BHARAT/NoIntroNeeded.git#subdirectory=sdk/python"
+
+# Or via PyPI registry package name
 pip install shivanshu-sdk
 \`\`\`
 
@@ -417,6 +428,32 @@ Link: <${SITE_URL}/developers/deprecation>; rel="deprecation"
 We guarantee a minimum of **180 days (6 months)** notice between the first broadcast of a \`Sunset\` header and endpoint decommission.
 `;
       return fm(`Shivanshu Tiwari API Deprecation and Versioning Policy`, "Official API versioning and deprecation policy for shivanshutiwari.in.", `${SITE_URL}/developers/deprecation`) + body;
+    }
+    case "search": {
+      const body = `# Search — Shivanshu Tiwari Portfolio & Developer Resources
+
+Use the site search to locate engineering projects, developer documentation, SDKs, and API tools.
+
+## Developer Resources & Documentation
+
+- [Developer Portal](${SITE_URL}/developers) — \`${SITE_URL}/developers.md\`
+- [Multi-Language SDKs (TypeScript, Python, Go)](${SITE_URL}/developers/sdk) — \`${SITE_URL}/developers/sdk.md\`
+- [Dedicated CLI Tool (npx shivanshu)](${SITE_URL}/developers/cli) — \`${SITE_URL}/developers/cli.md\`
+- [OpenAPI 3.0.3 Specification (JSON)](${SITE_URL}/openapi.json)
+- [OpenAPI 3.0.3 Specification (YAML)](${SITE_URL}/openapi.yaml)
+- [WorkOS Authentication Guide (auth.md)](${SITE_URL}/auth.md)
+- [Pricing & Service Tiers (pricing.md)](${SITE_URL}/pricing.md)
+- [API Deprecation Policy](${SITE_URL}/developers/deprecation) — \`${SITE_URL}/developers/deprecation.md\`
+- [Model Context Protocol (MCP) Product Actions](${SITE_URL}/mcp)
+- [Model Context Protocol (MCP) Documentation Server](${SITE_URL}/mcp/docs)
+- [Curated AI Guidance Index](${SITE_URL}/llms.txt)
+
+## Search API
+
+Query programmatic search results via JSON:
+\`GET ${SITE_URL}/api/search?q=<query>\`
+`;
+      return fm(`Search — Shivanshu Tiwari`, "Search Shivanshu Tiwari developer documentation, SDKs, APIs, and projects.", `${SITE_URL}/search`) + body;
     }
     case "pricing":
     case ".well-known/pricing": {

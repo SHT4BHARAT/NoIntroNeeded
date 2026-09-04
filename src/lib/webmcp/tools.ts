@@ -21,6 +21,7 @@
 
 import { SITE_NAME, SITE_URL, SOCIAL } from "@/lib/constants";
 import { getProjectBySlug, projects } from "@/lib/projects/config";
+import { searchDeveloperResources } from "@/lib/search/resources";
 
 // ---------------------------------------------------------------------------
 // Types
@@ -412,6 +413,43 @@ export const searchBlogPostsTool: WebMCPToolDefinition = {
   },
 };
 
+export const searchDeveloperResourcesTool: WebMCPToolDefinition = {
+  name: "search_developer_resources",
+  description:
+    "Searches Shivanshu Tiwari's developer documentation, REST APIs, SDK packages (TypeScript, Python, Go), CLI tools, OpenAPI specifications, authentication guides, and MCP servers. Read-only.",
+  inputSchema: {
+    type: "object",
+    properties: {
+      query: {
+        type: "string",
+        description: "Keyword to search for (e.g. 'sdk', 'cli', 'python', 'openapi', 'pricing', 'keys', 'mcp')",
+      },
+    },
+    required: ["query"],
+  },
+  annotations: { readOnlyHint: true },
+  execute: async (args) => {
+    const query = requireQuery(args);
+    if (query === null) {
+      return emptyQueryResult("Try a developer keyword such as 'sdk', 'cli', 'openapi', 'auth', or 'mcp'.");
+    }
+    const matches = searchDeveloperResources(query);
+    if (matches.length === 0) {
+      return formatToolText(
+        `No specific developer resources matched "${query}". Browse the developer portal at ${SITE_URL}/developers or view all endpoints at ${SITE_URL}/openapi.json.`
+      );
+    }
+    const lines = matches.map(
+      (r) => `- ${r.title}\n  URL: ${r.url}\n  Markdown: ${r.markdownUrl}\n  ${r.description}`
+    );
+    return formatToolText(
+      `Found ${matches.length} developer resource${
+        matches.length === 1 ? "" : "s"
+      }:\n\n${lines.join("\n\n")}`
+    );
+  },
+};
+
 /**
  * All WebMCP tools registered on the document. The original generic
  * `query_portfolio` tool is retired in favor of these focused, read-only
@@ -422,6 +460,7 @@ export const webmcpTools: WebMCPToolDefinition[] = [
   searchPortfolioProjectsTool,
   getProjectDetailsTool,
   searchBlogPostsTool,
+  searchDeveloperResourcesTool,
 ];
 
 

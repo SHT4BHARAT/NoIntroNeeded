@@ -79,3 +79,7 @@ CLAUDE.md
 page.html
 test_*.html
 Session.txt
+*.egg-info/
+/sdk/python/build/
+/sdk/python/dist/
+*.egg-info
