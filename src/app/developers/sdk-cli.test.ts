@@ -80,7 +80,7 @@ describe("CLI Tool & Multi-Language SDKs Integrity", () => {
     expect(sdkMd).toContain("Shivanshu Tiwari Multi-Language SDKs");
     expect(sdkMd).toContain("npm install sht-portfolio-v2");
     expect(sdkMd).toContain("pip install shivanshu-sdk");
-    expect(sdkMd).toContain("go get github.com/SHT4BHARAT/NoIntroNeeded/sdk/go");
+    expect(sdkMd).toContain("https://shivanshutiwari.in/developers/sdk#go");
   });
 
   it("advertises x-sdks and x-cli in openapi.json", () => {

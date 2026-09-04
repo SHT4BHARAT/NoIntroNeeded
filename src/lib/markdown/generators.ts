@@ -258,6 +258,7 @@ Documentation: [${SITE_URL}/developers/sdk](${SITE_URL}/developers/sdk)
 
 - **Product Actions MCP Server:** \`POST ${SITE_URL}/mcp\` (Server card: \`${SITE_URL}/.well-known/mcp/server-card.json\`)
 - **Documentation MCP Server:** \`POST ${SITE_URL}/mcp/docs\` (Server card: \`${SITE_URL}/.well-known/mcp/docs/server-card.json\`)
+- **MCP Distribution & Registries:** [NPM Package (sht-portfolio-v2)](https://www.npmjs.com/package/sht-portfolio-v2) • [Product MCP](${SITE_URL}/mcp) • [Docs MCP](${SITE_URL}/mcp/docs)
 `;
       return fm(`Shivanshu Tiwari Developer Portal & API Documentation`, "Developer portal for Shivanshu Tiwari — API docs, CLI tool, SDKs, OpenAPI, auth, MCP.", `${SITE_URL}/developers`) + body;
     }
@@ -367,7 +368,7 @@ print(honeypot["architecture"])
 
 ## 3. Go SDK & Direct HTTP
 
-Go developers and agent scripts can consume the REST API directly, use \`go get github.com/SHT4BHARAT/NoIntroNeeded/sdk/go\`, or generate custom clients from the OpenAPI 3.0.3 specification:
+Go developers and agent scripts can consume the REST API directly, use the Go client guide at https://shivanshutiwari.in/developers/sdk#go, or generate custom clients from the OpenAPI 3.0.3 specification:
 
 \`\`\`go
 package main

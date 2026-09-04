@@ -2,13 +2,13 @@
 
 Official Go client library for the **Shivanshu Tiwari Portfolio APIs**, project intelligence, asynchronous background jobs, and sandbox environments.
 
-[![Go Reference](https://pkg.go.dev/badge/github.com/SHT4BHARAT/NoIntroNeeded/sdk/go.svg)](https://pkg.go.dev/github.com/SHT4BHARAT/NoIntroNeeded/sdk/go)
+[![Go Reference](https://pkg.go.dev/badge/github.com/SHT4BHARAT/portfolio/sdk/go.svg)](https://pkg.go.dev/github.com/SHT4BHARAT/portfolio/sdk/go)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
 ## Installation
 
 ```bash
-go get github.com/SHT4BHARAT/NoIntroNeeded/sdk/go
+go get github.com/SHT4BHARAT/portfolio/sdk/go
 ```
 
 ## Quick Start
@@ -21,7 +21,7 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/SHT4BHARAT/NoIntroNeeded/sdk/go"
+	"github.com/SHT4BHARAT/portfolio/sdk/go"
 )
 
 func main() {

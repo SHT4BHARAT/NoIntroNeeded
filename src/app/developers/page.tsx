@@ -129,6 +129,14 @@ curl -H "Accept: text/markdown" https://shivanshutiwari.in/developers`}
             <strong>Documentation MCP:</strong> <code>POST https://shivanshutiwari.in/mcp/docs</code> (Card: <Link href="/.well-known/mcp/docs/server-card.json" className="text-accent hover:underline">docs server-card.json</Link>)
           </li>
         </ul>
+        <div className="mt-3 flex flex-wrap items-center gap-2 text-xs text-muted">
+          <span>Official Distribution:</span>
+          <a href="https://www.npmjs.com/package/sht-portfolio-v2" target="_blank" rel="noopener noreferrer" className="text-accent hover:underline">NPM Package (sht-portfolio-v2)</a>
+          <span>•</span>
+          <Link href="/mcp" className="text-accent hover:underline">Product MCP (/mcp)</Link>
+          <span>•</span>
+          <Link href="/mcp/docs" className="text-accent hover:underline">Docs MCP (/mcp/docs)</Link>
+        </div>
       </section>
 
       {/* Auth & Pricing */}

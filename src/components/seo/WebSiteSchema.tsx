@@ -9,18 +9,18 @@ export function WebSiteSchema() {
     alternateName: ["SHT4BHARAT", "Shivanshu Tiwari Portfolio"],
     url: SITE_URL,
     description: SITE_DESCRIPTION,
-    sameAs: [SOCIAL.github, SOCIAL.linkedin, "https://github.com/SHT4BHARAT/NoIntroNeeded"],
+    sameAs: [SOCIAL.github, SOCIAL.linkedin, "https://github.com/SHT4BHARAT/portfolio", "https://www.npmjs.com/package/sht-portfolio-v2"],
     author: {
       "@type": "Person",
       name: SITE_NAME,
       url: SITE_URL,
-      sameAs: [SOCIAL.github, SOCIAL.linkedin, "https://github.com/SHT4BHARAT/NoIntroNeeded"],
+      sameAs: [SOCIAL.github, SOCIAL.linkedin, "https://github.com/SHT4BHARAT/portfolio", "https://www.npmjs.com/package/sht-portfolio-v2"],
     },
     publisher: {
       "@type": "Person",
       name: SITE_NAME,
       url: SITE_URL,
-      sameAs: [SOCIAL.github, SOCIAL.linkedin, "https://github.com/SHT4BHARAT/NoIntroNeeded"],
+      sameAs: [SOCIAL.github, SOCIAL.linkedin, "https://github.com/SHT4BHARAT/portfolio", "https://www.npmjs.com/package/sht-portfolio-v2"],
     },
     inLanguage: "en-US",
   };

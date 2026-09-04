@@ -216,7 +216,7 @@ function maybeNegotiate(request: NextRequest): NextResponse | Response | null {
           documentation: `${origin}/developers/sdk#python`,
         },
         go: {
-          package: "github.com/SHT4BHARAT/NoIntroNeeded/sdk/go",
+          package: "shivanshu-sdk-go",
           documentation: `${origin}/developers/sdk#go`,
         },
         npm: "sht-portfolio-v2",
@@ -231,6 +231,11 @@ function maybeNegotiate(request: NextRequest): NextResponse | Response | null {
         serverCard: `${origin}/.well-known/mcp/server-card.json`,
         docsCard: `${origin}/.well-known/mcp/docs/server-card.json`,
         card: `${origin}/.well-known/mcp/server-card.json`,
+        registries: {
+          npm: "https://www.npmjs.com/package/sht-portfolio-v2",
+          product: `${origin}/mcp`,
+          docs: `${origin}/mcp/docs`,
+        },
       },
       documentation: {
         llms: `${origin}/llms.txt`,

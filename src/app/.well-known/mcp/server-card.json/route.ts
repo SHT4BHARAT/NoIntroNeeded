@@ -19,6 +19,12 @@ export function GET() {
       ],
       documentationServer: `${SITE_URL}/mcp/docs`,
       docsCard: `${SITE_URL}/.well-known/mcp/docs/server-card.json`,
+      registryUrl: "https://www.npmjs.com/package/sht-portfolio-v2",
+      registries: [
+        { name: "npm", url: "https://www.npmjs.com/package/sht-portfolio-v2" },
+        { name: "domain", url: `${SITE_URL}/mcp` },
+      ],
+      repository: "https://github.com/SHT4BHARAT/portfolio",
       icon: `${SITE_URL}/favicon.ico`,
       logo: `${SITE_URL}/favicon.ico`,
       icons: [

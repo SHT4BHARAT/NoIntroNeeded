@@ -9,7 +9,7 @@ setup(
     long_description_content_type="text/markdown",
     author="Shivanshu Tiwari",
     author_email="sht4bharat@gmail.com",
-    url="https://github.com/SHT4BHARAT/NoIntroNeeded",
+    url="https://shivanshutiwari.in",
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",

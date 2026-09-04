@@ -1,3 +1,3 @@
-module github.com/SHT4BHARAT/NoIntroNeeded/sdk/go
+module github.com/SHT4BHARAT/portfolio/sdk/go
 
 go 1.21

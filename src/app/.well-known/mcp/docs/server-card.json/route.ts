@@ -7,6 +7,12 @@ export function GET() {
       description: "Read-only MCP server for portfolio documentation — projects, markdown twins, blog, and sitemap. Streamable HTTP at /mcp/docs.",
       version: "1.0.0",
       serverUrl: `${SITE_URL}/mcp/docs`,
+      registryUrl: "https://www.npmjs.com/package/sht-portfolio-v2",
+      registries: [
+        { name: "npm", url: "https://www.npmjs.com/package/sht-portfolio-v2" },
+        { name: "domain", url: `${SITE_URL}/mcp/docs` },
+      ],
+      repository: "https://github.com/SHT4BHARAT/portfolio",
       icon: `${SITE_URL}/favicon.ico`,
       logo: `${SITE_URL}/favicon.ico`,
       icons: [
