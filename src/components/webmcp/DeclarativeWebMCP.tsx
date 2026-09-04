@@ -7,7 +7,7 @@
  */
 export function DeclarativeWebMCP() {
   return (
-    <div aria-hidden="true" className="sr-only hidden" data-webmcp="declarative-tools">
+    <div className="sr-only" data-webmcp="declarative-tools">
       {/* Search Portfolio Projects Tool */}
       <form
         toolname="search_portfolio_projects"
