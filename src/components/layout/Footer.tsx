@@ -54,6 +54,14 @@ export function Footer() {
           >
             AGENTS.md
           </a>
+          <a
+            href="https://github.com/SHT4BHARAT/NoIntroNeeded"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="transition-colors duration-200 hover:text-foreground"
+          >
+            Repo
+          </a>
           <Link
             href={SOCIAL.github}
             target="_blank"
