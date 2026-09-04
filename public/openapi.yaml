@@ -41,7 +41,7 @@ x-sdks:
     registry: https://pypi.org/project/shivanshu-sdk/
     documentation: https://shivanshutiwari.in/developers/sdk#python
   go:
-    package: github.com/SHT4BHARAT/NoIntroNeeded/sdk/go
+    package: shivanshu-sdk-go
     documentation: https://shivanshutiwari.in/developers/sdk#go
 x-search:
   path: /api/search
@@ -274,6 +274,13 @@ paths:
     get:
       operationId: sandboxPing
       summary: Sandbox environment health and status check
+      parameters:
+        - name: echo
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Optional test echo message
       responses:
         '200':
           description: Sandbox status
@@ -333,6 +340,21 @@ paths:
     post:
       operationId: generateTestKey
       summary: Generate an ephemeral sandbox API key for automated testing
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                tier:
+                  type: string
+                  enum: [sandbox, free, developer]
+                  default: sandbox
+                  description: Requested access tier
+                clientName:
+                  type: string
+                  description: Optional name or agent identifier
       responses:
         '200':
           description: Generated test API key
@@ -353,6 +375,21 @@ paths:
     post:
       operationId: generateTestKeyAlias
       summary: Generate an ephemeral sandbox API key (alias)
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                tier:
+                  type: string
+                  enum: [sandbox, free, developer]
+                  default: sandbox
+                  description: Requested access tier
+                clientName:
+                  type: string
+                  description: Optional name or agent identifier
       responses:
         '200':
           description: Generated test API key
@@ -372,6 +409,15 @@ paths:
     get:
       operationId: getTestKeyAlias
       summary: Generate an ephemeral sandbox API key via GET (alias)
+      parameters:
+        - name: tier
+          in: query
+          required: false
+          schema:
+            type: string
+            enum: [sandbox, free, developer]
+            default: sandbox
+          description: Requested tier for the ephemeral test key
       responses:
         '200':
           description: Generated test API key
@@ -392,6 +438,13 @@ paths:
     get:
       operationId: sandboxPingAlias
       summary: Sandbox environment health and status check (alias)
+      parameters:
+        - name: echo
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Optional test echo message
       responses:
         '200':
           description: Sandbox status
@@ -410,6 +463,168 @@ paths:
                     type: boolean
                   sandbox:
                     type: boolean
+  /api/v1/batch:
+    post:
+      operationId: executeBatch
+      summary: Atomic multi-operation batch endpoint for bulk execution
+      description: Execute multiple operations or requests in a single transaction with full idempotency support.
+      parameters:
+        - name: Idempotency-Key
+          in: header
+          required: false
+          schema:
+            type: string
+          description: Optional idempotency key to prevent duplicate batch execution
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [operations]
+              properties:
+                operations:
+                  type: array
+                  description: List of operations to execute in bulk
+                  items:
+                    type: object
+                    required: [id, op]
+                    properties:
+                      id:
+                        type: string
+                        description: Unique identifier for this operation
+                      op:
+                        type: string
+                        description: Operation identifier or path
+                      params:
+                        type: object
+                        description: Parameters for the operation
+      responses:
+        '200':
+          description: Batch execution results
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [status, count, results]
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  count:
+                    type: integer
+                    example: 2
+                  idempotencyKey:
+                    type: string
+                    nullable: true
+                  results:
+                    type: array
+                    items:
+                      type: object
+                      required: [id, status]
+                      properties:
+                        id:
+                          type: string
+                        status:
+                          type: string
+                        data:
+                          type: object
+    get:
+      operationId: getBatchInfo
+      summary: Retrieve batch API capabilities and documentation
+      parameters:
+        - name: verbose
+          in: query
+          required: false
+          schema:
+            type: boolean
+          description: Whether to return verbose capability breakdown
+      responses:
+        '200':
+          description: Batch API status
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [name, description, status]
+                properties:
+                  name:
+                    type: string
+                  description:
+                    type: string
+                  status:
+                    type: string
+  /api/batch:
+    post:
+      operationId: executeBatchAlias
+      summary: Atomic multi-operation batch endpoint (alias)
+      parameters:
+        - name: Idempotency-Key
+          in: header
+          required: false
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [operations]
+              properties:
+                operations:
+                  type: array
+                  items:
+                    type: object
+                    required: [id, op]
+                    properties:
+                      id:
+                        type: string
+                      op:
+                        type: string
+                      params:
+                        type: object
+      responses:
+        '200':
+          description: Batch execution results
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [status, count, results]
+                properties:
+                  status:
+                    type: string
+                  count:
+                    type: integer
+                  results:
+                    type: array
+                    items:
+                      type: object
+    get:
+      operationId: getBatchInfoAlias
+      summary: Retrieve batch API status (alias)
+      parameters:
+        - name: verbose
+          in: query
+          required: false
+          schema:
+            type: boolean
+      responses:
+        '200':
+          description: Batch API status
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [name, description, status]
+                properties:
+                  name:
+                    type: string
+                  description:
+                    type: string
+                  status:
+                    type: string
 components:
   schemas:
     Job:

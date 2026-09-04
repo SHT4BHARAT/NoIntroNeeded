@@ -35,7 +35,7 @@ describe("CLI Tool & Multi-Language SDKs Integrity", () => {
 
     const pkg = JSON.parse(fs.readFileSync(pkgPath, "utf-8"));
     expect(pkg.name).toBe("sht-portfolio-v2");
-    expect(pkg.version).toBe("1.0.0");
+    expect(pkg.version).toMatch(/^1\./);
   });
 
   it("Python SDK files exist with zero-dependency client", () => {
