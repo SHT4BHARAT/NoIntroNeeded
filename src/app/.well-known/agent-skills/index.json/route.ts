@@ -1,7 +1,7 @@
 import { SITE_URL } from "@/lib/constants";
 
 export function GET() {
-  const SKILL_DIGEST = "sha256:b9184bb1b02833367da2ecc4675c29260e23617a5e18f04df025f22289813bd1";
+  const SKILL_DIGEST = "sha256:7d27ae54340d0a313de688627acd830fe8788f0cbf5d146a7de6769a0ebfe370";
   const PROJECT_DIGEST = "sha256:59e033ead60ff30b2b5dbcf7729b650e1fbcf4359beb65490f20afbc11a17802";
   return Response.json(
     {

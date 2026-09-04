@@ -43,6 +43,7 @@ I don't just use AI — I build things with it that keep running after I close m
 - [Shivanshu Tiwari Agentic Resource Discovery (ARD)](https://shivanshutiwari.in/.well-known/ard.json): Canonical ARD v1.0 resource catalog
 - [Shivanshu Tiwari AI Catalog](https://shivanshutiwari.in/.well-known/ai-catalog.json): AI Catalog Standard discovery document
 - [Shivanshu Tiwari Agent Plugin Manifest](https://shivanshutiwari.in/.well-known/plugin.json): Agent Plugins manifest per agent-plugins.org specification
+- [Shivanshu Tiwari Pricing & Service Tiers (pricing.md)](https://shivanshutiwari.in/pricing.md): Transparent pricing, free tiers, API rate limits, and ACP delegate payment
 - [Shivanshu Tiwari AI Coding Agent Instructions (AGENTS.md)](https://github.com/SHT4BHARAT/NoIntroNeeded/blob/main/AGENTS.md): Coding rules and conventions for agents
 - [Shivanshu Tiwari Cursor Rules (.cursorrules)](https://github.com/SHT4BHARAT/NoIntroNeeded/blob/main/.cursorrules): Cursor IDE configuration rules
 - [Shivanshu Tiwari Agent Skill (SKILL.md)](https://github.com/SHT4BHARAT/NoIntroNeeded/blob/main/SKILL.md): Agent skill definition compatible with `npx skills add`

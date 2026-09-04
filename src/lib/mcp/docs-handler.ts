@@ -175,6 +175,54 @@ export async function handleDocsPost(req: Request) {
     result = { tools: docsTools };
   } else if (method === "resources/list") {
     result = { resources: docsResources };
+  } else if (method === "resources/read") {
+    const uri = (body as { params?: { uri?: string } }).params?.uri;
+    if (uri === "docs://llms") {
+      result = {
+        contents: [
+          {
+            uri: "docs://llms",
+            mimeType: "text/plain",
+            text: homeMarkdown(),
+          },
+        ],
+      };
+    } else if (uri === "docs://auth") {
+      result = {
+        contents: [
+          {
+            uri: "docs://auth",
+            mimeType: "text/markdown",
+            text: staticPageMarkdown("auth.md") ?? "# Authentication\n\nSee /auth.md for details.",
+          },
+        ],
+      };
+    } else if (uri === "docs://developers") {
+      result = {
+        contents: [
+          {
+            uri: "docs://developers",
+            mimeType: "text/markdown",
+            text: staticPageMarkdown("developers") ?? "# Developers\n\nSee /developers for details.",
+          },
+        ],
+      };
+    } else {
+      return Response.json(
+        {
+          jsonrpc: "2.0",
+          id,
+          error: { code: -32602, message: `Resource not found: ${uri}` },
+        },
+        {
+          headers: {
+            "Content-Type": "application/json; charset=utf-8",
+            "MCP-Protocol-Version": "2024-11-05",
+            ...CORS_HEADERS,
+          },
+        }
+      );
+    }
   } else if (method === "prompts/list") {
     result = { prompts: [] };
   } else if (method === "tools/call") {

@@ -1,3 +1,5 @@
-// Consolidate to ONE honest MCP server. /.well-known/mcp re-exports the single
-// /mcp implementation so both surfaces serve identical tools and handshake.
-export { GET, POST, OPTIONS } from "@/app/mcp/route";
+import { handleProductGet, handleProductPost, handleProductOptions } from "../../../lib/mcp/product-handler";
+
+export const GET = handleProductGet;
+export const POST = handleProductPost;
+export const OPTIONS = handleProductOptions;
