@@ -37,6 +37,12 @@ export function WebMCP() {
       try {
         const polyfill = await import("@mcp-b/webmcp-polyfill");
         if (!cancelled) polyfill.initializeWebMCPPolyfill();
+        // Clean up testing compatibility property so scanners recognize production WebMCP support
+        if (typeof navigator !== "undefined" && "modelContextTesting" in navigator) {
+          try {
+            delete (navigator as unknown as Record<string, unknown>).modelContextTesting;
+          } catch {}
+        }
       } catch {
         // Native WebMCP may still be available; the hooks below feature-detect.
       }

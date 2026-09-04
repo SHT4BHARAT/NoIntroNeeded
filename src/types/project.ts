@@ -7,6 +7,7 @@ export interface Project {
   repoUrl?: string;
   demoUrl?: string;
   thumbnail?: string;
+  domain?: string;
   date: string;
   featured?: boolean;
   highlights: string[];

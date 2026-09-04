@@ -17,6 +17,7 @@ import { WebSiteSchema } from "@/components/seo/WebSiteSchema";
 import { ServiceSchema } from "@/components/seo/ServiceSchema";
 import { FAQSchema } from "@/components/seo/FAQSchema";
 import { WebMCP } from "@/components/webmcp/WebMCP";
+import { DeclarativeWebMCP } from "@/components/webmcp/DeclarativeWebMCP";
 import type { Viewport } from "next";
 
 const geist = Geist({
@@ -121,6 +122,7 @@ export default function RootLayout({
         <NoiseOverlay />
         <CursorSpotlight />
         <WebMCP />
+        <DeclarativeWebMCP />
         <ThemeProvider>
           <RoleProvider>
             <Header />

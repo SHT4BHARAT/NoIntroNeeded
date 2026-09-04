@@ -51,8 +51,7 @@ function maybeNegotiate(request: NextRequest): NextResponse | Response | null {
   const pathname = request.nextUrl.pathname;
   const search = request.nextUrl.searchParams;
 
-  // Never negotiate API/MCP/OpenAPI — they are JSON, not HTML/markdown twins
-  // /auth.md has a dedicated route handler serving honest markdown directly.
+  // Never negotiate API/MCP/OpenAPI/auth.md — they have direct route handlers
   if (
     pathname.startsWith("/api") ||
     pathname.startsWith("/mcp") ||
@@ -60,7 +59,7 @@ function maybeNegotiate(request: NextRequest): NextResponse | Response | null {
     pathname === "/openapi.json" ||
     pathname === "/openapi.yaml" ||
     pathname === "/auth.md" ||
-    pathname.startsWith("/.well-known/")
+    (pathname.startsWith("/.well-known/") && !pathname.endsWith(".md"))
   ) {
     return null;
   }
@@ -80,15 +79,106 @@ function maybeNegotiate(request: NextRequest): NextResponse | Response | null {
 
   // ?mode=agent → structured JSON view with api, agent, sdk, mcp, openapi signals (Access: Agent mode view)
   if (search.get("mode") === "agent") {
+    const origin = request.nextUrl.origin;
     const payload = {
-      product: "Shivanshu Tiwari — shivanshutiwari.in",
+      product: "Shivanshu Tiwari — AI Agent & Backend Systems Developer",
+      title: "Shivanshu Tiwari Portfolio & Developer Portal",
       mode: "agent",
-      api: { openapi: `${request.nextUrl.origin}/openapi.json`, catalog: `${request.nextUrl.origin}/.well-known/api-catalog`, sitemap: `${request.nextUrl.origin}/sitemap.xml` },
-      agent: { skills: `${request.nextUrl.origin}/.well-known/agent-skills/index.json`, card: `${request.nextUrl.origin}/.well-known/agent-card.json`, instructions: `${request.nextUrl.origin}/llms.txt` },
-      sdk: { npm: "sht-portfolio-v2", cli: "shivanshu", repository: "https://github.com/SHT4BHARAT/NoIntroNeeded", homepage: "https://shivanshutiwari.in" },
-      mcp: { server: `${request.nextUrl.origin}/mcp`, card: `${request.nextUrl.origin}/.well-known/mcp/server-card.json` },
-      auth: { discovery: `${request.nextUrl.origin}/.well-known/oauth-protected-resource`, method: "anonymous", docs: `${request.nextUrl.origin}/auth.md` },
-      capabilities: ["portfolio-query", "project-compare", "markdown-negotiation", "sitemap-discovery"],
+      api: {
+        base: origin,
+        version: "v1",
+        openapi: `${origin}/openapi.json`,
+        openapiYaml: `${origin}/openapi.yaml`,
+        catalog: `${origin}/.well-known/api-catalog`,
+        sitemap: `${origin}/sitemap.xml`,
+        deprecationPolicy: `${origin}/developers/deprecation`,
+        endpoints: [
+          { path: "/api/v1/projects", method: "GET", description: "List projects with cursor pagination" },
+          { path: "/api/v1/projects/{slug}", method: "GET", description: "Get project technical details" },
+          { path: "/api/v1/contact", method: "POST", description: "Submit contact message (Idempotency-Key)" },
+          { path: "/api/v1/batch", method: "POST", description: "Batch operations" },
+          { path: "/api/v1/jobs", method: "POST", description: "Async long-running job dispatch (202 Accepted)" },
+          { path: "/api/v1/jobs/{jobId}", method: "GET", description: "Poll async job status & results" },
+          { path: "/api/v1/sandbox/ping", method: "GET", description: "Sandbox environment ping" },
+          { path: "/api/v1/sandbox/contact", method: "POST", description: "Sandbox test contact submission" },
+          { path: "/api/v1/keys", method: "POST", description: "Self-serve test API key generation" },
+        ],
+      },
+      endpoints: {
+        projects: `${origin}/api/v1/projects`,
+        contact: `${origin}/api/v1/contact`,
+        jobs: `${origin}/api/v1/jobs`,
+        sandbox: `${origin}/api/v1/sandbox/ping`,
+        keys: `${origin}/api/v1/keys`,
+      },
+      authentication: {
+        method: "anonymous",
+        tokensRequired: false,
+        docs: `${origin}/auth.md`,
+        discovery: `${origin}/.well-known/oauth-protected-resource`,
+        authorizationServer: `${origin}/.well-known/oauth-authorization-server`,
+      },
+      auth: {
+        method: "anonymous",
+        tokensRequired: false,
+        docs: `${origin}/auth.md`,
+        discovery: `${origin}/.well-known/oauth-protected-resource`,
+        authorizationServer: `${origin}/.well-known/oauth-authorization-server`,
+      },
+      agent: {
+        skills: `${origin}/.well-known/agent-skills/index.json`,
+        card: `${origin}/.well-known/agent-card.json`,
+        instructions: `${origin}/llms.txt`,
+        plugin: `${origin}/.well-known/plugin.json`,
+        agentsMd: "https://github.com/SHT4BHARAT/NoIntroNeeded/blob/main/AGENTS.md",
+      },
+      sdk: {
+        npm: "sht-portfolio-v2",
+        cli: "shivanshu",
+        repository: "https://github.com/SHT4BHARAT/NoIntroNeeded",
+        homepage: origin,
+      },
+      mcp: {
+        product: `${origin}/mcp`,
+        docs: `${origin}/mcp/docs`,
+        server: `${origin}/mcp`,
+        serverCard: `${origin}/.well-known/mcp/server-card.json`,
+        docsCard: `${origin}/.well-known/mcp/docs/server-card.json`,
+        card: `${origin}/.well-known/mcp/server-card.json`,
+      },
+      documentation: {
+        llms: `${origin}/llms.txt`,
+        developers: `${origin}/developers`,
+        deprecation: `${origin}/developers/deprecation`,
+        sitemap: `${origin}/sitemap.xml`,
+        auth: `${origin}/auth.md`,
+      },
+      sandbox: {
+        url: `${origin}/api/v1/sandbox/ping`,
+        environment: "sandbox",
+        testEndpoints: {
+          ping: `${origin}/api/v1/sandbox/ping`,
+          contact: `${origin}/api/v1/sandbox/contact`,
+          keys: `${origin}/api/v1/keys`,
+        },
+      },
+      pricing: {
+        tier: "free",
+        cost: 0,
+        model: "open-access",
+        currency: "USD",
+      },
+      capabilities: [
+        "portfolio-query",
+        "project-compare",
+        "markdown-negotiation",
+        "sitemap-discovery",
+        "mcp-streamable-http",
+        "dual-mcp-coverage",
+        "async-jobs",
+        "sandbox-testing",
+        "self-serve-keys",
+      ],
     };
     return new Response(JSON.stringify(payload, null, 2), {
       headers: {

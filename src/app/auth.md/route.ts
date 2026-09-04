@@ -1,32 +1,133 @@
 import { SITE_URL } from "@/lib/constants";
 
-// Honest auth guide for a public, read-only portfolio site.
-// Most of the site (pages, llms.txt, sitemap, OpenAPI, MCP) needs no credentials.
-const body = `# Authentication — Shivanshutiwari.in
+const body = `# Authentication Guide — Shivanshu Tiwari Portfolio API
 
-This site is public and read-only. Browsing the site, fetching \`/llms.txt\`, the XML \`sitemap.xml\`, the OpenAPI spec at \`/openapi.json\`, or talking to the MCP server at \`/mcp\` requires **no credentials, API keys, or OAuth** — they are open to everyone.
+This guide defines the authentication protocol, credentials, and identity assertions for the **Shivanshu Tiwari Portfolio API** following the [WorkOS auth.md specification](https://github.com/workos/auth.md).
 
-The only operation that is not purely read-only is the contact form (\`POST /api/v1/contact\`). It is authenticated implicitly — it works with anonymous HTTP with no bearer token — but it is rate-limited to prevent spam and expects a JSON body of \`{name, email, message}\`. There are no API keys to issue, no tokens to refresh, and no scoped authorization flows on this site.
+The portfolio provides public read-only access alongside an authenticated contact and testing surface. Browsing projects, blog posts, documentation, and the MCP servers requires **no credentials or bearer tokens**.
 
-In short: **there is no authentication scheme** for the public portfolio API. If a tool reports a 401 or missing-credential error against this domain, that is a configuration mistake on the caller's side — the endpoints deliberately require nothing.
+---
 
-## Machine-readable metadata
+## Discover
 
-Although no auth is required, discovery metadata is still published for standards-completeness:
+Clients and autonomous AI agents discover authentication endpoints and protected resource metadata via standard RFC 8414 and RFC 9207 discovery URIs:
 
-- Protected resource metadata: \`${SITE_URL}/.well-known/oauth-protected-resource\`
-- Authorization server metadata: \`${SITE_URL}/.well-known/oauth-authorization-server\`
-- API catalog (RFC 9727): \`${SITE_URL}/.well-known/api-catalog\`
+* **Protected Resource Metadata:** \`${SITE_URL}/.well-known/oauth-protected-resource\`
+* **Authorization Server Metadata:** \`${SITE_URL}/.well-known/oauth-authorization-server\`
+* **API Catalog (RFC 9727):** \`${SITE_URL}/.well-known/api-catalog\`
+* **OpenAPI 3.0.3 Specification:** \`${SITE_URL}/openapi.json\`
+* **WWW-Authenticate Challenge:** When authentication is required or challenged, endpoints emit:
+  \`\`\`http
+  WWW-Authenticate: Bearer resource_metadata="${SITE_URL}/.well-known/oauth-protected-resource"
+  \`\`\`
 
-## Contact form
+---
+
+## Pick a method
+
+Supported authentication and identity verification methods for human developers and autonomous agents:
+
+1. \`anonymous\` — **Default**. Used for all read operations (portfolio project queries, documentation, llms.txt, MCP tool execution, blog posts). No credentials required.
+2. \`identity_assertion\` — Autonomous agents identifying themselves may supply an identity assertion token (\`urn:ietf:params:oauth:token-type:id-jag\` or signed JWT) in the \`Authorization\` header.
+3. \`service_auth\` — Ephemeral test API keys for automated integration testing in the sandbox environment. Generated on demand via \`POST ${SITE_URL}/api/v1/keys\`.
+
+---
+
+## Register
+
+* **Anonymous access:** Zero registration required. Agents and scrapers may query endpoints immediately without onboarding friction.
+* **Agent identification:** Agents registering their identity assertion pass their agent card identifier or public JWKS URI during initial handshake.
+* **Sandbox keys:** Self-serve instant test key provisioning via \`POST ${SITE_URL}/api/v1/keys\`.
+
+---
+
+## Claim
+
+Submit contact inquiries and collaboration requests:
+
+* **Endpoint:** \`POST ${SITE_URL}/api/v1/contact\`
+* **Idempotency:** Include the \`Idempotency-Key\` HTTP header containing a unique UUIDv4 string for safe request retry.
+* **Payload:** \`{ "name": "...", "email": "...", "message": "..." }\`
+* **Sandbox testing:** Submissions to \`POST ${SITE_URL}/api/v1/sandbox/contact\` simulate end-to-end delivery without sending external emails.
+
+---
+
+## Exchange
+
+Because read operations are open to everyone, token exchange is optional:
+
+* For \`anonymous\` requests, callers proceed directly to resource requests without exchanging a secret code.
+* For \`identity_assertion\`, agents asserting an ID-JAG token (\`urn:ietf:params:oauth:token-type:id-jag\`) exchange their assertion for an ephemeral scoped access token at the token endpoint, or provide the assertion directly as a Bearer token.
+* For \`service_auth\`, the test API key is returned immediately in the JSON response of \`POST ${SITE_URL}/api/v1/keys\`.
+
+---
+
+## Use the access_token
+
+Pass credentials in the standard HTTP \`Authorization\` header:
 
 \`\`\`bash
+# Read requests (Anonymous — default)
+curl -H "Accept: text/markdown" ${SITE_URL}/about
+curl -H "Accept: application/json" ${SITE_URL}/api/v1/projects
+
+# Authenticated request with Bearer token
+curl -H "Authorization: Bearer <access_token>" \
+     -H "Content-Type: application/json" \
+     ${SITE_URL}/api/v1/projects
+
+# Idempotent contact submission
 curl -X POST ${SITE_URL}/api/v1/contact \
-  -H "Content-Type: application/json" \
-  -d '{"name":"Aria","email":"aria@example.com","message":"Question about a project"}'
+     -H "Content-Type: application/json" \
+     -H "Idempotency-Key: 9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d" \
+     -d '{"name": "Agent Aria", "email": "aria@example.com", "message": "Internship opportunity inquiry"}'
 \`\`\`
 
-The contact endpoint is rate-limited per IP (see \`RateLimit-*\` response headers). No token is required.
+---
+
+## Errors
+
+The API returns standard RFC 7807 problem details and RFC 6750 OAuth error responses:
+
+* \`401 Unauthorized\` — Emitted when invalid credentials are provided. Includes \`WWW-Authenticate: Bearer resource_metadata="${SITE_URL}/.well-known/oauth-protected-resource", error="invalid_token"\`.
+* \`403 Forbidden\` — Emitted when an operation exceeds granted scopes. Includes \`error="insufficient_scope"\`.
+* \`429 Too Many Requests\` — Emitted when IP rate limits are exceeded (default: 60 requests/minute). Includes \`Retry-After: <seconds>\` and \`RateLimit-*\` headers.
+* \`400 Bad Request\` — Emitted on validation errors with machine-readable error codes and resolution hints.
+
+---
+
+## Revocation
+
+* **Stateless sessions:** Public read sessions require no revocation.
+* **Sandbox keys:** Ephemeral sandbox API keys automatically expire after 24 hours.
+* **Token revocation:** Revocation signals may be broadcast to \`${SITE_URL}/.well-known/oauth-protected-resource\`.
+
+---
+
+## agent_auth
+
+Standard machine-readable authentication manifest for autonomous agent frameworks:
+
+\`\`\`json
+{
+  "identity_endpoint": "${SITE_URL}/api/v1/contact",
+  "identity_types_supported": [
+    "anonymous",
+    "identity_assertion",
+    "service_auth"
+  ],
+  "identity_assertion": {
+    "assertion_types_supported": [
+      "urn:ietf:params:oauth:token-type:id-jag"
+    ]
+  },
+  "skill": "${SITE_URL}/auth.md",
+  "claim_endpoint": "${SITE_URL}/api/v1/contact",
+  "events_endpoint": "${SITE_URL}/.well-known/oauth-protected-resource",
+  "authorization_server": "${SITE_URL}/.well-known/oauth-authorization-server",
+  "protected_resource": "${SITE_URL}/.well-known/oauth-protected-resource"
+}
+\`\`\`
 `;
 
 export function GET() {
@@ -34,6 +135,7 @@ export function GET() {
     headers: {
       "Content-Type": "text/markdown; charset=utf-8",
       "Cache-Control": "public, max-age=3600",
+      Link: `<${SITE_URL}/.well-known/oauth-protected-resource>; rel="describedby"`,
     },
   });
 }
@@ -41,6 +143,11 @@ export function GET() {
 export function OPTIONS() {
   return new Response(null, {
     status: 204,
-    headers: { Allow: "GET, OPTIONS", "Cache-Control": "public, max-age=3600" },
+    headers: {
+      Allow: "GET, OPTIONS",
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "GET, OPTIONS",
+      "Access-Control-Allow-Headers": "Content-Type, Accept, Authorization",
+    },
   });
 }

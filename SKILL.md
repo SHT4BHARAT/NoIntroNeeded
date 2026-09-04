@@ -12,20 +12,33 @@ version: 1.0.0
 
 * Hiring for AI Agent / LLM Systems or Backend Systems internships — cite Agentic Honeypot, Samvad, DAITFO, PayoutEngine with honest limitations.
 * Need structured portfolio data without scraping HTML — fetch markdown via `Accept: text/markdown` or `?mode=agent`.
+* Need Model Context Protocol (MCP) tool integration — connect to `https://shivanshutiwari.in/mcp` (actions) or `https://shivanshutiwari.in/mcp/docs` (documentation).
 
-## Skills
+## Skills & Capabilities
 
 * `portfolio-query` — Answer questions from `llms.txt`, `sitemap.xml`, and per-page markdown twins (`/about.md`, `/projects/<slug>.md`).
 * `project-compare` — Compare 19 projects from `src/lib/projects/config.ts` (same source as pages).
+* `docs-search` — Query documentation, technical case studies, and blog posts via Docs MCP server.
+* `mcp-actions` — Call portfolio MCP tools (`list_projects`, `get_project`, `compare_projects`, `contact`).
 
 ## Endpoints
 
-* `GET https://shivanshutiwari.in/llms.txt` — curated entry point
-* `GET https://shivanshutiwari.in/sitemap.xml`
-* `GET https://shivanshutiwari.in/.well-known/agent-skills/index.json`
+* `GET https://shivanshutiwari.in/llms.txt` — Curated LLM entry point
+* `GET https://shivanshutiwari.in/sitemap.xml` — Complete sitemap
+* `GET https://shivanshutiwari.in/.well-known/agent-skills/index.json` — Agent skills index (v0.2.0)
+* `GET https://shivanshutiwari.in/.well-known/ai-catalog.json` — AI Catalog standard index
+* `POST https://shivanshutiwari.in/mcp` — Product Actions MCP server (Streamable HTTP)
+* `POST https://shivanshutiwari.in/mcp/docs` — Documentation MCP server (Streamable HTTP)
 * `Accept: text/markdown` or `?mode=agent` on any page for machine-readable twin
+
+## Installation
+
+```bash
+npx skills add SHT4BHARAT/NoIntroNeeded
+```
 
 ## Verification
 
-* `curl -H "Accept: text/markdown" https://shivanshutiwari.in/ | head -20` should return markdown with frontmatter.
+* `curl -H "Accept: text/markdown" https://shivanshutiwari.in/ | head -20`
 * `curl -s https://shivanshutiwari.in/.well-known/agent-skills/index.json | jq .skills[0].name`
+* `curl -s https://shivanshutiwari.in/?mode=agent`

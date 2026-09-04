@@ -111,6 +111,9 @@ export function ContactForm() {
       onSubmit={handleSubmit}
       className="space-y-5"
       noValidate
+      // WebMCP: W3C draft standard declarative tool attributes (survives SSR for AI agents)
+      toolname="submit_contact"
+      tooldescription="Submit contact message or internship inquiry to Shivanshu Tiwari — name, email, and message (rate-limited, honeypot-protected)"
     >
       {/* Honeypot */}
       <div aria-hidden="true" className="absolute left-[-9999px]">
@@ -135,13 +138,14 @@ export function ContactForm() {
           name="name"
           type="text"
           required
+          toolparam="name"
           value={values.name}
           onChange={handleChange}
           onBlur={handleBlur}
           aria-invalid={!!errors.name}
           aria-describedby={errors.name ? "name-error" : undefined}
           autoComplete="name"
-                    className="w-full rounded-lg border border-border bg-surface px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+          className="w-full rounded-lg border border-border bg-surface px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
           placeholder="Your name"
         />
         {errors.name && <p id="name-error" className="mt-1 text-xs text-red-500">{errors.name}</p>}
@@ -156,13 +160,14 @@ export function ContactForm() {
           name="email"
           type="email"
           required
+          toolparam="email"
           value={values.email}
           onChange={handleChange}
           onBlur={handleBlur}
           aria-invalid={!!errors.email}
           aria-describedby={errors.email ? "email-error" : undefined}
           autoComplete="email"
-                    className="w-full rounded-lg border border-border bg-surface px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+          className="w-full rounded-lg border border-border bg-surface px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
           placeholder="you@example.com"
         />
         {errors.email && <p id="email-error" className="mt-1 text-xs text-red-500">{errors.email}</p>}
@@ -183,6 +188,7 @@ export function ContactForm() {
           id="message"
           name="message"
           required
+          toolparam="message"
           minLength={10}
           maxLength={messageMax}
           value={values.message}

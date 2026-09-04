@@ -202,47 +202,139 @@ export function staticPageMarkdown(pathname: string): string | null {
     case "developers": {
       const body = `# Shivanshu Tiwari Developer Portal & API Documentation
 
-Developer portal for **Shivanshu Tiwari** — programmatic access, OpenAPI specification, Model Context Protocol (MCP) server, and sandbox testing. See ${SITE_URL}/developers.
+Developer portal for **Shivanshu Tiwari** — programmatic access, OpenAPI 3.0.3 specifications, Model Context Protocol (MCP) servers, WorkOS auth.md guide, and sandbox testing.
 
 ## Quickstart
 
-- Agent guide: ${SITE_URL}/llms.txt
-- XML sitemap: ${SITE_URL}/sitemap.xml
-- OpenAPI spec (JSON): ${SITE_URL}/openapi.json
-- Honest auth guide: ${SITE_URL}/auth.md
+- **Agent Guide:** ${SITE_URL}/llms.txt
+- **XML Sitemap:** ${SITE_URL}/sitemap.xml
+- **OpenAPI Specification (JSON):** ${SITE_URL}/openapi.json
+- **OpenAPI Specification (YAML):** ${SITE_URL}/openapi.yaml
+- **Authentication Guide (auth.md):** ${SITE_URL}/auth.md
+- **API Deprecation Policy:** ${SITE_URL}/developers/deprecation
 
-## Model Context Protocol
+## REST API Endpoints
 
-Single MCP server: \`POST ${SITE_URL}/mcp\` (Streamable HTTP). Server card: ${SITE_URL}/.well-known/mcp/server-card.json
+- \`GET /api/v1/projects\` — List projects (cursor pagination)
+- \`GET /api/v1/projects/{slug}\` — Project details & architecture
+- \`POST /api/v1/contact\` — Idempotent contact submission (Idempotency-Key)
+- \`POST /api/v1/jobs\` — Asynchronous job execution (202 Accepted + Location)
+- \`GET /api/v1/jobs/{jobId}\` — Poll async job status & results
+- \`GET /api/v1/sandbox/ping\` — Sandbox environment verification (X-Sandbox header)
+- \`POST /api/v1/keys\` — Self-serve test API key generation
+
+## Model Context Protocol (MCP)
+
+- **Product Actions MCP Server:** \`POST ${SITE_URL}/mcp\` (Server card: \`${SITE_URL}/.well-known/mcp/server-card.json\`)
+- **Documentation MCP Server:** \`POST ${SITE_URL}/mcp/docs\` (Server card: \`${SITE_URL}/.well-known/mcp/docs/server-card.json\`)
 `;
       return fm(`Shivanshu Tiwari Developer Portal & API Documentation`, "Developer portal for Shivanshu Tiwari — API docs, OpenAPI, auth, MCP.", `${SITE_URL}/developers`) + body;
+    }
+    case "developers/deprecation": {
+      const body = `# Shivanshu Tiwari API Deprecation and Versioning Policy
+
+This document declares the stability, versioning, and deprecation guarantees provided by the **Shivanshu Tiwari Portfolio API**.
+
+## 1. Versioning Strategy
+
+The API follows explicit URI-path versioning under \`/api/v<N>\` (currently \`/api/v1\`). Non-breaking changes are additive; breaking changes result in a new major version path.
+
+## 2. Deprecation and Sunset Headers (RFC 8594)
+
+When an API version or endpoint is scheduled for retirement, responses include standard IETF HTTP headers:
+
+\`\`\`http
+Deprecation: @1798761600
+Sunset: Thu, 31 Dec 2026 23:59:59 GMT
+Link: <${SITE_URL}/developers/deprecation>; rel="deprecation"
+\`\`\`
+
+## 3. Minimum Notice Period
+
+We guarantee a minimum of **180 days (6 months)** notice between the first broadcast of a \`Sunset\` header and endpoint decommission.
+`;
+      return fm(`Shivanshu Tiwari API Deprecation and Versioning Policy`, "Official API versioning and deprecation policy for shivanshutiwari.in.", `${SITE_URL}/developers/deprecation`) + body;
     }
     case "openapi.json":
     case "api/openapi.json":
     case "openapi.json.md":
     case "auth":
     case "auth.md": {
-      const body = `# Authentication — Shivanshutiwari.in
+      const body = `# Authentication Guide — Shivanshu Tiwari Portfolio API
 
-This site is public and read-only. Browsing the site, fetching \`/llms.txt\`, the XML \`sitemap.xml\`, the OpenAPI spec at \`/openapi.json\`, or talking to the MCP server at \`/mcp\` requires **no credentials, API keys, or OAuth** — they are open to everyone.
+This guide defines the authentication protocol, credentials, and identity assertions for the **Shivanshu Tiwari Portfolio API** following the WorkOS auth.md specification.
 
-The only operation that is not purely read-only is the contact form (\`POST /api/v1/contact\`). It is implicitly anonymous (no bearer token), rate-limited to prevent spam, and expects a JSON body of \`{name, email, message}\`. There are no API keys to issue, no tokens to refresh, and no scoped authorization flows on this site.
+The portfolio provides public read-only access alongside an authenticated contact and testing surface. Browsing projects, blog posts, documentation, and the MCP servers requires **no credentials or bearer tokens**.
 
-In short: **there is no authentication scheme** for the public portfolio API.
-
-## Machine-readable metadata
-
-Although no auth is required, discovery metadata is still published for standards-completeness:
+## Discover
 
 - Protected resource metadata: \`${SITE_URL}/.well-known/oauth-protected-resource\`
 - Authorization server metadata: \`${SITE_URL}/.well-known/oauth-authorization-server\`
 - API catalog (RFC 9727): \`${SITE_URL}/.well-known/api-catalog\`
+- WWW-Authenticate: \`Bearer resource_metadata="${SITE_URL}/.well-known/oauth-protected-resource"\`
+
+## Pick a method
+
+1. \`anonymous\` — Default for all read operations. No credentials required.
+2. \`identity_assertion\` — Autonomous agents identifying themselves with \`urn:ietf:params:oauth:token-type:id-jag\`.
+3. \`service_auth\` — Ephemeral test API keys generated via \`POST ${SITE_URL}/api/v1/keys\`.
+
+## Register
+
+Zero-friction self-serve registration. Anonymous agents need no registration.
+
+## Claim
+
+Submit inquiries to \`${SITE_URL}/api/v1/contact\` with an \`Idempotency-Key\` UUID.
+
+## Exchange
+
+Read requests proceed anonymously without token exchange.
+
+## Use the access_token
+
+\`\`\`bash
+curl -H "Accept: text/markdown" ${SITE_URL}/about
+curl -H "Authorization: Bearer <token>" ${SITE_URL}/api/v1/projects
+\`\`\`
+
+## Errors
+
+- 401 Unauthorized with \`WWW-Authenticate\`
+- 429 Too Many Requests with \`Retry-After\`
+- 400 Bad Request (RFC 7807 problem details)
+
+## Revocation
+
+Sessions and test keys expire automatically.
+
+## agent_auth
+
+- identity_endpoint: \`${SITE_URL}/api/v1/contact\`
+- identity_types_supported: ["anonymous", "identity_assertion", "service_auth"]
+- identity_assertion.assertion_types_supported: ["urn:ietf:params:oauth:token-type:id-jag"]
+- skill: \`${SITE_URL}/auth.md\`
+- claim_endpoint: \`${SITE_URL}/api/v1/contact\`
+- events_endpoint: \`${SITE_URL}/.well-known/oauth-protected-resource\`
 `;
-      return fm(`Authentication — Shivanshutiwari.in`, "Public read-only portfolio — no credentials, API keys, or OAuth required.", `${SITE_URL}/auth.md`) + body;
+      return fm(`Authentication Guide — Shivanshu Tiwari`, "WorkOS auth.md authentication guide for Shivanshu Tiwari portfolio API.", `${SITE_URL}/auth.md`) + body;
     }
     case ".well-known/api-catalog":
     case ".well-known/api-catalog.json": {
-      const body = `# API Catalog — Shivanshu Tiwari\n\nRFC 9727 linkset at ${SITE_URL}/.well-known/api-catalog. See ${SITE_URL}/openapi.json.\n\n`;
+      const body = `# RFC 9727 API Catalog — Shivanshu Tiwari
+
+Machine-readable API catalog linkset for Shivanshu Tiwari portfolio APIs.
+
+## Available API Specifications
+
+- **OpenAPI Specification (JSON):** [${SITE_URL}/openapi.json](${SITE_URL}/openapi.json)
+- **OpenAPI Specification (YAML):** [${SITE_URL}/openapi.yaml](${SITE_URL}/openapi.yaml)
+- **Developer Portal:** [${SITE_URL}/developers](${SITE_URL}/developers)
+- **Authentication Guide:** [${SITE_URL}/auth.md](${SITE_URL}/auth.md)
+- **API Deprecation Policy:** [${SITE_URL}/developers/deprecation](${SITE_URL}/developers/deprecation)
+- **Product Actions MCP Server:** [${SITE_URL}/mcp](${SITE_URL}/mcp)
+- **Documentation MCP Server:** [${SITE_URL}/mcp/docs](${SITE_URL}/mcp/docs)
+`;
       return fm(`API Catalog — Shivanshu Tiwari`, "RFC 9727 API catalog for Shivanshu Tiwari portfolio.", `${SITE_URL}/.well-known/api-catalog`) + body;
     }
     default:

@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "shivanshutiwari-portfolio"
+version = "1.0.0"
+description = "Official Python SDK and CLI for Shivanshu Tiwari Portfolio API"
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+authors = [
+    { name = "Shivanshu Tiwari", email = "sht4bharat@gmail.com" }
+]
+keywords = ["portfolio", "ai-agents", "llm", "mcp", "shivanshutiwari"]
+dependencies = [
+    "httpx>=0.25.0",
+    "pydantic>=2.0.0"
+]
+
+[project.urls]
+Homepage = "https://shivanshutiwari.in"
+Repository = "https://github.com/SHT4BHARAT/NoIntroNeeded"
+Documentation = "https://shivanshutiwari.in/developers"
+"API Spec" = "https://shivanshutiwari.in/openapi.json"

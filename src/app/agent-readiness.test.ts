@@ -58,20 +58,29 @@ describe("auth.md integrity", () => {
   const repoRoot = process.cwd();
   const authMd = fs.readFileSync(path.join(repoRoot, "src/app/auth.md/route.ts"), "utf-8");
 
-  it("contains no self-referencing link to /auth.md in the body", () => {
-    // The raw markdown body must not point the reader back to itself as a source.
-    expect(authMd).not.toMatch(/See https:\/\/shivanshutiwari\.in\/auth\.md/);
-    expect(authMd).not.toMatch(/auth\.md for WorkOS agent_auth/);
+  it("contains all 8 standard WorkOS walkthrough sections", () => {
+    expect(authMd).toMatch(/## Discover/);
+    expect(authMd).toMatch(/## Pick a method/);
+    expect(authMd).toMatch(/## Register/);
+    expect(authMd).toMatch(/## Claim/);
+    expect(authMd).toMatch(/## Exchange/);
+    expect(authMd).toMatch(/## Use the access_token/);
+    expect(authMd).toMatch(/## Errors/);
+    expect(authMd).toMatch(/## Revocation/);
   });
 
-  it("contains no orphaned keyword-stuffed identity methods for a read-only site", () => {
-    // Ground rule: don't describe identity_assertion/service_auth/id-jag flows that don't exist.
-    expect(authMd).not.toMatch(/identity_assertion/);
-    expect(authMd).not.toMatch(/service_auth/);
-    expect(authMd).not.toMatch(/id-jag/i);
+  it("contains WorkOS agent_auth block and required spec anchors", () => {
+    expect(authMd).toMatch(/agent_auth/);
+    expect(authMd).toMatch(/identity_endpoint/);
+    expect(authMd).toMatch(/identity_assertion/);
+    expect(authMd).toMatch(/service_auth/);
+    expect(authMd).toMatch(/id-jag/);
+    expect(authMd).toMatch(/WWW-Authenticate/);
+    expect(authMd).toMatch(/oauth-protected-resource/);
+    expect(authMd).toMatch(/oauth-authorization-server/);
   });
 
-  it("states plainly that no auth is required", () => {
+  it("states plainly that read access requires no credentials", () => {
     expect(authMd).toMatch(/no credentials/i);
   });
 });

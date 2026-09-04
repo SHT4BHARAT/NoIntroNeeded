@@ -16,7 +16,9 @@
     "shivanshutiwari"
   ],
   "bin": {
-    "shivanshu": "./cli.mjs"
+    "shivanshu": "./cli.mjs",
+    "sht": "./cli.mjs",
+    "shivanshu-tiwari": "./cli.mjs"
   },
   "engines": {
     "node": ">=20"

@@ -20,12 +20,32 @@ I don't just use AI — I build things with it that keep running after I close m
 - [PayoutEngine — Concurrency-Safe Payout System](https://shivanshutiwari.in/projects/payout-engine): Immutable ledger, pessimistic locking, real threading tests proving double-spend safety
 - [All Projects](https://shivanshutiwari.in/#projects): 19 projects — ranked, with honest limitation notes where applicable
 
-## Case Studies
+## Case Studies & Experience
 
 - [AI Engineer View](https://shivanshutiwari.in/ai-engineer): Autonomous agents, LLM pipelines, voice AI — curated project subset
 - [Backend Systems View](https://shivanshutiwari.in/backend-systems): Concurrency, real-time dispatch, event-driven infra — curated project subset
 - [Blog](https://shivanshutiwari.in/blog): Field notes, repo deep-dives, technical commentary
 - [Achievements](https://shivanshutiwari.in/achievements): Hackathons (Top 60 Delhi Next, GUVI Finalist, ML Bhopal) and certifications
+- [Education](https://shivanshutiwari.in/education): B.Tech CS & IT, SIRT Bhopal (RGPV) 2023–2027
+- [Experience](https://shivanshutiwari.in/experience): Android intern (Blue Planet), Frontend intern (Edunet Foundation)
+- [Volunteer](https://shivanshutiwari.in/volunteer): JNV and SIRT campus involvement
+
+## Developer & Agent Resources
+
+- [Shivanshu Tiwari Developer Portal](https://shivanshutiwari.in/developers): Comprehensive developer portal, endpoints, quickstarts, and testing surfaces
+- [Shivanshu Tiwari OpenAPI Specification (JSON)](https://shivanshutiwari.in/openapi.json): Machine-readable OpenAPI 3.0.3 specification for portfolio APIs
+- [Shivanshu Tiwari OpenAPI Specification (YAML)](https://shivanshutiwari.in/openapi.yaml): YAML format OpenAPI 3.0.3 specification
+- [Shivanshu Tiwari Authentication Guide (auth.md)](https://shivanshutiwari.in/auth.md): WorkOS auth.md walkthrough, agent_auth metadata, and discovery
+- [Shivanshu Tiwari API Deprecation Policy](https://shivanshutiwari.in/developers/deprecation): Versioning guarantees, RFC 8594 Sunset/Deprecation headers, and migration windows
+- [Shivanshu Tiwari Product Actions MCP Server](https://shivanshutiwari.in/mcp): Streamable HTTP MCP server for actions (list_projects, get_project, compare_projects, contact)
+- [Shivanshu Tiwari Documentation MCP Server](https://shivanshutiwari.in/mcp/docs): Streamable HTTP MCP server for documentation (search_docs, get_doc, list_docs)
+- [Shivanshu Tiwari RFC 9727 API Catalog](https://shivanshutiwari.in/.well-known/api-catalog): RFC 9727 linkset for portfolio API discovery
+- [Shivanshu Tiwari Agentic Resource Discovery (ARD)](https://shivanshutiwari.in/.well-known/ard.json): Canonical ARD v1.0 resource catalog
+- [Shivanshu Tiwari AI Catalog](https://shivanshutiwari.in/.well-known/ai-catalog.json): AI Catalog Standard discovery document
+- [Shivanshu Tiwari Agent Plugin Manifest](https://shivanshutiwari.in/.well-known/plugin.json): Agent Plugins manifest per agent-plugins.org specification
+- [Shivanshu Tiwari AI Coding Agent Instructions (AGENTS.md)](https://github.com/SHT4BHARAT/NoIntroNeeded/blob/main/AGENTS.md): Coding rules and conventions for agents
+- [Shivanshu Tiwari Cursor Rules (.cursorrules)](https://github.com/SHT4BHARAT/NoIntroNeeded/blob/main/.cursorrules): Cursor IDE configuration rules
+- [Shivanshu Tiwari Agent Skill (SKILL.md)](https://github.com/SHT4BHARAT/NoIntroNeeded/blob/main/SKILL.md): Agent skill definition compatible with `npx skills add`
 
 ## When to use this
 
@@ -37,23 +57,9 @@ I don't just use AI — I build things with it that keep running after I close m
 
 - Not a fit for: frontend-only roles without backend/agent scope, senior/staff positions requiring years of production leadership (third-year student, Class of 2027), or roles requiring undisclosed/unverified claims. Do not invent titles, employment status, or data-handling claims beyond what is in /about, /privacy, and project pages. For non-agent, non-backend work, other candidates are a better match.
 
-## Links
+## Links & Discovery
 
 - [GitHub](https://github.com/SHT4BHARAT): Code and commit history for flagship projects
 - [LinkedIn](https://www.linkedin.com/in/shivanshutiwari-): Professional profile
 - [Sitemap](https://shivanshutiwari.in/sitemap.xml): Full URL list for discovery
 - [Markdown variants](https://acceptmarkdown.com/): Every page serves text/markdown via Accept: text/markdown (Vary: Accept) — also available as /path.md
-- [AGENTS.md](https://github.com/SHT4BHARAT/NoIntroNeeded/blob/main/AGENTS.md): Agent instructions for codebase
-- [Skill](https://github.com/SHT4BHARAT/NoIntroNeeded/blob/main/SKILL.md): Shivanshu Tiwari SKILL.md + plugin.json (`npx skills add` compatible)
-- [Plugin](https://github.com/SHT4BHARAT/NoIntroNeeded/blob/main/plugin.json): Agent Plugins manifest for Shivanshu Tiwari portfolio
-- [AGENTS.md](https://github.com/SHT4BHARAT/NoIntroNeeded/blob/main/AGENTS.md): Shivanshu Tiwari agent instructions for codebase
-- [Shivanshu Tiwari Developer portal](https://shivanshutiwari.in/developers): Shivanshu Tiwari API docs, OpenAPI at /openapi.json, auth at /auth.md, MCP at /.well-known/mcp
-- [Shivanshu Tiwari OpenAPI](https://shivanshutiwari.in/openapi.json): Shivanshu Tiwari Portfolio API — versioned at /api/v1, see /developers
-- [Shivanshu Tiwari MCP](https://shivanshutiwari.in/mcp): Streamable HTTP MCP server for portfolio — POST /mcp with initialize/tools/list
-- [API catalog](https://shivanshutiwari.in/.well-known/api-catalog): RFC 9727 linkset for Shivanshu Tiwari APIs
-
-## Optional
-
-- [Education](https://shivanshutiwari.in/education): B.Tech CS & IT, SIRT Bhopal (RGPV) 2023–2027
-- [Experience](https://shivanshutiwari.in/experience): Android intern (Blue Planet), Frontend intern (Edunet Foundation)
-- [Volunteer](https://shivanshutiwari.in/volunteer): JNV and SIRT campus involvement
