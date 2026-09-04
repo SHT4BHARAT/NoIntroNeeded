@@ -59,6 +59,9 @@ function maybeNegotiate(request: NextRequest): NextResponse | Response | null {
     pathname === "/openapi.json" ||
     pathname === "/openapi.yaml" ||
     pathname === "/auth.md" ||
+    pathname === "/AGENTS.md" ||
+    pathname === "/SKILL.md" ||
+    pathname === "/pricing.md" ||
     (pathname.startsWith("/.well-known/") && !pathname.endsWith(".md"))
   ) {
     return null;
