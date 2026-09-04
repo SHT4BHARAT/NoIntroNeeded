@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/SHT4BHARAT/NoIntroNeeded.git",
+    "url": "git+https://github.com/SHT4BHARAT/NoIntroNeeded.git",
     "directory": "sdk/typescript"
   },
   "keywords": [
