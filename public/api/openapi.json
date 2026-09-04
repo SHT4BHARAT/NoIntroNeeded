@@ -3,28 +3,52 @@
   "info": {
     "title": "Shivanshu Tiwari Portfolio API",
     "version": "1.0.0",
-    "description": "Shivanshu Tiwari — AI-native backend systems. Read-only portfolio + contact. Versioned at /api/v1. Deprecation via Sunset/Deprecation headers. See /developers and /auth.md.",
-    "contact": { "name": "Shivanshu Tiwari", "url": "https://shivanshutiwari.in/contact" }
+    "description": "Official programmatic REST API for Shivanshu Tiwari — AI agent systems, autonomous evaluation, and backend architectures. Includes async jobs, sandbox testing, and OpenAPI service descriptions.",
+    "contact": {
+      "name": "Shivanshu Tiwari",
+      "url": "https://shivanshutiwari.in/contact",
+      "email": "sht4bharat@gmail.com"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://github.com/SHT4BHARAT/NoIntroNeeded/blob/main/LICENSE"
+    }
   },
-  "servers": [{ "url": "https://shivanshutiwari.in", "description": "apex" }],
+  "servers": [
+    { "url": "https://shivanshutiwari.in", "description": "Production API server" },
+    { "url": "https://shivanshutiwari.in/api/v1/sandbox", "description": "Sandbox test environment" }
+  ],
+  "x-async-jobs": {
+    "dispatch": "/api/v1/jobs",
+    "status": "/api/v1/jobs/{jobId}"
+  },
+  "x-deprecation-policy": {
+    "noticePeriodDays": 180,
+    "sunsetHeader": "Sunset",
+    "deprecationHeader": "Deprecation",
+    "policyUrl": "https://shivanshutiwari.in/developers/deprecation"
+  },
   "paths": {
     "/api/v1/projects": {
       "get": {
         "operationId": "listProjects",
-        "summary": "List projects (cursor pagination)",
-        "description": "Cursor-based pagination. Use limit + cursor. See pagination fields in response.",
+        "summary": "List portfolio projects with cursor pagination",
+        "description": "Returns paginated engineering projects. Responses include RFC 8594 Deprecation and Sunset headers.",
         "parameters": [
           { "name": "limit", "in": "query", "schema": { "type": "integer", "minimum": 1, "maximum": 100, "default": 20 }, "description": "Page size" },
-          { "name": "cursor", "in": "query", "schema": { "type": "string" }, "description": "Opaque cursor" },
-          { "name": "X-API-Version", "in": "header", "required": false, "schema": { "type": "string", "enum": ["v1"] }, "description": "Version header alternative to URL path" }
+          { "name": "cursor", "in": "query", "schema": { "type": "string" }, "description": "Opaque pagination cursor" },
+          { "name": "domain", "in": "query", "schema": { "type": "string", "enum": ["ai-agents", "backend", "voice-ai", "rl"] }, "description": "Filter by technical domain" }
         ],
         "responses": {
           "200": {
-            "description": "Paginated projects",
+            "description": "Paginated list of projects",
             "headers": {
               "RateLimit-Limit": { "schema": { "type": "integer" } },
               "RateLimit-Remaining": { "schema": { "type": "integer" } },
-              "RateLimit-Reset": { "schema": { "type": "integer" } }
+              "RateLimit-Reset": { "schema": { "type": "integer" } },
+              "Deprecation": { "schema": { "type": "string" }, "description": "RFC 8594 deprecation timestamp" },
+              "Sunset": { "schema": { "type": "string" }, "description": "RFC 8594 sunset HTTP-date" },
+              "Link": { "schema": { "type": "string" }, "description": "Link to deprecation policy" }
             },
             "content": {
               "application/json": {
@@ -46,72 +70,100 @@
                 }
               }
             }
-          },
-          "400": { "description": "Bad request", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Error" } } } },
-          "429": { "description": "Rate limited", "headers": { "Retry-After": { "schema": { "type": "integer" } }, "RateLimit-Remaining": { "schema": { "type": "integer" } } }, "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Error" } } } },
-          "500": { "description": "Server error", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Error" } } } }
+          }
         }
       }
     },
     "/api/v1/projects/{slug}": {
       "get": {
         "operationId": "getProject",
-        "summary": "Get project by slug",
-        "parameters": [{ "name": "slug", "in": "path", "required": true, "schema": { "type": "string" }, "description": "Project slug" }],
+        "summary": "Get project details by slug",
+        "parameters": [
+          { "name": "slug", "in": "path", "required": true, "schema": { "type": "string" }, "description": "Project slug" }
+        ],
         "responses": {
-          "200": { "description": "Project", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Project" } } } },
-          "404": { "description": "Not found", "content": { "application/problem+json": { "schema": { "$ref": "#/components/schemas/Error" } } } }
+          "200": {
+            "description": "Project details",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Project" } } }
+          },
+          "404": {
+            "description": "Not found",
+            "content": { "application/problem+json": { "schema": { "$ref": "#/components/schemas/Error" } } }
+          }
         }
       }
     },
     "/api/v1/contact": {
       "post": {
-        "operationId": "createContact",
-        "summary": "Submit contact (idempotent)",
-        "description": "Idempotent via Idempotency-Key. Returns 429 with Retry-After when rate limited.",
+        "operationId": "submitContact",
+        "summary": "Submit contact inquiry or internship opportunity",
         "parameters": [
-          { "name": "Idempotency-Key", "in": "header", "required": true, "schema": { "type": "string", "format": "uuid" }, "description": "Client-supplied idempotency key for retry safety" }
+          { "name": "Idempotency-Key", "in": "header", "required": true, "schema": { "type": "string", "format": "uuid" }, "description": "Client-supplied idempotency key" }
         ],
-        "requestBody": { "required": true, "content": { "application/json": { "schema": { "type": "object", "required": ["name", "email", "message"], "properties": { "name": { "type": "string" }, "email": { "type": "string", "format": "email" }, "message": { "type": "string", "minLength": 10 } } } } } },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["name", "email", "message"],
+                "properties": {
+                  "name": { "type": "string", "example": "Agent Aria" },
+                  "email": { "type": "string", "format": "email", "example": "aria@example.com" },
+                  "message": { "type": "string", "minLength": 10, "example": "Internship opportunity inquiry" }
+                }
+              }
+            }
+          }
+        },
         "responses": {
-          "200": { "description": "Accepted", "headers": { "RateLimit-Limit": { "schema": { "type": "integer" } } }, "content": { "application/json": { "schema": { "type": "object", "properties": { "success": { "type": "boolean" } } } } } },
+          "200": {
+            "description": "Inquiry received",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": { "success": { "type": "boolean" }, "message": { "type": "string" } }
+                }
+              }
+            }
+          },
           "400": { "description": "Validation error", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Error" } } } },
-          "429": { "description": "Rate limited", "headers": { "Retry-After": { "schema": { "type": "integer" } } }, "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Error" } } } }
-        }
-      }
-    },
-    "/api/v1/batch": {
-      "post": {
-        "operationId": "batchOperations",
-        "summary": "Batch operations",
-        "description": "Bulk endpoint accepting array of operations",
-        "requestBody": { "required": true, "content": { "application/json": { "schema": { "type": "object", "required": ["operations"], "properties": { "operations": { "type": "array", "items": { "type": "object", "required": ["op", "id"], "properties": { "op": { "type": "string" }, "id": { "type": "string" } } } } } } } },
-        "responses": {
-          "200": { "description": "Batch result", "content": { "application/json": { "schema": { "type": "object", "properties": { "results": { "type": "array", "items": { "type": "object" } } } } } } }
+          "429": { "description": "Rate limited", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Error" } } } }
         }
       }
     },
     "/api/v1/jobs": {
       "post": {
         "operationId": "createJob",
-        "summary": "Create async job",
-        "description": "Long-running op returns 202 with status/location",
-        "requestBody": { "required": true, "content": { "application/json": { "schema": { "type": "object", "properties": { "task": { "type": "string" } } } } } },
+        "summary": "Dispatch asynchronous long-running task",
+        "description": "Dispatches an asynchronous processing job. Returns HTTP 202 Accepted with a Location header pointing to the job polling endpoint.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "task": { "type": "string", "example": "benchmark-evaluation" },
+                  "payload": { "type": "object" }
+                }
+              }
+            }
+          }
+        },
         "responses": {
           "202": {
-            "description": "Accepted - poll status",
-            "headers": { "Location": { "schema": { "type": "string" } } },
+            "description": "Job accepted for asynchronous processing. Poll the URL in the Location header for status.",
+            "headers": {
+              "Location": {
+                "description": "URL to poll for job status and output",
+                "schema": { "type": "string", "format": "uri" }
+              }
+            },
             "content": {
               "application/json": {
-                "schema": {
-                  "type": "object",
-                  "required": ["jobId", "status", "pollUrl"],
-                  "properties": {
-                    "jobId": { "type": "string" },
-                    "status": { "type": "string", "enum": ["pending", "running"] },
-                    "pollUrl": { "type": "string" }
-                  }
-                }
+                "schema": { "$ref": "#/components/schemas/Job" }
               }
             }
           }
@@ -121,49 +173,239 @@
     "/api/v1/jobs/{jobId}": {
       "get": {
         "operationId": "getJobStatus",
-        "summary": "Get async job status",
-        "parameters": [{ "name": "jobId", "in": "path", "required": true, "schema": { "type": "string" } }],
+        "summary": "Poll status and results of an asynchronous job",
+        "parameters": [
+          { "name": "jobId", "in": "path", "required": true, "schema": { "type": "string" }, "description": "Unique job identifier" }
+        ],
         "responses": {
-          "200": { "description": "Job status", "content": { "application/json": { "schema": { "type": "object", "properties": { "jobId": { "type": "string" }, "status": { "type": "string" }, "result": { "type": "object", "nullable": true } } } } } }
+          "200": {
+            "description": "Current status and output of the job",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Job" }
+              }
+            }
+          }
         }
       }
     },
     "/api/v1/sandbox/ping": {
       "get": {
         "operationId": "sandboxPing",
-        "summary": "Sandbox test endpoint",
-        "description": "Sandbox mode - no production data, add ?sandbox=true or use sandbox host",
-        "responses": { "200": { "description": "pong", "content": { "application/json": { "schema": { "type": "object", "properties": { "pong": { "type": "boolean" }, "sandbox": { "type": "boolean" } } } } } } }
+        "summary": "Sandbox environment health and status check",
+        "description": "Verify sandbox test environment connectivity without modifying production data.",
+        "responses": {
+          "200": {
+            "description": "Sandbox status",
+            "headers": {
+              "X-Sandbox": { "schema": { "type": "string", "enum": ["true"] }, "description": "Indicates sandbox mode" }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": ["pong", "sandbox"],
+                  "properties": {
+                    "pong": { "type": "boolean", "example": true },
+                    "sandbox": { "type": "boolean", "example": true }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/sandbox/contact": {
+      "post": {
+        "operationId": "sandboxContact",
+        "summary": "Simulate contact submission in sandbox mode",
+        "description": "Validates schema and idempotency without delivering external notifications.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["name", "email", "message"],
+                "properties": {
+                  "name": { "type": "string" },
+                  "email": { "type": "string", "format": "email" },
+                  "message": { "type": "string", "minLength": 10 }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Simulated contact receipt",
+            "headers": { "X-Sandbox": { "schema": { "type": "string", "enum": ["true"] } } },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": { "success": { "type": "boolean" }, "sandbox": { "type": "boolean" } }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/keys": {
+      "post": {
+        "operationId": "generateTestKey",
+        "summary": "Generate an ephemeral sandbox API key for automated testing",
+        "responses": {
+          "200": {
+            "description": "Generated test API key",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": ["apiKey", "tier", "expiresAt"],
+                  "properties": {
+                    "apiKey": { "type": "string", "example": "sht_test_sandbox_12345" },
+                    "tier": { "type": "string", "example": "sandbox" },
+                    "expiresAt": { "type": "string", "format": "date-time" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/batch": {
+      "post": {
+        "operationId": "batchOperations",
+        "summary": "Execute bulk or batch operations",
+        "description": "Bulk endpoint accepting an array of operations or requests to execute in a single round-trip.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["operations"],
+                "properties": {
+                  "operations": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "required": ["op", "id"],
+                      "properties": {
+                        "op": { "type": "string", "example": "get_project" },
+                        "id": { "type": "string", "example": "op_1" },
+                        "params": { "type": "object" }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Batch operation execution results",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": ["results"],
+                  "properties": {
+                    "results": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "required": ["id", "status"],
+                        "properties": {
+                          "id": { "type": "string" },
+                          "status": { "type": "string", "example": "ok" },
+                          "data": { "type": "object" }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/batch": {
+      "post": {
+        "operationId": "batchOperationsAlias",
+        "summary": "Execute bulk or batch operations (root alias)",
+        "description": "Root alias for bulk operations accepting an array of operations.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "operations": { "type": "array", "items": { "type": "object" } }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Batch operation execution results",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "results": { "type": "array", "items": { "type": "object" } }
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     }
   },
   "components": {
     "schemas": {
+      "Job": {
+        "type": "object",
+        "required": ["jobId", "status", "pollUrl"],
+        "properties": {
+          "jobId": { "type": "string", "example": "job_1725450000" },
+          "status": { "type": "string", "enum": ["pending", "running", "completed", "failed"], "example": "pending" },
+          "pollUrl": { "type": "string", "format": "uri", "example": "https://shivanshutiwari.in/api/v1/jobs/job_1725450000" },
+          "createdAt": { "type": "string", "format": "date-time" },
+          "result": { "type": "object", "nullable": true }
+        }
+      },
       "Project": {
         "type": "object",
         "required": ["slug", "title", "description"],
         "properties": {
-          "slug": { "type": "string" },
-          "title": { "type": "string" },
+          "slug": { "type": "string", "example": "agentic-honey-pot" },
+          "title": { "type": "string", "example": "Agentic Honeypot" },
           "description": { "type": "string" },
-          "stack": { "type": "array", "items": { "type": "string" } }
+          "stack": { "type": "array", "items": { "type": "string" } },
+          "domain": { "type": "string", "enum": ["ai-agents", "backend", "voice-ai", "rl"] }
         }
       },
       "Error": {
         "type": "object",
         "required": ["code", "message"],
         "properties": {
-          "code": { "type": "string", "description": "Machine-readable error code" },
-          "message": { "type": "string", "description": "Human-readable message" },
-          "hint": { "type": "string", "description": "Resolution hint" },
+          "code": { "type": "string", "example": "not_found" },
+          "message": { "type": "string", "example": "Project not found" },
+          "hint": { "type": "string", "example": "Check /openapi.json" },
           "requestId": { "type": "string" }
         }
       }
-    },
-    "parameters": {
-      "IdempotencyKey": { "name": "Idempotency-Key", "in": "header", "required": true, "schema": { "type": "string" } }
     }
   }
-}
-
 }

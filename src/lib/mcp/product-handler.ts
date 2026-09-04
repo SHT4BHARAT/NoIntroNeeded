@@ -89,7 +89,14 @@ export const productTools = [
     description: "Retrieve RFC 9727 API catalog and OpenAPI service descriptions for shivanshutiwari.in.",
     inputSchema: {
       type: "object",
-      properties: {},
+      properties: {
+        format: {
+          type: "string",
+          enum: ["json", "markdown"],
+          description: "Format of the catalog representation",
+        },
+      },
+      additionalProperties: false,
     },
     annotations: {
       title: "Get API Catalog",
@@ -123,8 +130,6 @@ export const CORS_HEADERS = {
 };
 
 export async function handleProductGet(req: Request) {
-  const url = new URL(req.url);
-  const endpointPath = url.pathname.includes(".well-known") ? `${SITE_URL}/.well-known/mcp` : `${SITE_URL}/mcp`;
   const accept = req.headers.get("accept") ?? "";
 
   // Streamable HTTP SSE transport connection
@@ -132,7 +137,8 @@ export async function handleProductGet(req: Request) {
     const stream = new ReadableStream({
       start(controller) {
         const enc = new TextEncoder();
-        controller.enqueue(enc.encode(`event: endpoint\ndata: ${endpointPath}\n\n`));
+        controller.enqueue(enc.encode(`event: endpoint\ndata: ${SITE_URL}/mcp\n\n`));
+        controller.close();
       },
     });
     return new Response(stream, {
@@ -148,13 +154,21 @@ export async function handleProductGet(req: Request) {
 
   return Response.json(
     {
-      name: "shivanshutiwari-mcp",
-      displayName: "Shivanshu Tiwari Portfolio Actions MCP",
+      name: "shivanshutiwari-product-mcp",
+      displayName: "Shivanshu Tiwari Product MCP",
       version: "1.0.0",
       transport: "streamable-http",
-      serverUrl: endpointPath,
+      serverUrl: `${SITE_URL}/mcp`,
+      endpoint: `${SITE_URL}/mcp`,
+      endpoints: [
+        { type: "streamable-http", url: `${SITE_URL}/mcp` },
+        { type: "sse", url: `${SITE_URL}/mcp` },
+      ],
+      remotes: [
+        { type: "streamable-http", url: `${SITE_URL}/mcp` },
+      ],
       instructions:
-        "Shivanshu Tiwari Portfolio Actions MCP — use list_projects to enumerate projects, get_project for deep dives, compare_projects to analyze tradeoffs, and contact for hiring inquiries.",
+        "Shivanshu Tiwari Product MCP — use list_projects to enumerate projects, get_project for deep dives, compare_projects to analyze tradeoffs, and contact for hiring inquiries.",
       tools: productTools,
       resources: productResources,
       capabilities: {
@@ -194,11 +208,11 @@ export async function handleProductPost(req: Request) {
         logging: {},
       },
       serverInfo: {
-        name: "shivanshutiwari-mcp",
+        name: "shivanshutiwari-product-mcp",
         version: "1.0.0",
       },
       instructions:
-        "Shivanshu Tiwari Portfolio Actions MCP — use list_projects to enumerate 19 projects, get_project for deep dives, compare_projects for tradeoffs, contact for hiring.",
+        "Shivanshu Tiwari Product MCP — use list_projects to enumerate 19 projects, get_project for deep dives, compare_projects for tradeoffs, contact for hiring.",
     };
   } else if (method === "notifications/initialized") {
     return new Response(null, {
@@ -392,9 +406,10 @@ export async function handleProductPost(req: Request) {
   } else {
     return Response.json(
       {
-        name: "shivanshutiwari-mcp",
+        name: "shivanshutiwari-product-mcp",
         version: "1.0.0",
         transport: "streamable-http",
+        serverUrl: `${SITE_URL}/mcp`,
         tools: productTools,
       },
       {

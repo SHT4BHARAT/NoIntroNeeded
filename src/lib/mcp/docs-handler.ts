@@ -47,7 +47,14 @@ export const docsTools = [
     description: "List all available documentation topics, markdown pages, and project writeups.",
     inputSchema: {
       type: "object",
-      properties: {},
+      properties: {
+        category: {
+          type: "string",
+          enum: ["all", "projects", "guides", "policies"],
+          description: "Optional category to filter documentation topics",
+        },
+      },
+      additionalProperties: false,
     },
     annotations: {
       title: "List Documentation Topics",
@@ -95,6 +102,7 @@ export async function handleDocsGet(req: Request) {
       start(controller) {
         const enc = new TextEncoder();
         controller.enqueue(enc.encode(`event: endpoint\ndata: ${SITE_URL}/mcp/docs\n\n`));
+        controller.close();
       },
     });
     return new Response(stream, {

@@ -1,12 +1,24 @@
-import { SITE_URL, SITE_NAME } from "@/lib/constants";
+import { SITE_URL } from "@/lib/constants";
 
 export function GET() {
   return Response.json(
     {
-      name: `${SITE_NAME} Portfolio Actions MCP`,
-      description: "Action-capable MCP server for portfolio — list projects, compare architectures, submit contact, and query APIs. Streamable HTTP at /mcp.",
+      name: "Shivanshu Tiwari Product MCP",
+      id: "shivanshutiwari-product-mcp",
+      description: "Product action MCP server for portfolio — list projects, compare architectures, submit contact, and query APIs. Streamable HTTP at /mcp.",
       version: "1.0.0",
+      transport: "streamable-http",
       serverUrl: `${SITE_URL}/mcp`,
+      endpoint: `${SITE_URL}/mcp`,
+      endpoints: [
+        { type: "streamable-http", url: `${SITE_URL}/mcp` },
+        { type: "sse", url: `${SITE_URL}/mcp` },
+      ],
+      remotes: [
+        { type: "streamable-http", url: `${SITE_URL}/mcp` },
+      ],
+      documentationServer: `${SITE_URL}/mcp/docs`,
+      docsCard: `${SITE_URL}/.well-known/mcp/docs/server-card.json`,
       instructions: "Use list_projects to enumerate projects, get_project for deep dives, compare_projects for tradeoffs, contact for hiring.",
       tools: [
         {
@@ -60,7 +72,13 @@ export function GET() {
         {
           name: "get_api_catalog",
           description: "Retrieve RFC 9727 API catalog and OpenAPI service descriptions for shivanshutiwari.in.",
-          inputSchema: { type: "object", properties: {} },
+          inputSchema: {
+            type: "object",
+            properties: {
+              format: { type: "string", enum: ["json", "markdown"], description: "Format of the catalog representation" },
+            },
+            additionalProperties: false,
+          },
           annotations: { title: "Get API Catalog", readOnlyHint: true, destructiveHint: false },
         },
       ],

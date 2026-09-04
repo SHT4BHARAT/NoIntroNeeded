@@ -77,13 +77,43 @@ function maybeNegotiate(request: NextRequest): NextResponse | Response | null {
     });
   }
 
-  // ?mode=agent → structured JSON view with api, agent, sdk, mcp, openapi signals (Access: Agent mode view)
+  // ?mode=agent → structured JSON/markdown view with api, agent, sdk, mcp, openapi signals (Access: Agent mode view)
   if (search.get("mode") === "agent") {
     const origin = request.nextUrl.origin;
+    const accept = request.headers.get("accept") ?? "";
+
+    if (accept.includes("text/markdown")) {
+      const md = `# Shivanshu Tiwari — Agent Mode View
+
+- **Product:** Shivanshu Tiwari Portfolio & Developer Portal
+- **API Base:** ${origin}
+- **OpenAPI Specification:** ${origin}/openapi.json
+- **AI Agent Navigation Index:** ${origin}/llms.txt
+- **Product Actions MCP Server:** ${origin}/mcp
+- **Documentation MCP Server:** ${origin}/mcp/docs
+- **Authentication Guide:** ${origin}/auth.md
+- **Pricing & Free Tiers:** ${origin}/pricing.md
+- **Sandbox Environment:** ${origin}/api/v1/sandbox/ping
+- **Self-Serve Test API Keys:** ${origin}/api/v1/keys
+- **Batch Endpoint:** ${origin}/api/v1/batch
+- **Async Jobs Dispatch:** ${origin}/api/v1/jobs
+- **SDK Package:** https://github.com/SHT4BHARAT/NoIntroNeeded
+`;
+      return new Response(md, {
+        headers: {
+          "Content-Type": "text/markdown; charset=utf-8",
+          Vary: "Accept",
+          "Cache-Control": "public, max-age=3600",
+        },
+      });
+    }
+
     const payload = {
       product: "Shivanshu Tiwari — AI Agent & Backend Systems Developer",
       title: "Shivanshu Tiwari Portfolio & Developer Portal",
       mode: "agent",
+      openapi: `${origin}/openapi.json`,
+      llmsTxt: `${origin}/llms.txt`,
       api: {
         base: origin,
         version: "v1",
@@ -107,6 +137,7 @@ function maybeNegotiate(request: NextRequest): NextResponse | Response | null {
       endpoints: {
         projects: `${origin}/api/v1/projects`,
         contact: `${origin}/api/v1/contact`,
+        batch: `${origin}/api/v1/batch`,
         jobs: `${origin}/api/v1/jobs`,
         sandbox: `${origin}/api/v1/sandbox/ping`,
         keys: `${origin}/api/v1/keys`,
@@ -167,6 +198,7 @@ function maybeNegotiate(request: NextRequest): NextResponse | Response | null {
         cost: 0,
         model: "open-access",
         currency: "USD",
+        details: `${origin}/pricing.md`,
       },
       capabilities: [
         "portfolio-query",
@@ -176,6 +208,19 @@ function maybeNegotiate(request: NextRequest): NextResponse | Response | null {
         "mcp-streamable-http",
         "dual-mcp-coverage",
         "async-jobs",
+        "batch-operations",
+        "sandbox-testing",
+        "self-serve-keys",
+      ],
+      key_capabilities: [
+        "portfolio-query",
+        "project-compare",
+        "markdown-negotiation",
+        "sitemap-discovery",
+        "mcp-streamable-http",
+        "dual-mcp-coverage",
+        "async-jobs",
+        "batch-operations",
         "sandbox-testing",
         "self-serve-keys",
       ],

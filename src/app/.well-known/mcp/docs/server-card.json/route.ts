@@ -36,7 +36,17 @@ export function GET() {
         {
           name: "list_docs",
           description: "List all available documentation topics, markdown pages, and project writeups.",
-          inputSchema: { type: "object", properties: {} },
+          inputSchema: {
+            type: "object",
+            properties: {
+              category: {
+                type: "string",
+                enum: ["all", "projects", "guides", "policies"],
+                description: "Optional category to filter documentation topics",
+              },
+            },
+            additionalProperties: false,
+          },
           annotations: { title: "List Docs", readOnlyHint: true },
         },
       ],
