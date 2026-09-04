@@ -202,21 +202,52 @@ export function staticPageMarkdown(pathname: string): string | null {
     case "developers": {
       const body = `# Shivanshu Tiwari Developer Portal & API Documentation
 
-Developer portal for **Shivanshu Tiwari** — programmatic access, OpenAPI 3.0.3 specifications, Model Context Protocol (MCP) servers, WorkOS auth.md guide, and sandbox testing.
+Developer portal for **Shivanshu Tiwari** — programmatic access to 19 engineering projects, multi-language SDKs, dedicated CLI tool, OpenAPI 3.0.3 specifications, Model Context Protocol (MCP) servers, WorkOS auth.md guide, and sandbox testing.
 
-## Quickstart
+## Dedicated CLI Tool
 
+Quick interactions, testing, and scriptable JSON output:
+
+\`\`\`bash
+# Run instantly with npx (zero installation)
+npx shivanshu projects ai-agents
+npx shivanshu sandbox
+npx shivanshu keys
+
+# Global installation
+npm install -g sht-portfolio-v2
+shivanshu --help
+\`\`\`
+
+Documentation: [${SITE_URL}/developers/cli](${SITE_URL}/developers/cli)
+
+## Official Multi-Language SDKs
+
+First-class client libraries with zero external runtime dependencies:
+
+- **TypeScript / Node.js:** \`npm install sht-portfolio-v2\`
+- **Python (3.9+):** \`pip install shivanshu-sdk\`
+- **Go (1.21+):** \`go get github.com/SHT4BHARAT/NoIntroNeeded/sdk/go\`
+
+Documentation: [${SITE_URL}/developers/sdk](${SITE_URL}/developers/sdk)
+
+## Quickstart Resources
+
+- **CLI Tool Guide:** ${SITE_URL}/developers/cli
+- **Multi-Language SDKs:** ${SITE_URL}/developers/sdk
 - **Agent Guide:** ${SITE_URL}/llms.txt
 - **XML Sitemap:** ${SITE_URL}/sitemap.xml
 - **OpenAPI Specification (JSON):** ${SITE_URL}/openapi.json
 - **OpenAPI Specification (YAML):** ${SITE_URL}/openapi.yaml
 - **Authentication Guide (auth.md):** ${SITE_URL}/auth.md
+- **Pricing & Service Tiers:** ${SITE_URL}/pricing.md
 - **API Deprecation Policy:** ${SITE_URL}/developers/deprecation
 
 ## REST API Endpoints
 
-- \`GET /api/v1/projects\` — List projects (cursor pagination)
+- \`GET /api/v1/projects\` — List projects (cursor pagination & domain filtering)
 - \`GET /api/v1/projects/{slug}\` — Project details & architecture
+- \`POST /api/v1/batch\` — Atomic multi-operation batch endpoint
 - \`POST /api/v1/contact\` — Idempotent contact submission (Idempotency-Key)
 - \`POST /api/v1/jobs\` — Asynchronous job execution (202 Accepted + Location)
 - \`GET /api/v1/jobs/{jobId}\` — Poll async job status & results
@@ -228,7 +259,139 @@ Developer portal for **Shivanshu Tiwari** — programmatic access, OpenAPI 3.0.3
 - **Product Actions MCP Server:** \`POST ${SITE_URL}/mcp\` (Server card: \`${SITE_URL}/.well-known/mcp/server-card.json\`)
 - **Documentation MCP Server:** \`POST ${SITE_URL}/mcp/docs\` (Server card: \`${SITE_URL}/.well-known/mcp/docs/server-card.json\`)
 `;
-      return fm(`Shivanshu Tiwari Developer Portal & API Documentation`, "Developer portal for Shivanshu Tiwari — API docs, OpenAPI, auth, MCP.", `${SITE_URL}/developers`) + body;
+      return fm(`Shivanshu Tiwari Developer Portal & API Documentation`, "Developer portal for Shivanshu Tiwari — API docs, CLI tool, SDKs, OpenAPI, auth, MCP.", `${SITE_URL}/developers`) + body;
+    }
+    case "developers/cli": {
+      const body = `# Shivanshu Tiwari CLI Tool Guide
+
+Official command-line tool for exploring engineering projects, developer APIs, and AI integrations.
+
+## Installation
+
+\`\`\`bash
+# Run instantly with npx (zero installation required)
+npx shivanshu <command> [options]
+
+# Or install globally via npm
+npm install -g sht-portfolio-v2
+shivanshu <command> [options]
+\`\`\`
+
+## Available Commands
+
+- \`shivanshu projects [domain]\` — List portfolio projects (domains: \`ai-agents\`, \`backend\`, \`voice-ai\`, \`rl\`).
+- \`shivanshu project <slug>\` — Get comprehensive technical details, architecture & tradeoffs.
+- \`shivanshu compare <slugA> <slugB>\` — Compare two projects side-by-side.
+- \`shivanshu batch\` — Execute sample multi-operation batch request.
+- \`shivanshu jobs [jobId]\` — Create or inspect asynchronous background job.
+- \`shivanshu keys\` — Generate ephemeral sandbox API key for testing.
+- \`shivanshu sandbox\` — Verify sandbox environment connectivity.
+- \`shivanshu mcp\` — Inspect Model Context Protocol server configuration.
+- \`shivanshu docs [path]\` — View curated documentation (llms.txt, about, developers).
+- \`shivanshu pricing\` — Inspect access tiers and rate limits.
+- \`shivanshu contact <name> <email> <msg>\` — Submit an inquiry or internship proposal.
+
+## Agent Scripting & JSON Mode
+
+Add \`--json\` to any command to receive raw JSON for automated processing:
+
+\`\`\`bash
+# Filter projects with jq
+npx shivanshu projects --json | jq '.data[] | {slug, title}'
+
+# Generate an ephemeral API key
+npx shivanshu keys --json
+\`\`\`
+
+## Environment Variables
+
+- \`SHIVANSHU_API_URL\` — Target API base URL (default: \`https://shivanshutiwari.in\`).
+- \`SHIVANSHU_API_KEY\` — Optional bearer authorization key.
+`;
+      return fm(`Shivanshu Tiwari CLI Tool Guide`, "Official CLI tool guide for interacting with Shivanshu Tiwari APIs and projects.", `${SITE_URL}/developers/cli`) + body;
+    }
+    case "developers/sdk": {
+      const body = `# Shivanshu Tiwari Multi-Language SDKs
+
+Official, zero-dependency client libraries for TypeScript, Python, and Go.
+
+## 1. TypeScript & JavaScript SDK
+
+Install via npm:
+
+\`\`\`bash
+npm install sht-portfolio-v2
+\`\`\`
+
+Usage:
+
+\`\`\`typescript
+import { ShivanshuClient } from "sht-portfolio-v2";
+
+const client = new ShivanshuClient();
+const { data: projects } = await client.projects.list({ domain: "ai-agents" });
+console.log(projects);
+
+const project = await client.projects.get("agentic-honey-pot");
+console.log("Architecture:", project.architecture);
+\`\`\`
+
+## 2. Python SDK (\`shivanshu-sdk\`)
+
+Install via pip:
+
+\`\`\`bash
+pip install shivanshu-sdk
+\`\`\`
+
+Usage:
+
+\`\`\`python
+from shivanshu import ShivanshuClient
+
+client = ShivanshuClient()
+projects = client.list_projects(domain="ai-agents")
+print(projects["data"])
+
+honeypot = client.get_project("agentic-honey-pot")
+print(honeypot["architecture"])
+\`\`\`
+
+## 3. Go SDK
+
+Install via go get:
+
+\`\`\`bash
+go get github.com/SHT4BHARAT/NoIntroNeeded/sdk/go
+\`\`\`
+
+Usage:
+
+\`\`\`go
+package main
+
+import (
+    "context"
+    "fmt"
+    "github.com/SHT4BHARAT/NoIntroNeeded/sdk/go"
+)
+
+func main() {
+    client := shivanshu.NewClient()
+    res, err := client.ListProjects(context.Background(), "ai-agents", 10, "")
+    if err == nil {
+        fmt.Println("Projects:", len(res.Data))
+    }
+}
+\`\`\`
+
+## Source Code Repositories
+
+- TypeScript SDK: \`https://github.com/SHT4BHARAT/NoIntroNeeded/tree/main/sdk/typescript\`
+- Python SDK: \`https://github.com/SHT4BHARAT/NoIntroNeeded/tree/main/sdk/python\`
+- Go SDK: \`https://github.com/SHT4BHARAT/NoIntroNeeded/tree/main/sdk/go\`
+`;
+      return fm(`Shivanshu Tiwari Multi-Language SDKs`, "Official TypeScript, Python, and Go SDKs for Shivanshu Tiwari portfolio APIs.", `${SITE_URL}/developers/sdk`) + body;
     }
     case "developers/deprecation": {
       const body = `# Shivanshu Tiwari API Deprecation and Versioning Policy

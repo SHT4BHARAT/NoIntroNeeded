@@ -88,6 +88,24 @@ export function getArdCatalog() {
           trustSchema: { identifier: "https", governanceUri: SITE_URL },
         },
       },
+      {
+        identifier: "urn:air:shivanshutiwari.in:sdk:multi-language",
+        displayName: "Shivanshu Tiwari Multi-Language SDKs & CLI",
+        type: "application/software-sdk+json",
+        url: `${SITE_URL}/developers/sdk`,
+        description: "Official multi-language SDKs (TypeScript, Python, Go) and CLI tool (npx shivanshu) for portfolio APIs",
+        representativeQueries: [
+          "install shivanshu portfolio SDK",
+          "run shivanshu CLI tool",
+          "typescript python go client for shivanshutiwari.in",
+        ],
+        capabilities: ["sdk-client", "cli-execution", "batch-operations"],
+        trustManifest: {
+          identity: "https://shivanshutiwari.in",
+          identityType: "https",
+          trustSchema: { identifier: "https", governanceUri: SITE_URL },
+        },
+      },
     ],
   };
 }

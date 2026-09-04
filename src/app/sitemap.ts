@@ -53,7 +53,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE_URL}/openapi.json`, lastModified: new Date(), changeFrequency: "weekly" as const, priority: 0.3 as const },
     { url: `${BASE_URL}/api/openapi.json`, lastModified: new Date(), changeFrequency: "weekly" as const, priority: 0.3 as const },
     { url: `${BASE_URL}/developers`, lastModified: new Date(), changeFrequency: "monthly" as const, priority: 0.8 as const },
+    { url: `${BASE_URL}/developers/cli`, lastModified: new Date(), changeFrequency: "monthly" as const, priority: 0.8 as const },
+    { url: `${BASE_URL}/developers/sdk`, lastModified: new Date(), changeFrequency: "monthly" as const, priority: 0.8 as const },
+    { url: `${BASE_URL}/developers/deprecation`, lastModified: new Date(), changeFrequency: "monthly" as const, priority: 0.5 as const },
+    { url: `${BASE_URL}/pricing`, lastModified: new Date(), changeFrequency: "monthly" as const, priority: 0.7 as const },
     { url: `${BASE_URL}/mcp`, lastModified: new Date(), changeFrequency: "weekly" as const, priority: 0.4 as const },
+    { url: `${BASE_URL}/mcp/docs`, lastModified: new Date(), changeFrequency: "weekly" as const, priority: 0.4 as const },
     { url: `${BASE_URL}/auth.md`, lastModified: new Date(), changeFrequency: "monthly" as const, priority: 0.4 as const },
   ];
 

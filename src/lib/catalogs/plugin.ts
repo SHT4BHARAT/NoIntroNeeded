@@ -24,6 +24,11 @@ export function getPluginManifest() {
         description: "Compare project architectures, results, and limitations",
         entry: "SKILL.md",
       },
+      {
+        name: "portfolio-cli-sdk",
+        description: "Programmatic CLI (npx shivanshu) and multi-language SDKs (TypeScript, Python, Go)",
+        entry: "sdk/",
+      },
     ],
     mcpServers: [
       {

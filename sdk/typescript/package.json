@@ -1,0 +1,25 @@
+{
+  "name": "sht-portfolio-v2",
+  "version": "1.0.0",
+  "description": "Official TypeScript & JavaScript SDK for Shivanshu Tiwari Portfolio APIs, projects, and autonomous agent evaluation",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SHT4BHARAT/NoIntroNeeded.git",
+    "directory": "sdk/typescript"
+  },
+  "keywords": [
+    "shivanshutiwari",
+    "sdk",
+    "api-client",
+    "ai-agents",
+    "mcp",
+    "portfolio-api"
+  ],
+  "author": "Shivanshu Tiwari <sht4bharat@gmail.com>",
+  "license": "MIT"
+}

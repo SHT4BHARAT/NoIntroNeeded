@@ -23,6 +23,13 @@ export function GET() {
           type: "skill-md",
           digest: PROJECT_DIGEST,
         },
+        {
+          name: "portfolio-cli-sdk",
+          description: "When to use: programmatically interact via official CLI or multi-language SDKs (TypeScript, Python, Go)",
+          url: `${SITE_URL}/developers/sdk`,
+          type: "skill-md",
+          digest: "sha256:cli-sdk-integration-tools-v1",
+        },
       ],
     },
     { headers: { "Content-Type": "application/json; charset=utf-8" } }

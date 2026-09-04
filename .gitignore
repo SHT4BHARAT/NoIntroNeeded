@@ -38,6 +38,11 @@ yarn-error.log*
 
 # typescript
 *.tsbuildinfo
+
+# python
+__pycache__/
+*.py[cod]
+*$py.class
 next-env.d.ts
 
 # build docs (contain PII / internal planning — exclude from production)
