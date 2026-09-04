@@ -67,6 +67,17 @@ function maybeNegotiate(request: NextRequest): NextResponse | Response | null {
     return null;
   }
 
+  if (pathname === "/agents.md") {
+    const url = request.nextUrl.clone();
+    url.pathname = "/AGENTS.md";
+    return NextResponse.rewrite(url);
+  }
+  if (pathname === "/skill.md") {
+    const url = request.nextUrl.clone();
+    url.pathname = "/SKILL.md";
+    return NextResponse.rewrite(url);
+  }
+
   // API probes that would otherwise return HTML 404 should return JSON+WWW-Authenticate
   // /api/* is excluded from matcher (handled by api routes), so this only needs to catch top-level /v2, /agent
   if (pathname === "/v2" || pathname.startsWith("/v2/") || pathname.startsWith("/agent")) {
