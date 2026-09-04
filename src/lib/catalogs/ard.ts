@@ -44,7 +44,7 @@ export function getArdCatalog() {
         identifier: "urn:air:shivanshutiwari.in:skill:portfolio-query",
         displayName: "Shivanshu Tiwari Portfolio Query Skill",
         type: "application/ai-skill+md",
-        url: "https://github.com/SHT4BHARAT/NoIntroNeeded/blob/main/SKILL.md",
+        url: `${SITE_URL}/SKILL.md`,
         description: "Query 19 projects, blog, achievements via llms.txt and markdown twins",
         representativeQueries: [
           "compare DAITFO vs heuristic",

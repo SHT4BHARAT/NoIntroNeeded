@@ -3,7 +3,7 @@
   "info": {
     "title": "Shivanshu Tiwari Portfolio API",
     "version": "1.0.0",
-    "description": "Official programmatic REST API for Shivanshu Tiwari — AI agent systems, autonomous evaluation, and backend architectures. Includes async jobs, sandbox testing, and OpenAPI service descriptions.",
+    "description": "Official programmatic REST API for Shivanshu Tiwari \u2014 AI agent systems, autonomous evaluation, and backend architectures. Includes async jobs, sandbox testing, and OpenAPI service descriptions.",
     "contact": {
       "name": "Shivanshu Tiwari",
       "url": "https://shivanshutiwari.in/contact",
@@ -11,12 +11,18 @@
     },
     "license": {
       "name": "MIT",
-      "url": "https://github.com/SHT4BHARAT/NoIntroNeeded/blob/main/LICENSE"
+      "url": "https://shivanshutiwari.in/LICENSE"
     }
   },
   "servers": [
-    { "url": "https://shivanshutiwari.in", "description": "Production API server" },
-    { "url": "https://shivanshutiwari.in/api/v1/sandbox", "description": "Sandbox test environment" }
+    {
+      "url": "https://shivanshutiwari.in",
+      "description": "Production API server"
+    },
+    {
+      "url": "https://shivanshutiwari.in/api/v1/sandbox",
+      "description": "Sandbox test environment"
+    }
   ],
   "x-async-jobs": {
     "dispatch": "/api/v1/jobs",
@@ -31,32 +37,25 @@
   "x-cli": {
     "command": "shivanshu",
     "run": "npx shivanshu",
-    "git_run": "npx github:SHT4BHARAT/NoIntroNeeded",
-    "install": "npm install -g github:SHT4BHARAT/NoIntroNeeded",
-    "registry_install": "npm install -g sht-portfolio-v2",
+    "package_run": "npx sht-portfolio-v2",
+    "install": "npm install -g sht-portfolio-v2",
     "documentation": "https://shivanshutiwari.in/developers/cli"
   },
   "x-sdks": {
     "typescript": {
       "package": "sht-portfolio-v2",
-      "git": "github:SHT4BHARAT/NoIntroNeeded",
-      "install": "npm install github:SHT4BHARAT/NoIntroNeeded",
-      "registry_install": "npm install sht-portfolio-v2",
-      "repository": "https://github.com/SHT4BHARAT/NoIntroNeeded/tree/main/sdk/typescript",
+      "install": "npm install sht-portfolio-v2",
+      "registry": "https://www.npmjs.com/package/sht-portfolio-v2",
       "documentation": "https://shivanshutiwari.in/developers/sdk#typescript"
     },
     "python": {
       "package": "shivanshu-sdk",
-      "git": "git+https://github.com/SHT4BHARAT/NoIntroNeeded.git#subdirectory=sdk/python",
-      "install": "pip install \"git+https://github.com/SHT4BHARAT/NoIntroNeeded.git#subdirectory=sdk/python\"",
-      "registry_install": "pip install shivanshu-sdk",
-      "repository": "https://github.com/SHT4BHARAT/NoIntroNeeded/tree/main/sdk/python",
+      "install": "pip install shivanshu-sdk",
+      "registry": "https://pypi.org/project/shivanshu-sdk/",
       "documentation": "https://shivanshutiwari.in/developers/sdk#python"
     },
     "go": {
       "package": "github.com/SHT4BHARAT/NoIntroNeeded/sdk/go",
-      "install": "go get github.com/SHT4BHARAT/NoIntroNeeded/sdk/go",
-      "repository": "https://github.com/SHT4BHARAT/NoIntroNeeded/tree/main/sdk/go",
       "documentation": "https://shivanshutiwari.in/developers/sdk#go"
     }
   },
@@ -77,14 +76,18 @@
             "name": "q",
             "in": "query",
             "required": false,
-            "schema": { "type": "string" },
+            "schema": {
+              "type": "string"
+            },
             "description": "Search query string (e.g. 'developer', 'sdk', 'cli', 'gemini', 'fastapi')"
           },
           {
             "name": "query",
             "in": "query",
             "required": false,
-            "schema": { "type": "string" },
+            "schema": {
+              "type": "string"
+            },
             "description": "Alternative query alias for form and agent compatibility"
           }
         ],
@@ -96,23 +99,21 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "query": { "type": "string" },
-                    "total": { "type": "integer" },
-                    "developerResources": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "title": { "type": "string" },
-                          "description": { "type": "string" },
-                          "url": { "type": "string" },
-                          "markdownUrl": { "type": "string" },
-                          "category": { "type": "string" }
-                        }
-                      }
+                    "query": {
+                      "type": "string"
                     },
-                    "projects": { "type": "array" },
-                    "posts": { "type": "array" }
+                    "total": {
+                      "type": "integer"
+                    },
+                    "developerResources": {
+                      "type": "array"
+                    },
+                    "projects": {
+                      "type": "array"
+                    },
+                    "posts": {
+                      "type": "array"
+                    }
                   }
                 }
               }
@@ -125,37 +126,105 @@
       "get": {
         "operationId": "listProjects",
         "summary": "List portfolio projects with cursor pagination",
-        "description": "Returns paginated engineering projects. Responses include RFC 8594 Deprecation and Sunset headers.",
         "parameters": [
-          { "name": "limit", "in": "query", "schema": { "type": "integer", "minimum": 1, "maximum": 100, "default": 20 }, "description": "Page size" },
-          { "name": "cursor", "in": "query", "schema": { "type": "string" }, "description": "Opaque pagination cursor" },
-          { "name": "domain", "in": "query", "schema": { "type": "string", "enum": ["ai-agents", "backend", "voice-ai", "rl"] }, "description": "Filter by technical domain" }
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20
+            }
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "domain",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "ai-agents",
+                "backend",
+                "voice-ai",
+                "rl"
+              ]
+            }
+          }
         ],
         "responses": {
           "200": {
             "description": "Paginated list of projects",
             "headers": {
-              "RateLimit-Limit": { "schema": { "type": "integer" } },
-              "RateLimit-Remaining": { "schema": { "type": "integer" } },
-              "RateLimit-Reset": { "schema": { "type": "integer" } },
-              "Deprecation": { "schema": { "type": "string" }, "description": "RFC 8594 deprecation timestamp" },
-              "Sunset": { "schema": { "type": "string" }, "description": "RFC 8594 sunset HTTP-date" },
-              "Link": { "schema": { "type": "string" }, "description": "Link to deprecation policy" }
+              "RateLimit-Limit": {
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "RateLimit-Remaining": {
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "RateLimit-Reset": {
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "Deprecation": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "Sunset": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "Link": {
+                "schema": {
+                  "type": "string"
+                }
+              }
             },
             "content": {
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "required": ["data", "pagination"],
+                  "required": [
+                    "data",
+                    "pagination"
+                  ],
                   "properties": {
-                    "data": { "type": "array", "items": { "$ref": "#/components/schemas/Project" } },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Project"
+                      }
+                    },
                     "pagination": {
                       "type": "object",
-                      "required": ["nextCursor", "hasMore"],
+                      "required": [
+                        "nextCursor",
+                        "hasMore"
+                      ],
                       "properties": {
-                        "nextCursor": { "type": "string", "nullable": true },
-                        "hasMore": { "type": "boolean" },
-                        "limit": { "type": "integer" }
+                        "nextCursor": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "hasMore": {
+                          "type": "boolean"
+                        },
+                        "limit": {
+                          "type": "integer"
+                        }
                       }
                     }
                   }
@@ -171,16 +240,35 @@
         "operationId": "getProject",
         "summary": "Get project details by slug",
         "parameters": [
-          { "name": "slug", "in": "path", "required": true, "schema": { "type": "string" }, "description": "Project slug" }
+          {
+            "name": "slug",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
         ],
         "responses": {
           "200": {
             "description": "Project details",
-            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Project" } } }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Project"
+                }
+              }
+            }
           },
           "404": {
             "description": "Not found",
-            "content": { "application/problem+json": { "schema": { "$ref": "#/components/schemas/Error" } } }
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
           }
         }
       }
@@ -190,7 +278,15 @@
         "operationId": "submitContact",
         "summary": "Submit contact inquiry or internship opportunity",
         "parameters": [
-          { "name": "Idempotency-Key", "in": "header", "required": true, "schema": { "type": "string", "format": "uuid" }, "description": "Client-supplied idempotency key" }
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
         ],
         "requestBody": {
           "required": true,
@@ -198,11 +294,23 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": ["name", "email", "message"],
+                "required": [
+                  "name",
+                  "email",
+                  "message"
+                ],
                 "properties": {
-                  "name": { "type": "string", "example": "Agent Aria" },
-                  "email": { "type": "string", "format": "email", "example": "aria@example.com" },
-                  "message": { "type": "string", "minLength": 10, "example": "Internship opportunity inquiry" }
+                  "name": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string",
+                    "format": "email"
+                  },
+                  "message": {
+                    "type": "string",
+                    "minLength": 10
+                  }
                 }
               }
             }
@@ -215,13 +323,38 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "properties": { "success": { "type": "boolean" }, "message": { "type": "string" } }
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
                 }
               }
             }
           },
-          "400": { "description": "Validation error", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Error" } } } },
-          "429": { "description": "Rate limited", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Error" } } } }
+          "400": {
+            "description": "Validation error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate limited",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
         }
       }
     },
@@ -237,8 +370,13 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "task": { "type": "string", "example": "benchmark-evaluation" },
-                  "payload": { "type": "object" }
+                  "task": {
+                    "type": "string",
+                    "example": "benchmark-evaluation"
+                  },
+                  "payload": {
+                    "type": "object"
+                  }
                 }
               }
             }
@@ -250,12 +388,17 @@
             "headers": {
               "Location": {
                 "description": "URL to poll for job status and output",
-                "schema": { "type": "string", "format": "uri" }
+                "schema": {
+                  "type": "string",
+                  "format": "uri"
+                }
               }
             },
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/Job" }
+                "schema": {
+                  "$ref": "#/components/schemas/Job"
+                }
               }
             }
           }
@@ -267,14 +410,23 @@
         "operationId": "getJobStatus",
         "summary": "Poll status and results of an asynchronous job",
         "parameters": [
-          { "name": "jobId", "in": "path", "required": true, "schema": { "type": "string" }, "description": "Unique job identifier" }
+          {
+            "name": "jobId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
         ],
         "responses": {
           "200": {
             "description": "Current status and output of the job",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/Job" }
+                "schema": {
+                  "$ref": "#/components/schemas/Job"
+                }
               }
             }
           }
@@ -285,21 +437,34 @@
       "get": {
         "operationId": "sandboxPing",
         "summary": "Sandbox environment health and status check",
-        "description": "Verify sandbox test environment connectivity without modifying production data.",
         "responses": {
           "200": {
             "description": "Sandbox status",
             "headers": {
-              "X-Sandbox": { "schema": { "type": "string", "enum": ["true"] }, "description": "Indicates sandbox mode" }
+              "X-Sandbox": {
+                "schema": {
+                  "type": "string",
+                  "enum": [
+                    "true"
+                  ]
+                }
+              }
             },
             "content": {
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "required": ["pong", "sandbox"],
+                  "required": [
+                    "pong",
+                    "sandbox"
+                  ],
                   "properties": {
-                    "pong": { "type": "boolean", "example": true },
-                    "sandbox": { "type": "boolean", "example": true }
+                    "pong": {
+                      "type": "boolean"
+                    },
+                    "sandbox": {
+                      "type": "boolean"
+                    }
                   }
                 }
               }
@@ -312,18 +477,29 @@
       "post": {
         "operationId": "sandboxContact",
         "summary": "Simulate contact submission in sandbox mode",
-        "description": "Validates schema and idempotency without delivering external notifications.",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": ["name", "email", "message"],
+                "required": [
+                  "name",
+                  "email",
+                  "message"
+                ],
                 "properties": {
-                  "name": { "type": "string" },
-                  "email": { "type": "string", "format": "email" },
-                  "message": { "type": "string", "minLength": 10 }
+                  "name": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string",
+                    "format": "email"
+                  },
+                  "message": {
+                    "type": "string",
+                    "minLength": 10
+                  }
                 }
               }
             }
@@ -332,12 +508,28 @@
         "responses": {
           "200": {
             "description": "Simulated contact receipt",
-            "headers": { "X-Sandbox": { "schema": { "type": "string", "enum": ["true"] } } },
+            "headers": {
+              "X-Sandbox": {
+                "schema": {
+                  "type": "string",
+                  "enum": [
+                    "true"
+                  ]
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "properties": { "success": { "type": "boolean" }, "sandbox": { "type": "boolean" } }
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "sandbox": {
+                      "type": "boolean"
+                    }
+                  }
                 }
               }
             }
@@ -356,69 +548,21 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "required": ["apiKey", "tier", "expiresAt"],
+                  "required": [
+                    "apiKey",
+                    "tier",
+                    "expiresAt"
+                  ],
                   "properties": {
-                    "apiKey": { "type": "string", "example": "sht_test_sandbox_12345" },
-                    "tier": { "type": "string", "example": "sandbox" },
-                    "expiresAt": { "type": "string", "format": "date-time" }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/v1/batch": {
-      "post": {
-        "operationId": "batchOperations",
-        "summary": "Execute bulk or batch operations",
-        "description": "Bulk endpoint accepting an array of operations or requests to execute in a single round-trip.",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "required": ["operations"],
-                "properties": {
-                  "operations": {
-                    "type": "array",
-                    "items": {
-                      "type": "object",
-                      "required": ["op", "id"],
-                      "properties": {
-                        "op": { "type": "string", "example": "get_project" },
-                        "id": { "type": "string", "example": "op_1" },
-                        "params": { "type": "object" }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Batch operation execution results",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "required": ["results"],
-                  "properties": {
-                    "results": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "required": ["id", "status"],
-                        "properties": {
-                          "id": { "type": "string" },
-                          "status": { "type": "string", "example": "ok" },
-                          "data": { "type": "object" }
-                        }
-                      }
+                    "apiKey": {
+                      "type": "string"
+                    },
+                    "tier": {
+                      "type": "string"
+                    },
+                    "expiresAt": {
+                      "type": "string",
+                      "format": "date-time"
                     }
                   }
                 }
@@ -428,33 +572,106 @@
         }
       }
     },
-    "/batch": {
+    "/api/keys": {
       "post": {
-        "operationId": "batchOperationsAlias",
-        "summary": "Execute bulk or batch operations (root alias)",
-        "description": "Root alias for bulk operations accepting an array of operations.",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "operations": { "type": "array", "items": { "type": "object" } }
-                }
-              }
-            }
-          }
-        },
+        "operationId": "generateTestKeyAlias",
+        "summary": "Generate an ephemeral sandbox API key (alias)",
         "responses": {
           "200": {
-            "description": "Batch operation execution results",
+            "description": "Generated test API key",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "required": [
+                    "apiKey",
+                    "tier",
+                    "expiresAt"
+                  ],
                   "properties": {
-                    "results": { "type": "array", "items": { "type": "object" } }
+                    "apiKey": {
+                      "type": "string"
+                    },
+                    "tier": {
+                      "type": "string"
+                    },
+                    "expiresAt": {
+                      "type": "string",
+                      "format": "date-time"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "operationId": "getTestKeyAlias",
+        "summary": "Generate an ephemeral sandbox API key via GET (alias)",
+        "responses": {
+          "200": {
+            "description": "Generated test API key",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "apiKey",
+                    "tier",
+                    "expiresAt"
+                  ],
+                  "properties": {
+                    "apiKey": {
+                      "type": "string"
+                    },
+                    "tier": {
+                      "type": "string"
+                    },
+                    "expiresAt": {
+                      "type": "string",
+                      "format": "date-time"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/sandbox/ping": {
+      "get": {
+        "operationId": "sandboxPingAlias",
+        "summary": "Sandbox environment health and status check (alias)",
+        "responses": {
+          "200": {
+            "description": "Sandbox status",
+            "headers": {
+              "X-Sandbox": {
+                "schema": {
+                  "type": "string",
+                  "enum": [
+                    "true"
+                  ]
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "pong",
+                    "sandbox"
+                  ],
+                  "properties": {
+                    "pong": {
+                      "type": "boolean"
+                    },
+                    "sandbox": {
+                      "type": "boolean"
+                    }
                   }
                 }
               }
@@ -468,60 +685,92 @@
     "schemas": {
       "Job": {
         "type": "object",
-        "required": ["jobId", "status", "pollUrl"],
+        "required": [
+          "jobId",
+          "status",
+          "pollUrl"
+        ],
         "properties": {
-          "jobId": { "type": "string", "example": "job_1725450000" },
-          "status": { "type": "string", "enum": ["pending", "running", "completed", "failed"], "example": "pending" },
-          "pollUrl": { "type": "string", "format": "uri", "example": "https://shivanshutiwari.in/api/v1/jobs/job_1725450000" },
-          "createdAt": { "type": "string", "format": "date-time" },
-          "result": { "type": "object", "nullable": true }
+          "jobId": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "pending",
+              "running",
+              "completed",
+              "failed"
+            ]
+          },
+          "pollUrl": {
+            "type": "string",
+            "format": "uri"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "result": {
+            "type": "object",
+            "nullable": true
+          }
         }
       },
       "Project": {
         "type": "object",
-        "required": ["slug", "title", "description"],
+        "required": [
+          "slug",
+          "title",
+          "description"
+        ],
         "properties": {
-          "slug": { "type": "string", "example": "agentic-honey-pot" },
-          "title": { "type": "string", "example": "Agentic Honeypot" },
-          "description": { "type": "string" },
-          "stack": { "type": "array", "items": { "type": "string" } },
-          "domain": { "type": "string", "enum": ["ai-agents", "backend", "voice-ai", "rl"] }
+          "slug": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "stack": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "domain": {
+            "type": "string",
+            "enum": [
+              "ai-agents",
+              "backend",
+              "voice-ai",
+              "rl"
+            ]
+          }
         }
       },
       "Error": {
         "type": "object",
-        "required": ["code", "message"],
+        "required": [
+          "code",
+          "message"
+        ],
         "properties": {
-          "code": { "type": "string", "example": "not_found" },
-          "message": { "type": "string", "example": "Project not found" },
-          "hint": { "type": "string", "example": "Check /openapi.json" },
-          "requestId": { "type": "string" }
-        }
-      }
-    },
-    "securitySchemes": {
-      "oauth2": {
-        "type": "oauth2",
-        "description": "OAuth 2.0 scoped authentication per RFC 9728",
-        "flows": {
-          "clientCredentials": {
-            "tokenUrl": "https://shivanshutiwari.in/.well-known/oauth-authorization-server",
-            "scopes": {
-              "read:projects": "Read portfolio projects and technical architecture details",
-              "write:contact": "Submit contact messages and collaboration requests",
-              "read:docs": "Access markdown twins and developer documentation",
-              "read:status": "Inspect system health and uptime status",
-              "execute:sandbox": "Run simulated test calls against sandbox endpoints",
-              "execute:batch": "Execute multi-operation batch requests"
-            }
+          "code": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "hint": {
+            "type": "string"
+          },
+          "requestId": {
+            "type": "string"
           }
         }
-      },
-      "bearerAuth": {
-        "type": "http",
-        "scheme": "bearer",
-        "bearerFormat": "JWT",
-        "description": "Optional Bearer token for authenticated requests"
       }
     }
   }

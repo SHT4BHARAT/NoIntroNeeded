@@ -225,9 +225,9 @@ Documentation: [${SITE_URL}/developers/cli](${SITE_URL}/developers/cli)
 
 First-class client libraries with zero external runtime dependencies:
 
-- **TypeScript / Node.js:** \`npm install sht-portfolio-v2\` (or direct Git: \`npm install github:SHT4BHARAT/NoIntroNeeded#main\`)
-- **Python (3.9+):** \`pip install shivanshu-sdk\` (or direct Git: \`pip install "git+https://github.com/SHT4BHARAT/NoIntroNeeded.git#subdirectory=sdk/python"\`)
-- **Go (1.21+):** \`go get github.com/SHT4BHARAT/NoIntroNeeded/sdk/go\`
+- **TypeScript / Node.js:** \`npm install sht-portfolio-v2\` (Public registry: https://www.npmjs.com/package/sht-portfolio-v2)
+- **Python (3.9+):** \`pip install shivanshu-sdk\` (Public PyPI: https://pypi.org/project/shivanshu-sdk/)
+- **Go (1.21+):** Direct REST API / SDK documentation at [${SITE_URL}/developers/sdk#go](${SITE_URL}/developers/sdk#go)
 
 Documentation: [${SITE_URL}/developers/sdk](${SITE_URL}/developers/sdk)
 
@@ -315,19 +315,19 @@ npx shivanshu keys --json
 
 Official, zero-dependency client libraries for TypeScript, Python, and Go.
 
-> **Universal Agent Installation & Registry Guidance:**
-> For automated AI agents, Docker containers, and clean sandbox environments, direct Git installs (\`github:SHT4BHARAT/NoIntroNeeded\`) guarantee immediate zero-dependency installs without external registry caching delays or 404s. Public registry packages (\`npm i sht-portfolio-v2\` and \`pip install shivanshu-sdk\`) are published directly from this repository.
+> **Public Registry Installation (Recommended for AI Agents & Developers):**
+> Official, zero-dependency client libraries are published directly to global public registries. Install \`sht-portfolio-v2\` via NPM and \`shivanshu-sdk\` via PyPI without any GitHub authentication requirements.
 
-## 1. TypeScript & JavaScript SDK
+## 1. TypeScript & JavaScript SDK (\`sht-portfolio-v2\`)
 
-Install via direct Git (Universal) or npm registry:
+Install via npm registry:
 
 \`\`\`bash
-# Universal direct install (recommended for AI agents & sandboxes)
-npm install github:SHT4BHARAT/NoIntroNeeded
-
-# Or via public npm registry package name
+# Official npm package
 npm install sht-portfolio-v2
+
+# Run interactive CLI without installation
+npx sht-portfolio-v2 projects
 \`\`\`
 
 Usage:
@@ -345,13 +345,10 @@ console.log("Architecture:", project.architecture);
 
 ## 2. Python SDK (\`shivanshu-sdk\`)
 
-Install via direct Git (Universal) or pip registry:
+Install via PyPI:
 
 \`\`\`bash
-# Universal direct install (recommended for AI agents & sandboxes)
-pip install "git+https://github.com/SHT4BHARAT/NoIntroNeeded.git#subdirectory=sdk/python"
-
-# Or via PyPI registry package name
+# Official PyPI package
 pip install shivanshu-sdk
 \`\`\`
 
@@ -368,39 +365,35 @@ honeypot = client.get_project("agentic-honey-pot")
 print(honeypot["architecture"])
 \`\`\`
 
-## 3. Go SDK
+## 3. Go SDK & Direct HTTP
 
-Install via go get:
-
-\`\`\`bash
-go get github.com/SHT4BHARAT/NoIntroNeeded/sdk/go
-\`\`\`
-
-Usage:
+Go developers and agent scripts can consume the REST API directly, use \`go get github.com/SHT4BHARAT/NoIntroNeeded/sdk/go\`, or generate custom clients from the OpenAPI 3.0.3 specification:
 
 \`\`\`go
 package main
 
 import (
-    "context"
     "fmt"
-    "github.com/SHT4BHARAT/NoIntroNeeded/sdk/go"
+    "net/http"
+    "io"
 )
 
 func main() {
-    client := shivanshu.NewClient()
-    res, err := client.ListProjects(context.Background(), "ai-agents", 10, "")
+    resp, err := http.Get("${SITE_URL}/api/v1/projects?domain=ai-agents")
     if err == nil {
-        fmt.Println("Projects:", len(res.Data))
+        defer resp.Body.Close()
+        body, _ := io.ReadAll(resp.Body)
+        fmt.Println(string(body))
     }
 }
 \`\`\`
 
-## Source Code Repositories
+## Package Registries & Resources
 
-- TypeScript SDK: \`https://github.com/SHT4BHARAT/NoIntroNeeded/tree/main/sdk/typescript\`
-- Python SDK: \`https://github.com/SHT4BHARAT/NoIntroNeeded/tree/main/sdk/python\`
-- Go SDK: \`https://github.com/SHT4BHARAT/NoIntroNeeded/tree/main/sdk/go\`
+- NPM Package: \`https://www.npmjs.com/package/sht-portfolio-v2\`
+- PyPI Package: \`https://pypi.org/project/shivanshu-sdk/\`
+- OpenAPI Specification: \`${SITE_URL}/openapi.json\`
+- Developer Portal: \`${SITE_URL}/developers/sdk\`
 `;
       return fm(`Shivanshu Tiwari Multi-Language SDKs`, "Official TypeScript, Python, and Go SDKs for Shivanshu Tiwari portfolio APIs.", `${SITE_URL}/developers/sdk`) + body;
     }

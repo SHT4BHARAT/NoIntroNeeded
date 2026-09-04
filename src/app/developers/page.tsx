@@ -68,10 +68,10 @@ export default function DevelopersPage() {
             <span className="font-display text-lg font-semibold text-foreground group-hover:text-accent">
               Multi-Language SDKs
             </span>
-            <span className="rounded bg-accent/10 px-2 py-0.5 font-mono text-xs text-accent">TS / Python / Go</span>
+            <span className="rounded bg-accent/10 px-2 py-0.5 font-mono text-xs text-accent">NPM & PyPI Live</span>
           </div>
           <p className="text-sm text-muted mb-4">
-            Official client packages for TypeScript (<code className="text-accent">github:SHT4BHARAT/NoIntroNeeded</code> or <code className="text-accent">npm i sht-portfolio-v2</code>), Python (<code className="text-accent">pip install &quot;git+...&quot;</code> or <code className="text-accent">shivanshu-sdk</code>), and Go. Zero dependencies.
+            Official client packages for TypeScript (<code className="text-accent">npm i sht-portfolio-v2</code>) and Python (<code className="text-accent">pip install shivanshu-sdk</code>). Zero external dependencies.
           </p>
           <div className="font-mono text-xs text-accent flex items-center gap-1">
             View SDK documentation &rarr;
@@ -84,15 +84,12 @@ export default function DevelopersPage() {
         <h2 className="font-display mb-3 text-sm font-semibold uppercase tracking-widest text-muted">Quickstart</h2>
         <pre className="overflow-x-auto rounded-lg border border-border bg-surface p-4 font-mono text-xs text-foreground">
 {`# 1. Interactive CLI (Zero installation required)
-npx shivanshu projects ai-agents
-npx shivanshu sandbox
+npx sht-portfolio-v2 projects
+npx sht-portfolio-v2 ping
 
-# 2. Multi-Language SDKs (Universal Direct Git or Public Registry)
-npm install github:SHT4BHARAT/NoIntroNeeded        # TypeScript / Node.js (Universal)
-npm install sht-portfolio-v2                       # TypeScript (NPM registry alias)
-pip install "git+https://github.com/SHT4BHARAT/NoIntroNeeded.git#subdirectory=sdk/python" # Python (Universal)
-pip install shivanshu-sdk                          # Python (PyPI alias)
-go get github.com/SHT4BHARAT/NoIntroNeeded/sdk/go  # Go 1.21+
+# 2. Multi-Language SDKs (Official Public Registries)
+npm install sht-portfolio-v2                       # TypeScript & JavaScript (NPM)
+pip install shivanshu-sdk                          # Python 3.9+ (PyPI)
 
 # 3. Direct HTTP API, Search, and Markdown Twins
 curl -s https://shivanshutiwari.in/api/search?q=developer

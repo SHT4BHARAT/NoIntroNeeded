@@ -3,9 +3,9 @@ import Link from "next/link";
 import { SITE_URL } from "@/lib/constants";
 
 export const metadata: Metadata = {
-  title: "Multi-Language SDKs — Shivanshu Tiwari Developers",
+  title: "Multi-Language SDKs & CLI — Shivanshu Tiwari Developers",
   description:
-    "Official SDK client libraries for TypeScript, Python, and Go to integrate with Shivanshu Tiwari portfolio APIs, projects, and autonomous agent evaluation.",
+    "Official SDK client libraries for TypeScript (NPM: sht-portfolio-v2) and Python (PyPI: shivanshu-sdk) to integrate with Shivanshu Tiwari portfolio APIs, projects, and autonomous agent evaluation.",
   alternates: {
     canonical: `${SITE_URL}/developers/sdk`,
     types: {
@@ -24,20 +24,51 @@ export default function SdkPage() {
           <span>SDKs</span>
         </div>
         <h1 className="font-display text-3xl font-bold tracking-tight sm:text-4xl">
-          Multi-Language SDKs
+          Multi-Language SDKs & CLI
         </h1>
         <p className="mt-2 text-sm text-muted">
-          First-class, zero-dependency client libraries for TypeScript, Python, and Go. Programmatically query 19 engineering projects, inspect system architectures, generate ephemeral sandbox keys, and dispatch asynchronous tasks.
+          First-class, zero-dependency client libraries published on global package registries. Programmatically query 19 engineering projects, inspect system architectures, generate ephemeral sandbox keys, and dispatch asynchronous tasks.
         </p>
 
-        {/* Universal Installation Notice for Agents & Sandboxes */}
+        {/* Live Registry Badges */}
+        <div className="mt-4 flex flex-wrap items-center gap-3">
+          <a
+            href="https://www.npmjs.com/package/sht-portfolio-v2"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-3 py-1 text-xs font-mono transition-colors hover:border-accent"
+          >
+            <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+            <span className="text-muted">npm:</span>
+            <strong className="text-foreground">sht-portfolio-v2@1.0.0</strong>
+          </a>
+          <a
+            href="https://pypi.org/project/shivanshu-sdk/1.0.0/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-3 py-1 text-xs font-mono transition-colors hover:border-accent"
+          >
+            <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+            <span className="text-muted">pypi:</span>
+            <strong className="text-foreground">shivanshu-sdk==1.0.0</strong>
+          </a>
+          <Link
+            href="/openapi.json"
+            className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-3 py-1 text-xs font-mono transition-colors hover:border-accent"
+          >
+            <span className="text-muted">spec:</span>
+            <strong className="text-accent">OpenAPI 3.0.3</strong>
+          </Link>
+        </div>
+
+        {/* Registry Notice */}
         <div className="mt-6 rounded-xl border border-border bg-surface p-4 text-xs text-muted">
           <div className="flex items-center gap-2 font-semibold text-foreground mb-1.5">
             <span className="inline-block h-2 w-2 rounded-full bg-accent animate-pulse" />
-            Universal Agent Installation & Registry Guidance
+            Official Registry Distribution
           </div>
           <p className="leading-relaxed">
-            For automated AI agents, Docker containers, and clean sandbox environments, direct Git installs (<code className="text-foreground">github:SHT4BHARAT/NoIntroNeeded</code>) guarantee immediate zero-dependency installs without external registry caching delays. Registry packages (<code className="text-foreground">npm i sht-portfolio-v2</code> and <code className="text-foreground">pip install shivanshu-sdk</code>) are published directly from this repository. You can also generate clients from our <Link href="/openapi.json" className="text-accent hover:underline">OpenAPI 3.0.3 spec</Link> or use direct REST calls to <code className="text-foreground">/api/v1/projects</code>.
+            Both packages are published to official registries with zero runtime dependencies. Developers and automated AI agents can install them directly without private repository authentication or git clone overhead.
           </p>
         </div>
       </div>
@@ -47,51 +78,73 @@ export default function SdkPage() {
         <div className="rounded-xl border border-border bg-surface p-5">
           <div className="flex items-center justify-between mb-3">
             <span className="font-display font-semibold text-foreground">TypeScript / Node</span>
-            <span className="rounded bg-accent/10 px-2 py-0.5 font-mono text-[11px] text-accent">Universal</span>
+            <span className="rounded bg-accent/10 px-2 py-0.5 font-mono text-[11px] text-accent">NPM Live</span>
           </div>
           <p className="text-xs text-muted mb-2">Strictly typed, isomorphic (Node.js & Edge Runtime), native fetch.</p>
           <pre className="overflow-x-auto rounded bg-background p-2.5 font-mono text-xs text-foreground border border-border">
-            <code>npm install github:SHT4BHARAT/NoIntroNeeded</code>
+            <code>npm install sht-portfolio-v2</code>
           </pre>
-          <p className="mt-2 text-[10px] text-muted">Registry alias: <code>npm i sht-portfolio-v2</code></p>
+          <div className="mt-3 flex items-center justify-between text-[11px]">
+            <a
+              href="https://www.npmjs.com/package/sht-portfolio-v2"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-accent hover:underline"
+            >
+              npmjs.com/package/sht-portfolio-v2 &rarr;
+            </a>
+          </div>
         </div>
 
         <div className="rounded-xl border border-border bg-surface p-5">
           <div className="flex items-center justify-between mb-3">
             <span className="font-display font-semibold text-foreground">Python</span>
-            <span className="rounded bg-accent/10 px-2 py-0.5 font-mono text-[11px] text-accent">Universal</span>
+            <span className="rounded bg-accent/10 px-2 py-0.5 font-mono text-[11px] text-accent">PyPI Live</span>
           </div>
           <p className="text-xs text-muted mb-2">Zero third-party dependencies, standard library only, Python 3.9+.</p>
           <pre className="overflow-x-auto rounded bg-background p-2.5 font-mono text-xs text-foreground border border-border">
-            <code>pip install &quot;git+https://github.com/SHT4BHARAT/NoIntroNeeded.git#subdirectory=sdk/python&quot;</code>
+            <code>pip install shivanshu-sdk</code>
           </pre>
-          <p className="mt-2 text-[10px] text-muted">PyPI alias: <code>pip install shivanshu-sdk</code></p>
+          <div className="mt-3 flex items-center justify-between text-[11px]">
+            <a
+              href="https://pypi.org/project/shivanshu-sdk/1.0.0/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-accent hover:underline"
+            >
+              pypi.org/project/shivanshu-sdk &rarr;
+            </a>
+          </div>
         </div>
 
         <div className="rounded-xl border border-border bg-surface p-5">
           <div className="flex items-center justify-between mb-3">
-            <span className="font-display font-semibold text-foreground">Go</span>
-            <span className="rounded bg-accent/10 px-2 py-0.5 font-mono text-[11px] text-accent">v1.0.0</span>
+            <span className="font-display font-semibold text-foreground">Interactive CLI</span>
+            <span className="rounded bg-accent/10 px-2 py-0.5 font-mono text-[11px] text-accent">Instant</span>
           </div>
-          <p className="text-xs text-muted mb-2">Idiomatic Go structs, context-aware requests, zero external deps.</p>
+          <p className="text-xs text-muted mb-2">Run directly via npx without manual installation or configuration.</p>
           <pre className="overflow-x-auto rounded bg-background p-2.5 font-mono text-xs text-foreground border border-border">
-            <code>go get github.com/SHT4BHARAT/NoIntroNeeded/sdk/go</code>
+            <code>npx sht-portfolio-v2 projects</code>
           </pre>
-          <p className="mt-2 text-[10px] text-muted">Native go get module</p>
+          <div className="mt-3 flex items-center justify-between text-[11px]">
+            <Link href="/developers/cli" className="text-accent hover:underline">
+              CLI documentation &rarr;
+            </Link>
+          </div>
         </div>
       </div>
 
       {/* TypeScript Section */}
       <section id="typescript" className="mb-14 rounded-xl border border-border bg-surface p-6 shadow-sm">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="font-display text-xl font-semibold tracking-tight">1. TypeScript & JavaScript SDK</h2>
+          <h2 className="font-display text-xl font-semibold tracking-tight">1. TypeScript & JavaScript SDK (`sht-portfolio-v2`)</h2>
           <a
-            href="https://github.com/SHT4BHARAT/NoIntroNeeded/tree/main/sdk/typescript"
+            href="https://www.npmjs.com/package/sht-portfolio-v2"
             target="_blank"
             rel="noopener noreferrer"
             className="font-mono text-xs text-accent hover:underline"
           >
-            GitHub Source &rarr;
+            NPM Package &rarr;
           </a>
         </div>
         <p className="text-sm text-muted mb-4">
@@ -100,13 +153,9 @@ export default function SdkPage() {
 
         <div className="space-y-4">
           <div>
-            <p className="text-xs font-mono uppercase text-muted mb-1">Install (Direct Git or NPM):</p>
+            <p className="text-xs font-mono uppercase text-muted mb-1">Installation:</p>
             <pre className="overflow-x-auto rounded-lg border border-border bg-background p-3 font-mono text-xs text-foreground">
-              <code>{`# Universal direct install (recommended for AI agents & sandboxes)
-npm install github:SHT4BHARAT/NoIntroNeeded
-
-# Or via public registry package name
-npm install sht-portfolio-v2`}</code>
+              <code>npm install sht-portfolio-v2</code>
             </pre>
           </div>
 
@@ -146,12 +195,12 @@ run().catch(console.error);`}
         <div className="flex items-center justify-between mb-4">
           <h2 className="font-display text-xl font-semibold tracking-tight">2. Python SDK (`shivanshu-sdk`)</h2>
           <a
-            href="https://github.com/SHT4BHARAT/NoIntroNeeded/tree/main/sdk/python"
+            href="https://pypi.org/project/shivanshu-sdk/1.0.0/"
             target="_blank"
             rel="noopener noreferrer"
             className="font-mono text-xs text-accent hover:underline"
           >
-            GitHub Source &rarr;
+            PyPI Package &rarr;
           </a>
         </div>
         <p className="text-sm text-muted mb-4">
@@ -160,13 +209,9 @@ run().catch(console.error);`}
 
         <div className="space-y-4">
           <div>
-            <p className="text-xs font-mono uppercase text-muted mb-1">Install (Direct Git or PyPI):</p>
+            <p className="text-xs font-mono uppercase text-muted mb-1">Installation:</p>
             <pre className="overflow-x-auto rounded-lg border border-border bg-background p-3 font-mono text-xs text-foreground">
-              <code>{`# Universal direct install (recommended for AI agents & sandboxes)
-pip install "git+https://github.com/SHT4BHARAT/NoIntroNeeded.git#subdirectory=sdk/python"
-
-# Or via PyPI mirror package name
-pip install shivanshu-sdk`}</code>
+              <code>pip install shivanshu-sdk</code>
             </pre>
           </div>
 
@@ -198,63 +243,46 @@ print("API Key:", key_data["apiKey"])`}
         </div>
       </section>
 
-      {/* Go Section */}
+      {/* Go / REST Section */}
       <section id="go" className="mb-14 rounded-xl border border-border bg-surface p-6 shadow-sm">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="font-display text-xl font-semibold tracking-tight">3. Go SDK</h2>
-          <a
-            href="https://github.com/SHT4BHARAT/NoIntroNeeded/tree/main/sdk/go"
-            target="_blank"
-            rel="noopener noreferrer"
+          <h2 className="font-display text-xl font-semibold tracking-tight">3. Go & Direct REST API</h2>
+          <Link
+            href="/openapi.json"
             className="font-mono text-xs text-accent hover:underline"
           >
-            GitHub Source &rarr;
-          </a>
+            OpenAPI Spec &rarr;
+          </Link>
         </div>
         <p className="text-sm text-muted mb-4">
-          Standard Go module using standard library HTTP primitives and context cancellation.
+          Standard HTTP integration using Go standard library primitives or any OpenAPI-compatible client generator.
         </p>
 
         <div className="space-y-4">
           <div>
-            <p className="text-xs font-mono uppercase text-muted mb-1">Install:</p>
-            <pre className="overflow-x-auto rounded-lg border border-border bg-background p-3 font-mono text-xs text-foreground">
-              <code>go get github.com/SHT4BHARAT/NoIntroNeeded/sdk/go</code>
-            </pre>
-          </div>
-
-          <div>
-            <p className="text-xs font-mono uppercase text-muted mb-1">Usage Example:</p>
+            <p className="text-xs font-mono uppercase text-muted mb-1">Usage Example (Go):</p>
             <pre className="overflow-x-auto rounded-lg border border-border bg-background p-4 font-mono text-xs text-foreground">
 {`package main
 
 import (
-	"context"
 	"fmt"
+	"io"
 	"log"
-
-	"github.com/SHT4BHARAT/NoIntroNeeded/sdk/go"
+	"net/http"
 )
 
 func main() {
-	ctx := context.Background()
-	client := shivanshu.NewClient()
-
-	// 1. List projects
-	projects, err := client.ListProjects(ctx, "ai-agents", 10, "")
+	resp, err := http.Get("https://shivanshutiwari.in/api/v1/projects?domain=ai-agents")
 	if err != nil {
 		log.Fatal(err)
 	}
-	for _, p := range projects.Data {
-		fmt.Printf("Project: %s (%s)\\n", p.Title, p.Slug)
-	}
+	defer resp.Body.Close()
 
-	// 2. Ping sandbox
-	status, err := client.PingSandbox(ctx)
+	body, err := io.ReadAll(resp.Body)
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Printf("Sandbox: %v\\n", status.Sandbox)
+	fmt.Println("Projects:", string(body))
 }`}
             </pre>
           </div>

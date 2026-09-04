@@ -12,6 +12,7 @@ import { MoonIcon } from "@/components/icons/MoonIcon";
 
 const navLinks = [
   { href: "/", label: "Home" },
+  { href: "/developers", label: "Dev" },
   { href: "/education", label: "Education" },
   { href: "/experience", label: "Experience" },
   { href: "/achievements", label: "Achievements" },
@@ -31,6 +32,7 @@ function isActiveLink(pathname: string, href: string): boolean {
   if (href === "/blog" && (pathname.startsWith("/blog/") || pathname.startsWith("/blog/hi/"))) return true;
   if (href === "/achievements" && pathname.startsWith("/achievements/")) return true;
   if (href === "/contact" && pathname.startsWith("/contact/")) return true;
+  if (href === "/developers" && pathname.startsWith("/developers")) return true;
   return false;
 }
 
@@ -111,6 +113,28 @@ export function Header() {
               />
             </svg>
           </button>
+
+          <Link
+            href="/search"
+            className="flex h-9 w-9 items-center justify-center rounded-md text-sm text-muted transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60 hover:bg-surface hover:text-foreground"
+            aria-label="Search site, developer resources, and APIs"
+            title="Search (API, SDKs, Docs)"
+          >
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden="true"
+            >
+              <circle cx="11" cy="11" r="8" />
+              <path d="m21 21-4.3-4.3" />
+            </svg>
+          </Link>
 
           <RoleSwitcher />
 

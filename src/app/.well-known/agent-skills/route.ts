@@ -6,7 +6,7 @@ import path from "path";
 export function GET() {
   let skillDigest = "sha256:686ab8b5d5a226542c4e910f00872cc0e0d2ef837af0805d0af10fb1f6af06ef";
   try {
-    const file = fs.readFileSync(path.join(process.cwd(), "public/llms.txt"), "utf-8");
+    const file = fs.readFileSync(path.join(process.cwd(), "public/llms.txt"));
     skillDigest = "sha256:" + crypto.createHash("sha256").update(file).digest("hex");
   } catch {}
 

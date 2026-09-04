@@ -88,10 +88,10 @@ function maybeNegotiate(request: NextRequest): NextResponse | Response | null {
 - **Product:** Shivanshu Tiwari Portfolio & Developer Portal
 - **API Base:** ${origin}
 - **Site Search Engine:** ${origin}/search (API: ${origin}/api/search?q=<query>, Markdown: ${origin}/search.md)
-- **Dedicated CLI Tool:** npx shivanshu (Guide: ${origin}/developers/cli)
-- **TypeScript / Node SDK:** npm install github:SHT4BHARAT/NoIntroNeeded (or \`npm i sht-portfolio-v2\`) (${origin}/developers/sdk#typescript)
-- **Python SDK:** pip install "git+https://github.com/SHT4BHARAT/NoIntroNeeded.git#subdirectory=sdk/python" (or \`pip install shivanshu-sdk\`) (${origin}/developers/sdk#python)
-- **Go SDK:** go get github.com/SHT4BHARAT/NoIntroNeeded/sdk/go (${origin}/developers/sdk#go)
+- **Dedicated CLI Tool:** npx sht-portfolio-v2 (Guide: ${origin}/developers/cli)
+- **TypeScript / Node SDK:** npm install sht-portfolio-v2 (Registry: https://www.npmjs.com/package/sht-portfolio-v2, Guide: ${origin}/developers/sdk#typescript)
+- **Python SDK:** pip install shivanshu-sdk (Registry: https://pypi.org/project/shivanshu-sdk/, Guide: ${origin}/developers/sdk#python)
+- **Go SDK:** ${origin}/developers/sdk#go
 - **OpenAPI Specification:** ${origin}/openapi.json
 - **AI Agent Navigation Index:** ${origin}/llms.txt
 - **Product Actions MCP Server:** ${origin}/mcp
@@ -167,7 +167,9 @@ function maybeNegotiate(request: NextRequest): NextResponse | Response | null {
         card: `${origin}/.well-known/agent-card.json`,
         instructions: `${origin}/llms.txt`,
         plugin: `${origin}/.well-known/plugin.json`,
-        agentsMd: "https://github.com/SHT4BHARAT/NoIntroNeeded/blob/main/AGENTS.md",
+        agentsMd: `${origin}/AGENTS.md`,
+        cursorrules: `${origin}/.cursorrules`,
+        skillMd: `${origin}/SKILL.md`,
       },
       search: {
         web: `${origin}/search`,
@@ -177,9 +179,9 @@ function maybeNegotiate(request: NextRequest): NextResponse | Response | null {
       },
       cli: {
         command: "shivanshu",
-        run: "npx github:SHT4BHARAT/NoIntroNeeded",
-        runRegistry: "npx shivanshu",
-        install: "npm install -g github:SHT4BHARAT/NoIntroNeeded",
+        run: "npx sht-portfolio-v2",
+        runRegistry: "npx sht-portfolio-v2",
+        install: "npm install -g sht-portfolio-v2",
         registryInstall: "npm install -g sht-portfolio-v2",
         documentation: `${origin}/developers/cli`,
         features: ["projects", "project", "compare", "batch", "jobs", "keys", "sandbox", "mcp", "pricing", "contact", "--json"],
@@ -187,29 +189,25 @@ function maybeNegotiate(request: NextRequest): NextResponse | Response | null {
       sdk: {
         typescript: {
           package: "sht-portfolio-v2",
-          install: "npm install github:SHT4BHARAT/NoIntroNeeded",
-          gitInstall: "npm install github:SHT4BHARAT/NoIntroNeeded",
+          install: "npm install sht-portfolio-v2",
           registryInstall: "npm install sht-portfolio-v2",
-          repository: "https://github.com/SHT4BHARAT/NoIntroNeeded/tree/main/sdk/typescript",
+          registry: "https://www.npmjs.com/package/sht-portfolio-v2",
           documentation: `${origin}/developers/sdk#typescript`,
         },
         python: {
           package: "shivanshu-sdk",
-          install: "pip install \"git+https://github.com/SHT4BHARAT/NoIntroNeeded.git#subdirectory=sdk/python\"",
-          gitInstall: "pip install \"git+https://github.com/SHT4BHARAT/NoIntroNeeded.git#subdirectory=sdk/python\"",
+          install: "pip install shivanshu-sdk",
           registryInstall: "pip install shivanshu-sdk",
-          repository: "https://github.com/SHT4BHARAT/NoIntroNeeded/tree/main/sdk/python",
+          registry: "https://pypi.org/project/shivanshu-sdk/",
           documentation: `${origin}/developers/sdk#python`,
         },
         go: {
           package: "github.com/SHT4BHARAT/NoIntroNeeded/sdk/go",
-          install: "go get github.com/SHT4BHARAT/NoIntroNeeded/sdk/go",
-          repository: "https://github.com/SHT4BHARAT/NoIntroNeeded/tree/main/sdk/go",
           documentation: `${origin}/developers/sdk#go`,
         },
         npm: "sht-portfolio-v2",
+        pypi: "shivanshu-sdk",
         cli: "shivanshu",
-        repository: "https://github.com/SHT4BHARAT/NoIntroNeeded",
         homepage: `${origin}/developers/sdk`,
       },
       mcp: {

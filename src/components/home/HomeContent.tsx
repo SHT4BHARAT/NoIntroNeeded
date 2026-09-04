@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useRole } from "@/components/providers/RoleProvider";
 import { getRoleBySlug } from "@/lib/role/config";
 import { projects, getProjectsBySlugs } from "@/lib/projects/config";
@@ -274,14 +275,17 @@ function ShowEverything() {
                 MCP
               </a>{" "}
               ·{" "}
-              <a
-                href="https://github.com/SHT4BHARAT/NoIntroNeeded"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-accent hover:underline"
-              >
-                Source (AGENTS.md, SKILL.md, plugin.json)
-              </a>
+              <Link href="/AGENTS.md" className="text-accent hover:underline">
+                AGENTS.md
+              </Link>{" "}
+              ·{" "}
+              <Link href="/SKILL.md" className="text-accent hover:underline">
+                SKILL.md
+              </Link>{" "}
+              ·{" "}
+              <Link href="/developers/sdk" className="text-accent hover:underline">
+                SDKs
+              </Link>
             </p>
           </RevealOnScroll>
         </section>

@@ -52,22 +52,12 @@ export function Footer() {
           <Link href="/privacy" className="transition-colors duration-200 hover:text-foreground">
             Privacy
           </Link>
-          <a
-            href="https://github.com/SHT4BHARAT/NoIntroNeeded/blob/main/AGENTS.md"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="transition-colors duration-200 hover:text-foreground"
-          >
+          <Link href="/AGENTS.md" className="transition-colors duration-200 hover:text-foreground">
             AGENTS.md
-          </a>
-          <a
-            href="https://github.com/SHT4BHARAT/NoIntroNeeded"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="transition-colors duration-200 hover:text-foreground"
-          >
-            Repo
-          </a>
+          </Link>
+          <Link href="/SKILL.md" className="transition-colors duration-200 hover:text-foreground">
+            SKILL.md
+          </Link>
           <Link
             href={SOCIAL.github}
             target="_blank"

@@ -7,7 +7,7 @@ export function getPluginManifest() {
     version: "1.0.0",
     description: "Portfolio plugin for Shivanshu Tiwari — AI Agent & Backend Systems Developer",
     homepage: SITE_URL,
-    repository: "https://github.com/SHT4BHARAT/NoIntroNeeded",
+    repository: "https://github.com/SHT4BHARAT",
     author: {
       name: "Shivanshu Tiwari",
       url: SITE_URL,

@@ -1,6 +1,6 @@
 # AGENTS.md — AI Coding Agent Instructions for shivanshutiwari.in
 
-> Source repo: https://github.com/SHT4BHARAT/NoIntroNeeded — homepage https://shivanshutiwari.in — llms.txt https://shivanshutiwari.in/llms.txt
+> Official site: https://shivanshutiwari.in — Developer Portal: https://shivanshutiwari.in/developers — llms.txt: https://shivanshutiwari.in/llms.txt
 
 ## Stack & Conventions
 

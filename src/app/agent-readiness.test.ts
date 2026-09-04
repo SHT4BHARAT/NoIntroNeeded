@@ -92,11 +92,9 @@ describe("AGENTS.md discoverability", () => {
 
   it("links AGENTS.md from the homepage footer", () => {
     expect(footer).toMatch(/AGENTS\.md/);
-    expect(footer).toMatch(/NoIntroNeeded/);
   });
 
   it("links AGENTS.md from llms.txt", () => {
     expect(llms).toMatch(/AGENTS\.md/);
-    expect(llms).toMatch(/NoIntroNeeded/);
   });
 });

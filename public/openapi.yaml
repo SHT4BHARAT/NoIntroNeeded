@@ -9,7 +9,7 @@ info:
     email: sht4bharat@gmail.com
   license:
     name: MIT
-    url: https://github.com/SHT4BHARAT/NoIntroNeeded/blob/main/LICENSE
+    url: https://shivanshutiwari.in/LICENSE
 servers:
   - url: https://shivanshutiwari.in
     description: Production API server
@@ -26,29 +26,22 @@ x-deprecation-policy:
 x-cli:
   command: shivanshu
   run: npx shivanshu
-  git_run: npx github:SHT4BHARAT/NoIntroNeeded
-  install: npm install -g github:SHT4BHARAT/NoIntroNeeded
-  registry_install: npm install -g sht-portfolio-v2
+  package_run: npx sht-portfolio-v2
+  install: npm install -g sht-portfolio-v2
   documentation: https://shivanshutiwari.in/developers/cli
 x-sdks:
   typescript:
     package: sht-portfolio-v2
-    git: github:SHT4BHARAT/NoIntroNeeded
-    install: npm install github:SHT4BHARAT/NoIntroNeeded
-    registry_install: npm install sht-portfolio-v2
-    repository: https://github.com/SHT4BHARAT/NoIntroNeeded/tree/main/sdk/typescript
+    install: npm install sht-portfolio-v2
+    registry: https://www.npmjs.com/package/sht-portfolio-v2
     documentation: https://shivanshutiwari.in/developers/sdk#typescript
   python:
     package: shivanshu-sdk
-    git: git+https://github.com/SHT4BHARAT/NoIntroNeeded.git#subdirectory=sdk/python
-    install: pip install "git+https://github.com/SHT4BHARAT/NoIntroNeeded.git#subdirectory=sdk/python"
-    registry_install: pip install shivanshu-sdk
-    repository: https://github.com/SHT4BHARAT/NoIntroNeeded/tree/main/sdk/python
+    install: pip install shivanshu-sdk
+    registry: https://pypi.org/project/shivanshu-sdk/
     documentation: https://shivanshutiwari.in/developers/sdk#python
   go:
     package: github.com/SHT4BHARAT/NoIntroNeeded/sdk/go
-    install: go get github.com/SHT4BHARAT/NoIntroNeeded/sdk/go
-    repository: https://github.com/SHT4BHARAT/NoIntroNeeded/tree/main/sdk/go
     documentation: https://shivanshutiwari.in/developers/sdk#go
 x-search:
   path: /api/search
@@ -356,6 +349,67 @@ paths:
                   expiresAt:
                     type: string
                     format: date-time
+  /api/keys:
+    post:
+      operationId: generateTestKeyAlias
+      summary: Generate an ephemeral sandbox API key (alias)
+      responses:
+        '200':
+          description: Generated test API key
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [apiKey, tier, expiresAt]
+                properties:
+                  apiKey:
+                    type: string
+                  tier:
+                    type: string
+                  expiresAt:
+                    type: string
+                    format: date-time
+    get:
+      operationId: getTestKeyAlias
+      summary: Generate an ephemeral sandbox API key via GET (alias)
+      responses:
+        '200':
+          description: Generated test API key
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [apiKey, tier, expiresAt]
+                properties:
+                  apiKey:
+                    type: string
+                  tier:
+                    type: string
+                  expiresAt:
+                    type: string
+                    format: date-time
+  /api/sandbox/ping:
+    get:
+      operationId: sandboxPingAlias
+      summary: Sandbox environment health and status check (alias)
+      responses:
+        '200':
+          description: Sandbox status
+          headers:
+            X-Sandbox:
+              schema:
+                type: string
+                enum: ['true']
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [pong, sandbox]
+                properties:
+                  pong:
+                    type: boolean
+                  sandbox:
+                    type: boolean
 components:
   schemas:
     Job:
