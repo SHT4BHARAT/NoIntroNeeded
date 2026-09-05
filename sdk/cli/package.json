@@ -31,6 +31,6 @@
   ],
   "main": "bin/shivanshu.js",
   "dependencies": {
-    "sht-portfolio-v2": "^1.0.2"
+    "sht-portfolio-v2": "^1.0.1"
   }
 }
