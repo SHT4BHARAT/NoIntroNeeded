@@ -180,6 +180,44 @@ Include the header \`Authorization: Bearer <token>\` or pass an ephemeral test k
 ### How do I hire Shivanshu Tiwari for contract or full-time roles?
 Inquiries can be submitted programmatically via \`POST /api/v1/contact\`, interactively via the contact form on [${SITE_URL}/contact](${SITE_URL}/contact), or through direct email to [sht4bharat@gmail.com](mailto:sht4bharat@gmail.com).
 
+### What are the overage fees for high request volume?
+There are no automated overage charges. When requests exceed rate limits, the API responds with HTTP 429 Too Many Requests and a \`Retry-After\` header indicating when requests can resume. For higher sustained throughput, reach out via the contact form.
+
+### Is an SLA provided for free and community tiers?
+Community Free and Agent Sandbox tiers are provided on a best-effort basis backed by high-availability serverless infrastructure. Custom SLA agreements with guaranteed 99.99% uptime and dedicated support windows are available under enterprise contracts.
+
+### What data retention policies apply to API interactions?
+Telemetry logs and ephemeral keys are deleted after 24 to 72 hours. No private user prompts or submitted contact inquiries are sold or shared with external model trainers.
+
+### Can I run the official SDK and CLI in restricted environments?
+Yes. Both \`sht-portfolio-v2\` (NPM) and \`shivanshu-sdk\` (PyPI) are zero-dependency packages designed for minimal footprint and maximum compatibility across Docker, CI/CD, and restricted agent sandboxes.
+
+### Where can I find API versioning and deprecation policies?
+All versioning schedules and deprecation timelines follow RFC 8594 standards and are published at [${SITE_URL}/developers/deprecation](${SITE_URL}/developers/deprecation).
+
+### How is machine-readable pricing integrated with AI agents?
+AI agents can consume machine-readable pricing directly at [${SITE_URL}/pricing.md](${SITE_URL}/pricing.md) or query service capabilities using Model Context Protocol tools via \`POST ${SITE_URL}/mcp\`.
+
+---
+
+## 8. Service Level Agreement (SLA) Matrix
+
+| Performance Metric | Community Tier | Sandbox Tier | Enterprise SLA |
+| :--- | :--- | :--- | :--- |
+| **Availability Target** | 99.5% Best Effort | 99.9% Monitored | 99.99% Guaranteed |
+| **P95 Latency Target** | < 250 ms | < 150 ms | < 80 ms |
+| **Incident Response Time** | Best Effort | Within 24 Hours | Within 1 Hour (24/7) |
+| **Scheduled Maintenance** | Weekly off-peak | Announced via feed | Advance notice 7 days |
+| **Redundancy & Failover** | Global Edge CDN | Multi-region Edge | Dedicated Multi-Region |
+
+---
+
+## 9. Terms of Service & Compliance Summary
+
+- **Usage Permitted:** Automated indexing, LLM benchmarking, portfolio review, technical integration testing, and recruitment evaluation.
+- **Prohibited Conduct:** Denial-of-service attempts, credential stuffing, scraping private personal data, or circumventing published rate limit headers.
+- **Governing Law & Dispute Resolution:** All contractual agreements are governed by the laws of India, with jurisdiction in Bhopal, Madhya Pradesh.
+
 ---
 *Canonical Reference: [${SITE_URL}/pricing](${SITE_URL}/pricing) | Machine Twin: [${SITE_URL}/pricing.md](${SITE_URL}/pricing.md)*
 `;
