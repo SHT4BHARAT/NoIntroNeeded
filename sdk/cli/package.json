@@ -1,0 +1,36 @@
+{
+  "name": "shivanshu",
+  "version": "1.0.0",
+  "description": "Official CLI for Shivanshu Tiwari portfolio APIs — project exploration, sandbox verification, and ephemeral self-serve test keys. Zero-install: npx shivanshu",
+  "license": "MIT",
+  "author": "Shivanshu Tiwari <sht4bharat@gmail.com>",
+  "homepage": "https://shivanshutiwari.in",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SHT4BHARAT/NoIntroNeeded.git",
+    "directory": "sdk/cli"
+  },
+  "keywords": [
+    "shivanshu",
+    "shivanshu-tiwari",
+    "cli",
+    "command-line",
+    "portfolio",
+    "api-client",
+    "ai-agents",
+    "sdk"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "bin": {
+    "shivanshu": "bin/shivanshu.js"
+  },
+  "files": [
+    "bin"
+  ],
+  "main": "bin/shivanshu.js",
+  "dependencies": {
+    "sht-portfolio-v2": "^1.0.2"
+  }
+}

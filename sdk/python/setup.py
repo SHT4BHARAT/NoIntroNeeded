@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="shivanshu-sdk",
-    version="1.0.1",
+    version="1.0.2",
     packages=find_packages(),
     description="Official Python SDK for Shivanshu Tiwari Portfolio APIs, project intelligence, and autonomous agent evaluation",
     long_description=open("README.md", encoding="utf-8").read(),
@@ -21,4 +21,5 @@ setup(
         "Operating System :: OS Independent",
     ],
     python_requires=">=3.9",
+    keywords=["shivanshutiwari", "shivanshu", "sdk", "cli", "command-line", "api-client", "ai-agents", "mcp", "portfolio"],
 )

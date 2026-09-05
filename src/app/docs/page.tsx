@@ -109,6 +109,11 @@ const docSections = [
         label: "Documentation MCP Server",
         note: "my tools for searching and retrieving documentation — server card at /.well-known/mcp/docs/server-card.json",
       },
+      {
+        href: "https://smithery.ai/server/@SHT4BHARAT/shivanshutiwari",
+        label: "MCP Registry Listings (Smithery / mcp.so)",
+        note: "my Streamable HTTP servers published to external agent registries for discoverability",
+      },
     ],
   },
   {

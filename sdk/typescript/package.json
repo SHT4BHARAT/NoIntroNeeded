@@ -1,6 +1,6 @@
 {
   "name": "sht-portfolio-v2",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Official TypeScript & JavaScript SDK and CLI for Shivanshu Tiwari Portfolio APIs, projects, and autonomous agent evaluation",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -19,8 +19,11 @@
   },
   "keywords": [
     "shivanshutiwari",
+    "shivanshu",
+    "shivanshu-tiwari",
     "sdk",
     "cli",
+    "command-line",
     "api-client",
     "ai-agents",
     "mcp",

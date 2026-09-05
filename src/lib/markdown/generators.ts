@@ -300,7 +300,7 @@ Documentation: [${SITE_URL}/developers/sdk](${SITE_URL}/developers/sdk)
 
 - **Product Actions MCP Server:** \`POST ${SITE_URL}/mcp\` (Server card: \`${SITE_URL}/.well-known/mcp/server-card.json\`)
 - **Documentation MCP Server:** \`POST ${SITE_URL}/mcp/docs\` (Server card: \`${SITE_URL}/.well-known/mcp/docs/server-card.json\`)
-- **MCP Distribution & Registries:** [NPM Package (sht-portfolio-v2)](https://www.npmjs.com/package/sht-portfolio-v2) • [Product MCP](${SITE_URL}/mcp) • [Docs MCP](${SITE_URL}/mcp/docs)
+- **MCP Distribution & Registries:** [NPM Package (sht-portfolio-v2)](https://www.npmjs.com/package/sht-portfolio-v2) • [CLI Package (shivanshu)](https://www.npmjs.com/package/shivanshu) • [Product MCP](${SITE_URL}/mcp) • [Docs MCP](${SITE_URL}/mcp/docs)
 `;
       return fm(`Shivanshu Tiwari Developer Portal & API Documentation`, "Developer portal for Shivanshu Tiwari — API docs, CLI tool, SDKs, OpenAPI, auth, MCP.", `${SITE_URL}/developers`) + body;
     }

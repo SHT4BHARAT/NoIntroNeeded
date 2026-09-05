@@ -83,8 +83,8 @@ export const developerResources: DeveloperResourceItem[] = [
     title: "Sandbox Environment & Ephemeral Keys",
     url: `${SITE_URL}/api/v1/sandbox/ping`,
     markdownUrl: `${SITE_URL}/developers.md#sandbox`,
-    description: "Isolated test environment returning X-Sandbox headers and self-serve 24-hour API keys via POST /api/v1/keys.",
-    tags: ["sandbox", "testing", "test", "keys", "ping", "mock", "ephemeral"],
+    description: "Isolated test environment returning X-Sandbox headers and self-serve 24-hour API keys via POST /api/v1/keys — free tier, no signup required.",
+    tags: ["sandbox", "testing", "test", "keys", "ping", "mock", "ephemeral", "free", "free-tier", "onboarding", "self-serve"],
   },
   {
     title: "Curated AI Navigation Index (llms.txt)",

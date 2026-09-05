@@ -2,6 +2,8 @@
 
 > AI-native backend systems engineer — autonomous agents, LLM pipelines, and production APIs. B.Tech CS & IT student at SIRT Bhopal (RGPV), Class of 2027.
 
+I offer a free tier, self-serve test keys (`POST /api/v1/keys`), and a sandbox environment (`GET /api/v1/sandbox/ping`) — no signup required, so agents and developers can onboard instantly.
+
 I don't just use AI — I build things with it that keep running after I close my laptop. I build things that work in production and prove it by deploying them. The standard I hold myself to: the system owns the task completely — no human in the loop to patch over gaps. 19 documented projects, honest writeups including negative results (DAITFO) and explicit limitation disclosures.
 
 ## About & Contact

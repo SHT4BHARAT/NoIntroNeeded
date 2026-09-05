@@ -115,6 +115,7 @@ function maybeNegotiate(request: NextRequest): NextResponse | Response | null {
 - **Pricing & Free Tiers:** ${origin}/pricing.md
 - **Sandbox Environment:** ${origin}/api/v1/sandbox/ping
 - **Self-Serve Test API Keys:** ${origin}/api/v1/keys
+- **Free Tier + Sandbox (no signup):** ${origin}/pricing.md — POST ${origin}/api/v1/keys generates an ephemeral test key; GET ${origin}/api/v1/sandbox/ping verifies the sandbox.
 - **Batch Endpoint:** ${origin}/api/v1/batch
 - **Async Jobs Dispatch:** ${origin}/api/v1/jobs
 - **Public Source Repository:** https://github.com/SHT4BHARAT/portfolio (AGENTS.md, .cursorrules, SKILL.md, plugin.json)
@@ -178,6 +179,15 @@ function maybeNegotiate(request: NextRequest): NextResponse | Response | null {
         discovery: `${origin}/.well-known/oauth-protected-resource`,
         authorizationServer: `${origin}/.well-known/oauth-authorization-server`,
       },
+      onboarding: {
+        freeTier: true,
+        cost: 0,
+        selfServeKeyGeneration: `${origin}/api/v1/keys`,
+        keyMethod: "POST /api/v1/keys",
+        sandbox: `${origin}/api/v1/sandbox/ping`,
+        noSignupRequired: true,
+        docs: `${origin}/pricing.md`,
+      },
       agent: {
         skills: `${origin}/.well-known/agent-skills/index.json`,
         card: `${origin}/.well-known/agent-card.json`,
@@ -195,10 +205,13 @@ function maybeNegotiate(request: NextRequest): NextResponse | Response | null {
       },
       cli: {
         command: "shivanshu",
-        run: "npx sht-portfolio-v2",
-        runRegistry: "npx sht-portfolio-v2",
-        install: "npm install -g sht-portfolio-v2",
-        registryInstall: "npm install -g sht-portfolio-v2",
+        run: "npx shivanshu",
+        runRegistry: "npx shivanshu",
+        runAlt: "npx sht-portfolio-v2",
+        install: "npm install -g shivanshu",
+        registryInstall: "npm install -g shivanshu",
+        registry: "https://www.npmjs.com/package/shivanshu",
+        sdkPackage: "sht-portfolio-v2",
         documentation: `${origin}/developers/cli`,
         features: ["projects", "project", "compare", "batch", "jobs", "keys", "sandbox", "mcp", "pricing", "contact", "--json"],
       },
@@ -249,6 +262,8 @@ function maybeNegotiate(request: NextRequest): NextResponse | Response | null {
           npm: "https://www.npmjs.com/package/sht-portfolio-v2",
           product: `${origin}/mcp`,
           docs: `${origin}/mcp/docs`,
+          smithery: "https://smithery.ai/server/@SHT4BHARAT/shivanshutiwari",
+          "mcp.so": "https://mcp.so/server/shivanshutiwari-product-server",
         },
       },
       documentation: {

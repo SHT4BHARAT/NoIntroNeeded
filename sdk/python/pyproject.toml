@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "shivanshu-sdk"
-version = "1.0.1"
+version = "1.0.2"
 description = "Official Python SDK for Shivanshu Tiwari Portfolio APIs, project intelligence, and autonomous agent evaluation"
 readme = "README.md"
 requires-python = ">=3.9"
@@ -12,7 +12,7 @@ license = { text = "MIT" }
 authors = [
   { name = "Shivanshu Tiwari", email = "sht4bharat@gmail.com" }
 ]
-keywords = ["shivanshutiwari", "sdk", "api-client", "ai-agents", "mcp", "portfolio"]
+keywords = ["shivanshutiwari", "shivanshu", "sdk", "cli", "command-line", "api-client", "ai-agents", "mcp", "portfolio"]
 classifiers = [
   "Programming Language :: Python :: 3",
   "License :: OSI Approved :: MIT License",

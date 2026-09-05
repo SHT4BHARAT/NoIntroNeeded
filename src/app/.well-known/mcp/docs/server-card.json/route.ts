@@ -12,6 +12,14 @@ export function GET() {
       registries: [
         { name: "npm", url: "https://www.npmjs.com/package/sht-portfolio-v2" },
         { name: "domain", url: `${SITE_URL}/mcp/docs` },
+        {
+          name: "smithery",
+          url: "https://smithery.ai/server/@SHT4BHARAT/shivanshutiwari-docs",
+        },
+        {
+          name: "mcp.so",
+          url: "https://mcp.so/server/shivanshutiwari-docs-server",
+        },
       ],
       repository: "https://github.com/SHT4BHARAT/portfolio",
       icon: `${SITE_URL}/favicon.ico`,
