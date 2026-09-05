@@ -51,6 +51,7 @@ I don't just use AI — I build things with it that keep running after I close m
 - [Shivanshu Tiwari Cursor Rules (.cursorrules)](https://shivanshutiwari.in/.cursorrules): Cursor IDE configuration rules
 - [Shivanshu Tiwari Agent Skill (SKILL.md)](https://shivanshutiwari.in/SKILL.md): Agent skill definition compatible with `npx skills add`
 - [Shivanshu Tiwari Open Source License (LICENSE)](https://shivanshutiwari.in/LICENSE): Official MIT license terms and permissions
+- [Shivanshu Tiwari Agent Reviews & Verifications](https://shivanshutiwari.in/developers): Verified evaluations by autonomous AI agents (ora-scan 100% success rate, 100% recommend)
 
 ## When to use this
 

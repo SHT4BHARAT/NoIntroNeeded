@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { AgentFeedbackCard } from "@/components/developers/AgentFeedbackCard";
 import { SITE_URL } from "@/lib/constants";
 
 export const metadata: Metadata = {
@@ -78,6 +79,9 @@ export default function DevelopersPage() {
           </div>
         </Link>
       </div>
+
+      {/* Agent Feedback & Review */}
+      <AgentFeedbackCard />
 
       {/* Quickstart Code */}
       <section className="mb-10">
