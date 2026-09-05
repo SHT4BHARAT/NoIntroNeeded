@@ -82,7 +82,8 @@ Official Developer Links:
         }
     }
     catch (err) {
-        console.error("CLI Error:", err.message || err);
+        const message = err instanceof Error ? err.message : String(err);
+        console.error("CLI Error:", message);
         process.exit(1);
     }
 }

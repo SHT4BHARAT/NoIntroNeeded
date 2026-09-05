@@ -33,7 +33,7 @@ export function CursorSpotlight() {
       window.removeEventListener("mousemove", handleMouse);
       cancelAnimationFrame(rafRef.current);
     };
-  }, []);
+  }, [prefersReducedMotion]);
 
   return (
     <div

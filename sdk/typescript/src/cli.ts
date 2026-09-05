@@ -89,8 +89,9 @@ Official Developer Links:
         console.error(`Unknown command: ${command}. Run "shivanshu help" for available commands.`);
         process.exit(1);
     }
-  } catch (err: any) {
-    console.error("CLI Error:", err.message || err);
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : String(err);
+    console.error("CLI Error:", message);
     process.exit(1);
   }
 }

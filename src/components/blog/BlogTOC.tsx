@@ -62,7 +62,7 @@ export function BlogTOC({ className }: { className?: string }) {
     for (const h of headings) io.observe(h);
 
     return () => io.disconnect();
-  }, []);
+  }, [prefersReducedMotion]);
 
   const toc = useMemo(() => {
     return items.map((item) => {

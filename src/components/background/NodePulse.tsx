@@ -152,7 +152,7 @@ export function NodePulse() {
       if (!prefersReducedMotion) cancelAnimationFrame(animId);
       ro.disconnect();
     };
-  }, []);
+  }, [prefersReducedMotion]);
 
   return (
     <canvas

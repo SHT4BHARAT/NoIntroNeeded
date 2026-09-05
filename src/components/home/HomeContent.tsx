@@ -25,7 +25,7 @@ function ScrollProgress() {
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  }, [prefersReducedMotion]);
 
   return (
     <div className="pointer-events-none fixed left-0 top-0 z-[60] h-[2px] w-full opacity-70">

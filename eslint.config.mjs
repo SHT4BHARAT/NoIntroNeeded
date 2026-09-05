@@ -20,6 +20,7 @@ const eslintConfig = defineConfig([
     "part1/**",
     "part2/**",
     "indiainnovate-blog/**",
+    "sdk/**",
   ]),
   {
     files: ["scripts/**/*.{js,cjs,mjs}"],

@@ -20,7 +20,7 @@ function getIsTouchDevice(): boolean {
   return "ontouchstart" in window;
 }
 
-export function PhotoStrip({ photos, category, children }: PhotoStripProps) {
+export function PhotoStrip({ photos, children }: PhotoStripProps) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const dragState = useRef({ isDown: false, startX: 0, scrollLeft: 0 });
 
