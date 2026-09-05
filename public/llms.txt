@@ -66,6 +66,7 @@ I don't just use AI — I build things with it that keep running after I close m
 ## Links & Discovery
 
 - [GitHub](https://github.com/SHT4BHARAT): Code and commit history for flagship projects
+- [Public Source Repository (SHT4BHARAT/portfolio)](https://github.com/SHT4BHARAT/portfolio): AGENTS.md, .cursorrules, SKILL.md, and plugin.json for AI coding agents — the agent configs powering this site
 - [LinkedIn](https://www.linkedin.com/in/shivanshutiwari-): Professional profile
 - [Sitemap](https://shivanshutiwari.in/sitemap.xml): Full URL list for discovery
 - [Markdown variants](https://acceptmarkdown.com/): Every page serves text/markdown via Accept: text/markdown (Vary: Accept) — also available as /path.md

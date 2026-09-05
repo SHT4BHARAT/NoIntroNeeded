@@ -1,4 +1,5 @@
 import { SITE_URL } from "@/lib/constants";
+import { productTools } from "@/lib/mcp/product-handler";
 
 export function GET() {
   return Response.json(
@@ -31,68 +32,7 @@ export function GET() {
         { src: `${SITE_URL}/favicon.ico`, sizes: "64x64", type: "image/x-icon" },
       ],
       instructions: "Use list_projects to enumerate projects, get_project for deep dives, compare_projects for tradeoffs, contact for hiring.",
-      tools: [
-        {
-          name: "list_projects",
-          description: "List all portfolio projects for Shivanshu Tiwari with tech stack, domain, and highlights.",
-          inputSchema: {
-            type: "object",
-            properties: {
-              domain: { type: "string", enum: ["ai-agents", "backend", "voice-ai", "rl"] },
-            },
-          },
-          annotations: { title: "List Projects", readOnlyHint: true, destructiveHint: false },
-        },
-        {
-          name: "get_project",
-          description: "Get comprehensive technical details, architecture, tradeoffs, and honest results for a specific project.",
-          inputSchema: {
-            type: "object",
-            properties: { slug: { type: "string", description: "Project slug" } },
-            required: ["slug"],
-          },
-          annotations: { title: "Get Project Details", readOnlyHint: true, destructiveHint: false },
-        },
-        {
-          name: "compare_projects",
-          description: "Compare technical architecture, benchmarks, and outcomes between two projects.",
-          inputSchema: {
-            type: "object",
-            properties: {
-              slugA: { type: "string", description: "First project slug" },
-              slugB: { type: "string", description: "Second project slug" },
-            },
-            required: ["slugA", "slugB"],
-          },
-          annotations: { title: "Compare Projects", readOnlyHint: true, destructiveHint: false },
-        },
-        {
-          name: "contact",
-          description: "Submit a message, internship inquiry, or collaboration request to Shivanshu Tiwari.",
-          inputSchema: {
-            type: "object",
-            properties: {
-              name: { type: "string" },
-              email: { type: "string", format: "email" },
-              message: { type: "string", minLength: 10 },
-            },
-            required: ["name", "email", "message"],
-          },
-          annotations: { title: "Contact", readOnlyHint: false, destructiveHint: false },
-        },
-        {
-          name: "get_api_catalog",
-          description: "Retrieve RFC 9727 API catalog and OpenAPI service descriptions for shivanshutiwari.in.",
-          inputSchema: {
-            type: "object",
-            properties: {
-              format: { type: "string", enum: ["json", "markdown"], description: "Format of the catalog representation" },
-            },
-            additionalProperties: false,
-          },
-          annotations: { title: "Get API Catalog", readOnlyHint: true, destructiveHint: false },
-        },
-      ],
+      tools: productTools,
     },
     {
       headers: {

@@ -61,6 +61,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE_URL}/mcp`, lastModified: new Date(), changeFrequency: "weekly" as const, priority: 0.4 as const },
     { url: `${BASE_URL}/mcp/docs`, lastModified: new Date(), changeFrequency: "weekly" as const, priority: 0.4 as const },
     { url: `${BASE_URL}/auth.md`, lastModified: new Date(), changeFrequency: "monthly" as const, priority: 0.4 as const },
+    { url: `${BASE_URL}/llms.txt`, lastModified: new Date(), changeFrequency: "monthly" as const, priority: 0.5 as const },
+    { url: `${BASE_URL}/AGENTS.md`, lastModified: new Date(), changeFrequency: "monthly" as const, priority: 0.4 as const },
+    { url: `${BASE_URL}/SKILL.md`, lastModified: new Date(), changeFrequency: "monthly" as const, priority: 0.4 as const },
+    { url: `${BASE_URL}/openapi.yaml`, lastModified: new Date(), changeFrequency: "weekly" as const, priority: 0.3 as const },
+    { url: `${BASE_URL}/.well-known/mcp/server-card.json`, lastModified: new Date(), changeFrequency: "weekly" as const, priority: 0.3 as const },
+    { url: `${BASE_URL}/.well-known/mcp/docs/server-card.json`, lastModified: new Date(), changeFrequency: "weekly" as const, priority: 0.3 as const },
   ];
 
   return [...staticPages, ...englishPosts, ...hindiPosts, ...projectPages, ...apiDocs];
