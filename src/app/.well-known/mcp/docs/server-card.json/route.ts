@@ -7,6 +7,7 @@ export function GET() {
       name: "Shivanshu Tiwari Portfolio Docs MCP",
       description: "Read-only MCP server for portfolio documentation — projects, markdown twins, blog, and sitemap. Streamable HTTP at /mcp/docs.",
       version: "1.0.0",
+      serverInfo: { name: "shivanshutiwari-docs-mcp", version: "1.0.0" },
       serverUrl: `${SITE_URL}/mcp/docs`,
       registryUrl: "https://www.npmjs.com/package/sht-portfolio-v2",
       registries: [
@@ -21,7 +22,7 @@ export function GET() {
           url: "https://mcp.so/server/shivanshutiwari-docs-server",
         },
       ],
-      repository: "https://github.com/SHT4BHARAT/portfolio",
+      repository: "https://github.com/SHT4BHARAT/NoIntroNeeded",
       icon: `${SITE_URL}/favicon.ico`,
       logo: `${SITE_URL}/favicon.ico`,
       icons: [

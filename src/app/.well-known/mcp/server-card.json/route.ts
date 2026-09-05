@@ -4,6 +4,7 @@ import { productTools } from "@/lib/mcp/product-handler";
 export function GET() {
   return Response.json(
     {
+      serverInfo: { name: "shivanshutiwari-product-mcp", version: "1.0.0" },
       name: "Shivanshu Tiwari Product MCP",
       id: "shivanshutiwari-product-mcp",
       description: "Product action MCP server for portfolio — list projects, compare architectures, submit contact, and query APIs. Streamable HTTP at /mcp.",
@@ -33,7 +34,7 @@ export function GET() {
           url: "https://mcp.so/server/shivanshutiwari-product-server",
         },
       ],
-      repository: "https://github.com/SHT4BHARAT/portfolio",
+      repository: "https://github.com/SHT4BHARAT/NoIntroNeeded",
       icon: `${SITE_URL}/favicon.ico`,
       logo: `${SITE_URL}/favicon.ico`,
       icons: [

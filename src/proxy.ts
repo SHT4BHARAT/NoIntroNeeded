@@ -118,7 +118,7 @@ function maybeNegotiate(request: NextRequest): NextResponse | Response | null {
 - **Free Tier + Sandbox (no signup):** ${origin}/pricing.md — POST ${origin}/api/v1/keys generates an ephemeral test key; GET ${origin}/api/v1/sandbox/ping verifies the sandbox.
 - **Batch Endpoint:** ${origin}/api/v1/batch
 - **Async Jobs Dispatch:** ${origin}/api/v1/jobs
-- **Public Source Repository:** https://github.com/SHT4BHARAT/portfolio (AGENTS.md, .cursorrules, SKILL.md, plugin.json)
+- **Public Source Repository:** https://github.com/SHT4BHARAT/NoIntroNeeded (AGENTS.md, .cursorrules, SKILL.md, plugin.json)
 - **SDK Documentation:** ${origin}/developers/sdk
 - **CLI Documentation:** ${origin}/developers/cli
 `;
@@ -274,15 +274,15 @@ function maybeNegotiate(request: NextRequest): NextResponse | Response | null {
         auth: `${origin}/auth.md`,
       },
       repository: {
-    primary: "https://github.com/SHT4BHARAT/portfolio",
-    type: "public-github",
-    description: "Public repo for agent configs (AGENTS.md, .cursorrules), SKILL.md, plugin.json, and the WebMCP tools powering this site.",
-    agentConfigs: ["https://shivanshutiwari.in/AGENTS.md", "https://shivanshutiwari.in/.cursorrules"],
-    sdkRepos: {
-      go: "https://github.com/SHT4BHARAT/Portfolio-Go-SDK",
-      typescript: "https://github.com/SHT4BHARAT/NoIntroNeeded/tree/main/sdk/typescript",
-    },
-  },
+        primary: "https://github.com/SHT4BHARAT/NoIntroNeeded",
+        type: "public-github",
+        description: "Public repo for agent configs (AGENTS.md, .cursorrules), SKILL.md, plugin.json, and the WebMCP tools powering this site.",
+        agentConfigs: ["https://shivanshutiwari.in/AGENTS.md", "https://shivanshutiwari.in/.cursorrules"],
+        sdkRepos: {
+          go: "https://github.com/SHT4BHARAT/Portfolio-Go-SDK",
+          typescript: "https://github.com/SHT4BHARAT/NoIntroNeeded/tree/main/sdk/typescript",
+        },
+      },
   sandbox: {
         url: `${origin}/api/v1/sandbox/ping`,
         environment: "sandbox",
