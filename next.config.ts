@@ -40,6 +40,11 @@ const nextConfig: NextConfig = {
         destination: "https://shivanshutiwari.in/:path*",
         permanent: true,
       },
+      {
+        source: "/work",
+        destination: "/experience",
+        permanent: true,
+      },
     ];
   },
   async headers() {

@@ -2,5 +2,5 @@
 
 > 19 projects — DAITFO, Agentic Honeypot, Samvad, PayoutEngine, CloudAuditEnv
 
-- [All projects](https://shivanshutiwari.in/#projects)
+- [All projects](https://shivanshutiwari.in/projects)
 - Example: `curl -H "Accept: text/markdown" https://shivanshutiwari.in/projects/daitfo`

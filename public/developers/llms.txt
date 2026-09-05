@@ -5,6 +5,7 @@
 ## Quickstart
 
 - [Developers portal](https://shivanshutiwari.in/developers): quickstart + endpoints + auth
+- [Documentation hub](https://shivanshutiwari.in/docs): all specs, SDKs, CLI, MCP, and agent resources in one place
 - [Main llms.txt](https://shivanshutiwari.in/llms.txt)
 - [Sitemap](https://shivanshutiwari.in/sitemap.xml) — 30+ URLs
 - [Agent skills](https://shivanshutiwari.in/.well-known/agent-skills/index.json)

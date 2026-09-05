@@ -10,6 +10,7 @@ I don't just use AI — I build things with it that keep running after I close m
 - [Contact](https://shivanshutiwari.in/contact): Internship inquiries, collaborations — email preferred (sht4bharat@gmail.com)
 - [Privacy](https://shivanshutiwari.in/privacy): What data is collected (hosting logs, Vercel Analytics, contact form) — no advertising tracking
 - [FAQ](https://shivanshutiwari.in/faq): What I build, tech stack, availability
+- [Services & Capabilities](https://shivanshutiwari.in/services): What I build, how I work, and what I'm looking for — stated plainly
 
 ## Projects
 
@@ -18,7 +19,7 @@ I don't just use AI — I build things with it that keep running after I close m
 - [DAITFO — RL Traffic Signal Benchmark](https://shivanshutiwari.in/projects/daitfo): Custom Gymnasium+SUMO env, 27 runs PPO vs heuristic — heuristic won, documented as finding
 - [CloudAuditEnv — LLM Agent Evaluation for Cloud Security](https://shivanshutiwari.in/projects/cloud-audit-env): Procedural AWS audit env for OpenENV MetaHackathon
 - [PayoutEngine — Concurrency-Safe Payout System](https://shivanshutiwari.in/projects/payout-engine): Immutable ledger, pessimistic locking, real threading tests proving double-spend safety
-- [All Projects](https://shivanshutiwari.in/#projects): 19 projects — ranked, with honest limitation notes where applicable
+- [All Projects](https://shivanshutiwari.in/projects): 19 projects — ranked, with honest limitation notes where applicable
 
 ## Case Studies & Experience
 
@@ -34,6 +35,7 @@ I don't just use AI — I build things with it that keep running after I close m
 
 - [Shivanshu Tiwari Site Search](https://shivanshutiwari.in/search): Unified search across developer resources, APIs, SDKs, CLI, 19 engineering projects, and technical writeups (API: `https://shivanshutiwari.in/api/search?q=<query>`, Markdown: `https://shivanshutiwari.in/search.md`)
 - [Shivanshu Tiwari Developer Portal](https://shivanshutiwari.in/developers): Comprehensive developer portal, endpoints, quickstarts, and testing surfaces
+- [Shivanshu Tiwari Documentation Hub](https://shivanshutiwari.in/docs): All developer documentation in one place — OpenAPI specs, auth guide, SDKs, CLI, MCP servers, and agent config files
 - [Shivanshu Tiwari Dedicated CLI Tool](https://shivanshutiwari.in/developers/cli): Official CLI tool (`npx shivanshu`) for instant project exploration, sandbox verification, and scripting (`--json`)
 - [Shivanshu Tiwari Multi-Language SDKs](https://shivanshutiwari.in/developers/sdk): Zero-dependency SDK packages for TypeScript (`npm i sht-portfolio-v2` on NPM), Python (`pip install shivanshu-sdk` on PyPI), Go (`go get github.com/SHT4BHARAT/Portfolio-Go-SDK`), and Ruby (`gem install shivanshu-sdk` on RubyGems)
 - [Shivanshu Tiwari OpenAPI Specification (JSON)](https://shivanshutiwari.in/openapi.json): Machine-readable OpenAPI 3.0.3 specification for portfolio APIs

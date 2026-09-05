@@ -190,6 +190,35 @@ export function staticPageMarkdown(pathname: string): string | null {
       body += `---\n*Source: ${SITE_URL}/faq*\n`;
       return fm(`FAQ — ${SITE_NAME}`, "Frequently asked questions about Shivanshu Tiwari — AI agent engineer and backend systems developer.", `${SITE_URL}/faq`) + body;
     }
+    case "projects": {
+      let body = `# Projects — ${SITE_NAME}\n\nI've built and documented ${projects.length} projects — autonomous AI agents, LLM pipelines, voice intelligence, reinforcement-learning benchmarks, and concurrency-safe backend systems. I document the stack I chose, the decisions I made, and — where things didn't work — exactly what I learned from the failure.\n\n`;
+      const featured = projects.filter((p) => p.featured);
+      const rest = projects.filter((p) => !p.featured);
+      if (featured.length) {
+        body += `## Featured Projects\n\n`;
+        for (const p of featured) {
+          body += `- [${p.title}](${SITE_URL}/projects/${p.slug}): ${p.description}\n`;
+        }
+        body += `\n`;
+      }
+      if (rest.length) {
+        body += `## All Projects\n\n`;
+        for (const p of rest) {
+          body += `- [${p.title}](${SITE_URL}/projects/${p.slug}): ${p.description}\n`;
+        }
+        body += `\n`;
+      }
+      body += `---\n*Source: ${SITE_URL}/projects*\n`;
+      return fm(`Projects — ${SITE_NAME}`, `All ${projects.length} projects I've built and documented — with honest writeups including what didn't work.`, `${SITE_URL}/projects`) + body;
+    }
+    case "docs": {
+      const body = `# Developer Documentation — ${SITE_NAME}\n\nI maintain this documentation so both humans and AI agents can integrate with my work without guessing. Everything is free, versioned, and machine-readable. Every page on this site also serves markdown via Accept: text/markdown or a .md sibling URL.\n\n## Start Here\n\n- [Developer Portal](${SITE_URL}/developers): my full API quickstart, endpoint reference, and testing guide\n- [AI Agent Navigation Index](${SITE_URL}/llms.txt): how I recommend agents navigate this site\n- [Site Search](${SITE_URL}/search): unified search across my projects and developer resources — also at ${SITE_URL}/api/search?q=<query>\n\n## API Reference\n\n- [OpenAPI 3.0.3 Spec (JSON)](${SITE_URL}/openapi.json): complete machine-readable schema for my REST endpoints\n- [OpenAPI 3.0.3 Spec (YAML)](${SITE_URL}/openapi.yaml): the same specification in YAML\n- [Authentication Guide](${SITE_URL}/auth.md): anonymous access plus self-serve ephemeral test keys\n- [Pricing & Service Tiers](${SITE_URL}/pricing.md): my tiers and rate limits — everything is currently free\n- [API Deprecation Policy](${SITE_URL}/developers/deprecation): my RFC 8594 Sunset header and 180-day notice commitments\n\n## SDKs & CLI\n\n- [Multi-Language SDKs](${SITE_URL}/developers/sdk): my client libraries for TypeScript (npm: sht-portfolio-v2), Python (PyPI: shivanshu-sdk), Go, and Ruby (shivanshu-sdk)\n- [Dedicated CLI Tool](${SITE_URL}/developers/cli): runs with zero installation: npx shivanshu\n\n## MCP Servers (Streamable HTTP)\n\n- [Product Actions MCP Server](${SITE_URL}/mcp): my tools for listing, fetching, and comparing projects, plus contact — server card at ${SITE_URL}/.well-known/mcp/server-card.json\n- [Documentation MCP Server](${SITE_URL}/mcp/docs): my tools for searching and retrieving documentation — server card at ${SITE_URL}/.well-known/mcp/docs/server-card.json\n\n## Agent Resources\n\n- [AGENTS.md](${SITE_URL}/AGENTS.md): my coding-agent instructions and conventions\n- [SKILL.md](${SITE_URL}/SKILL.md): my agent skill definition — compatible with npx skills add\n- [.cursorrules](${SITE_URL}/.cursorrules): my Cursor IDE rules\n- [Agent Plugin Manifest](${SITE_URL}/.well-known/plugin.json): my Agent Plugins manifest (agent-plugins.org)\n- [RFC 9727 API Catalog](${SITE_URL}/.well-known/api-catalog): my linkset for API discovery\n- [Agentic Resource Discovery](${SITE_URL}/.well-known/ard.json): my canonical resource catalog\n\n---\n*Source: ${SITE_URL}/docs*\n`;
+      return fm(`Developer Documentation & API Docs — ${SITE_NAME}`, "My documentation hub: OpenAPI spec, authentication guide, multi-language SDKs, CLI, dual MCP servers, and agent config files.", `${SITE_URL}/docs`) + body;
+    }
+    case "services": {
+      const body = `# Services & Capabilities — ${SITE_NAME}\n\nWhat I build, how I work, and what I'm looking for — stated plainly.\n\n## Autonomous AI Agents\n\nI build agents that own a task end-to-end — no human in the loop to patch over gaps. My Agentic Honeypot engages real scammers in live conversation and extracts fraud intelligence; my CloudAuditEnv tests whether LLM agents can remediate cloud vulnerabilities without breaking production. See [Agentic Honeypot](${SITE_URL}/projects/agentic-honey-pot).\n\n## Voice AI\n\nI build speech pipelines that hold up in production. My Samvad meeting assistant transcribes live via Sarvam AI over WebSocket, refines the transcript in three phases with a hallucination gate, and runs a post-meeting agent that extracts and emails assigned tasks. See [Samvad](${SITE_URL}/projects/samvad).\n\n## RL Systems & Evaluation\n\nI build controlled benchmarks and report what actually happens. My DAITFO project pits PPO reinforcement learning against a queue-based heuristic for traffic signal control — the heuristic won, and I documented that negative result as the finding itself. See [DAITFO](${SITE_URL}/projects/daitfo).\n\n## Backend Infrastructure\n\nI build concurrency-safe systems with proofs, not promises. My PayoutEngine uses pessimistic row locking and an immutable ledger, verified with real threading tests. I work day-to-day in FastAPI, Django, Node.js, PostgreSQL, Redis, and Docker. See [PayoutEngine](${SITE_URL}/projects/payout-engine).\n\n## How I Work\n\nI don't ship demos that only look good in a pitch. When something fails, I keep the result and document why instead of reframing it until it sounds better. My standard: the system owns the task completely. My project writeups include honest limitation disclosures and negative results — that's deliberate.\n\n## What I'm Looking For\n\nI'm actively looking for an AI or Software Engineering internship (remote or hybrid) where production deployment and verifiable testing matter more than demo polish. If that sounds like your team, I'd like to hear from you — see [Contact](${SITE_URL}/contact) or my [experience](${SITE_URL}/experience).\n\n---\n*Source: ${SITE_URL}/services*\n`;
+      return fm(`Services & Capabilities — ${SITE_NAME}`, "What I build, how I work, and what I'm looking for.", `${SITE_URL}/services`) + body;
+    }
     case "blog": {
       const posts = getAllPosts("en");
       let body = `# Blog — ${SITE_NAME}\n\nField notes, repo deep-dives, and technical commentary.\n\n`;

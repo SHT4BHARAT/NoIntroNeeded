@@ -43,6 +43,12 @@ export function Footer() {
           <Link href="/about" className="transition-colors duration-200 hover:text-foreground">
             About
           </Link>
+          <Link href="/projects" className="transition-colors duration-200 hover:text-foreground">
+            Projects
+          </Link>
+          <Link href="/docs" className="transition-colors duration-200 hover:text-foreground">
+            Docs
+          </Link>
           <Link href="/developers" className="transition-colors duration-200 hover:text-foreground">
             API Docs
           </Link>

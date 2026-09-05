@@ -88,7 +88,8 @@ ${message}
 ## Start here
 
 - [Home](https://shivanshutiwari.in/)
-- [Projects](https://shivanshutiwari.in/#projects)
+- [Projects](https://shivanshutiwari.in/projects)
+- [Developer Docs](https://shivanshutiwari.in/docs)
 - [About](https://shivanshutiwari.in/about)
 - [Contact](https://shivanshutiwari.in/contact)
 - [Blog](https://shivanshutiwari.in/blog)
