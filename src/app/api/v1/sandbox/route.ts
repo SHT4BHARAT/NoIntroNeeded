@@ -4,6 +4,10 @@ export function GET() {
   return Response.json(
     {
       environment: "sandbox",
+      freeTier: true,
+      free_tier: true,
+      selfServeKeys: true,
+      selfServeKeyGeneration: true,
       description: "Shivanshu Tiwari Portfolio API Sandbox Environment — test API integrations, contact submissions, and agent flows safely without touching production data.",
       baseUrl: `${SITE_URL}/api/v1`,
       headersRequired: {

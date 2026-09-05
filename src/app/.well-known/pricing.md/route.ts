@@ -219,6 +219,60 @@ AI agents can consume machine-readable pricing directly at [${SITE_URL}/pricing.
 - **Governing Law & Dispute Resolution:** All contractual agreements are governed by the laws of India, with jurisdiction in Bhopal, Madhya Pradesh.
 
 ---
+
+## 10. Self-Serve Test API Keys & Free Quotas
+
+Autonomous AI agents can generate ephemeral test credentials without human intervention:
+
+- **Generation Endpoint:** \`POST ${SITE_URL}/api/v1/keys\`
+- **Cost:** $0.00 (Zero billing, no payment card required)
+- **TTL Duration:** 24 hours per key
+- **Default Burst Quota:** 120 requests per minute
+- **Required Header:** \`Authorization: Bearer <apiKey>\` (Optional on public endpoints)
+
+\`\`\`bash
+curl -X POST "${SITE_URL}/api/v1/keys" \\
+  -H "Content-Type: application/json" \\
+  -d '{"client": "autonomous-evaluator"}'
+\`\`\`
+
+---
+
+## 11. Automated Cost Estimation for AI Agents
+
+For automated agent runtimes evaluating external tool invocation costs:
+
+| Resource Type | Unit of Measure | Unit Cost | Monthly Cap | Cost Certainty |
+| :--- | :--- | :--- | :--- | :--- |
+| **REST API Invocation** | Per 1,000 requests | $0.00 | None | 100% Free |
+| **Batch API Submissions** | Per batch (up to 50 operations) | $0.00 | None | 100% Free |
+| **MCP Tool Calls** | Per JSON-RPC execution | $0.00 | None | 100% Free |
+| **Markdown Twin Fetch** | Per document download | $0.00 | None | 100% Free |
+| **Async Background Jobs** | Per job submission | $0.00 | None | 100% Free |
+
+---
+
+## 12. Model Context Protocol (MCP) Resource Pricing
+
+All Model Context Protocol endpoints operate under an open-access policy:
+
+- **Product Actions MCP:** \`POST ${SITE_URL}/mcp\` — Free (5 tools available for project intelligence and contact actions)
+- **Documentation MCP:** \`POST ${SITE_URL}/mcp/docs\` — Free (3 tools for full markdown document retrieval and semantic search)
+- **SSE Transport:** Persistent Server-Sent Events streams do not incur duration-based metering charges.
+
+---
+
+## 13. Enterprise SLA & Custom Deployment Pricing
+
+Organizations requiring dedicated SLAs, guaranteed response times, or custom private infrastructure can request quotes:
+
+- **Dedicated Cloud Foundry Instance:** Isolated microservices running on enterprise edge nodes.
+- **Custom Webhook Targets:** Real-time push notifications for portfolio events, project changes, and contact routing.
+- **Support Matrix:** Direct Slack/Discord channel integration with Shivanshu Tiwari with sub-1-hour escalation response.
+- **Invoicing:** Flexible wire transfer (SWIFT / ACH), Stripe, or milestone-based escrow.
+
+---
+
 *Canonical Reference: [${SITE_URL}/pricing](${SITE_URL}/pricing) | Machine Twin: [${SITE_URL}/pricing.md](${SITE_URL}/pricing.md)*
 `;
 

@@ -5,7 +5,7 @@ import { SITE_URL } from "@/lib/constants";
 export const metadata: Metadata = {
   title: "Multi-Language SDKs & CLI — Shivanshu Tiwari Developers",
   description:
-    "Official SDK client libraries for TypeScript (NPM: sht-portfolio-v2) and Python (PyPI: shivanshu-sdk) to integrate with Shivanshu Tiwari portfolio APIs, projects, and autonomous agent evaluation.",
+    "Official SDK client libraries for TypeScript (NPM: sht-portfolio-v2), Python (PyPI: shivanshu-sdk), Go (Go module), and Ruby (RubyGems: shivanshu-sdk) to integrate with Shivanshu Tiwari portfolio APIs, projects, and autonomous agent evaluation.",
   alternates: {
     canonical: `${SITE_URL}/developers/sdk`,
     types: {
@@ -40,17 +40,37 @@ export default function SdkPage() {
           >
             <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
             <span className="text-muted">npm:</span>
-            <strong className="text-foreground">sht-portfolio-v2@1.0.0</strong>
+            <strong className="text-foreground">sht-portfolio-v2@1.0.1</strong>
           </a>
           <a
-            href="https://pypi.org/project/shivanshu-sdk/1.0.0/"
+            href="https://pypi.org/project/shivanshu-sdk/"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-3 py-1 text-xs font-mono transition-colors hover:border-accent"
           >
             <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
             <span className="text-muted">pypi:</span>
-            <strong className="text-foreground">shivanshu-sdk==1.0.0</strong>
+            <strong className="text-foreground">shivanshu-sdk==1.0.1</strong>
+          </a>
+          <a
+            href="https://pkg.go.dev/github.com/SHT4BHARAT/Portfolio-Go-SDK"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-3 py-1 text-xs font-mono transition-colors hover:border-accent"
+          >
+            <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+            <span className="text-muted">go:</span>
+            <strong className="text-foreground">github.com/SHT4BHARAT/Portfolio-Go-SDK</strong>
+          </a>
+          <a
+            href="https://rubygems.org/gems/shivanshu-sdk"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-3 py-1 text-xs font-mono transition-colors hover:border-accent"
+          >
+            <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+            <span className="text-muted">gem:</span>
+            <strong className="text-foreground">shivanshu-sdk</strong>
           </a>
           <Link
             href="/openapi.json"
@@ -68,13 +88,13 @@ export default function SdkPage() {
             Official Registry Distribution
           </div>
           <p className="leading-relaxed">
-            Both packages are published to official registries with zero runtime dependencies. Developers and automated AI agents can install them directly without private repository authentication or git clone overhead.
+            Official packages are distributed through global registries with zero runtime dependencies: NPM (`sht-portfolio-v2`), PyPI (`shivanshu-sdk`), the Go module proxy (`github.com/SHT4BHARAT/Portfolio-Go-SDK`), and RubyGems (`shivanshu-sdk`). Developers and automated AI agents can install them directly without private repository authentication or git clone overhead.
           </p>
         </div>
       </div>
 
       {/* Package Matrix Overview */}
-      <div className="mb-12 grid grid-cols-1 gap-4 sm:grid-cols-3">
+      <div className="mb-12 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
         <div className="rounded-xl border border-border bg-surface p-5">
           <div className="flex items-center justify-between mb-3">
             <span className="font-display font-semibold text-foreground">TypeScript / Node</span>
@@ -107,12 +127,54 @@ export default function SdkPage() {
           </pre>
           <div className="mt-3 flex items-center justify-between text-[11px]">
             <a
-              href="https://pypi.org/project/shivanshu-sdk/1.0.0/"
+              href="https://pypi.org/project/shivanshu-sdk/"
               target="_blank"
               rel="noopener noreferrer"
               className="text-accent hover:underline"
             >
               pypi.org/project/shivanshu-sdk &rarr;
+            </a>
+          </div>
+        </div>
+
+        <div className="rounded-xl border border-border bg-surface p-5">
+          <div className="flex items-center justify-between mb-3">
+            <span className="font-display font-semibold text-foreground">Go</span>
+            <span className="rounded bg-accent/10 px-2 py-0.5 font-mono text-[11px] text-accent">pkg.go.dev</span>
+          </div>
+          <p className="text-xs text-muted mb-2">Idiomatic typed client, context-aware methods, Go 1.21+.</p>
+          <pre className="overflow-x-auto rounded bg-background p-2.5 font-mono text-xs text-foreground border border-border">
+            <code>go get github.com/SHT4BHARAT/Portfolio-Go-SDK</code>
+          </pre>
+          <div className="mt-3 flex items-center justify-between text-[11px]">
+            <a
+              href="https://pkg.go.dev/github.com/SHT4BHARAT/Portfolio-Go-SDK"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-accent hover:underline"
+            >
+              pkg.go.dev/.../sdk/go &rarr;
+            </a>
+          </div>
+        </div>
+
+        <div className="rounded-xl border border-border bg-surface p-5">
+          <div className="flex items-center justify-between mb-3">
+            <span className="font-display font-semibold text-foreground">Ruby</span>
+            <span className="rounded bg-accent/10 px-2 py-0.5 font-mono text-[11px] text-accent">RubyGems</span>
+          </div>
+          <p className="text-xs text-muted mb-2">Standard library only, Ruby 3.0+.</p>
+          <pre className="overflow-x-auto rounded bg-background p-2.5 font-mono text-xs text-foreground border border-border">
+            <code>gem install shivanshu-sdk</code>
+          </pre>
+          <div className="mt-3 flex items-center justify-between text-[11px]">
+            <a
+              href="https://rubygems.org/gems/shivanshu-sdk"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-accent hover:underline"
+            >
+              rubygems.org/gems/shivanshu-sdk &rarr;
             </a>
           </div>
         </div>
@@ -195,7 +257,7 @@ run().catch(console.error);`}
         <div className="flex items-center justify-between mb-4">
           <h2 className="font-display text-xl font-semibold tracking-tight">2. Python SDK (`shivanshu-sdk`)</h2>
           <a
-            href="https://pypi.org/project/shivanshu-sdk/1.0.0/"
+            href="https://pypi.org/project/shivanshu-sdk/"
             target="_blank"
             rel="noopener noreferrer"
             className="font-mono text-xs text-accent hover:underline"
@@ -243,47 +305,123 @@ print("API Key:", key_data["apiKey"])`}
         </div>
       </section>
 
-      {/* Go / REST Section */}
+      {/* Go Section */}
       <section id="go" className="mb-14 rounded-xl border border-border bg-surface p-6 shadow-sm">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="font-display text-xl font-semibold tracking-tight">3. Go & Direct REST API</h2>
-          <Link
-            href="/openapi.json"
+          <h2 className="font-display text-xl font-semibold tracking-tight">3. Go SDK (`github.com/SHT4BHARAT/Portfolio-Go-SDK`)</h2>
+          <a
+            href="https://pkg.go.dev/github.com/SHT4BHARAT/Portfolio-Go-SDK"
+            target="_blank"
+            rel="noopener noreferrer"
             className="font-mono text-xs text-accent hover:underline"
           >
-            OpenAPI Spec &rarr;
-          </Link>
+            pkg.go.dev &rarr;
+          </a>
         </div>
         <p className="text-sm text-muted mb-4">
-          Standard HTTP integration using Go standard library primitives or any OpenAPI-compatible client generator.
+          Idiomatic typed Go client with context-aware methods, configurable base URL and API keys, and clean structs for all 19 portfolio projects. Install via the module proxy:
         </p>
 
         <div className="space-y-4">
           <div>
+            <p className="text-xs font-mono uppercase text-muted mb-1">Installation:</p>
+            <pre className="overflow-x-auto rounded-lg border border-border bg-background p-3 font-mono text-xs text-foreground">
+              <code>go get github.com/SHT4BHARAT/Portfolio-Go-SDK</code>
+            </pre>
+          </div>
+
+          <div>
             <p className="text-xs font-mono uppercase text-muted mb-1">Usage Example (Go):</p>
             <pre className="overflow-x-auto rounded-lg border border-border bg-background p-4 font-mono text-xs text-foreground">
-{`package main
+{`import (
+\t"context"
+\t"fmt"
+\t"log"
 
-import (
-	"fmt"
-	"io"
-	"log"
-	"net/http"
+\tshivanshu "github.com/SHT4BHARAT/Portfolio-Go-SDK"
 )
 
 func main() {
-	resp, err := http.Get("https://shivanshutiwari.in/api/v1/projects?domain=ai-agents")
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer resp.Body.Close()
+\tctx := context.Background()
+\tclient := shivanshu.NewClient()
 
-	body, err := io.ReadAll(resp.Body)
-	if err != nil {
-		log.Fatal(err)
-	}
-	fmt.Println("Projects:", string(body))
+\t// 1. List AI agent projects
+\tprojects, err := client.ListProjects(ctx, "ai-agents", 10, "")
+\tif err != nil {
+\t\tlog.Fatal(err)
+\t}
+\tfmt.Printf("Retrieved %d AI agent projects:\\n", len(projects.Data))
+
+\t// 2. Fetch specific project architecture
+\tdetails, err := client.GetProject(ctx, "agentic-honey-pot")
+\tif err != nil {
+\t\tlog.Fatal(err)
+\t}
+\tfmt.Printf("Architecture: %s\\n", details.Architecture.Summary)
+
+\t// 3. Generate ephemeral test key
+\tkey, err := client.GenerateKey(ctx)
+\tif err != nil {
+\t\tlog.Fatal(err)
+\t}
+\tfmt.Printf("Test key: %s\\n", key.APIKey)
 }`}
+            </pre>
+          </div>
+
+          <p className="text-xs text-muted">
+            Direct REST integration also works with any OpenAPI-compatible client generator — see the <Link href="/openapi.json" className="text-accent hover:underline">OpenAPI 3.0.3 spec</Link>.
+          </p>
+        </div>
+      </section>
+
+      {/* Ruby Section */}
+      <section id="ruby" className="mb-14 rounded-xl border border-border bg-surface p-6 shadow-sm">
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="font-display text-xl font-semibold tracking-tight">4. Ruby SDK (`shivanshu-sdk`)</h2>
+          <a
+            href="https://rubygems.org/gems/shivanshu-sdk"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-mono text-xs text-accent hover:underline"
+          >
+            RubyGems Package &rarr;
+          </a>
+        </div>
+        <p className="text-sm text-muted mb-4">
+          Zero-dependency Ruby 3.0+ client built on standard library primitives — ready for agent loops and automation scripts.
+        </p>
+
+        <div className="space-y-4">
+          <div>
+            <p className="text-xs font-mono uppercase text-muted mb-1">Installation:</p>
+            <pre className="overflow-x-auto rounded-lg border border-border bg-background p-3 font-mono text-xs text-foreground">
+              <code>gem install shivanshu-sdk</code>
+            </pre>
+          </div>
+
+          <div>
+            <p className="text-xs font-mono uppercase text-muted mb-1">Usage Example (Ruby):</p>
+            <pre className="overflow-x-auto rounded-lg border border-border bg-background p-4 font-mono text-xs text-foreground">
+{`require "shivanshu"
+
+client = Shivanshu::Client.new
+
+# 1. Query projects
+projects = client.list_projects(domain: "ai-agents")
+puts "Found #{projects["data"].length} AI agent projects"
+
+# 2. Get detailed architecture
+honeypot = client.get_project("agentic-honey-pot")
+puts "Architecture: #{honeypot.dig("architecture", "summary")}"
+
+# 3. Test sandbox ping
+sandbox = client.ping_sandbox
+puts "Sandbox status: #{sandbox["sandbox"]}"
+
+# 4. Generate ephemeral key
+key_data = client.generate_key
+puts "API Key: #{key_data["apiKey"]}"`}
             </pre>
           </div>
         </div>

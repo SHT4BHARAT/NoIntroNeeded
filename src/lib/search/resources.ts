@@ -17,11 +17,11 @@ export const developerResources: DeveloperResourceItem[] = [
     tags: ["developers", "developer", "api", "rest", "portal", "docs", "documentation", "hub", "quickstart"],
   },
   {
-    title: "Multi-Language SDKs (TypeScript, Python, Go)",
+    title: "Multi-Language SDKs (TypeScript, Python, Go, Ruby)",
     url: `${SITE_URL}/developers/sdk`,
     markdownUrl: `${SITE_URL}/developers/sdk.md`,
-    description: "Official zero-dependency SDK client packages for TypeScript (Node/Edge), Python (3.9+), and Go.",
-    tags: ["sdk", "sdks", "npm", "pypi", "python", "typescript", "javascript", "go", "golang", "client", "library", "package"],
+    description: "Official zero-dependency SDK client packages for TypeScript (Node/Edge), Python (3.9+), Go (1.21+), and Ruby (3.0+).",
+    tags: ["sdk", "sdks", "npm", "pypi", "python", "typescript", "javascript", "go", "golang", "ruby", "rubygems", "gem", "client", "library", "package"],
   },
   {
     title: "Dedicated CLI Tool (`npx shivanshu`)",

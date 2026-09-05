@@ -51,7 +51,7 @@ function maybeNegotiate(request: NextRequest): NextResponse | Response | null {
   const pathname = request.nextUrl.pathname;
   const search = request.nextUrl.searchParams;
 
-  // Never negotiate API/MCP/OpenAPI/auth.md — they have direct route handlers
+  // Never negotiate API/MCP/OpenAPI/auth.md â€” they have direct route handlers
   if (
     pathname.startsWith("/api") ||
     pathname.startsWith("/mcp") ||
@@ -81,7 +81,7 @@ function maybeNegotiate(request: NextRequest): NextResponse | Response | null {
   // API probes that would otherwise return HTML 404 should return JSON+WWW-Authenticate
   // /api/* is excluded from matcher (handled by api routes), so this only needs to catch top-level /v2, /agent
   if (pathname === "/v2" || pathname.startsWith("/v2/") || pathname.startsWith("/agent")) {
-    return new Response(JSON.stringify({ code: "not_found", message: "Not found — see /openapi.json", hint: "GET /openapi.json", requestId: `req_${Date.now()}` }), {
+    return new Response(JSON.stringify({ code: "not_found", message: "Not found â€” see /openapi.json", hint: "GET /openapi.json", requestId: `req_${Date.now()}` }), {
       status: 404,
       headers: {
         "Content-Type": "application/json; charset=utf-8",
@@ -91,13 +91,13 @@ function maybeNegotiate(request: NextRequest): NextResponse | Response | null {
     });
   }
 
-  // ?mode=agent → structured JSON/markdown view with api, agent, sdk, mcp, openapi signals (Access: Agent mode view)
+  // ?mode=agent â†’ structured JSON/markdown view with api, agent, sdk, mcp, openapi signals (Access: Agent mode view)
   if (search.get("mode") === "agent") {
     const origin = request.nextUrl.origin;
     const accept = request.headers.get("accept") ?? "";
 
     if (accept.includes("text/markdown")) {
-      const md = `# Shivanshu Tiwari — Agent Mode View
+      const md = `# Shivanshu Tiwari â€” Agent Mode View
 
 - **Product:** Shivanshu Tiwari Portfolio & Developer Portal
 - **API Base:** ${origin}
@@ -105,7 +105,8 @@ function maybeNegotiate(request: NextRequest): NextResponse | Response | null {
 - **Dedicated CLI Tool:** npx sht-portfolio-v2 (Guide: ${origin}/developers/cli)
 - **TypeScript / Node SDK:** npm install sht-portfolio-v2 (Registry: https://www.npmjs.com/package/sht-portfolio-v2, Guide: ${origin}/developers/sdk#typescript)
 - **Python SDK:** pip install shivanshu-sdk (Registry: https://pypi.org/project/shivanshu-sdk/, Guide: ${origin}/developers/sdk#python)
-- **Go SDK:** ${origin}/developers/sdk#go
+- **Go SDK:** go get github.com/SHT4BHARAT/Portfolio-Go-SDK (Module: https://pkg.go.dev/github.com/SHT4BHARAT/Portfolio-Go-SDK, Guide: ${origin}/developers/sdk#go)
+- **Ruby SDK:** gem install shivanshu-sdk (RubyGems: https://rubygems.org/gems/shivanshu-sdk, Guide: ${origin}/developers/sdk#ruby)
 - **OpenAPI Specification:** ${origin}/openapi.json
 - **AI Agent Navigation Index:** ${origin}/llms.txt
 - **Product Actions MCP Server:** ${origin}/mcp
@@ -129,7 +130,7 @@ function maybeNegotiate(request: NextRequest): NextResponse | Response | null {
     }
 
     const payload = {
-      product: "Shivanshu Tiwari — AI Agent & Backend Systems Developer",
+      product: "Shivanshu Tiwari â€” AI Agent & Backend Systems Developer",
       title: "Shivanshu Tiwari Portfolio & Developer Portal",
       mode: "agent",
       openapi: `${origin}/openapi.json`,
@@ -216,11 +217,23 @@ function maybeNegotiate(request: NextRequest): NextResponse | Response | null {
           documentation: `${origin}/developers/sdk#python`,
         },
         go: {
-          package: "shivanshu-sdk-go",
+          package: "github.com/SHT4BHARAT/Portfolio-Go-SDK",
+          install: "go get github.com/SHT4BHARAT/Portfolio-Go-SDK",
+          registryInstall: "go get github.com/SHT4BHARAT/Portfolio-Go-SDK",
+          registry: "https://pkg.go.dev/github.com/SHT4BHARAT/Portfolio-Go-SDK",
           documentation: `${origin}/developers/sdk#go`,
+        },
+        ruby: {
+          package: "shivanshu-sdk",
+          install: "gem install shivanshu-sdk",
+          registryInstall: "gem install shivanshu-sdk",
+          registry: "https://rubygems.org/gems/shivanshu-sdk",
+          documentation: `${origin}/developers/sdk#ruby`,
         },
         npm: "sht-portfolio-v2",
         pypi: "shivanshu-sdk",
+        gem: "shivanshu-sdk",
+        goModule: "github.com/SHT4BHARAT/Portfolio-Go-SDK",
         cli: "shivanshu",
         homepage: `${origin}/developers/sdk`,
       },

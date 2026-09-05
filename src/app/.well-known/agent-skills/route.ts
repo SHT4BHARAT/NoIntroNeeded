@@ -33,7 +33,7 @@ export function GET() {
         },
         {
           name: "portfolio-cli-sdk",
-          description: "When to use: programmatically interact via official CLI or multi-language SDKs (TypeScript, Python, Go)",
+          description: "When to use: programmatically interact via official CLI or multi-language SDKs (TypeScript, Python, Go, Ruby)",
           url: `${SITE_URL}/developers/sdk`,
           type: "skill-md",
           digest: "sha256:cli-sdk-integration-tools-v1",

@@ -93,7 +93,7 @@ export function getArdCatalog() {
         displayName: "Shivanshu Tiwari Multi-Language SDKs & CLI",
         type: "application/software-sdk+json",
         url: `${SITE_URL}/developers/sdk`,
-        description: "Official multi-language SDKs (TypeScript, Python, Go) and CLI tool (npx shivanshu) for portfolio APIs",
+        description: "Official multi-language SDKs (TypeScript, Python, Go, Ruby) and CLI tool (npx shivanshu) for portfolio APIs",
         representativeQueries: [
           "install shivanshu portfolio SDK",
           "run shivanshu CLI tool",

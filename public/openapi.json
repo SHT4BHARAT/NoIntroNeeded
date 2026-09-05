@@ -55,8 +55,16 @@
       "documentation": "https://shivanshutiwari.in/developers/sdk#python"
     },
     "go": {
-      "package": "shivanshu-sdk-go",
+      "package": "github.com/SHT4BHARAT/Portfolio-Go-SDK",
+      "install": "go get github.com/SHT4BHARAT/Portfolio-Go-SDK",
+      "registry": "https://pkg.go.dev/github.com/SHT4BHARAT/Portfolio-Go-SDK",
       "documentation": "https://shivanshutiwari.in/developers/sdk#go"
+    },
+    "ruby": {
+      "package": "shivanshu-sdk",
+      "install": "gem install shivanshu-sdk",
+      "registry": "https://rubygems.org/gems/shivanshu-sdk",
+      "documentation": "https://shivanshutiwari.in/developers/sdk#ruby"
     }
   },
   "x-search": {

@@ -40,6 +40,8 @@ npx skills add https://shivanshutiwari.in/SKILL.md
 # Or install official multi-language SDKs
 npm install sht-portfolio-v2
 pip install shivanshu-sdk
+go get github.com/SHT4BHARAT/Portfolio-Go-SDK
+gem install shivanshu-sdk
 \`\`\`
 
 ## Verification

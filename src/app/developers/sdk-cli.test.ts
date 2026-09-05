@@ -58,15 +58,48 @@ describe("CLI Tool & Multi-Language SDKs Integrity", () => {
     const modPath = path.join(repoRoot, "sdk/go/go.mod");
     const clientPath = path.join(repoRoot, "sdk/go/client.go");
     const readmePath = path.join(repoRoot, "sdk/go/README.md");
+    const docPath = path.join(repoRoot, "sdk/go/doc.go");
 
     expect(fs.existsSync(modPath)).toBe(true);
     expect(fs.existsSync(clientPath)).toBe(true);
     expect(fs.existsSync(readmePath)).toBe(true);
+    expect(fs.existsSync(docPath)).toBe(true);
 
     const goCode = fs.readFileSync(clientPath, "utf-8");
     expect(goCode).toContain("package shivanshu");
     expect(goCode).toContain("type Client struct");
     expect(goCode).toContain("func NewClient");
+
+    const mod = fs.readFileSync(modPath, "utf-8");
+    expect(mod).toContain("module github.com/SHT4BHARAT/Portfolio-Go-SDK");
+    expect(mod).not.toContain("portfolio/sdk/go");
+
+    const readme = fs.readFileSync(readmePath, "utf-8");
+    expect(readme).toContain("go get github.com/SHT4BHARAT/Portfolio-Go-SDK");
+    expect(readme).not.toContain("SHT4BHARAT/portfolio");
+  });
+
+  it("Ruby SDK files exist with homepage pointing to the product domain", () => {
+    const gemspecPath = path.join(repoRoot, "sdk/ruby/shivanshu-sdk.gemspec");
+    const entryPath = path.join(repoRoot, "sdk/ruby/lib/shivanshu.rb");
+    const clientPath = path.join(repoRoot, "sdk/ruby/lib/shivanshu/client.rb");
+    const readmePath = path.join(repoRoot, "sdk/ruby/README.md");
+
+    expect(fs.existsSync(gemspecPath)).toBe(true);
+    expect(fs.existsSync(entryPath)).toBe(true);
+    expect(fs.existsSync(clientPath)).toBe(true);
+    expect(fs.existsSync(readmePath)).toBe(true);
+
+    const gemspec = fs.readFileSync(gemspecPath, "utf-8");
+    expect(gemspec).toMatch(/spec\.name\s*=\s*"shivanshu-sdk"/);
+    expect(gemspec).toMatch(/spec\.homepage\s*=\s*"https:\/\/shivanshutiwari\.in"/);
+    expect(gemspec).toContain('spec.metadata["homepage_uri"] = "https://shivanshutiwari.in"');
+
+    const clientCode = fs.readFileSync(clientPath, "utf-8");
+    expect(clientCode).toContain("class Client");
+    expect(clientCode).toContain("def list_projects");
+    expect(clientCode).toContain("def get_project");
+    expect(clientCode).toContain("def generate_key");
   });
 
   it("generates markdown twins for developers/cli and developers/sdk", () => {

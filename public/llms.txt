@@ -35,7 +35,7 @@ I don't just use AI — I build things with it that keep running after I close m
 - [Shivanshu Tiwari Site Search](https://shivanshutiwari.in/search): Unified search across developer resources, APIs, SDKs, CLI, 19 engineering projects, and technical writeups (API: `https://shivanshutiwari.in/api/search?q=<query>`, Markdown: `https://shivanshutiwari.in/search.md`)
 - [Shivanshu Tiwari Developer Portal](https://shivanshutiwari.in/developers): Comprehensive developer portal, endpoints, quickstarts, and testing surfaces
 - [Shivanshu Tiwari Dedicated CLI Tool](https://shivanshutiwari.in/developers/cli): Official CLI tool (`npx shivanshu`) for instant project exploration, sandbox verification, and scripting (`--json`)
-- [Shivanshu Tiwari Multi-Language SDKs](https://shivanshutiwari.in/developers/sdk): Zero-dependency SDK packages for TypeScript (`npm i sht-portfolio-v2` on NPM), Python (`pip install shivanshu-sdk` on PyPI), and Go
+- [Shivanshu Tiwari Multi-Language SDKs](https://shivanshutiwari.in/developers/sdk): Zero-dependency SDK packages for TypeScript (`npm i sht-portfolio-v2` on NPM), Python (`pip install shivanshu-sdk` on PyPI), Go (`go get github.com/SHT4BHARAT/Portfolio-Go-SDK`), and Ruby (`gem install shivanshu-sdk` on RubyGems)
 - [Shivanshu Tiwari OpenAPI Specification (JSON)](https://shivanshutiwari.in/openapi.json): Machine-readable OpenAPI 3.0.3 specification for portfolio APIs
 - [Shivanshu Tiwari OpenAPI Specification (YAML)](https://shivanshutiwari.in/openapi.yaml): YAML format OpenAPI 3.0.3 specification
 - [Shivanshu Tiwari Authentication Guide (auth.md)](https://shivanshutiwari.in/auth.md): WorkOS auth.md walkthrough, agent_auth metadata, and discovery

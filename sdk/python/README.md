@@ -2,7 +2,7 @@
 
 Official Python client library for integrating with **Shivanshu Tiwari Portfolio APIs**, project catalogs, asynchronous background jobs, Model Context Protocol (MCP), and sandbox testing.
 
-[![PyPI version](https://img.shields.io/badge/pypi-v1.0.0-blue.svg)](https://pypi.org/project/shivanshu-sdk/)
+[![PyPI version](https://img.shields.io/badge/pypi-v1.0.1-blue.svg)](https://pypi.org/project/shivanshu-sdk/)
 [![Python 3.9+](https://img.shields.io/badge/python-3.9+-brightgreen.svg)](https://www.python.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 

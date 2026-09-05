@@ -14,7 +14,7 @@
   "homepage": "https://shivanshutiwari.in",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/SHT4BHARAT/portfolio.git",
+    "url": "git+https://github.com/SHT4BHARAT/NoIntroNeeded.git",
     "directory": "sdk/typescript"
   },
   "keywords": [

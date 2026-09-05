@@ -6,6 +6,9 @@ export async function POST() {
     {
       apiKey,
       tier: "sandbox",
+      freeTier: true,
+      free_tier: true,
+      sandbox: true,
       rateLimit: 120,
       expiresAt,
       message: "Ephemeral sandbox API key generated for automated AI agent integration testing. Valid for 24 hours.",

@@ -26,7 +26,7 @@ export function getPluginManifest() {
       },
       {
         name: "portfolio-cli-sdk",
-        description: "Programmatic CLI (npx shivanshu) and multi-language SDKs (TypeScript, Python, Go)",
+        description: "Programmatic CLI (npx shivanshu) and multi-language SDKs (TypeScript, Python, Go, Ruby)",
         entry: "sdk/",
       },
     ],

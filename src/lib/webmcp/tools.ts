@@ -416,7 +416,7 @@ export const searchBlogPostsTool: WebMCPToolDefinition = {
 export const searchDeveloperResourcesTool: WebMCPToolDefinition = {
   name: "search_developer_resources",
   description:
-    "Searches Shivanshu Tiwari's developer documentation, REST APIs, SDK packages (TypeScript, Python, Go), CLI tools, OpenAPI specifications, authentication guides, and MCP servers. Read-only.",
+    "Searches Shivanshu Tiwari's developer documentation, REST APIs, SDK packages (TypeScript, Python, Go, Ruby), CLI tools, OpenAPI specifications, authentication guides, and MCP servers. Read-only.",
   inputSchema: {
     type: "object",
     properties: {

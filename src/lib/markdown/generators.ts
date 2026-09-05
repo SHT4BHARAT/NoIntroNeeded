@@ -227,7 +227,8 @@ First-class client libraries with zero external runtime dependencies:
 
 - **TypeScript / Node.js:** \`npm install sht-portfolio-v2\` (Public registry: https://www.npmjs.com/package/sht-portfolio-v2)
 - **Python (3.9+):** \`pip install shivanshu-sdk\` (Public PyPI: https://pypi.org/project/shivanshu-sdk/)
-- **Go (1.21+):** Direct REST API / SDK documentation at [${SITE_URL}/developers/sdk#go](${SITE_URL}/developers/sdk#go)
+- **Go (1.21+):** \`go get github.com/SHT4BHARAT/Portfolio-Go-SDK\` (Public module: https://pkg.go.dev/github.com/SHT4BHARAT/Portfolio-Go-SDK, Guide: ${SITE_URL}/developers/sdk#go)
+- **Ruby (3.0+):** \`gem install shivanshu-sdk\` (Public RubyGems: https://rubygems.org/gems/shivanshu-sdk, Guide: ${SITE_URL}/developers/sdk#ruby)
 
 Documentation: [${SITE_URL}/developers/sdk](${SITE_URL}/developers/sdk)
 
@@ -326,7 +327,7 @@ npx shivanshu keys --json
     case "developers/sdk": {
       const body = `# Shivanshu Tiwari Multi-Language SDKs
 
-Official, zero-dependency client libraries for TypeScript, Python, and Go.
+Official, zero-dependency client libraries for TypeScript, Python, Go, and Ruby.
 
 > **Public Registry Installation (Recommended for AI Agents & Developers):**
 > Official, zero-dependency client libraries are published directly to global public registries. Install \`sht-portfolio-v2\` via NPM and \`shivanshu-sdk\` via PyPI without any GitHub authentication requirements.
@@ -378,37 +379,66 @@ honeypot = client.get_project("agentic-honey-pot")
 print(honeypot["architecture"])
 \`\`\`
 
-## 3. Go SDK & Direct HTTP
+## 3. Go SDK (\`github.com/SHT4BHARAT/Portfolio-Go-SDK\`)
 
-Go developers and agent scripts can consume the REST API directly, use the Go client guide at https://shivanshutiwari.in/developers/sdk#go, or generate custom clients from the OpenAPI 3.0.3 specification:
+Install via the Go module proxy:
+
+\`\`\`bash
+go get github.com/SHT4BHARAT/Portfolio-Go-SDK
+\`\`\`
+
+Usage:
 
 \`\`\`go
-package main
-
 import (
-    "fmt"
-    "net/http"
-    "io"
+    "context"
+    "log"
+
+    shivanshu "github.com/SHT4BHARAT/Portfolio-Go-SDK"
 )
 
 func main() {
-    resp, err := http.Get("${SITE_URL}/api/v1/projects?domain=ai-agents")
-    if err == nil {
-        defer resp.Body.Close()
-        body, _ := io.ReadAll(resp.Body)
-        fmt.Println(string(body))
+    client := shivanshu.NewClient()
+    projects, err := client.ListProjects(context.Background(), "ai-agents", 10, "")
+    if err != nil {
+        log.Fatal(err)
+    }
+    for _, p := range projects.Data {
+        log.Println(p.Title)
     }
 }
+\`\`\`
+
+Go client guide: ${SITE_URL}/developers/sdk#go
+
+## 4. Ruby SDK (\`shivanshu-sdk\`)
+
+Install via RubyGems:
+
+\`\`\`bash
+gem install shivanshu-sdk
+\`\`\`
+
+Usage:
+
+\`\`\`ruby
+require "shivanshu"
+
+client = Shivanshu::Client.new
+projects = client.list_projects(domain: "ai-agents")
+puts projects["data"].map { |p| p["title"] }
 \`\`\`
 
 ## Package Registries & Resources
 
 - NPM Package: \`https://www.npmjs.com/package/sht-portfolio-v2\`
 - PyPI Package: \`https://pypi.org/project/shivanshu-sdk/\`
+- Go Module: \`https://pkg.go.dev/github.com/SHT4BHARAT/Portfolio-Go-SDK\`
+- RubyGems Package: \`https://rubygems.org/gems/shivanshu-sdk\`
 - OpenAPI Specification: \`${SITE_URL}/openapi.json\`
 - Developer Portal: \`${SITE_URL}/developers/sdk\`
 `;
-      return fm(`Shivanshu Tiwari Multi-Language SDKs`, "Official TypeScript, Python, and Go SDKs for Shivanshu Tiwari portfolio APIs.", `${SITE_URL}/developers/sdk`) + body;
+      return fm(`Shivanshu Tiwari Multi-Language SDKs`, "Official TypeScript, Python, Go, and Ruby SDKs for Shivanshu Tiwari portfolio APIs.", `${SITE_URL}/developers/sdk`) + body;
     }
     case "developers/deprecation": {
       const body = `# Shivanshu Tiwari API Deprecation and Versioning Policy
@@ -443,7 +473,7 @@ Use the site search to locate engineering projects, developer documentation, SDK
 ## Developer Resources & Documentation
 
 - [Developer Portal](${SITE_URL}/developers) — \`${SITE_URL}/developers.md\`
-- [Multi-Language SDKs (TypeScript, Python, Go)](${SITE_URL}/developers/sdk) — \`${SITE_URL}/developers/sdk.md\`
+- [Multi-Language SDKs (TypeScript, Python, Go, Ruby)](${SITE_URL}/developers/sdk) — \`${SITE_URL}/developers/sdk.md\`
 - [Dedicated CLI Tool (npx shivanshu)](${SITE_URL}/developers/cli) — \`${SITE_URL}/developers/cli.md\`
 - [OpenAPI 3.0.3 Specification (JSON)](${SITE_URL}/openapi.json)
 - [OpenAPI 3.0.3 Specification (YAML)](${SITE_URL}/openapi.yaml)

@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "shivanshu-sdk"
-version = "1.0.0"
+version = "1.0.1"
 description = "Official Python SDK for Shivanshu Tiwari Portfolio APIs, project intelligence, and autonomous agent evaluation"
 readme = "README.md"
 requires-python = ">=3.9"
@@ -24,4 +24,5 @@ dependencies = []
 [project.urls]
 Homepage = "https://shivanshutiwari.in"
 Documentation = "https://shivanshutiwari.in/developers/sdk"
-Repository = "https://github.com/SHT4BHARAT/portfolio"
+Source = "https://github.com/SHT4BHARAT/NoIntroNeeded/tree/main/sdk/python"
+Repository = "https://github.com/SHT4BHARAT/NoIntroNeeded"

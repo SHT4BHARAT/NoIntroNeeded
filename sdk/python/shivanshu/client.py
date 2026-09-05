@@ -48,7 +48,7 @@ class ShivanshuClient:
 
         req_headers = {
             "Accept": "application/json",
-            "User-Agent": "shivanshu-python-sdk/1.0.0",
+            "User-Agent": "shivanshu-python-sdk/1.0.1",
         }
         if self.api_key:
             req_headers["Authorization"] = f"Bearer {self.api_key}"

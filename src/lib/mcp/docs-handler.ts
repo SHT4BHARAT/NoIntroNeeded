@@ -126,6 +126,8 @@ export async function handleDocsGet(req: Request) {
       serverUrl: `${SITE_URL}/mcp/docs`,
       instructions:
         "Shivanshu Tiwari Portfolio Docs MCP — search docs via llms.txt, retrieve markdown twins, and explore project writeups. Read-only.",
+      serverCard: `${SITE_URL}/.well-known/mcp/docs/server-card.json`,
+      card: `${SITE_URL}/.well-known/mcp/docs/server-card.json`,
       tools: docsTools,
       resources: docsResources,
       capabilities: {
@@ -139,6 +141,7 @@ export async function handleDocsGet(req: Request) {
         "Content-Type": "application/json; charset=utf-8",
         "MCP-Protocol-Version": "2024-11-05",
         "Cache-Control": "public, max-age=3600",
+        Link: `<${SITE_URL}/.well-known/mcp/docs/server-card.json>; rel="describedby", <${SITE_URL}/.well-known/mcp/docs/server-card.json>; rel="service-desc"`,
         ...CORS_HEADERS,
       },
     }
@@ -250,7 +253,7 @@ export async function handleDocsPost(req: Request) {
                   `- [${m.title}](${m.markdownUrl || m.url}): ${m.description}`
               )
               .join("\n")
-          : `- [Developer Portal](${SITE_URL}/developers.md): Comprehensive developer portal and endpoints\n- [SDKs & CLI](${SITE_URL}/developers/sdk.md): Zero-dependency SDKs for TypeScript, Python, Go and CLI\n- [Search Engine](${SITE_URL}/search.md): Unified portfolio search`;
+          : `- [Developer Portal](${SITE_URL}/developers.md): Comprehensive developer portal and endpoints\n- [SDKs & CLI](${SITE_URL}/developers/sdk.md): Zero-dependency SDKs for TypeScript, Python, Go, Ruby and CLI\n- [Search Engine](${SITE_URL}/search.md): Unified portfolio search`;
 
       result = {
         content: [

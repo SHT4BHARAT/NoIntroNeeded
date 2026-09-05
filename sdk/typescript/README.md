@@ -2,7 +2,7 @@
 
 Official typed client library for integrating with **Shivanshu Tiwari Portfolio APIs**, project catalogs, asynchronous background jobs, Model Context Protocol (MCP), and sandbox environments.
 
-[![npm version](https://img.shields.io/badge/npm-v1.0.0-blue.svg)](https://www.npmjs.com/package/sht-portfolio-v2)
+[![npm version](https://img.shields.io/badge/npm-v1.0.1-blue.svg)](https://www.npmjs.com/package/sht-portfolio-v2)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
 ## Installation

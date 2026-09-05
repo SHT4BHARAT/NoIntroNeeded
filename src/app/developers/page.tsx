@@ -6,7 +6,7 @@ import { SITE_URL } from "@/lib/constants";
 export const metadata: Metadata = {
   title: "Developers — Shivanshu Tiwari",
   description:
-    "Developer portal for shivanshutiwari.in — official multi-language SDKs (TypeScript, Python, Go), dedicated CLI tool, OpenAPI 3.0.3, Model Context Protocol (MCP), and sandbox testing.",
+    "Developer portal for shivanshutiwari.in — official multi-language SDKs (TypeScript, Python, Go, Ruby), dedicated CLI tool, OpenAPI 3.0.3, Model Context Protocol (MCP), and sandbox testing.",
   alternates: {
     canonical: `${SITE_URL}/developers`,
     types: {
@@ -69,10 +69,10 @@ export default function DevelopersPage() {
             <span className="font-display text-lg font-semibold text-foreground group-hover:text-accent">
               Multi-Language SDKs
             </span>
-            <span className="rounded bg-accent/10 px-2 py-0.5 font-mono text-xs text-accent">NPM & PyPI Live</span>
+            <span className="rounded bg-accent/10 px-2 py-0.5 font-mono text-xs text-accent">NPM · PyPI · Go · RubyGems</span>
           </div>
           <p className="text-sm text-muted mb-4">
-            Official client packages for TypeScript (<code className="text-accent">npm i sht-portfolio-v2</code>) and Python (<code className="text-accent">pip install shivanshu-sdk</code>). Zero external dependencies.
+            Official client packages for TypeScript (<code className="text-accent">npm i sht-portfolio-v2</code>), Python (<code className="text-accent">pip install shivanshu-sdk</code>), Go (<code className="text-accent">go get github.com/SHT4BHARAT/Portfolio-Go-SDK</code>), and Ruby (<code className="text-accent">gem install shivanshu-sdk</code>). Zero external dependencies.
           </p>
           <div className="font-mono text-xs text-accent flex items-center gap-1">
             View SDK documentation &rarr;
@@ -94,6 +94,8 @@ npx sht-portfolio-v2 ping
 # 2. Multi-Language SDKs (Official Public Registries)
 npm install sht-portfolio-v2                       # TypeScript & JavaScript (NPM)
 pip install shivanshu-sdk                          # Python 3.9+ (PyPI)
+go get github.com/SHT4BHARAT/Portfolio-Go-SDK  # Go 1.21+ (Go module proxy)
+gem install shivanshu-sdk                          # Ruby 3.0+ (RubyGems)
 
 # 3. Direct HTTP API, Search, and Markdown Twins
 curl -s https://shivanshutiwari.in/api/search?q=developer
