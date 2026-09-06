@@ -65,46 +65,6 @@ export const productTools = [
       openWorldHint: false,
     },
   },
-  {
-    name: "contact",
-    description: "Submit a message, internship inquiry, or collaboration request to Shivanshu Tiwari.",
-    inputSchema: {
-      type: "object",
-      properties: {
-        name: { type: "string", description: "Sender name" },
-        email: { type: "string", format: "email", description: "Sender email address" },
-        message: { type: "string", minLength: 10, description: "Message content" },
-      },
-      required: ["name", "email", "message"],
-    },
-    annotations: {
-      title: "Contact",
-      readOnlyHint: false,
-      destructiveHint: false,
-      openWorldHint: true,
-    },
-  },
-  {
-    name: "get_api_catalog",
-    description: "Retrieve RFC 9727 API catalog and OpenAPI service descriptions for shivanshutiwari.in.",
-    inputSchema: {
-      type: "object",
-      properties: {
-        format: {
-          type: "string",
-          enum: ["json", "markdown"],
-          description: "Format of the catalog representation",
-        },
-      },
-      additionalProperties: false,
-    },
-    annotations: {
-      title: "Get API Catalog",
-      readOnlyHint: true,
-      destructiveHint: false,
-      openWorldHint: false,
-    },
-  },
 ];
 
 export const productResources = [
@@ -168,7 +128,7 @@ export async function handleProductGet(req: Request) {
         { type: "streamable-http", url: `${SITE_URL}/mcp` },
       ],
       instructions:
-        "Shivanshu Tiwari Product MCP — use list_projects to enumerate projects, get_project for deep dives, compare_projects to analyze tradeoffs, and contact for hiring inquiries.",
+        "Shivanshu Tiwari Product MCP — use list_projects to enumerate projects, get_project for deep dives, and compare_projects to analyze tradeoffs. Read-only.",
       tools: productTools,
       resources: productResources,
       capabilities: {
@@ -212,7 +172,7 @@ export async function handleProductPost(req: Request) {
         version: "1.0.0",
       },
       instructions:
-        "Shivanshu Tiwari Product MCP — use list_projects to enumerate 19 projects, get_project for deep dives, compare_projects for tradeoffs, contact for hiring.",
+        "Shivanshu Tiwari Product MCP — use list_projects to enumerate 19 projects, get_project for deep dives, and compare_projects for tradeoffs. Read-only.",
     };
   } else if (method === "notifications/initialized") {
     return new Response(null, {

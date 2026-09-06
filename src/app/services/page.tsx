@@ -26,24 +26,28 @@ export const metadata: Metadata = {
 
 const capabilities = [
   {
+    kicker: "agents",
     title: "Autonomous AI Agents",
     body: "I build agents that own a task end-to-end — no human in the loop to patch over gaps. My Agentic Honeypot engages real scammers in live conversation and extracts fraud intelligence; my CloudAuditEnv tests whether LLM agents can remediate cloud vulnerabilities without breaking production.",
     href: "/projects/agentic-honey-pot",
     hrefLabel: "See Agentic Honeypot",
   },
   {
+    kicker: "voice",
     title: "Voice AI",
     body: "I build speech pipelines that hold up in production. My Samvad meeting assistant transcribes live via Sarvam AI over WebSocket, refines the transcript in three phases with a hallucination gate, and runs a post-meeting agent that extracts and emails assigned tasks.",
     href: "/projects/samvad",
     hrefLabel: "See Samvad",
   },
   {
+    kicker: "rl-eval",
     title: "RL Systems & Evaluation",
     body: "I build controlled benchmarks and report what actually happens. My DAITFO project pits PPO reinforcement learning against a queue-based heuristic for traffic signal control — the heuristic won, and I documented that negative result as the finding itself.",
     href: "/projects/daitfo",
     hrefLabel: "See DAITFO",
   },
   {
+    kicker: "backend",
     title: "Backend Infrastructure",
     body: "I build concurrency-safe systems with proofs, not promises. My PayoutEngine uses pessimistic row locking and an immutable ledger, verified with real threading tests. I work day-to-day in FastAPI, Django, Node.js, PostgreSQL, Redis, and Docker.",
     href: "/projects/payout-engine",
@@ -63,7 +67,12 @@ export default function ServicesPage() {
 
       <div className="mx-auto max-w-3xl flex-1 px-4 py-20">
         <RevealOnScroll>
-          <h1 className="font-display text-3xl font-bold tracking-tight">
+          <p className="font-mono text-xs text-muted">
+            <span className="text-accent">[</span> {capabilities.length} disciplines ·{" "}
+            <span className="text-verified">status: open to internships</span>{" "}
+            <span className="text-accent">]</span>
+          </p>
+          <h1 className="mt-2 font-display text-3xl font-bold tracking-tight">
             Services &amp; Capabilities
           </h1>
           <p className="mt-3 text-muted">
@@ -75,7 +84,8 @@ export default function ServicesPage() {
           {capabilities.map((cap, i) => (
             <RevealOnScroll key={cap.title} index={i}>
               <div className="rounded-lg border border-border bg-card p-6">
-                <h2 className="text-lg font-semibold">{cap.title}</h2>
+                <p className="font-mono text-xs text-accent">{cap.kicker}</p>
+                <h2 className="mt-1 text-lg font-semibold">{cap.title}</h2>
                 <p className="mt-2 text-sm leading-relaxed text-muted">{cap.body}</p>
                 <Link
                   href={cap.href}

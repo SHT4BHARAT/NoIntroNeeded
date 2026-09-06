@@ -4,6 +4,9 @@ import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import { RoleProvider } from "@/components/providers/RoleProvider";
+import { AgentModeProvider } from "@/components/providers/AgentModeProvider";
+import { AgentModeToggle } from "@/components/agent-mode/AgentModeToggle";
+import { AgentModeContainer } from "@/components/agent-mode/AgentModeContainer";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { ScrollToTop } from "@/components/layout/ScrollToTop";
@@ -87,7 +90,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" data-scroll-behavior="smooth" className={`${geist.variable} ${jetbrainsMono.variable}`} suppressHydrationWarning style={{ colorScheme: "dark light" }}>
+    <html lang="en" data-scroll-behavior="smooth" className={`${geist.variable} ${jetbrainsMono.variable}`} suppressHydrationWarning>
       <head>
         {/* RFC 8288: sitemap + markdown alternate advertised both as Link header and HTML */}
         <link rel="sitemap" href="/sitemap.xml" />
@@ -125,12 +128,17 @@ export default function RootLayout({
         <DeclarativeWebMCP />
         <ThemeProvider>
           <RoleProvider>
-            <Header />
-            <RoleSelectorModal />
-            <main id="main-content" className="flex flex-1 flex-col">{children}</main>
-            <ScrollToTop />
-            <Analytics />
-            <Footer />
+            <AgentModeProvider>
+              <Header />
+              <RoleSelectorModal />
+              <main id="main-content" className="flex flex-1 flex-col">
+                <AgentModeContainer>{children}</AgentModeContainer>
+              </main>
+              <AgentModeToggle />
+              <ScrollToTop />
+              <Analytics />
+              <Footer />
+            </AgentModeProvider>
           </RoleProvider>
         </ThemeProvider>
       </body>

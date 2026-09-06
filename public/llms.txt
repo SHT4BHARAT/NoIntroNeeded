@@ -37,6 +37,7 @@ I don't just use AI — I build things with it that keep running after I close m
 
 - [Shivanshu Tiwari Site Search](https://shivanshutiwari.in/search): Unified search across developer resources, APIs, SDKs, CLI, 19 engineering projects, and technical writeups (API: `https://shivanshutiwari.in/api/search?q=<query>`, Markdown: `https://shivanshutiwari.in/search.md`)
 - [Shivanshu Tiwari Developer Portal](https://shivanshutiwari.in/developers): Comprehensive developer portal, endpoints, quickstarts, and testing surfaces
+- [Shivanshu Tiwari API Sandbox & Test Environment](https://shivanshutiwari.in/sandbox): 1-click self-serve test API keys, simulated contact dispatch, and connectivity ping for automated agents
 - [Shivanshu Tiwari Documentation Hub](https://shivanshutiwari.in/docs): All developer documentation in one place — OpenAPI specs, auth guide, SDKs, CLI, MCP servers, and agent config files
 - [Shivanshu Tiwari Dedicated CLI Tool](https://shivanshutiwari.in/developers/cli): Official CLI tool (`npx shivanshu`) for instant project exploration, sandbox verification, and scripting (`--json`)
 - [Shivanshu Tiwari Multi-Language SDKs](https://shivanshutiwari.in/developers/sdk): Zero-dependency SDK packages for TypeScript (`npm i sht-portfolio-v2` on NPM), Python (`pip install shivanshu-sdk` on PyPI), Go (`go get github.com/SHT4BHARAT/Portfolio-Go-SDK`), and Ruby (`gem install shivanshu-sdk` on RubyGems)

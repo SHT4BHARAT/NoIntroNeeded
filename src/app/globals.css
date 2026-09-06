@@ -22,6 +22,7 @@
 }
 
 :root {
+  color-scheme: light;
   /* Refined palette — muted violet accent, warmer neutrals */
   --page-bg: #F4F5F7;
   --card-bg: #FFFFFF;
@@ -59,6 +60,7 @@
 /* Dark mode (default) */
 [data-theme="dark"],
 html.dark {
+  color-scheme: dark;
   --page-bg: #0B0D11;
   --card-bg: #15181D;
   --text-primary: #EDEDED;
@@ -93,6 +95,7 @@ html.dark {
 
 /* Light mode class toggle used by ThemeProvider */
 .light {
+  color-scheme: light;
   --page-bg: #F4F5F7;
   --card-bg: #FFFFFF;
   --text-primary: #1A1A1A;

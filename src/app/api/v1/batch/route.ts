@@ -1,3 +1,7 @@
+// Cap batch size so a multi-megabyte request can't be mirrored back
+// as an even larger response (free bandwidth amplification + serverless cost).
+const MAX_BATCH_ITEMS = 100;
+
 export async function POST(req: Request) {
   const body = await req.json().catch(() => ({}));
   const idem = req.headers.get("Idempotency-Key");
@@ -6,24 +10,30 @@ export async function POST(req: Request) {
   let results: Array<{ id: string | number; status: string; data?: unknown }> = [];
 
   if (Array.isArray(body)) {
-    results = body.map((item, idx) => ({
+    results = body.slice(0, MAX_BATCH_ITEMS).map((item, idx) => ({
       id: item?.id ?? idx,
       status: "ok",
       data: item?.jsonrpc ? { jsonrpc: "2.0", id: item.id, result: { status: "ok" } } : { executed: true },
     }));
   } else {
     const list = body.operations || body.requests || body.batch || [];
-    results = list.map((item: { id?: string | number; op?: string; path?: string }, idx: number) => ({
+    results = list.slice(0, MAX_BATCH_ITEMS).map((item: { id?: string | number; op?: string; path?: string }, idx: number) => ({
       id: item?.id ?? idx,
       status: "ok",
       data: { op: item?.op ?? item?.path ?? "unknown", executed: true },
     }));
   }
 
+  const totalSubmitted = Array.isArray(body)
+    ? body.length
+    : (body.operations || body.requests || body.batch || []).length;
+  const skipped = Math.max(0, totalSubmitted - results.length);
+
   return Response.json(
     {
       results,
       count: results.length,
+      ...(skipped > 0 ? { skipped, note: `Batch limited to ${MAX_BATCH_ITEMS} items; ${skipped} skipped` } : {}),
       idempotencyKey: idem ?? null,
       status: "success",
     },

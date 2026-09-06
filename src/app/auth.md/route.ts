@@ -1,6 +1,13 @@
 import { SITE_URL } from "@/lib/constants";
 
-const body = `# Authentication Guide — Shivanshu Tiwari Portfolio API
+const body = `---
+title: "Authentication Guide & API Credentials — Shivanshu Tiwari"
+description: "Authentication protocol, credentials, WorkOS auth.md specification, and ephemeral sandbox API keys for Shivanshu Tiwari Portfolio APIs."
+canonical: "${SITE_URL}/auth.md"
+lastUpdated: "2026-09-05"
+---
+
+# Authentication Guide — Shivanshu Tiwari Portfolio API
 
 This guide defines the authentication protocol, credentials, and identity assertions for the **Shivanshu Tiwari Portfolio API** following the [WorkOS auth.md specification](https://github.com/workos/auth.md).
 

@@ -62,6 +62,8 @@ function maybeNegotiate(request: NextRequest): NextResponse | Response | null {
     pathname === "/AGENTS.md" ||
     pathname === "/SKILL.md" ||
     pathname === "/pricing.md" ||
+    pathname.startsWith("/agentic_commerce") ||
+    pathname.startsWith("/agentic-commerce") ||
     (pathname.startsWith("/.well-known/") && !pathname.endsWith(".md"))
   ) {
     return null;
@@ -78,10 +80,47 @@ function maybeNegotiate(request: NextRequest): NextResponse | Response | null {
     return NextResponse.rewrite(url);
   }
 
+  // /sandbox with Accept: application/json → machine-readable JSON status (Access: Agent onboarding)
+  if (pathname === "/sandbox" && (request.headers.get("accept") ?? "").includes("application/json")) {
+    const origin = request.nextUrl.origin;
+    return Response.json(
+      {
+        environment: "sandbox",
+        status: "ready",
+        sandbox: true,
+        freeTier: true,
+        free_tier: true,
+        selfServeKeys: true,
+        selfServeKeyGeneration: true,
+        description: "Shivanshu Tiwari Portfolio API Sandbox Environment — live testing surface for autonomous AI agents and developers.",
+        baseUrl: `${origin}/api/v1`,
+        endpoints: {
+          ping: `${origin}/api/v1/sandbox/ping`,
+          keys: `${origin}/api/v1/keys`,
+          contact: `${origin}/api/v1/sandbox/contact`,
+          projects: `${origin}/api/v1/projects`,
+        },
+        documentation: `${origin}/developers`,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json; charset=utf-8",
+          "X-Sandbox": "true",
+          "Access-Control-Allow-Origin": "*",
+          Vary: "Accept",
+        },
+      }
+    );
+  }
+
   // API probes that would otherwise return HTML 404 should return JSON+WWW-Authenticate
   // /api/* is excluded from matcher (handled by api routes), so this only needs to catch top-level /v2, /agent
-  if (pathname === "/v2" || pathname.startsWith("/v2/") || pathname.startsWith("/agent")) {
-    return new Response(JSON.stringify({ code: "not_found", message: "Not found â€” see /openapi.json", hint: "GET /openapi.json", requestId: `req_${Date.now()}` }), {
+  if (
+    pathname === "/v2" ||
+    pathname.startsWith("/v2/") ||
+    (pathname.startsWith("/agent") && !pathname.startsWith("/agentic_commerce") && !pathname.startsWith("/agentic-commerce") && !pathname.startsWith("/agents"))
+  ) {
+    return new Response(JSON.stringify({ code: "not_found", message: "Not found — see /openapi.json", hint: "GET /openapi.json", requestId: `req_${Date.now()}` }), {
       status: 404,
       headers: {
         "Content-Type": "application/json; charset=utf-8",

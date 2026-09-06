@@ -165,8 +165,13 @@ export default function DocsPage() {
 
       <div className="mx-auto max-w-3xl flex-1 px-4 py-20">
         <RevealOnScroll>
-          <h1 className="font-display text-3xl font-bold tracking-tight">
-            Developer Documentation
+          <p className="font-mono text-xs text-muted">
+            <span className="text-accent">[</span> {docSections.length} sections ·{" "}
+            {docSections.reduce((n, s) => n + s.links.length, 0)} links{" "}
+            <span className="text-accent">]</span>
+          </p>
+          <h1 className="mt-2 font-display text-3xl font-bold tracking-tight">
+            Shivanshu Tiwari — Developer Documentation &amp; API Docs
           </h1>
           <p className="mt-3 max-w-prose text-muted">
             I maintain this documentation so both humans and AI agents can integrate with my work
@@ -181,9 +186,14 @@ export default function DocsPage() {
           {docSections.map((section, i) => (
             <RevealOnScroll key={section.heading} index={i}>
               <section>
-                <h2 className="font-display text-sm font-semibold uppercase tracking-widest text-muted">
-                  {section.heading}
-                </h2>
+                <div className="flex items-baseline justify-between gap-4">
+                  <h2 className="font-display text-lg font-semibold tracking-tight">
+                    {section.heading}
+                  </h2>
+                  <span className="font-mono text-xs text-muted">
+                    [ {String(section.links.length).padStart(2, "0")} ]
+                  </span>
+                </div>
                 <ul className="mt-4 space-y-3">
                   {section.links.map((link) => (
                     <li key={link.href} className="rounded-lg border border-border bg-card p-4">

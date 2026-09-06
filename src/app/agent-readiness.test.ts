@@ -37,7 +37,12 @@ describe("MCP server handshake", () => {
     );
     expect(res.status).toBe(200);
     const body = await res.json();
-    expect(body.result.tools.length).toBeGreaterThanOrEqual(4);
+    expect(body.result.tools.length).toBe(3);
+    expect(body.result.tools.map((t: { name: string }) => t.name)).toEqual([
+      "list_projects",
+      "get_project",
+      "compare_projects",
+    ]);
   });
 });
 

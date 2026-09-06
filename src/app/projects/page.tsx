@@ -31,6 +31,7 @@ export default function ProjectsPage() {
   const ordered = [...projects].sort(
     (a, b) => Number(b.featured ?? false) - Number(a.featured ?? false),
   );
+  const featuredCount = projects.filter((p) => p.featured).length;
 
   return (
     <>
@@ -49,7 +50,12 @@ export default function ProjectsPage() {
 
       <div className="mx-auto max-w-5xl flex-1 px-4 py-20">
         <RevealOnScroll>
-          <h1 className="font-display text-3xl font-bold tracking-tight sm:text-4xl">Projects</h1>
+          <p className="font-mono text-xs text-muted">
+            <span className="text-accent">[</span> {projects.length} projects ·{" "}
+            {String(featuredCount).padStart(2, "0")} featured{" "}
+            <span className="text-accent">]</span>
+          </p>
+          <h1 className="mt-2 font-display text-3xl font-bold tracking-tight sm:text-4xl">Projects</h1>
           <p className="mt-3 max-w-prose text-base text-muted">
             Everything I&apos;ve built and documented — {projects.length} projects spanning
             autonomous AI agents, LLM pipelines, voice intelligence, reinforcement-learning

@@ -6,7 +6,7 @@ export function GET() {
     {
       name: "Shivanshu Tiwari Product MCP",
       id: "shivanshutiwari-product-mcp",
-      description: "Product action MCP server for portfolio — list projects, compare architectures, submit contact, and query APIs. Streamable HTTP at /mcp.",
+      description: "Read-only product MCP server for portfolio — list projects, inspect architectures, and compare tradeoffs. Streamable HTTP at /mcp.",
       version: "1.0.0",
       transport: "streamable-http",
       serverUrl: `${SITE_URL}/mcp`,

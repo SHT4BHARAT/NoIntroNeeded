@@ -1,5 +1,10 @@
+import { randomBytes } from "node:crypto";
+
 export async function POST() {
-  const apiKey = `sht_test_${Math.random().toString(36).substring(2, 12)}_${Date.now()}`;
+  // 128-bit CSPRNG token. Math.random() is not a key generator — its output
+  // is predictable from ~50 bits of internal state (v8 xorshift128+), which
+  // would make these keys forgeable the moment anything starts validating them.
+  const apiKey = `sht_test_${randomBytes(16).toString("hex")}`;
   const expiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString();
 
   return Response.json(

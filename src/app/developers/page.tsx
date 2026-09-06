@@ -4,7 +4,7 @@ import { AgentFeedbackCard } from "@/components/developers/AgentFeedbackCard";
 import { SITE_URL } from "@/lib/constants";
 
 export const metadata: Metadata = {
-  title: "Developers — Shivanshu Tiwari",
+  title: "Developer Docs & API Reference — Shivanshu Tiwari",
   description:
     "Developer portal for shivanshutiwari.in — official multi-language SDKs (TypeScript, Python, Go, Ruby), dedicated CLI tool, OpenAPI 3.0.3, Model Context Protocol (MCP), and sandbox testing.",
   alternates: {
@@ -19,7 +19,7 @@ export default function DevelopersPage() {
   return (
     <div className="mx-auto max-w-4xl flex-1 px-4 py-16">
       <div className="mb-10">
-        <h1 className="font-display text-3xl font-bold tracking-tight sm:text-4xl">Shivanshu Tiwari Developers</h1>
+        <h1 className="font-display text-3xl font-bold tracking-tight sm:text-4xl">Developer Docs &amp; API Reference — Shivanshu Tiwari</h1>
         <p className="mt-3 text-base text-muted">
           Developer portal for <strong className="text-foreground">Shivanshu Tiwari</strong> — programmatic access to 19 engineering projects, AI agent evaluations, and real-time backend systems. Features official multi-language SDKs, a dedicated CLI tool, OpenAPI 3.0.3 specifications, and Dual Streamable HTTP MCP servers.
         </p>
@@ -29,8 +29,10 @@ export default function DevelopersPage() {
           <input
             type="search"
             name="q"
-            placeholder="Search APIs, SDKs, CLI commands, endpoints, or projects..."
-            className="flex-1 rounded-lg border border-border bg-surface px-4 py-2 text-sm text-foreground placeholder:text-muted focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent"
+            autoComplete="off"
+            aria-label="Search developer docs"
+            placeholder='Search docs — try "mcp" or "payout engine"…'
+            className="flex-1 rounded-lg border border-border bg-surface px-4 py-2 text-sm text-foreground placeholder:text-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60"
           />
           <button
             type="submit"
@@ -45,7 +47,7 @@ export default function DevelopersPage() {
       <div className="mb-12 grid grid-cols-1 gap-6 sm:grid-cols-2">
         <Link
           href="/developers/cli"
-          className="group rounded-xl border border-border bg-surface p-6 transition-all hover:border-accent/50 hover:shadow-md"
+          className="group rounded-xl border border-border bg-surface p-6 transition-[border-color,box-shadow] hover:border-accent/50 hover:shadow-md"
         >
           <div className="flex items-center justify-between mb-3">
             <span className="font-display text-lg font-semibold text-foreground group-hover:text-accent">
@@ -63,7 +65,7 @@ export default function DevelopersPage() {
 
         <Link
           href="/developers/sdk"
-          className="group rounded-xl border border-border bg-surface p-6 transition-all hover:border-accent/50 hover:shadow-md"
+          className="group rounded-xl border border-border bg-surface p-6 transition-[border-color,box-shadow] hover:border-accent/50 hover:shadow-md"
         >
           <div className="flex items-center justify-between mb-3">
             <span className="font-display text-lg font-semibold text-foreground group-hover:text-accent">
@@ -85,7 +87,7 @@ export default function DevelopersPage() {
 
       {/* Quickstart Code */}
       <section className="mb-10">
-        <h2 className="font-display mb-3 text-sm font-semibold uppercase tracking-widest text-muted">Quickstart</h2>
+        <h2 className="font-display text-lg font-semibold tracking-tight mb-3">Quickstart</h2>
         <pre className="overflow-x-auto rounded-lg border border-border bg-surface p-4 font-mono text-xs text-foreground">
 {`# 1. Interactive CLI (Zero installation required)
 npx sht-portfolio-v2 projects
@@ -107,7 +109,7 @@ curl -H "Accept: text/markdown" https://shivanshutiwari.in/developers`}
 
       {/* Endpoints */}
       <section className="mb-10">
-        <h2 className="font-display mb-3 text-sm font-semibold uppercase tracking-widest text-muted">Core Endpoints</h2>
+        <h2 className="font-display text-lg font-semibold tracking-tight mb-3">Core Endpoints</h2>
         <ul className="list-disc space-y-2 pl-5 text-sm text-muted">
           <li><code>GET /api/search?q=:query</code> — Search developer resources, APIs, SDKs, CLI tools, 19 projects, and posts</li>
           <li><code>GET /api/v1/projects</code> — List 19 projects (supports cursor pagination & <code>domain</code> filter)</li>
@@ -123,7 +125,7 @@ curl -H "Accept: text/markdown" https://shivanshutiwari.in/developers`}
 
       {/* Dual MCP Servers */}
       <section className="mb-10">
-        <h2 className="font-display mb-3 text-sm font-semibold uppercase tracking-widest text-muted">Model Context Protocol (MCP)</h2>
+        <h2 className="font-display text-lg font-semibold tracking-tight mb-3">Model Context Protocol (MCP)</h2>
         <p className="text-sm text-muted mb-3">
           Dual Streamable HTTP servers for LLMs and agentic IDEs (Cursor, Windsurf, Claude Desktop):
         </p>
@@ -136,8 +138,14 @@ curl -H "Accept: text/markdown" https://shivanshutiwari.in/developers`}
           </li>
         </ul>
         <div className="mt-3 flex flex-wrap items-center gap-2 text-xs text-muted">
-          <span>Official Distribution:</span>
-          <a href="https://www.npmjs.com/package/sht-portfolio-v2" target="_blank" rel="noopener noreferrer" className="text-accent hover:underline">NPM Package (sht-portfolio-v2)</a>
+          <span>Public MCP Registries & Packages:</span>
+          <a href="https://smithery.ai/server/@SHT4BHARAT/shivanshutiwari" target="_blank" rel="noopener noreferrer" className="text-accent hover:underline font-medium">Smithery Registry</a>
+          <span>•</span>
+          <a href="https://mcp.so/server/shivanshutiwari-product-server" target="_blank" rel="noopener noreferrer" className="text-accent hover:underline font-medium">mcp.so Registry</a>
+          <span>•</span>
+          <a href="https://www.npmjs.com/package/sht-portfolio-v2" target="_blank" rel="noopener noreferrer" className="text-accent hover:underline font-medium">NPM (sht-portfolio-v2)</a>
+          <span>•</span>
+          <a href="https://pypi.org/project/shivanshu-sdk/" target="_blank" rel="noopener noreferrer" className="text-accent hover:underline font-medium">PyPI (shivanshu-sdk)</a>
           <span>•</span>
           <Link href="/mcp" className="text-accent hover:underline">Product MCP (/mcp)</Link>
           <span>•</span>
@@ -147,7 +155,7 @@ curl -H "Accept: text/markdown" https://shivanshutiwari.in/developers`}
 
       {/* Auth & Pricing */}
       <section className="mb-10">
-        <h2 className="font-display mb-3 text-sm font-semibold uppercase tracking-widest text-muted">Authentication & Pricing</h2>
+        <h2 className="font-display text-lg font-semibold tracking-tight mb-3">Authentication & Pricing</h2>
         <p className="text-sm text-muted leading-relaxed">
           Public read-only operations require no API keys or bearer tokens. See <Link href="/auth.md" className="text-accent hover:underline">/auth.md</Link> for identity assertions. For service tiers, rate limits, and ACP delegate payments, see <Link href="/pricing" className="text-accent hover:underline">/pricing</Link> (or <Link href="/pricing.md" className="text-accent hover:underline">/pricing.md</Link>).
         </p>
@@ -155,7 +163,7 @@ curl -H "Accept: text/markdown" https://shivanshutiwari.in/developers`}
 
       {/* Discovery */}
       <section className="mb-10">
-        <h2 className="font-display mb-3 text-sm font-semibold uppercase tracking-widest text-muted">Discovery & Standards</h2>
+        <h2 className="font-display text-lg font-semibold tracking-tight mb-3">Discovery & Standards</h2>
         <ul className="list-disc space-y-2 pl-5 text-sm text-muted">
           <li><Link href="/llms.txt" className="text-accent hover:underline">llms.txt</Link> — Curated agent guidance index</li>
           <li><Link href="/sitemap.xml" className="text-accent hover:underline">sitemap.xml</Link> — Complete URL index</li>

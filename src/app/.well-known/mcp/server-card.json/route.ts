@@ -7,7 +7,7 @@ export function GET() {
       serverInfo: { name: "shivanshutiwari-product-mcp", version: "1.0.0" },
       name: "Shivanshu Tiwari Product MCP",
       id: "shivanshutiwari-product-mcp",
-      description: "Product action MCP server for portfolio — list projects, compare architectures, submit contact, and query APIs. Streamable HTTP at /mcp.",
+      description: "Read-only product MCP server for portfolio — list projects, inspect architectures, and compare tradeoffs. Streamable HTTP at /mcp.",
       version: "1.0.0",
       transport: "streamable-http",
       serverUrl: `${SITE_URL}/mcp`,
@@ -40,7 +40,7 @@ export function GET() {
       icons: [
         { src: `${SITE_URL}/favicon.ico`, sizes: "64x64", type: "image/x-icon" },
       ],
-      instructions: "Use list_projects to enumerate projects, get_project for deep dives, compare_projects for tradeoffs, contact for hiring.",
+      instructions: "Use list_projects to enumerate projects, get_project for deep dives, and compare_projects for tradeoffs. Read-only.",
       tools: productTools,
     },
     {

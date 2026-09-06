@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { SITE_URL } from "@/lib/constants";
 import Link from "next/link";
+import { SandboxInteractiveWidget } from "@/components/sandbox/SandboxInteractiveWidget";
 
 export const metadata: Metadata = {
   title: "API Sandbox & Test Environment — Shivanshu Tiwari",
@@ -14,12 +15,15 @@ export const metadata: Metadata = {
 export default function SandboxPage() {
   return (
     <div className="mx-auto max-w-4xl flex-1 px-4 py-16">
-      <h1 className="font-display mb-4 text-3xl font-bold tracking-tight">
+      <h1 className="font-display mb-4 text-3xl font-bold tracking-tight sm:text-4xl">
         Shivanshu Tiwari API Sandbox & Test Environment
       </h1>
-      <p className="mb-8 text-muted">
-        A dedicated test environment designed for autonomous AI agents, coding assistants, and developers to test integrations without altering live data.
+      <p className="mb-6 text-muted">
+        A dedicated test environment designed for autonomous AI agents, coding assistants, and developers to test integrations without altering live data. Free tier active, zero human approval required.
       </p>
+
+      {/* 1-Click Interactive Console */}
+      <SandboxInteractiveWidget />
 
       <div className="space-y-6">
         <div className="rounded-xl border border-border bg-surface p-6">

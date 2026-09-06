@@ -64,6 +64,22 @@ export function Footer() {
           <Link href="/SKILL.md" className="transition-colors duration-200 hover:text-foreground">
             SKILL.md
           </Link>
+          <a
+            href="https://smithery.ai/server/@SHT4BHARAT/shivanshutiwari"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="transition-colors duration-200 hover:text-foreground"
+          >
+            Smithery
+          </a>
+          <a
+            href="https://mcp.so/server/shivanshutiwari-product-server"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="transition-colors duration-200 hover:text-foreground"
+          >
+            mcp.so
+          </a>
           <Link
             href={SOCIAL.github}
             target="_blank"
