@@ -55,20 +55,20 @@ export function AgentMarkdownView() {
   const endpointLabel = currentPath === "/" ? "/?mode=agent" : `${currentPath}.md`;
 
   return (
-    <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 animate-in fade-in duration-200">
+    <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 pb-28 animate-in fade-in duration-200">
       {/* Top Banner & Control Bar */}
-      <header className="mb-6 rounded-2xl border border-border bg-surface/80 dark:bg-card/70 p-4 md:p-6 backdrop-blur-md shadow-sm">
+      <header className="mb-6 rounded-2xl border border-border bg-card p-4 md:p-6 shadow-xs">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-          <div className="space-y-1">
-            <div className="flex items-center gap-2.5">
-              <span className="flex h-2.5 w-2.5 relative">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500" />
+          <div className="space-y-1.5">
+            <div className="flex flex-wrap items-center gap-2.5">
+              <span className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-xs font-mono font-medium bg-emerald-500/15 text-emerald-700 dark:text-emerald-400 border border-emerald-500/30">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+                </span>
+                AGENT VIEW
               </span>
-              <span className="text-xs font-semibold tracking-wider uppercase text-muted-foreground font-mono">
-                Agent / Markdown View
-              </span>
-              <span className="rounded-md border border-border/80 bg-background/60 px-2 py-0.5 text-xs font-mono text-muted">
+              <span className="inline-flex items-center rounded-md border border-border bg-surface px-2.5 py-0.5 text-xs font-mono text-foreground font-semibold">
                 GET {endpointLabel}
               </span>
             </div>
@@ -85,10 +85,10 @@ export function AgentMarkdownView() {
             <button
               type="button"
               onClick={() => setShowLineNumbers((prev) => !prev)}
-              className="inline-flex items-center gap-1.5 rounded-lg border border-border bg-background/80 px-3 py-1.5 text-xs font-medium text-muted hover:text-foreground transition-colors"
+              className="inline-flex items-center gap-1.5 rounded-lg border border-border bg-surface hover:bg-surface-hover px-3 py-1.5 text-xs font-medium text-foreground transition-colors shadow-xs"
               title="Toggle line numbers"
             >
-              <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg className="h-3.5 w-3.5 text-muted-foreground" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h7" />
               </svg>
               <span>{showLineNumbers ? "Hide Lines" : "Show Lines"}</span>
@@ -98,18 +98,18 @@ export function AgentMarkdownView() {
               type="button"
               onClick={handleCopy}
               disabled={!markdownContent || isLoading}
-              className="inline-flex items-center gap-1.5 rounded-lg border border-border bg-background/80 px-3 py-1.5 text-xs font-medium text-muted hover:text-foreground transition-colors disabled:opacity-50"
+              className="inline-flex items-center gap-1.5 rounded-lg border border-border bg-surface hover:bg-surface-hover px-3 py-1.5 text-xs font-medium text-foreground transition-colors shadow-xs disabled:opacity-50"
             >
               {copied ? (
                 <>
                   <svg className="h-3.5 w-3.5 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
-                  <span className="text-emerald-500">Copied!</span>
+                  <span className="text-emerald-600 dark:text-emerald-400 font-semibold">Copied!</span>
                 </>
               ) : (
                 <>
-                  <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <svg className="h-3.5 w-3.5 text-muted-foreground" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
                   </svg>
                   <span>Copy Markdown</span>
@@ -121,10 +121,10 @@ export function AgentMarkdownView() {
               type="button"
               onClick={handleDownload}
               disabled={!markdownContent || isLoading}
-              className="inline-flex items-center gap-1.5 rounded-lg border border-border bg-background/80 px-3 py-1.5 text-xs font-medium text-muted hover:text-foreground transition-colors disabled:opacity-50"
+              className="inline-flex items-center gap-1.5 rounded-lg border border-border bg-surface hover:bg-surface-hover px-3 py-1.5 text-xs font-medium text-foreground transition-colors shadow-xs disabled:opacity-50"
               title="Download .md file"
             >
-              <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg className="h-3.5 w-3.5 text-muted-foreground" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
               </svg>
               <span>Export</span>
@@ -133,7 +133,7 @@ export function AgentMarkdownView() {
             <button
               type="button"
               onClick={() => setMode("human")}
-              className="inline-flex items-center gap-1.5 rounded-lg bg-accent px-3 py-1.5 text-xs font-medium text-accent-foreground shadow-sm hover:opacity-90 transition-opacity"
+              className="inline-flex items-center gap-1.5 rounded-lg bg-accent px-3 py-1.5 text-xs font-semibold text-accent-foreground shadow-xs hover:opacity-90 transition-opacity"
             >
               <span>Back to Human View</span>
             </button>
@@ -142,20 +142,17 @@ export function AgentMarkdownView() {
 
         {/* Metrics Chips */}
         {markdownContent && !isLoading && (
-          <div className="mt-4 pt-4 border-t border-border/60 flex flex-wrap items-center gap-3 text-xs font-mono text-muted">
-            <span className="flex items-center gap-1">
+          <div className="mt-4 pt-4 border-t border-border flex flex-wrap items-center gap-2.5 text-xs font-mono text-muted">
+            <span className="inline-flex items-center gap-1.5 rounded-md border border-border bg-surface px-2.5 py-1 text-xs">
               <span className="text-foreground font-semibold">~{metrics.tokens.toLocaleString()}</span> tokens
             </span>
-            <span className="text-border">•</span>
-            <span className="flex items-center gap-1">
+            <span className="inline-flex items-center gap-1.5 rounded-md border border-border bg-surface px-2.5 py-1 text-xs">
               <span className="text-foreground font-semibold">{metrics.lines.toLocaleString()}</span> lines
             </span>
-            <span className="text-border">•</span>
-            <span className="flex items-center gap-1">
+            <span className="inline-flex items-center gap-1.5 rounded-md border border-border bg-surface px-2.5 py-1 text-xs">
               <span className="text-foreground font-semibold">{metrics.sizeKb}</span> payload
             </span>
-            <span className="text-border">•</span>
-            <span className="text-muted-foreground">
+            <span className="inline-flex items-center gap-1.5 rounded-md border border-border bg-surface px-2.5 py-1 text-xs text-muted-foreground">
               <code>Accept: text/markdown</code>
             </span>
           </div>
@@ -164,7 +161,7 @@ export function AgentMarkdownView() {
 
       {/* Loading State */}
       {isLoading && (
-        <div className="rounded-2xl border border-border bg-surface/50 dark:bg-card/40 p-12 text-center">
+        <div className="rounded-2xl border border-border bg-card p-12 text-center shadow-xs">
           <div className="inline-flex items-center justify-center h-10 w-10 rounded-full border-2 border-accent border-t-transparent animate-spin mb-4" />
           <p className="text-sm font-mono text-muted">Resolving agent markdown twin...</p>
         </div>
@@ -191,14 +188,14 @@ export function AgentMarkdownView() {
             <button
               type="button"
               onClick={() => setMode("human")}
-              className="rounded-lg bg-accent px-4 py-2 text-xs font-medium text-accent-foreground shadow-sm hover:opacity-90 transition-opacity"
+              className="rounded-lg bg-accent px-4 py-2 text-xs font-semibold text-accent-foreground shadow-xs hover:opacity-90 transition-opacity"
             >
               Switch to Human View
             </button>
             <button
               type="button"
               onClick={refetchMarkdown}
-              className="rounded-lg border border-border bg-background px-4 py-2 text-xs font-medium text-muted hover:text-foreground transition-colors"
+              className="rounded-lg border border-border bg-surface hover:bg-surface-hover px-4 py-2 text-xs font-medium text-foreground transition-colors"
             >
               Retry
             </button>
@@ -208,14 +205,14 @@ export function AgentMarkdownView() {
 
       {/* Markdown Document Content */}
       {!isLoading && !error && markdownContent && (
-        <div className="relative rounded-2xl border border-border bg-surface/60 dark:bg-[#0d0f14] shadow-inner overflow-hidden">
+        <div className="rounded-2xl border border-border bg-card shadow-sm overflow-hidden">
           {/* File Tab Header */}
-          <div className="flex items-center justify-between border-b border-border/80 bg-surface/90 dark:bg-[#13161c] px-4 py-2.5 text-xs font-mono text-muted">
+          <div className="flex items-center justify-between border-b border-border bg-surface px-4 py-2.5 text-xs font-mono text-muted">
             <div className="flex items-center gap-2">
-              <span className="h-3 w-3 rounded-full bg-red-500/70 inline-block" />
-              <span className="h-3 w-3 rounded-full bg-yellow-500/70 inline-block" />
-              <span className="h-3 w-3 rounded-full bg-emerald-500/70 inline-block" />
-              <span className="ml-2 font-medium text-foreground">{endpointLabel}</span>
+              <span className="h-3 w-3 rounded-full bg-[#FF5F56] inline-block" />
+              <span className="h-3 w-3 rounded-full bg-[#FFBD2E] inline-block" />
+              <span className="h-3 w-3 rounded-full bg-[#27C93F] inline-block" />
+              <span className="ml-2 font-semibold text-foreground">{endpointLabel}</span>
             </div>
             <div className="text-[11px] text-muted-foreground hidden sm:block">
               curl -H &quot;Accept: text/markdown&quot; https://shivanshutiwari.in{endpointLabel}
@@ -223,15 +220,15 @@ export function AgentMarkdownView() {
           </div>
 
           {/* Document Lines */}
-          <div className="overflow-x-auto p-4 md:p-6 font-mono text-xs md:text-sm leading-6">
+          <div className="overflow-x-auto p-4 md:p-6 font-mono text-xs md:text-sm leading-6 bg-card">
             {showLineNumbers ? (
-              <div className="table w-full border-collapse">
+              <div className="table w-full border-collapse font-mono">
                 {lines.map((line, idx) => (
-                  <div key={idx} className="table-row hover:bg-surface-hover/30 dark:hover:bg-white/[0.02]">
-                    <div className="table-cell pr-4 text-right text-muted-foreground/40 select-none w-10 align-top font-mono text-[11px] pt-[2px]">
+                  <div key={idx} className="table-row hover:bg-surface/50">
+                    <div className="table-cell pr-4 text-right text-muted-foreground/60 select-none w-10 align-top font-mono text-[11px] pt-[2px]">
                       {idx + 1}
                     </div>
-                    <div className="table-cell pl-2 text-foreground break-words whitespace-pre-wrap font-mono">
+                    <div className="table-cell pl-2 text-foreground break-words whitespace-pre-wrap font-mono font-normal">
                       {line || " "}
                     </div>
                   </div>

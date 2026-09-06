@@ -51,7 +51,7 @@ function maybeNegotiate(request: NextRequest): NextResponse | Response | null {
   const pathname = request.nextUrl.pathname;
   const search = request.nextUrl.searchParams;
 
-  // Never negotiate API/MCP/OpenAPI/auth.md â€” they have direct route handlers
+  // Never negotiate API/MCP/OpenAPI/auth.md — they have direct route handlers
   if (
     pathname.startsWith("/api") ||
     pathname.startsWith("/mcp") ||
@@ -130,13 +130,13 @@ function maybeNegotiate(request: NextRequest): NextResponse | Response | null {
     });
   }
 
-  // ?mode=agent â†’ structured JSON/markdown view with api, agent, sdk, mcp, openapi signals (Access: Agent mode view)
+  // ?mode=agent -> structured JSON/markdown view with api, agent, sdk, mcp, openapi signals (Access: Agent mode view)
   if (search.get("mode") === "agent") {
     const origin = request.nextUrl.origin;
     const accept = request.headers.get("accept") ?? "";
 
     if (accept.includes("text/markdown")) {
-      const md = `# Shivanshu Tiwari â€” Agent Mode View
+      const md = `# Shivanshu Tiwari — Agent Mode View
 
 - **Product:** Shivanshu Tiwari Portfolio & Developer Portal
 - **API Base:** ${origin}
@@ -171,7 +171,7 @@ function maybeNegotiate(request: NextRequest): NextResponse | Response | null {
     }
 
     const payload = {
-      product: "Shivanshu Tiwari â€” AI Agent & Backend Systems Developer",
+      product: "Shivanshu Tiwari — AI Agent & Backend Systems Developer",
       title: "Shivanshu Tiwari Portfolio & Developer Portal",
       mode: "agent",
       openapi: `${origin}/openapi.json`,

@@ -11,16 +11,16 @@ export function AgentModeToggle() {
       aria-label="View mode selection"
       className="fixed bottom-6 left-1/2 -translate-x-1/2 z-40 print:hidden select-none"
     >
-      <div className="flex items-center gap-1 rounded-full border border-border/80 bg-surface/90 dark:bg-surface/85 p-1 shadow-lg backdrop-blur-md transition-all duration-200 hover:border-accent/40 hover:shadow-xl opacity-90 hover:opacity-100">
+      <div className="flex items-center gap-1 rounded-full border border-border bg-card p-1 shadow-2xl transition-all duration-200 hover:border-accent/50">
         {/* Human Mode Button */}
         <button
           type="button"
           onClick={() => setMode("human")}
           aria-pressed={mode === "human"}
-          className={`relative flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-medium transition-all duration-200 ${
+          className={`relative flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-xs font-medium transition-all duration-150 ${
             mode === "human"
-              ? "bg-foreground text-background shadow-sm"
-              : "text-muted hover:text-foreground"
+              ? "bg-foreground text-background font-semibold shadow-xs"
+              : "text-muted-foreground hover:text-foreground hover:bg-surface"
           }`}
         >
           <svg
@@ -44,10 +44,10 @@ export function AgentModeToggle() {
           type="button"
           onClick={() => setMode("agent")}
           aria-pressed={mode === "agent"}
-          className={`relative flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-medium transition-all duration-200 ${
+          className={`relative flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-xs font-medium transition-all duration-150 ${
             mode === "agent"
-              ? "bg-accent text-accent-foreground shadow-sm"
-              : "text-muted hover:text-foreground"
+              ? "bg-accent text-accent-foreground font-semibold shadow-xs"
+              : "text-muted-foreground hover:text-foreground hover:bg-surface"
           }`}
         >
           <svg
