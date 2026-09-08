@@ -1,9 +1,11 @@
 import { describe, expect, it, vi, beforeEach } from "vitest";
+import { NextRequest, NextResponse } from "next/server";
 import {
   fetchMarkdownForPath,
   getCachedMarkdown,
   setCachedMarkdown,
 } from "@/lib/agent-mode/fetch-markdown";
+import { proxy } from "@/proxy";
 
 describe("Human / Agent Toggle — Specifications", () => {
   beforeEach(() => {
@@ -92,6 +94,52 @@ describe("Human / Agent Toggle — Specifications", () => {
       await expect(fetchMarkdownForPath("/missing-route")).rejects.toThrow(
         'Agent view is not available for "/missing-route".'
       );
+    });
+  });
+
+  describe("Server-Side Negotiation for ?mode=agent", () => {
+    it("allows human browsers requesting text/html on ?mode=agent to render full HTML page", () => {
+      const req = new NextRequest("http://localhost:3000/?mode=agent", {
+        headers: {
+          accept: "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+          "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36",
+        },
+      });
+
+      const res = proxy(req);
+      // When null / NextResponse.next(), Next.js renders the full HTML page instead of intercepting with JSON
+      expect(res).toBeInstanceOf(NextResponse);
+    });
+
+    it("serves machine-readable JSON to API clients/bots on ?mode=agent without text/html", async () => {
+      const req = new NextRequest("http://localhost:3000/?mode=agent", {
+        headers: {
+          accept: "application/json",
+          "user-agent": "curl/8.7.1",
+        },
+      });
+
+      const res = proxy(req);
+      expect(res).toBeInstanceOf(Response);
+      expect(res?.headers.get("Content-Type")).toContain("application/json");
+      const body = await res?.json();
+      expect(body.mode).toBe("agent");
+      expect(body.product).toContain("Shivanshu Tiwari");
+    });
+
+    it("serves markdown on ?mode=agent when Accept: text/markdown is requested", async () => {
+      const req = new NextRequest("http://localhost:3000/?mode=agent", {
+        headers: {
+          accept: "text/markdown",
+          "user-agent": "curl/8.7.1",
+        },
+      });
+
+      const res = proxy(req);
+      expect(res).toBeInstanceOf(Response);
+      expect(res?.headers.get("Content-Type")).toContain("text/markdown");
+      const text = await res?.text();
+      expect(text).toContain("# Shivanshu Tiwari — Agent Mode View");
     });
   });
 });

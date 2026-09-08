@@ -134,6 +134,14 @@ function maybeNegotiate(request: NextRequest): NextResponse | Response | null {
   if (search.get("mode") === "agent") {
     const origin = request.nextUrl.origin;
     const accept = request.headers.get("accept") ?? "";
+    const ua = request.headers.get("user-agent") ?? "";
+    const isBot = BOT_UA_RE.test(ua);
+    const prefersHtml = accept.includes("text/html") && !isBot;
+
+    // For human visitors in a web browser, let Next.js render the full interactive webpage with agent mode UI
+    if (prefersHtml && !accept.includes("text/markdown") && !accept.includes("application/json")) {
+      return null;
+    }
 
     if (accept.includes("text/markdown")) {
       const md = `# Shivanshu Tiwari — Agent Mode View
